@@ -84,7 +84,7 @@ This source does not apply to:
 - TK-by-TK orchestration (owned by [MECH] Development Track Workflow)
 - TK-02 internal step structure (Step 2.1 / Step 2.2 / Step 2.3) — owned by DTW §4 TK-02
 - UX Design Spec instance content contract — owned by [TPL] UX Design Spec
-- Workspace inception discipline (owned by [RULE] Workspace Topology §10)
+- Workspace inception discipline (owned by [RULE] Workspace Topology constitutional residue §5 (workspace inception governance))
 - Specification artifact content contracts (owned by their respective [TPL] family sources)
 - CD platform internal behaviors (Anthropic product domain)
 - CC platform internal behaviors (Anthropic product domain)
@@ -300,7 +300,7 @@ Before integrating, the operator verifies:
 
 This direction carries Hub-produced content into CC for code implementation work. Multiple sub-flows exist:
 
-**Sub-flow A — Constitutional canonical inception sync**: All sources at `/mnt/project/hdc_*.md` (the Cat 4 family plus relevant meta-layer sources) transferred at workspace inception per [RULE] Workspace Topology §10 mechanism. Subsequent canonical updates require re-running inception sync.
+**Sub-flow A — Constitutional canonical inception sync**: All sources at `/mnt/project/hdc_*.md` (the Cat 4 family plus relevant meta-layer sources) transferred at workspace inception per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) mechanism. Subsequent canonical updates require re-running inception sync.
 
 **Sub-flow B — Spec artifact transfer at TK-03 → TK-04 entry**: Hub-authored spec artifacts transferred to the assigned_node working directory at TK-04 entry (or at hub-to-assigned_node onboarding when the unit starts). Content carried:
 - PRD main (TK-01 output)
@@ -332,12 +332,12 @@ Hub content exists as:
 **For Sub-flow A — constitutional canonical inception sync**:
 
 1. Start a CC session (assigned node)
-2. Inline relevant Hub constitutional canonical via the `INCEPTION_BOOTSTRAP.md` mechanism per [RULE] Workspace Topology §10
+2. Inline relevant Hub constitutional canonical via the `INCEPTION_BOOTSTRAP.md` mechanism per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance)
 3. The mechanism produces an inlined snapshot in CC's working directory; subsequent canonical updates require re-running inception sync
 
 **For Sub-flow B — spec artifact transfer at TK-03 → TK-04 entry**:
 
-1. Place all Hub-authored spec artifacts at the canonical paths in the monorepo per [RULE] Claude Code Architecture Rules §Y.1 (e.g., `apps/{app-slug}/specs/prd/phase-{N}.md`, `apps/{app-slug}/specs/tdd/phase-{N}.md`, `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` when authored at TK-02 Step 2.3, `apps/{app-slug}/specs/intent/{slice-id}.md`, etc.)
+1. Place all Hub-authored spec artifacts at the canonical paths in the monorepo per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) (e.g., `apps/{app-slug}/specs/prd/phase-{N}.md`, `apps/{app-slug}/specs/tdd/phase-{N}.md`, `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` when authored at TK-02 Step 2.3, `apps/{app-slug}/specs/intent/{slice-id}.md`, etc.)
 2. Commit on the appropriate branch per [RULE] Workspace Topology §5
 3. The spec is read by CC from the working directory when relevant TKs execute
 4. For CD-authored design files (operator-side reference at TK-04+): transfer to the assigned_node operator's working environment; commit only if the operator opts to make them available within the monorepo
@@ -359,7 +359,7 @@ Hub content exists as:
 Before transferring, the operator verifies:
 - Constitutional canonical files are at the current PK state (no stale snapshots)
 - Spec artifacts are at sign-off form per [MECH] Sign-Off Cleanup Policy when transferring to the monorepo
-- Spec artifact paths match the canonical layout per [RULE] Claude Code Architecture Rules §Y.1
+- Spec artifact paths match the canonical layout per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1)
 - **For TK-04 entry (Sub-flow B)**: when Tier 1 features are present, the per-feature UX Design Spec instance markdown is present in the transfer set at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`; the M0 entry self-check at TK-04 will validate the markdown's grounding against CC DS mirror via SK-F
 - **For DS markdown export sync (Sub-flow C)**: the CC mirror update executes in the same cycle as the Hub mirror update (§2.2 Sub-flow B); the operator is prepared to commit both within the same boundary
 

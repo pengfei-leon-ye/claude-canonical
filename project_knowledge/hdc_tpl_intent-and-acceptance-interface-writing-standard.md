@@ -48,7 +48,7 @@ This source defines the writing standard for two interface files per slice:
 1. `apps/{app-slug}/specs/intent/{slice-id}.md`
 2. `apps/{app-slug}/specs/acceptance/{slice-id}.yaml`
 
-Both files are under the active feature's app directory per [RULE] Claude Code Architecture Rules §Y.1. The path prefix `apps/{app-slug}/` is mandatory; no feature-level intent or acceptance lives at the repository root.
+Both files are under the active feature's app directory per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1). The path prefix `apps/{app-slug}/` is mandatory; no feature-level intent or acceptance lives at the repository root.
 
 ## 0.2 Project-level singleton references and per-feature UX Design Spec instance path
 
@@ -161,7 +161,7 @@ When PRD or TDD is incomplete or ambiguous:
 ## 1.7 Stable terminology and IDs
 
 Across the interface pair:
-- use one stable `app_slug` from the active app's frozen-roster value (per [RULE] Claude Code Architecture Rules §Y); must match phase PRD §1.1 `App Slug` and phase TDD §1 `app_slug`; the file's `phase_number` field must match phase PRD §1.1 `Phase Number` and phase TDD §1 `phase_number`
+- use one stable `app_slug` from the active app's frozen-roster value (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster); must match phase PRD §1.1 `App Slug` and phase TDD §1 `app_slug`; the file's `phase_number` field must match phase PRD §1.1 `Phase Number` and phase TDD §1 `phase_number`
 - use one stable `feature_slug` from the source PRD and TDD file naming under `apps/{app-slug}/specs/prd/` and `apps/{app-slug}/specs/tdd/`
 - use one stable `slice_id` consistent with `apps/{app-slug}/specs/slice-list/{feature-slug}.md`
 - keep actor names stable across PRD / TDD / intent / acceptance
@@ -350,7 +350,7 @@ State stable existing behaviors, contracts, controls, or data expectations that 
 
 **Producer**: Hub Claude at TK-03, derived from phase TDD `§4.{feature-slug}.Module-Decomposition` (module list) plus this intent.md's `In scope` (capability boundary) plus the UX Design Spec instance §2.1 when Tier 1 is involved (screens / interactions that need code).
 
-**Granularity**: Each task is a small, named work item — typically the smallest unit that produces one logical commit's worth of code or one structurally-coherent change. A slice has on the order of 3–8 tasks; fewer than 3 suggests the slice may be too thin to warrant tasks listing (omit the section if no meaningful decomposition exists), and more than 8 suggests the slice itself may be too coarse — re-slice per the slice-size advisory in [MECH] CI/CD Milestone Policy §2.7.
+**Granularity**: Each task is a small, named work item — typically the smallest unit that produces one logical commit's worth of code or one structurally-coherent change. A slice has on the order of 3–8 tasks; fewer than 3 suggests the slice may be too thin to warrant tasks listing (omit the section if no meaningful decomposition exists), and more than 8 suggests the slice itself may be too coarse — re-slice per the slice-size advisory in CC substantive CI/CD Milestone Policy canonical (slice-size advisory).
 
 **Format**:
 
@@ -435,7 +435,7 @@ The following leakage patterns indicate intent.md is mixing levels. Each belongs
 | Test execution steps | test-plan.yaml |
 | Implementation options not yet approved as architecture direction | TDD |
 | Design tokens, component internal specs | Design System Governance |
-| Repository path layout structure | [RULE] Claude Code Architecture Rules §Y.1 |
+| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 
 ## 2.5 Minimal template
@@ -538,7 +538,7 @@ out_of_scope: []                  # see §3.10
 evidence_required: []             # see §3.11
 ```
 
-**Path discipline**: app-scoped paths (`traces_to_prd`, `traces_to_tdd`, `traces_to_intent`) all use the `apps/{app-slug}/` prefix; PRD and TDD paths use phase-level naming (`phase-{N}.md`); intent paths use slice-level naming (`{slice-id}.md`). The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix; it points to the **CC mirror** at `specs/design-system.md` because downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read the CC mirror as their authoritative DS reference — not the Hub mirror at `hdc_ref_design-system.md`, which is Hub Claude's spec-time grounding artifact and does not appear in CC-side traceability fields. This split mirrors the repository layout in [RULE] Claude Code Architecture Rules §Y.1.
+**Path discipline**: app-scoped paths (`traces_to_prd`, `traces_to_tdd`, `traces_to_intent`) all use the `apps/{app-slug}/` prefix; PRD and TDD paths use phase-level naming (`phase-{N}.md`); intent paths use slice-level naming (`{slice-id}.md`). The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix; it points to the **CC mirror** at `specs/design-system.md` because downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read the CC mirror as their authoritative DS reference — not the Hub mirror at `hdc_ref_design-system.md`, which is Hub Claude's spec-time grounding artifact and does not appear in CC-side traceability fields. This split mirrors the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
 
 **App slug + phase consistency**: `app_slug` must match the value populated in phase PRD §1.1 `App Slug` (per [TPL] PRD §0.7.1) and phase TDD §1 `app_slug` header field (per [TPL] TDD §1); `phase_number` must match phase PRD §1.1 `Phase Number` and phase TDD §1 `phase_number`. A mismatch is a conversion-time blocker, not a downstream cleanup item.
 
@@ -597,7 +597,7 @@ must_pass_scenarios:
   ears_pattern: unwanted-behavior
 ```
 
-**GWT-only fallback**: if the outcome genuinely cannot be expressed in any of the five EARS patterns (rare — typically when the outcome is a multi-step coordinated effect across multiple subsystems), the `then` may use plain business prose, the entry uses `ears_pattern: gwt-fallback`, and the entry must include a short note explaining why EARS could not be applied. `gwt-fallback` should appear sparingly; frequent appearance indicates either over-coarse slicing (re-slice per [MECH] CI/CD Milestone Policy §2.7) or that the `then` is actually composable into multiple EARS sentences.
+**GWT-only fallback**: if the outcome genuinely cannot be expressed in any of the five EARS patterns (rare — typically when the outcome is a multi-step coordinated effect across multiple subsystems), the `then` may use plain business prose, the entry uses `ears_pattern: gwt-fallback`, and the entry must include a short note explaining why EARS could not be applied. `gwt-fallback` should appear sparingly; frequent appearance indicates either over-coarse slicing (re-slice per CC substantive CI/CD Milestone Policy canonical (slice-size advisory)) or that the `then` is actually composable into multiple EARS sentences.
 
 ## 3.4 non_regression_constraints field
 
@@ -736,7 +736,7 @@ evidence_required:
 - `codex_review`: Codex plugin review output at `apps/{app-slug}/evidence/{slice-id}/codex/codex-review.md`
 - `domain_judge_questions`: A4 generated business and UX perspective questions
 - `accessibility_audit` (when Tier 1 is involved): SK-W accessibility audit output
-- `operator_digest`: the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per [MECH] CI/CD Milestone Policy §6.4
+- `operator_digest`: the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4)
 
 **Slice-specific additions when materially needed**:
 - `ui_flow_recording`
@@ -754,7 +754,7 @@ evidence_required:
 | Database table or column names | TDD or code |
 | Design token values | Design System Governance |
 | UI component internal specifications | Design System Governance or code |
-| Repository path layout structure | [RULE] Claude Code Architecture Rules §Y.1 |
+| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 
 **Structural-integrity note — `ears_pattern` field**: per §1.5.1, `ears_pattern` is a required field on every acceptance.yaml entry that contains a behavior statement (must_pass_scenarios.then, non_regression_constraints.description, edge_cases.expected_behavior, permissions.rule, data_expectations.integrity_rule, accessibility_expectations.description, and observability_expectations.expected_content when it is a behavior statement). Entries that do not contain behavior statements (e.g., pure structural shape declarations) omit the field. The TK-04 entry self-check at CC verifies that every entry expected to carry `ears_pattern` does carry one and that the value is in the closed enum (per [MECH] CI/CD Milestone Policy §2.1 mechanical integrity check).
@@ -777,7 +777,7 @@ evidence_required:
 - `permissions.owning_tier` must respect phase TDD `§1.Tier-Responsibility-Mapping`
 - `data_expectations` should respect phase TDD `§4.{feature-slug}.Data-Model`
 - intent.md `Slice tasks` must respect the TDD's module decomposition (tasks reference modules from `§4.{feature-slug}.Module-Decomposition`)
-- Contract-test references for BFF-to-domain APIs follow the Pact pair convention `{app-slug}-bff_{domain-name}` per [RULE] Claude Code Architecture Rules §Y.4
+- Contract-test references for BFF-to-domain APIs follow the Pact pair convention `{app-slug}-bff_{domain-name}` per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4)
 
 ## 4.3 Pairing with Design System Governance and UX Design Spec
 
@@ -827,5 +827,5 @@ Red flags that should trigger correction:
 - **Reference to `specs/design-system-changes/{change-id}.md` anywhere in intent.md or acceptance.yaml — this legacy path is no longer at CC; replace with reference to the Hub-authored UX Design Spec instance §2.4 entry**
 - **Reference to `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` anywhere in intent.md or acceptance.yaml — this legacy path is retired under the TK-02 Step 2.3 Hub-authoring flip; replace with the Hub-authored UX Design Spec instance markdown path `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`**
 - **`traces_to_design_system` field value pointing to the Hub mirror path `hdc_ref_design-system.md` instead of the CC mirror path `specs/design-system.md` — the traces field must point to the CC-side path that downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read; the Hub mirror is Hub Claude's spec-time grounding artifact and does not appear in CC-side traceability fields. (Note: the Hub mirror itself is a valid, current artifact under the three-way distribution model — only its appearance in CC-bound trace fields is a drift signal.)**
-- **`evidence_required` missing `operator_digest` (required default per [MECH] CI/CD Milestone Policy §6.4)**
+- **`evidence_required` missing `operator_digest` (required default per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4))**
 - Reference to phase TDD `§4.{feature-slug}.UX-Strategy` — this sub-section has been removed from TDD; replace with reference to the Hub-authored UX Design Spec instance for the feature

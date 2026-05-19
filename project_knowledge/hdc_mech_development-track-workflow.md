@@ -53,7 +53,7 @@ Do not use this source as:
 - Cross-model review reminders at TK-01 and TK-02 sign-offs — advisory [Enforcement·reminder-only] reminders for the operator to consider invoking a cross-model spec review before signing off
 - **TK-02 internal step structure** (Step 2.1 Hub-side TDD/test-plan/openapi/slice-list authoring → Step 2.2 CD-side design file production, conditional on `tier_1_involved=true` → Step 2.3 Hub-side design file quality check + UX Design Spec instance authoring)
 - Role sequence per task, including which workspace (Hub Claude, Claude Design, assigned_node Claude Code) executes each task or sub-step
-- File-level inputs and outputs, anchored to the repository layout in [RULE] Claude Code Architecture Rules §Y.1
+- File-level inputs and outputs, anchored to the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1)
 - Trigger mechanism per task (manual / auto via hook / auto via Routine / conditional)
 - Completion criterion and failure routing per task
 - Human intervention budget
@@ -66,8 +66,8 @@ Do not use this source as:
 - Cross-tool handoff content contracts ([MECH] Cross-Tool Workflow Handoff)
 - Application-level handoff to human dev team ([MECH] Application Lifecycle Handoff)
 - Tier architecture ([RULE] Claude Code Architecture Rules §1)
-- Subagent roster and permission model ([RULE] Claude Code Architecture Rules §5, §X)
-- Repository layout structure ([RULE] Claude Code Architecture Rules §Y)
+- Subagent roster and permission model (CC substantive Claude Code Architecture Rules canonical (subagent roster §5), §X)
+- Repository layout structure (CC substantive Claude Code Architecture Rules canonical, repository layout §Y)
 - Milestone gate semantics and per-unit-type milestone profile ([MECH] CI/CD Milestone Policy §2)
 - Code review tool command semantics, co-location mechanism, and per-unit-type fire conditions (owned by CC substantive Codex Plugin Usage canonical; Codex fully migrated to CC in Phase 3)
 - Multi-node infrastructure, node identity, scheduling parity, parallel execution model, walking-skeleton-first ordering rule, walking-skeleton output canonical set, node assignment mechanics, GitHub Issue marker block format ([RULE] Workspace Topology §2, §4, §6)
@@ -141,9 +141,9 @@ Three classes of roles are referenced across tasks in this source.
 | CC | Claude Code main loop on assigned_node |
 | TOOL | Automated toolchain; not a subagent |
 
-## 2.2 Subagent roster (defined in [RULE] Claude Code Architecture Rules §5.1)
+## 2.2 Subagent roster (defined in CC substantive Claude Code Architecture Rules canonical (subagent roster §5.1))
 
-Codes **A1 through A10** reference the 10 subagents of the Development Track (one conditionally enabled). Their names, purposes, primary invocation tasks, and context scopes are owned by [RULE] Claude Code Architecture Rules §5.1 as the single source of truth.
+Codes **A1 through A10** reference the 10 subagents of the Development Track (one conditionally enabled). Their names, purposes, primary invocation tasks, and context scopes are owned by CC substantive Claude Code Architecture Rules canonical (subagent roster §5.1) as the single source of truth.
 
 When task definitions in §4 mention these codes with a parenthetical role name (e.g., "A5 (unit-test-auto-repair)"), the parenthetical is a reading convenience; Architecture Rules §5.1 remains authoritative for any discrepancy.
 
@@ -163,7 +163,7 @@ The subagent roster is a single shared definition at `HDC_ROOT/.claude/agents/`,
 
 ## 3.1 Path catalog (delegated)
 
-The full repository layout — `HDC_ROOT/`, `apps/{app-slug}/`, `packages/domain/{domain-name}/`, `.claude/` — is owned by [RULE] Claude Code Architecture Rules §Y.1. Task definitions in §4 reference paths under that layout without restating it here.
+The full repository layout — `HDC_ROOT/`, `apps/{app-slug}/`, `packages/domain/{domain-name}/`, `.claude/` — is owned by CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1). Task definitions in §4 reference paths under that layout without restating it here.
 
 ## 3.2 Spec-artifact path summary (for task definition reference)
 
@@ -721,7 +721,7 @@ If steady-state interventions exceed the §6.1 per-unit-type budget for 2+ conse
 - Feature work using `{feature-slug}` not preceded by `{app-slug}` in TDD reference path (TK-02 / TK-03 surface)
 - New domain capability introduced without phase TDD `§4.{feature-slug}.Module-Decomposition` referencing it
 
-**Multi-node deployment**: see [RULE] Workspace Topology §7 for the canonical red-flag list. DTW local variants:
+**Multi-node deployment**: see [RULE] Workspace Topology constitutional residue §6 (anti-drift signals) for the canonical red-flag list. DTW local variants:
 - TDD missing `assigned_node` field at TK-02 Step 2.1 sign-off
 - Cross-node Codex invocation at TK-11 (canonical anti-pattern owned by [RULE] Workspace Topology constitutional residue §6 (cross-workspace anti-drift))
 - GitHub Issue marker block missing or malformed at TK-04 entry (the marker block authoring step inside TK-04 sub-task 2)
@@ -730,7 +730,7 @@ If steady-state interventions exceed the §6.1 per-unit-type budget for 2+ conse
 - test-plan.yaml modified by any subagent other than TK-09's patch flow
 - Adversarial-tester severity miscalibration
 
-**Branch / GitHub workflow**: see [RULE] Workspace Topology §7. DTW local variant:
+**Branch / GitHub workflow**: see [RULE] Workspace Topology constitutional residue §6 (anti-drift signals). DTW local variant:
 - TK-12 merge target other than `main`
 - TK-12 merge via admin bypass on Free plan or PR review skipped entirely
 
@@ -758,7 +758,7 @@ If steady-state interventions exceed the §6.1 per-unit-type budget for 2+ conse
 
 # 9. Hub Claude soft compliance — TK-gate trigger phrases
 
-Per [RULE] Workspace Topology §8 authoring pattern, this section embeds Hub Claude soft compliance trigger phrases scoped to TK-gate phrasing and workspace-shift phrasing. Node-related phrasing is owned by [RULE] Workspace Topology §8; cross-tool handoff phrasing is owned by [MECH] Cross-Tool Workflow Handoff §7; application-level handoff phrasing is owned by [MECH] Application Lifecycle Handoff §6.
+Per [RULE] Workspace Topology constitutional residue §7 (Hub Claude trigger phrases) authoring pattern, this section embeds Hub Claude soft compliance trigger phrases scoped to TK-gate phrasing and workspace-shift phrasing. Node-related phrasing is owned by [RULE] Workspace Topology constitutional residue §7; cross-tool handoff phrasing is owned by [MECH] Cross-Tool Workflow Handoff §7; application-level handoff phrasing is owned by [MECH] Application Lifecycle Handoff §6.
 
 When user phrasing in a Hub Claude conversation matches any of the following, Hub Claude SHOULD remind the operator of the relevant section of this source before proceeding. Hub Claude MUST NOT auto-execute the action; surface as confirmation prompt only.
 

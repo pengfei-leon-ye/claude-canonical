@@ -34,8 +34,8 @@ Do not use this source as:
 - A test execution framework specification
 - A test case content guide (that is domain-specific)
 - A substitute for slice acceptance.yaml
-- A repository-path-layout reference ([RULE] Claude Code Architecture Rules §Y.1)
-- A Pact convention reference ([RULE] Claude Code Architecture Rules §Y.4)
+- A repository-path-layout reference (CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1))
+- A Pact convention reference (CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4))
 
 ---
 
@@ -55,7 +55,7 @@ The three-tier test plan ontology partitions test design across distinct scopes:
 
 The three tiers are not redundant. Phase scenarios that cannot be localized to a single feature (cross-feature integration, app-scale NFR) live only in the phase test plan. Cross-slice flows within one feature live only in the feature integration test plan. Per-slice unit / contract / E2E / a11y test cases live only in the slice test plan.
 
-**Operating premise**: The three-tier ontology exists because AI test-writer subagents (per [RULE] CCAR §5) consume the slice tier directly under bias firewall and context isolation constraints — each subagent must see only the slice scope it is testing to avoid context leakage that corrupts test independence. The phase and feature integration tiers exist as human-authored / human-reviewed reference points that AI subagents do not write but may reference for upstream coordination. This schema is therefore an AI-execution-interface contract, not a generic test pyramid (Mike Cohn / Martin Fowler) or enterprise QA test strategy framework (TMMi, ISO 29119) adoption. External test methodology vocabulary is a source of inspiration; the three-tier ontology is calibrated to AI subagent consumption discipline (per [OS] §0.1.2 quality and §0.2 Cat 4 role).
+**Operating premise**: The three-tier ontology exists because AI test-writer subagents (per CC substantive Claude Code Architecture Rules canonical (subagent roster §5)) consume the slice tier directly under bias firewall and context isolation constraints — each subagent must see only the slice scope it is testing to avoid context leakage that corrupts test independence. The phase and feature integration tiers exist as human-authored / human-reviewed reference points that AI subagents do not write but may reference for upstream coordination. This schema is therefore an AI-execution-interface contract, not a generic test pyramid (Mike Cohn / Martin Fowler) or enterprise QA test strategy framework (TMMi, ISO 29119) adoption. External test methodology vocabulary is a source of inspiration; the three-tier ontology is calibrated to AI subagent consumption discipline (per [OS] §0.1.2 quality and §0.2 Cat 4 role).
 
 ## 0.2 Readers
 
@@ -380,7 +380,7 @@ coverage_summary:       # see §17
 schema_compliance:      # see §18
 ```
 
-**Path discipline**: app-scoped paths (`traces_to_acceptance`, `traces_to_tdd`, `traces_to_prd`, `traces_to_phase_test_plan`, `traces_to_feature_test_plan`, `traces_to_slice_list`) all use the `apps/{app-slug}/` prefix. The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix. This split mirrors the repository layout in [RULE] Claude Code Architecture Rules §Y.1.
+**Path discipline**: app-scoped paths (`traces_to_acceptance`, `traces_to_tdd`, `traces_to_prd`, `traces_to_phase_test_plan`, `traces_to_feature_test_plan`, `traces_to_slice_list`) all use the `apps/{app-slug}/` prefix. The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix. This split mirrors the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
 
 **App slug + phase_number consistency**: `app_slug` must match phase PRD §1.1 `App Slug` (per [TPL] PRD §0.7.1), phase TDD §1 `app_slug` header (per [TPL] TDD §1), and acceptance.yaml `app_slug` top-level field (per [TPL] Writing Standard §3.2). `phase_number` must match the phase TDD's `phase_number` (per [TPL] TDD §1). A mismatch anywhere in the chain is a TK-03 conversion blocker, not a downstream cleanup item.
 
@@ -516,7 +516,7 @@ When `test_type == contract` and the case crosses the BFF-to-domain boundary, de
 pact_pair: "{app-slug}-bff_{domain-name}"   # e.g., "hr-data-asset-mgmt-bff_data-asset"
 ```
 
-**Convention** (per [RULE] Claude Code Architecture Rules §Y.4 + [MECH] CI/CD Milestone Policy §2.3):
+**Convention** (per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) + [MECH] CI/CD Milestone Policy §2.3):
 
 - Consumer-driven Pact: the BFF authors the consumer contract; the domain authors verification
 - Consumer-side contract location: `apps/{app-slug}/tests/contract/{app-slug}-bff_{domain-name}/**` (A2 writes here per Architecture Rules §X.4)
@@ -794,7 +794,7 @@ For cases using `a11y_tool.invocation_mode: ci-automated` (eslint-plugin-jsx-a11
 
 ## 16.3 Capture location convention
 
-All probe `capture_location` paths sit under `apps/{app-slug}/evidence/{slice-id}/` per the repository layout in [RULE] Claude Code Architecture Rules §Y.1. Examples:
+All probe `capture_location` paths sit under `apps/{app-slug}/evidence/{slice-id}/` per the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1). Examples:
 
 - Audit events: `apps/{app-slug}/evidence/{slice-id}/audit-{event-name}.log`
 - A11y findings: `apps/{app-slug}/evidence/{slice-id}/accessibility-audit.md`
@@ -864,7 +864,7 @@ The test-plan.yaml is a design-level artifact, not an executable. The following 
 | File paths to `apps/*/src/**` or `apps/*/tests/**` or `packages/*/src/**` | Writer agents decide locations per CLAUDE.md hierarchy; paths in plan risk whitebox bias leakage |
 | Internal class names or method signatures | Same abstraction violation; plan should be behavior-oriented not structure-oriented |
 | Environment-specific values (API tokens, URLs for specific environments) | Those belong in fixtures and environment configuration, not test design |
-| Repository path layout structure | [RULE] Claude Code Architecture Rules §Y.1 owns layout |
+| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) owns layout |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 | Code review tool command semantics | CC substantive Codex Plugin Usage canonical (post-Phase-3) |
 | Pact pair mechanics (consumer-driven setup, broker config) | [RULE] Architecture Rules §Y.4 + tooling docs |

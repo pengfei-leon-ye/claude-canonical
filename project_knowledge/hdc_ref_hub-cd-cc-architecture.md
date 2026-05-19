@@ -530,7 +530,7 @@ The §5.1 tripartition classifies content by ownership dimension (content / pres
 
 ### 5.4.3 Self-authoring workflow for Substantive content
 
-1. Tool drafts Substantive content informed by the relevant Hub Constitutional sources (e.g., CC drafts `.claude/rules/*.md` under [RULE] CCAR §X agent context scope guidance; CD authors DS instance content under [RULE] DSG governance; CD produces per-feature design files against [TPL] UX Design Spec coverage framework)
+1. Tool drafts Substantive content informed by the relevant Hub Constitutional sources (e.g., CC drafts `.claude/rules/*.md` under CC substantive Claude Code Architecture Rules canonical (named context scopes §X) agent context scope guidance; CD authors DS instance content under [RULE] DSG governance; CD produces per-feature design files against [TPL] UX Design Spec coverage framework)
 2. Operator reviews tool-drafted Substantive content for boundary compliance with the governing Constitutional canonical
 3. Tool runtime persists the Substantive content at its native path (CC commits to monorepo paths; CD persists within the CD project)
 4. Hub indexes the **existence** of the Substantive content via the relevant `[REF]` source (e.g., [REF] CC Project Memory Bank Layout indexes CC-internal Substantive layouts) but does **not** mirror the Substantive content itself — with the explicit exception of DS content, which Hub mirrors at `hdc_ref_design-system.md` per the revised §5.2 three-way distribution model for spec-time consumption

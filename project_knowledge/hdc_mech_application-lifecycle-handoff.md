@@ -31,7 +31,7 @@ Do not use as:
 - A TK-by-TK orchestration reference ([MECH] Development Track Workflow §4)
 - A milestone gate semantics reference ([MECH] CI/CD Milestone Policy)
 - A deployment / release-stage specification (deployment to the operator's working environment is operator personal layer; release-stage CI/CD on the receiving company's infrastructure is out of canonical scope per §0.2)
-- A subagent definition reference ([RULE] Claude Code Architecture Rules §5)
+- A subagent definition reference (CC substantive Claude Code Architecture Rules canonical (subagent roster §5))
 - A versioning scheme specification
 
 ---
@@ -57,7 +57,7 @@ Do not use as:
 - M5 milestone trigger conditions, evidence paths, completion criteria ([MECH] CI/CD Milestone Policy)
 - Deployment to the operator's working environment (operator personal ops; not regulated by canonical)
 - Versioning scheme (project-level versioning convention is owned outside this source)
-- Subagent, skill, hook artifact definitions ([RULE] Claude Code Architecture Rules §5, §X, §Z)
+- Subagent, skill, hook artifact definitions (CC substantive Claude Code Architecture Rules canonical (subagent roster §5), §X, §Z)
 - Human dev team's internal practices, tooling, or process after handoff (out of scope; canonical ends at the handoff event)
 
 ## 0.3 Application lifecycle position
@@ -161,13 +161,13 @@ The handoff content set must include all of the following, at the `main`-branch 
 
 If a domain is consumed by the handed-off app **and** at least one other app that remains in AI-dev, the domain is included in the handoff content but a copy is also retained in the AI-dev monorepo. This source does not regulate the divergence-control mechanism between the two copies after handoff; that is a §5 re-entry concern.
 
-**Unit-type coverage note**: the path patterns above subsume all three unit_type deliverables produced by the AI-dev environment without per-unit-type enumeration, because the canonical repository layout (per [RULE] Claude Code Architecture Rules §Y.1) places every unit's deliverables under `apps/{app-slug}/`:
+**Unit-type coverage note**: the path patterns above subsume all three unit_type deliverables produced by the AI-dev environment without per-unit-type enumeration, because the canonical repository layout (per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1)) places every unit's deliverables under `apps/{app-slug}/`:
 
-- `walking_skeleton` unit (Phase 1 only) deliverables: the six outputs canonically enumerated in [RULE] Workspace Topology §4.6.3 (app-level CLAUDE.md, app `package.json`, app skeleton dirs, pnpm-workspace.yaml registration coverage, framework configs, and the walking-skeleton end-to-end runnable proof code) all land under `apps/{app-slug}/` and are subsumed by the patterns above
+- `walking_skeleton` unit (Phase 1 only) deliverables: the six outputs canonically enumerated in CC substantive Workspace Topology canonical (walking-skeleton 6-output set) (app-level CLAUDE.md, app `package.json`, app skeleton dirs, pnpm-workspace.yaml registration coverage, framework configs, and the walking-skeleton end-to-end runnable proof code) all land under `apps/{app-slug}/` and are subsumed by the patterns above
 - `feature` unit deliverables: per-slice production code, tests, evidence, and reports — all subsumed
 - `app_integration` unit deliverables: integration test code at `apps/{app-slug}/tests/integration/phase/**`, cross-feature test variants, NFR validation harness at `apps/{app-slug}/tests/nfr/**`, and the unit's evidence at `apps/{app-slug}/evidence/app-int-phase-{N}/**` — all subsumed
 
-The `pnpm-workspace.yaml` registration entry (or its glob coverage of `apps/*` per [RULE] Workspace Topology §4.6.3 output #4) is implicit in the project-root content the receiving team needs alongside the app subtree; if the handoff scope filter excludes the project root, the receiving team will have to reconstruct workspace registration. Operator's transfer-form choice (§4.2) determines whether the project root is included.
+The `pnpm-workspace.yaml` registration entry (or its glob coverage of `apps/*` per CC substantive Workspace Topology canonical (walking-skeleton 6-output set) output #4) is implicit in the project-root content the receiving team needs alongside the app subtree; if the handoff scope filter excludes the project root, the receiving team will have to reconstruct workspace registration. Operator's transfer-form choice (§4.2) determines whether the project root is included.
 
 ## 3.2 Recommended content
 
@@ -251,11 +251,11 @@ The original app's directory remains in the monorepo as a historical reference. 
 
 ## 5.2 Mechanism
 
-The TK sequence for the returning application starts at TK-01 (phase 1 PRD authoring) for the new app-slug. Workspace inception (project-level scaffolding + singletons) is not re-run — it was completed once at the establishment of the monorepo per [RULE] Workspace Topology §10 and the original state applies to the returning app. Re-entry begins a new Phase 1 lifecycle for the new app-slug, which carries the full unit-type partitioning per [MECH] Development Track Workflow §4.0:
+The TK sequence for the returning application starts at TK-01 (phase 1 PRD authoring) for the new app-slug. Workspace inception (project-level scaffolding + singletons) is not re-run — it was completed once at the establishment of the monorepo per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) and the original state applies to the returning app. Re-entry begins a new Phase 1 lifecycle for the new app-slug, which carries the full unit-type partitioning per [MECH] Development Track Workflow §4.0:
 
 - **TK-01**: produces a new phase PRD for `apps/{new-app-slug}/specs/prd/phase-1.md`. The `{new-app-slug}` is decided here per operator pure judgment (immutable once committed) and added to the frozen app-slug roster per [RULE] Architecture Rules §Y. The phase PRD's "Existing PRDs" input pattern (per [MECH] Development Track Workflow §4 TK-01 inputs) naturally includes the original app's `apps/{original-app-slug}/specs/prd/**` (which contains the original app's phase PRDs) as historical reference. The new phase PRD also implicitly carries the architectural foundation that the new app's Phase 1 walking skeleton will validate. Conditional brownfield reconstruct pre-step applies per DTW TK-01 conditional pre-step when the operator judges the original app has behavior worth preserving.
 - **TK-02**: produces a new phase TDD at `apps/{new-app-slug}/specs/tdd/phase-1.md` (including §1 foundational architecture, §2 cross-feature concerns, §3 walking skeleton scope, and per-feature `§4.{feature-slug}` sub-sections) plus the paired phase test plan, per-feature integration test plans, per-feature slice-lists, and **per-unit `assigned_node` decisions for the new app's Phase 1 walking_skeleton unit, each feature unit, and any app_integration unit** per [MECH] Development Track Workflow TK-02 outputs. The new phase TDD may declare module reuse from the original app's domain dependencies. Domain consumption (per [RULE] Architecture Rules §Y.4) is independent of app identity, so the new app may consume the same `packages/domain/{domain-name}/` packages the original app consumed
-- **Walking-skeleton-first ordering applies** for the new app's Phase 1: the walking_skeleton unit's PR must be merged to `main` (M5 staging deploy completion per [MECH] CI/CD Milestone Policy §2.6) before any feature unit's TK-03 or any app_integration unit's TK-08 begins, per [RULE] Workspace Topology §4.6.2. The new app's physical skeleton (`apps/{new-app-slug}/CLAUDE.md` hierarchy, `apps/{new-app-slug}/package.json`, skeleton directories, `pnpm-workspace.yaml` registration) is produced as part of this walking_skeleton unit's output set per [RULE] Workspace Topology §4.6.3 — not as a hub-side pre-step. This applies even though the original app's architecture may be very similar — the returning application is a distinct app-slug and runs its own walking skeleton to establish its own CI/CD pipeline assertion
+- **Walking-skeleton-first ordering applies** for the new app's Phase 1: the walking_skeleton unit's PR must be merged to `main` (M5 staging deploy completion per [MECH] CI/CD Milestone Policy §2.6) before any feature unit's TK-03 or any app_integration unit's TK-08 begins, per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). The new app's physical skeleton (`apps/{new-app-slug}/CLAUDE.md` hierarchy, `apps/{new-app-slug}/package.json`, skeleton directories, `pnpm-workspace.yaml` registration) is produced as part of this walking_skeleton unit's output set per CC substantive Workspace Topology canonical (walking-skeleton 6-output set) — not as a hub-side pre-step. This applies even though the original app's architecture may be very similar — the returning application is a distinct app-slug and runs its own walking skeleton to establish its own CI/CD pipeline assertion
 - **TK-03 onwards**: proceed per the unit_type-specific task path defined in [MECH] Development Track Workflow §4.0 (for `feature` and `walking_skeleton` units, TK-03 → TK-11 Codex code review → TK-12 onwards per slice; for `app_integration` units, TK-08 onwards directly)
 
 The human team's modifications during their stewardship period are **not merged back into the AI-dev monorepo**. They are reflected in the human team's repository state, which the operator may consult as additional historical reference material when authoring the new phase PRD / phase TDD, but no mechanical merge happens.
@@ -337,7 +337,7 @@ This soft compliance is conversational, not blocking. The intent is to surface c
 - Returning application work landing under the original `{app-slug}` instead of a new slug (violates §5.1)
 - Original app directory modified by AI-dev work after handoff (violates §5.1)
 - Merge-back attempted without explicit canonical revision authorizing it (violates §5.3 deferral)
-- Re-entry attempting to skip walking-skeleton-first ordering for the new app's Phase 1 (e.g., starting `feature` units' TK-03 before the new app's `walking_skeleton` unit merges to `main`) on the rationale that the original app already validated the CI/CD pipeline — the walking-skeleton-first ordering rule per [RULE] Workspace Topology §4.6.2 applies to Phase 1 of every app-slug independently; the new app must establish its own CI/CD pipeline assertion via its own walking_skeleton
+- Re-entry attempting to skip walking-skeleton-first ordering for the new app's Phase 1 (e.g., starting `feature` units' TK-03 before the new app's `walking_skeleton` unit merges to `main`) on the rationale that the original app already validated the CI/CD pipeline — the walking-skeleton-first ordering rule per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule) applies to Phase 1 of every app-slug independently; the new app must establish its own CI/CD pipeline assertion via its own walking_skeleton
 
 **Conversation dimension**:
 - Hub Claude advises on handoff or re-entry without invoking §6 trigger phrase check

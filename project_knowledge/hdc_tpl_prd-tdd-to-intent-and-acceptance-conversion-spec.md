@@ -181,13 +181,13 @@ Before conversion begins, all of the following must be explicit:
 
 **Feature anchor readiness within the phase** (per [TPL] PRD §0.7.1 + [TPL] TDD §1):
 - `app_slug` populated and identical in phase PRD §1.1 and phase TDD §1 header; `phase_number` populated and identical in phase PRD §1.1 and phase TDD §1 header
-- `assigned_node` populated in the unit-scope-correct location of the phase TDD: for `feature` units, `§4.{feature-slug}.Header.assigned_node`; for the `walking_skeleton` unit, `§3.Walking-Skeleton-Header.assigned_node`. The phase TDD itself is application/phase-scoped and does **not** carry a top-level `assigned_node` field — node assignment is per work unit, not per phase (per [TPL] TDD Template §0.6 and [RULE] Workspace Topology §6). Value comes from [RULE] Workspace Topology §2.1 logical node catalog
+- `assigned_node` populated in the unit-scope-correct location of the phase TDD: for `feature` units, `§4.{feature-slug}.Header.assigned_node`; for the `walking_skeleton` unit, `§3.Walking-Skeleton-Header.assigned_node`. The phase TDD itself is application/phase-scoped and does **not** carry a top-level `assigned_node` field — node assignment is per work unit, not per phase (per [TPL] TDD Template §0.6 and [RULE] Workspace Topology §6). Value comes from [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention) logical node catalog
 - Conversion is being executed in Hub Claude (the `assigned_node` is the downstream CC consumer starting at TK-04, not the executor of this conversion)
 
 **Slice readiness**:
 - the target slice ID for a feature in the active phase, from `apps/{app-slug}/specs/slice-list/{feature-slug}.md`
 - whether the slice is truly one-main-worktree-one-PR-sized
-- whether the slice respects the slice-size advisory ([MECH] CI/CD Milestone Policy §2.7); oversize slices must carry rationale from phase TDD `§4.{feature-slug}.Module-Decomposition`
+- whether the slice respects the slice-size advisory (CC substantive CI/CD Milestone Policy canonical (slice-size advisory)); oversize slices must carry rationale from phase TDD `§4.{feature-slug}.Module-Decomposition`
 
 **Design system readiness** (if Tier 1 involved):
 - Current DS instance version known across all three workspaces (CD = SOT; Hub mirror at `hdc_ref_design-system.md` per [RULE] DSG §1.1; CC mirror at `specs/design-system.md` per same). Hub mirror and CC mirror must be in lock-step per DSG §12.5. The UX Design Spec instance header records the Hub mirror version used at TK-02 Step 2.3 authoring time, anchoring traceability
@@ -211,7 +211,7 @@ A good feature slice normally satisfies all five conditions:
 2. **Closed-enough scenario set** — the slice covers a minimum closed flow; partial flows requiring future slices to work are discouraged unless the upstream explicitly staggered them
 3. **Coherent rule boundary** — business rules invoked by this slice do not span disparate policy domains
 4. **Module-aligned** — the slice maps onto one module or a small coherent group of adjacent modules from phase TDD `§4.{feature-slug}.Module-Decomposition`
-5. **One-PR sized** — the slice can be implemented in one main worktree and merged as one PR; estimated scope respects the slice-size advisory in [MECH] CI/CD Milestone Policy §2.7 (≤10 src files, ≤500 LOC) or carries explicit oversize rationale from phase TDD `§4.{feature-slug}.Module-Decomposition`
+5. **One-PR sized** — the slice can be implemented in one main worktree and merged as one PR; estimated scope respects the slice-size advisory in CC substantive CI/CD Milestone Policy canonical (slice-size advisory) (≤10 src files, ≤500 LOC) or carries explicit oversize rationale from phase TDD `§4.{feature-slug}.Module-Decomposition`
 
 ## 2.2 Module-driven slicing (primary rule)
 
@@ -240,7 +240,7 @@ Split the slice when any of the following are true:
 - Two distinct permission rule sets are required
 - The slice has more than one critical non-regression concern
 - The UX brief (if Tier 1 involved) would list more than 3-4 screens
-- Estimated scope exceeds slice-size advisory ([MECH] CI/CD Milestone Policy §2.7) without phase TDD `§4.{feature-slug}.Module-Decomposition` oversize rationale
+- Estimated scope exceeds slice-size advisory (CC substantive CI/CD Milestone Policy canonical (slice-size advisory)) without phase TDD `§4.{feature-slug}.Module-Decomposition` oversize rationale
 
 When splitting, propose new slice IDs following the pattern `{feature-slug}-{new-seq}-{new-slice-name}` and update `apps/{app-slug}/specs/slice-list/{feature-slug}.md`.
 
@@ -256,7 +256,7 @@ Each extracted slice must record the following metadata. The field set is paired
 - `tiers_covered`: subset of {tier-1, tier-2, tier-3}
 - `tier_1_involved`: boolean; triggers UX brief and accessibility expectations
 - `domains_consumed`: list of `{domain-name}` from `packages/domain/` if any; supports Pact pair `{app-slug}-bff_{domain-name}` scoping per [RULE] Architecture Rules §Y.4
-- `estimated_scope`: file count + net LOC estimate per slice-size advisory ([MECH] CI/CD Milestone Policy §2.7); flag oversize if applicable
+- `estimated_scope`: file count + net LOC estimate per slice-size advisory (CC substantive CI/CD Milestone Policy canonical (slice-size advisory)); flag oversize if applicable
 
 ---
 
@@ -422,7 +422,7 @@ Rule: One entry per excluded item with rationale.
 
 Source: default set from Writing Standard §3.11 plus slice-specific additions.
 
-Rule: `accessibility_audit` must be in the list when Tier 1 is involved (produced by SK-W in TK-10 per [MECH] CI/CD Milestone Policy §2.5 M3 Pre-Release evidence table). The default set includes `operator_digest` (the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per [MECH] CI/CD Milestone Policy §6.4).
+Rule: `accessibility_audit` must be in the list when Tier 1 is involved (produced by SK-W in TK-10 per [MECH] CI/CD Milestone Policy constitutional residue §2.4 (M3 Pre-Release Validation) evidence table). The default set includes `operator_digest` (the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4)).
 
 ---
 
@@ -533,7 +533,7 @@ Because the reviewer primarily approves through evidence rather than code readin
 
 - `traceability_summary`
 - `accessibility_audit` (when Tier 1 involved)
-- `operator_digest` (the M4 one-page digest per [MECH] CI/CD Milestone Policy §6.4)
+- `operator_digest` (the M4 one-page digest per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4))
 
 ## 7.3 Slice-specific additions when materially needed
 
@@ -584,6 +584,6 @@ The following leakage patterns indicate the conversion has pulled in content tha
 | Implementation options not yet approved | TDD |
 | Sprint planning, estimation, runtime config | Not a specification concern |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
-| Repository path layout structure | [RULE] Claude Code Architecture Rules §Y.1 |
+| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) |
 | Code review tool command semantics | CC substantive Codex Plugin Usage canonical (post-Phase-3) |
 | Skill internal prompts | `.claude/skills/{name}/SKILL.md` |

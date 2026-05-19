@@ -164,7 +164,7 @@ Note on "Lite" disambiguation: Execution Depth "Lite" refers to **document depth
 
 ## 0.7.1 App Slug and Phase Number field semantics
 
-The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to its target app and phase in the Path B2 multi-app monorepo (per [RULE] Claude Code Architecture Rules §Y). They are conditional-mandatory based on the artifact type and execution depth combination established in §0.7.
+The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to its target app and phase in the Path B2 multi-app monorepo (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster). They are conditional-mandatory based on the artifact type and execution depth combination established in §0.7.
 
 **Conditional applicability**:
 
@@ -183,7 +183,7 @@ The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to 
 - Phase Number is **immutable for the life of the PRD** once committed — re-targeting a feature to a different phase is a new PRD authored under that phase, not a renumbering of the existing one
 
 **App Slug value rules**:
-- Must come from the frozen app-slug roster maintained at workspace level (per [RULE] Claude Code Architecture Rules §Y). Free-form values, abbreviations, or display names are not valid `App Slug` values
+- Must come from the frozen app-slug roster maintained at workspace level (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster). Free-form values, abbreviations, or display names are not valid `App Slug` values
 - Once a PRD is signed off at PRD + Full with a populated `App Slug`, the value is immutable for the life of that PRD. If the feature is conceptually re-targeted to a different app after handoff, a new PRD is authored under the new app, not the existing one mutated
 
 **Coordination with paired and downstream artifacts**:
