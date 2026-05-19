@@ -97,6 +97,14 @@ Out of scope:
 
 ---
 
+## 1.4 Self-audit boundary
+
+CFSA self-application (per §8.3) does not extend to auditing the mechanism's procedural assumptions about Claude.ai platform behavior — e.g., the existence of `present_files` tooling, the `/mnt/user-data/outputs/` mount path, the project-settings PI editing surface, or the specific shape of any auxiliary filesystem view that the platform may or may not expose. Procedural assumptions about Claude.ai platform behavior are owned by [RULE] Claude Platform Behavior Specification; when they change, CFSA's references update via §8.5.2 paired discipline rather than via self-audit.
+
+This boundary keeps CFSA self-audit focused on **canonical content quality** (the seven dimensions in §3) rather than platform-behavior verification. A platform-behavior shift may indirectly invalidate text in CFSA (e.g., a path reference becoming stale), but the corrective channel is operator-initiated revision triggered by anti-drift signals at [RULE] Claude Platform Behavior Specification — not by CFSA auditing itself for platform-behavior accuracy.
+
+---
+
 # 2. Trigger model
 
 ## 2.1 Three-tier trigger structure
@@ -146,6 +154,26 @@ Pause semantics:
 - The operator's path forward is to (a) accept the Blocker and revise the source in the same turn, (b) downgrade the Blocker with explicit justification, or (c) defer Blocker resolution to a follow-up turn with explicit acknowledgment of the temporary inconsistency
 
 When a T1 audit produces only S2 or S3 findings, no pause occurs. The audit report is delivered alongside the canonical source, and the action plan is produced as normal.
+
+## 2.5 Operator-initiated cross-set audit (T-X)
+
+A fourth trigger type — **T-X (operator-initiated cross-set audit)** — covers audit passes that span **a set of canonical sources** rather than a single source. T-X is invoked explicitly by the operator (e.g., "audit the full canonical set", "audit all [MECH] sources", "audit Hub-CD-CC boundary across §X, §Y, §Z"). T-X is not auto-triggered.
+
+**Dimensional discipline for T-X**:
+
+T-X does **not** require running the full seven-dimension audit on each member of the set. T-X dimensional behavior:
+
+- **Always run**: D2 (Coherence — cross-source consistency is T-X's core value) and D7 (AI Consumption Value — set-level scanning for derived-view content)
+- **Set-level D1**: check that family distribution and MECE hold at the set level (distinct from per-source D1)
+- **On-demand**: D3 / D4 / D5 / D6 in cross-source scenarios are run when a specific suspected issue exists, not by default
+- **Scope-statement obligation**: T-X audit reports MUST explicitly state which dimensions ran Deep / Targeted / Cross-source / Not in this pass
+
+**Output adaptations**:
+
+- Findings table includes a `Target type` column (values: `canonical:{source-name}` / `PI` / `cross-source`), distinguishing per-source findings from cross-source findings
+- Action plan grouping is not forced into Wave 1/2/3 ordering; T-X may group by "same-pattern batch modifications" (e.g., grouping all path-assumption fixes across multiple sources into one batch)
+
+**Blocker handling**: S1 Blocker handling per §2.4 still applies. Per-source Blockers still trigger per-source pause. Cross-source structural Blockers (e.g., family overlap across two sources, authority chain break across a set) pause the entire T-X output until resolved.
 
 ---
 
@@ -363,6 +391,7 @@ The test is binary at the per-content-unit level. Multiple D7 failures aggregate
 - **Operator-navigation-scaffolding check**: does the source contain a table or list whose primary purpose is to help the operator navigate adjacent chapters / sources (e.g., "Boundary with §X", "How this chapter is consumed", "Chapter purpose vs neighbors")? If the content is rule-bearing for cross-source ownership delineation, keep; if the content is decorative navigation for operator reading flow, mark for deletion.
 - **Summary-closure check**: does the source contain a closing paragraph that restates the chapter's earlier content for rhetorical closure? If yes, mark for deletion.
 - **Decorative-meta-text check**: does the source contain a chapter-opening paragraph or section that describes "what this chapter does" rather than performing it? If yes, and the description is not load-bearing for AI scope-routing, mark for deletion. ([OS] §0 "Why this OS exists" chapter or `## How to use this source` blocks remain valid because they encode AI scope-routing signals; the test is whether the meta-text drives behavior or only describes the chapter to the operator.)
+- **Inventory-derivation check**: does the source contain a list, table, or enumeration of canonical sources, family members, or other inventories that are derivable from canonical headers (`Source Category` / `Document Type` per [OS] §10.4) at retrieval time? If yes, mark as D7 deletion candidate per [OS] §0.1.4 ROI logic (derived views drift while their authoritative source evolves; consumers should read the authoritative headers directly). Inventories materially shorter than the underlying derivable set (e.g., a curated subset enumerating "the three [PRIN] sources" when more exist) MAY be retained when the enumeration carries an authority claim that the derived view would lose — this exception requires explicit rationale documented at the inventory's location.
 
 ### 3.8.4 Failure modes D7 catches
 
@@ -556,14 +585,16 @@ Each finding's recommended action states what to change, where, and why. Avoid h
 
 When a T1 or T2 trigger fires per §2.2, Hub Claude executes the audit using the audited source's full content (via filesystem or canonical search), its header per [OS] §10, the set of canonical sources cited by or citing the audited file, and the trigger tier per §2.2.
 
-**Verification channel priority for canonical source content**: Hub Claude accesses canonical source content primarily through the Claude.ai project knowledge base index queried via `project_knowledge_search` (the RAG layer). A filesystem view (historically at `/mnt/project/`) may additionally be exposed when present, but is secondary. The two channels are not always synchronized:
+**Verification channel priority for canonical source content**: Hub Claude accesses canonical source content primarily through the Claude.ai project knowledge base index queried via `project_knowledge_search` (the RAG layer). The Claude.ai platform may additionally expose an auxiliary filesystem view, but it is secondary. The two channels are not always synchronized:
 
 - The RAG layer reflects the project knowledge base's current indexed state. Under the GitHub-sync mechanism, the RAG layer is re-indexed asynchronously after each commit to the canonical repository.
-- The filesystem view, when present, is captured at conversation start and frozen for the duration of that conversation; it does not refresh mid-conversation. Under GitHub-sync, the filesystem view may be empty or partially populated.
+- The auxiliary filesystem view, when present, is captured at conversation start and frozen for the duration of that conversation; it does not refresh mid-conversation. Under GitHub-sync, the auxiliary view may be empty or partially populated.
 
 **Operational rule**: when verifying the post-fix state of a recently-committed canonical source within the same conversation in which the commit occurred, `project_knowledge_search` is the authoritative channel; allow time for re-indexing to complete before treating the search result as definitive. A filesystem-view inconsistency in that scenario (or its absence) is a snapshot/indexing-timing artifact, not a finding. When the audit itself is initiated in a fresh conversation (after the most recent commits have completed indexing), the RAG layer remains authoritative; the filesystem view, if populated, is admissible only as a supplementary check.
 
 Audit reports that surface filesystem-view inconsistencies must explicitly state which channel was the authority used and rule out snapshot/indexing-timing artifacts before classifying the inconsistency as a finding.
+
+**RAG indexing-state caveat for audit timing**: under operator-managed PK loading mechanisms (e.g., GitHub-sync), RAG layer freshness depends on the mechanism's re-indexing cadence. The audit report SHALL note whether the RAG indexing is in a stable state — visible to the operator in the Claude.ai project settings UI as an indexing indicator — at audit time. Findings derived from RAG retrieval during an active indexing window SHALL be flagged as "indexing-snapshot dependent" and re-verified after the indexing completes. This prevents transient indexing-window artifacts from being recorded as canonical-content findings.
 
 ## 6.2 Sequencing of dimensions
 

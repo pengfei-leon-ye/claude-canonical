@@ -174,7 +174,7 @@ Project Instructions and all canonical sources in Project Knowledge constitute t
 
 Hub Claude and Claude Code (CC) operate against disjoint file-system contexts:
 
-- **Hub Claude** reads canonical sources from the project knowledge base via the RAG layer (`project_knowledge_search` and equivalent retrieval APIs). The hub may additionally expose a filesystem view (historically at `/mnt/project/`); when present, this view is secondary and may diverge from the RAG layer per §8.5.3a. Hub Claude does not read Development Track repository files unless they are explicitly attached to a hub conversation.
+- **Hub Claude** reads canonical sources from the project knowledge base via the RAG layer (`project_knowledge_search` and equivalent retrieval APIs). The hub Claude.ai platform may additionally expose an auxiliary filesystem view; when present, such a view is secondary and may diverge from the RAG layer per §8.5.3a — the RAG layer is the authoritative channel. Hub Claude does not read Development Track repository files unless they are explicitly attached to a hub conversation.
 - **Claude Code** reads files from its local Development Track repository (CLAUDE.md hierarchy, `.claude/agents/*.md`, `.claude/skills/{name}/SKILL.md`, `apps/**`, `specs/**`, etc.). It does not read hub canonical sources from the hub's RAG layer or any hub-side filesystem view.
 
 **Implication for cross-audience referencing**: any constraint that a hub canonical source places on CC behavior must reach CC by being **inlined into a CC-readable file** (typically the CLAUDE.md hierarchy, an agent definition, a SKILL.md, or a hub-produced spec file destined for CC consumption — project-level singletons under monorepo-root `specs/` or app-scoped artifacts under `apps/{app-slug}/specs/**`). Path-style references to hub canonical files (e.g., any hub-side filesystem path such as `/mnt/project/hdc_rule_*.md`), or a bare `[RULE] X §N` cross-reference without inlined content, are not resolvable on the CC side and must not appear in CC-targeted files.
@@ -782,7 +782,7 @@ This discipline also applies to navigation/index sections inside canonical sourc
 
 The grep-verify discipline in §8.5.3 runs against **the canonical set as visible to Hub Claude through `project_knowledge_search`** (the project knowledge base / RAG layer). The RAG layer is the authoritative canonical-set view because it is what Hub Claude actually consumes during conversation per §1.4 audience model.
 
-Under the current GitHub-sync mechanism, the canonical repository (e.g., the operator's `claude-canonical` GitHub repo) commits flow into the RAG layer via the project knowledge base re-indexing pipeline. The hub may additionally expose a filesystem view (historically at `/mnt/project/`); when present, this view is secondary and may diverge from the RAG layer for indexing-timing or mounting reasons. The RAG layer wins on any divergence.
+Under the current GitHub-sync mechanism, the canonical repository (e.g., the operator's `claude-canonical` GitHub repo) commits flow into the RAG layer via the project knowledge base re-indexing pipeline. The hub Claude.ai platform may additionally expose an auxiliary filesystem view; when present, such a view is secondary and may diverge from the RAG layer for indexing-timing or mounting reasons. The RAG layer wins on any divergence.
 
 When verifying citations during a revision:
 - Use `project_knowledge_search` with the citation target (e.g., `[OS] §4.3`) as the query; confirm the target is reachable and content matches the cited claim
