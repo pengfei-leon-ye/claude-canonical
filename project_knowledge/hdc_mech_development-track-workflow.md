@@ -47,7 +47,7 @@ Do not use this source as:
 
 ## 0.1 What this source owns
 
-- Task identity (TK-01 through TK-13 unit-internal-workflow tasks) and stage grouping. Project-level workspace inception (the once-per-monorepo setup that produces project-level scaffolding and singletons) is owned by [RULE] Workspace Topology §10, not by this source; per-app physical skeleton is owned by [RULE] Workspace Topology §4.6.3 walking_skeleton output set
+- Task identity (TK-01 through TK-13 unit-internal-workflow tasks) and stage grouping. Project-level workspace inception (the once-per-monorepo setup that produces project-level scaffolding and singletons) is owned by [RULE] Workspace Topology constitutional residue §5 (workspace inception governance), not by this source; per-app physical skeleton is owned by CC substantive Workspace Topology canonical (walking-skeleton output set)
 - Unit_type catalog: the three node-level work unit types `walking_skeleton`, `feature`, `app_integration` — their purpose, scope, deliverables, and per-unit-type task path through the TK sequence (§4 Unit_type catalog and per-unit-type task paths)
 - Conditional brownfield reconstruct pre-step at TK-01 — triggered when an app has existing behavior worth preserving, producing an app-specific reconstruct memo as TK-01 input
 - Cross-model review reminders at TK-01 and TK-02 sign-offs — advisory [Enforcement·reminder-only] reminders for the operator to consider invoking a cross-model spec review before signing off
@@ -69,7 +69,7 @@ Do not use this source as:
 - Subagent roster and permission model ([RULE] Claude Code Architecture Rules §5, §X)
 - Repository layout structure ([RULE] Claude Code Architecture Rules §Y)
 - Milestone gate semantics and per-unit-type milestone profile ([MECH] CI/CD Milestone Policy §2)
-- Codex command semantics, co-location mechanism, and per-unit-type fire conditions ([RULE] Codex Plugin Usage)
+- Code review tool command semantics, co-location mechanism, and per-unit-type fire conditions (owned by CC substantive Codex Plugin Usage canonical; Codex fully migrated to CC in Phase 3)
 - Multi-node infrastructure, node identity, scheduling parity, parallel execution model, walking-skeleton-first ordering rule, walking-skeleton output canonical set, node assignment mechanics, GitHub Issue marker block format ([RULE] Workspace Topology §2, §4, §6)
 - Design System governance, three-way DS distribution, mirror sync mechanism ([RULE] Design System Governance, [REF] Hub-CD-CC Architecture §5.2)
 - UX Design Spec instance content contract ([TPL] UX Design Spec)
@@ -101,7 +101,7 @@ Inception is a once-per-monorepo project-level setup outside the TK sequence and
 | TK-02 Step 2.2 (conditional on any feature `tier_1_involved=true`) | Claude Design (per feature with `tier_1_involved=true`) | Per-feature CD-authored design files: hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations (CD-native; not markdown). Inputs: PRD relevant sections + TDD relevant sections + Hub DS mirror reference per `[REF] Hub-CD-CC Architecture §3.4.1` |
 | TK-02 Step 2.3 (when Step 2.2 fired) | Hub Claude (HC + H collaboration) | Design file quality check (per `[TPL] UX Design Spec` §3 reviewer checklist, grounded in Hub DS mirror at `hdc_ref_design-system.md` per `[RULE] DSG §13.3`) → UX Design Spec instance authoring (Hub-authored markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` from design files + Hub DS mirror grounding) |
 | TK-03 | Hub Claude (HC + H collaboration) | Per-slice intent + acceptance + test-plan authoring (main body + UX brief when Tier 1); consumes PRD + TDD + Hub-authored UX Design Spec instance (from TK-02 Step 2.3) + design files (as visual reference); the operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze for the slice |
-| TK-04 | **assigned_node Claude Code** | M0 entry self-check (the absorbed M0 gate function — lightweight verification that the spec bundle is intact upon CC reception, not a re-decision of design freeze); GitHub Issue marker authoring per [RULE] Workspace Topology §6.2 (`status: in-progress`); first commit on feature branch; substantive code writing with SK-F auto-loaded for Tier 1 work |
+| TK-04 | **assigned_node Claude Code** | M0 entry self-check (the absorbed M0 gate function — lightweight verification that the spec bundle is intact upon CC reception, not a re-decision of design freeze); GitHub Issue marker authoring per [RULE] Workspace Topology constitutional residue §4 (node-assignment interface contract) (`status: in-progress`); first commit on feature branch; substantive code writing with SK-F auto-loaded for Tier 1 work |
 | TK-05 → TK-11 | assigned_node Claude Code | Tests + adversarial + evidence + Codex code review at TK-11 |
 | TK-12 | Hub Claude or assigned_node (operator's choice) | M4 review + smoke test; merge PR action (target = `main`) can fire from any workspace; DS markdown export sync (Hub + CC mirrors) when this slice carries a DS change finalization per [RULE] DSG §12.5 |
 | TK-13 | TOOL (CI/CD) | Automated staging deploy on `main` merge — terminal AI-dev CI/CD task |
@@ -123,7 +123,7 @@ Four stages:
 - **S3 Claude Code implementation and validation**: Code + tests + adversarial + evidence. TK-04 to TK-11. `app_integration` units enter S3 at TK-08 directly.
 - **S4 Merge gate and deployment**: M4 merge to `main` + M5 staging deploy. TK-12 to TK-13. Production deployment is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2 and is not part of this source's TK sequence.
 
-**Foundation prerequisite (outside this source)**: Project-level workspace inception is owned by [RULE] Workspace Topology §10 and runs once before any TK-01 begins. Per-app physical skeleton is owned by [RULE] Workspace Topology §4.6.3 walking_skeleton output set and is produced as part of the first phase's walking_skeleton unit at TK-04 onwards on the assigned_node — not as a hub-side pre-TK step.
+**Foundation prerequisite (outside this source)**: Project-level workspace inception is owned by [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) and runs once before any TK-01 begins. Per-app physical skeleton is owned by CC substantive Workspace Topology canonical (walking-skeleton output set) and is produced as part of the first phase's walking_skeleton unit at TK-04 onwards on the assigned_node — not as a hub-side pre-TK step.
 
 ---
 
@@ -147,13 +147,13 @@ Codes **A1 through A10** reference the 10 subagents of the Development Track (on
 
 When task definitions in §4 mention these codes with a parenthetical role name (e.g., "A5 (unit-test-auto-repair)"), the parenthetical is a reading convenience; Architecture Rules §5.1 remains authoritative for any discrepancy.
 
-The subagent roster is a single shared definition at `HDC_ROOT/.claude/agents/`, deployed identically across all dev nodes per [RULE] Workspace Topology §4.4. Each node runs single subagent instances; same-node multi-slice parallelism uses git worktree isolation per [RULE] Workspace Topology §4.3.
+The subagent roster is a single shared definition at `HDC_ROOT/.claude/agents/`, deployed identically across all dev nodes per [RULE] Workspace Topology constitutional residue §2 (parity discipline). Each node runs single subagent instances; same-node multi-slice parallelism uses git worktree isolation per CC substantive Workspace Topology canonical (same-node multi-slice parallelism).
 
 ## 2.3 External tool and skill roles (defined in their own canonical sources)
 
 | Code | Role | Owner source |
 |---|---|---|
-| CX | Codex plugin | [RULE] Codex Plugin Usage |
+| CX | Code review tool (historically Codex plugin) | CC substantive Codex Plugin Usage canonical (post-Phase-3 migration) |
 | SK-F | `hdc-arco-enterprise-ui` skill | `.claude/skills/hdc-arco-enterprise-ui/SKILL.md` |
 | SK-W | `hdc-wcag-accessibility-checker` skill | `.claude/skills/hdc-wcag-accessibility-checker/SKILL.md` |
 
@@ -195,7 +195,7 @@ The full repository layout — `HDC_ROOT/`, `apps/{app-slug}/`, `packages/domain
 | `{slice-id}` | `{feature-slug}-{slice-seq}-{slice-name}` | Feature-internal; global slice identity = `{app-slug}/{feature-slug}/{slice-id}` |
 | `{module}` | Module name within a tier | Tier-internal |
 | `{flow}` / `{screen}` / `{scenario}` | E2E flow, visual/accessibility target screen, performance scenario | Test-suite-internal |
-| `{app-slug}-bff_{domain-name}` | Pact contract test pair name (consumer-driven; per [RULE] Architecture Rules §Y.4) | Globally unique within HDC_ROOT |
+| `{app-slug}-bff_{domain-name}` | Pact contract test pair name (consumer-driven; per CC substantive Claude Code Architecture Rules canonical §Y (app-slug roster).4) | Globally unique within HDC_ROOT |
 | `{skill-name}` | Custom skill kebab-case identifier | `.claude/skills/`-internal |
 | `{locale}` | BCP 47 locale (e.g., `en`, `zh-CN`, `ja`) | App-internal |
 | `{change-id}` | DS change identifier | DS governance-specific path per [RULE] Design System Governance |
@@ -206,7 +206,7 @@ The full repository layout — `HDC_ROOT/`, `apps/{app-slug}/`, `packages/domain
 
 **phase**: The top-level granularity of an app's lifecycle. Phase 1 (`{N}=1`) takes the app from 0 to 1 — establishing foundational architecture, cross-feature baselines, walking skeleton scope, and the initial feature set. Phase N≥2 is an additive iteration that adds or evolves features under the established baselines without re-establishing them. One phase produces one paired phase PRD + phase TDD + phase test plan (master) + per-feature integration test plans + per-feature slice-lists + (per feature with `tier_1_involved=true`) per-feature UX Design Spec instances. Phase identity is per-app, not project-wide; different apps may be at different phase numbers.
 
-**domain**: A Tier 3 capability package under `packages/domain/{domain-name}/`. Domain identity is decoupled from app identity; one domain may serve one or more apps. Domain lifecycle is independent of any single feature's roadmap (Phase A Model B; per [RULE] Architecture Rules §Y.4).
+**domain**: A Tier 3 capability package under `packages/domain/{domain-name}/`. Domain identity is decoupled from app identity; one domain may serve one or more apps. Domain lifecycle is independent of any single feature's roadmap (Phase A Model B; per CC substantive Claude Code Architecture Rules canonical §Y (app-slug roster).4).
 
 **feature-slug**: short stable machine-friendly identifier for a feature (kebab-case, English, frozen once created). App-internal uniqueness only.
 
@@ -218,7 +218,7 @@ The full repository layout — `HDC_ROOT/`, `apps/{app-slug}/`, `packages/domain
 
 **slice-id**: slice-level identifier extending feature-slug, e.g., `manager-e-signature-01-initiation`.
 
-**assigned_node**: the logical node (per [RULE] Workspace Topology §2.1) that executes the unit's first node-side TK and all subsequent TKs. Decided at TK-02 as a first-class output for each unit in the phase.
+**assigned_node**: the logical node (per [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention)) that executes the unit's first node-side TK and all subsequent TKs. Decided at TK-02 as a first-class output for each unit in the phase.
 
 **cross-model review reminder**: An [Enforcement·reminder-only] advisory surfaced at TK-01 and TK-02 sign-off suggesting the operator consider obtaining a review of the produced spec from a model other than the one that produced it (e.g., Codex, a different Claude variant). The reminder is conversational; the operator may invoke a cross-model review or proceed without one. See §4 TK-01 / TK-02 task definitions.
 
@@ -234,9 +234,9 @@ The full repository layout — `HDC_ROOT/`, `apps/{app-slug}/`, `packages/domain
 
 Thirteen tasks total (TK-01 through TK-13). Scope levels and per-unit-type applicability are summarized below; the formal unit_type catalog with per-unit-type task path is in §4.0 immediately following.
 
-**Inception is not a TK**: Project-level workspace inception (per [RULE] Workspace Topology §10) and per-app physical skeleton (per [RULE] Workspace Topology §4.6.3 walking_skeleton output set) are owned outside this source. The TK sequence begins at TK-01 for the first phase of each app.
+**Inception is not a TK**: Project-level workspace inception (per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance)) and per-app physical skeleton (per CC substantive Workspace Topology canonical (walking-skeleton output set)) are owned outside this source. The TK sequence begins at TK-01 for the first phase of each app.
 
-**Note on "Required" in task descriptions**: each task definition in §4 below includes a `**Human intervention**: **Required**` (or `**Conditional**` / `**None**`) field. The word "Required" here denotes the task's **expected level of operator attention** as a taxonomic classifier — it is descriptive of how the task is designed to be operated, not a mechanism-enforced invariant on the operator. Per [Enforcement·reminder-only] discipline, Hub Claude surfaces the expected attention level at task initiation but cannot canonical-text-enforce operator presence. The classifier reads as: "Required" = task designed for operator-driven execution; "Conditional" = task auto-runs unless failure surfaces operator-needed escalation; "None" = task fully autonomous in steady state. See [MECH] CI/CD Milestone Policy §1.1 for the operator attention allocation rationale underlying this taxonomy.
+**Note on "Required" in task descriptions**: each task definition in §4 below includes a `**Human intervention**: **Required**` (or `**Conditional**` / `**None**`) field. The word "Required" here denotes the task's **expected level of operator attention** as a taxonomic classifier — it is descriptive of how the task is designed to be operated, not a mechanism-enforced invariant on the operator. Per [Enforcement·reminder-only] discipline, Hub Claude surfaces the expected attention level at task initiation but cannot canonical-text-enforce operator presence. The classifier reads as: "Required" = task designed for operator-driven execution; "Conditional" = task auto-runs unless failure surfaces operator-needed escalation; "None" = task fully autonomous in steady state. See CC substantive CI/CD Milestone Policy canonical (tooling baseline) for the operator attention allocation rationale underlying this taxonomy.
 
 - **TK-01, TK-02** — **per-phase**, runs once per app per phase; TK-01 produces phase PRD; TK-02 has three internal steps (Step 2.1 / Step 2.2 / Step 2.3) producing phase TDD, phase test plan (master), per-feature integration test plans, per-feature slice-lists, per-unit `assigned_node` decisions, and — when any feature has `tier_1_involved=true` — per-feature CD-authored design files plus per-feature Hub-authored UX Design Spec instances
 - **TK-03 through TK-11** — **per-slice within a unit**, looping through slices of `feature` units and the single slice of a `walking_skeleton` unit; not run for `app_integration` units below TK-08 (per §0.3 milestone table and §4.0 per-unit-type task paths)
@@ -245,13 +245,13 @@ Thirteen tasks total (TK-01 through TK-13). Scope levels and per-unit-type appli
 
 Within a single phase, the loop structure for `feature` and `walking_skeleton` units is: TK-01 → TK-02 (Step 2.1 → Step 2.2 → Step 2.3) → (for each unit: for each slice in the unit: TK-03 through TK-11) → TK-12 onwards.
 
-The Phase 1 `walking_skeleton` unit must reach `status: merged` before any `feature` unit's TK-03 or any `app_integration` unit's TK-08 begins, per [RULE] Workspace Topology §4.6.2 walking-skeleton-first ordering rule. For `app_integration` units, the loop is: TK-01 → TK-02 (consumed as input) → TK-08 → TK-09 → TK-10 → TK-11 → TK-12 onwards.
+The Phase 1 `walking_skeleton` unit must reach `status: merged` before any `feature` unit's TK-03 or any `app_integration` unit's TK-08 begins, per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). For `app_integration` units, the loop is: TK-01 → TK-02 (consumed as input) → TK-08 → TK-09 → TK-10 → TK-11 → TK-12 onwards.
 
 ## 4.0 Unit_type catalog and per-unit-type task paths
 
 ### 4.0.1 Catalog overview
 
-The phase ontology partitions a phase's work into `walking_skeleton` / `feature` / `app_integration` work units. The three unit types share scheduling parity at the node-assignment level (per [RULE] Workspace Topology §4.1) and run different subsets of the TK-XX sequence based on their slice ontology.
+The phase ontology partitions a phase's work into `walking_skeleton` / `feature` / `app_integration` work units. The three unit types share scheduling parity at the node-assignment level (per CC substantive Workspace Topology canonical (parallelism unit)) and run different subsets of the TK-XX sequence based on their slice ontology.
 
 | Unit type | Applicability | Slice count | Milestone profile | Codex fire conditions | Cardinality per phase |
 |---|---|---|---|---|---|
@@ -259,20 +259,20 @@ The phase ontology partitions a phase's work into `walking_skeleton` / `feature`
 | `feature` | All phases | 1+ (typical 3–10) | M0 → M1 → M2 → M3 → M4 → M5 per slice (full chain) | M4 per slice (TK-11) | 1+ |
 | `app_integration` | All phases (per-phase only; not cross-phase) | 0 | M2 → M3 → M4 → M5 (truncated; no M0 / M1) | M4 only (TK-11) | 0+ |
 
-Per-unit-type milestone profile is owned by [MECH] CI/CD Milestone Policy. Per-unit-type Codex fire conditions are owned by [RULE] Codex Plugin Usage. Codex code review fires at M4 (TK-11) for all three unit types; cross-model review reminders at TK-01 / TK-02 sign-offs are operator-advisory and are not Codex invocations.
+Per-unit-type milestone profile is owned by [MECH] CI/CD Milestone Policy. Per-unit-type code review tool fire conditions are owned by CC substantive Codex Plugin Usage canonical (post-Phase-3 migration). Code review fires at M4 (TK-11) for all three unit types; cross-model review reminders at TK-01 / TK-02 sign-offs are operator-advisory and are not Codex invocations.
 
 ### 4.0.2 Walking_skeleton unit task path
 
-A `walking_skeleton` unit produces six outputs in a single PR (canonical list owned by [RULE] Workspace Topology §4.6.3). The unit consists of exactly one slice that runs the full TK chain.
+A `walking_skeleton` unit produces six outputs in a single PR (canonical list owned by CC substantive Workspace Topology canonical (walking-skeleton output set)). The unit consists of exactly one slice that runs the full TK chain.
 
 | TK | Walking_skeleton-specific notes |
 |---|---|
 | TK-01 | Phase 1 PRD; covers all features in Phase 1 plus implicit walking-skeleton scope |
 | TK-02 | Phase 1 TDD §3 Walking skeleton scope is authored alongside per-feature `§4.{feature-slug}` sections in Step 2.1; walking_skeleton unit's `assigned_node` is decided alongside per-feature node assignments in Step 2.1; if walking-skeleton scope itself touches Tier 1 (rare), Step 2.2 + Step 2.3 produce design files and a UX Design Spec instance for the walking-skeleton scope, treated as the `walking-skeleton` feature-slug-equivalent |
 | TK-03 | Single-slice authoring; `slice-id` = `walking-skeleton`; Hub-side per [REF] Hub-CD-CC Architecture §5.1; UX brief drawn from Hub-authored UX Design Spec instance from TK-02 Step 2.3 if walking-skeleton scope touches Tier 1 |
-| TK-04 | M0 entry self-check (folded into TK-04 entry per the post-refactor architecture; the prior separate M0 gate task has been retired); GitHub Issue marker authoring; first commit on `feature/<app-slug>/walking-skeleton` branch; produces the six walking_skeleton outputs in the single PR per [RULE] Workspace Topology §4.6.3; CC main loop begins code generation |
+| TK-04 | M0 entry self-check (folded into TK-04 entry per the post-refactor architecture; the prior separate M0 gate task has been retired); GitHub Issue marker authoring; first commit on `feature/<app-slug>/walking-skeleton` branch; produces the six walking_skeleton outputs in the single PR per CC substantive Workspace Topology canonical (walking-skeleton output set); CC main loop begins code generation |
 | TK-05 → TK-10 | Single-slice loop continues: tests, adversarial, evidence |
-| TK-11 | M4 prep + Codex code review fires per [RULE] Codex Plugin Usage |
+| TK-11 | M4 prep + code review fires per CC substantive Codex Plugin Usage canonical |
 | TK-12 | M4 merge as for any unit |
 | TK-13 | M5 staging deploy on `main` merge |
 
@@ -305,7 +305,7 @@ TK-07 RCA may fire for an `app_integration` unit when its TK-08 / TK-09 / TK-10 
 - **Role sequence**: H + HC (iterative collaboration)
 - **Inputs**: Business needs signal for the target phase; existing PRDs under `apps/*/specs/prd/**` (especially the prior phase PRD if `{N}≥2`); target `{app-slug}`; target `{N}` (phase number, monotonic per app); **conditional**: brownfield reconstruct memo (per TK-01 conditional pre-step below) when an app has existing behavior worth preserving
 - **Outputs**: Phase PRD content for `apps/{app-slug}/specs/prd/phase-{N}.md` (committed to the active phase's working branch ahead of TK-03 per-slice extraction)
-- **Prerequisite**: workspace inception complete per [RULE] Workspace Topology §10. For Phase N≥2 of an existing app, the prior phase's TK-13 release (or equivalent stable boundary) should also be reached. For Phase 1 of a new app, the `{app-slug}` is decided in this task per operator pure judgment (immutable once committed) and added to the frozen app-slug roster maintained at workspace level per [RULE] Architecture Rules §Y; the app's physical skeleton is produced subsequently as part of the Phase 1 walking_skeleton unit's output set per [RULE] Workspace Topology §4.6.3
+- **Prerequisite**: workspace inception complete per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance). For Phase N≥2 of an existing app, the prior phase's TK-13 release (or equivalent stable boundary) should also be reached. For Phase 1 of a new app, the `{app-slug}` is decided in this task per operator pure judgment (immutable once committed) and added to the frozen app-slug roster maintained at workspace level per CC substantive Claude Code Architecture Rules canonical §Y (app-slug roster); the app's physical skeleton is produced subsequently as part of the Phase 1 walking_skeleton unit's output set per CC substantive Workspace Topology canonical (walking-skeleton output set)
 - **Trigger**: **Manual**
 - **Completion**: Phase PRD uses [TPL] PRD template; business-facing; `app_slug` and `phase_number` fields populated in PRD header per [TPL] PRD §0.7.1; §7.1 Feature List enumerates the features introduced or evolved in this phase by `feature-slug`; operator signs off; **cross-model review reminder fires at sign-off** (see below)
 - **Failure routing**: Revise within TK-01
@@ -338,7 +338,7 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
 
 - **Workspace**: Hub Claude
 - **Role sequence**: H + HC (coordinated production of multiple paired artifacts; operator decides each feature's and each unit's `assigned_node` during this step)
-- **Inputs**: Phase PRD (TK-01); existing TDDs under `apps/*/specs/tdd/**` (especially the prior phase TDD if `{N}≥2`, used as architectural baseline); current node availability state (operator's pure-judgment input per [RULE] Workspace Topology §6.1 step 1)
+- **Inputs**: Phase PRD (TK-01); existing TDDs under `apps/*/specs/tdd/**` (especially the prior phase TDD if `{N}≥2`, used as architectural baseline); current node availability state (operator's pure-judgment input per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 1))
 - **Outputs** (paired output set; the count of each varies with the number of features in the phase):
   - **Per-unit `assigned_node` decisions** — one decision per work unit in the phase (recorded inside `§4.{feature-slug}.Header` of the phase TDD for `feature` units; in TDD §3 walking skeleton header for the Phase 1 `walking_skeleton` unit; in the GitHub Issue marker block for `app_integration` units which lack a per-feature TDD section)
   - **Phase TDD** content for `apps/{app-slug}/specs/tdd/phase-{N}.md` — header mandatory fields: `app_slug`, `phase_number`, `Features in this phase`; body sections per [TPL] TDD: §1 architecture, §2 cross-feature concerns, §3 walking skeleton scope (Phase 1 only), §4 per-feature engineering spec. Each feature's `§4.{feature-slug}.Header.tier_1_involved` flag is set here. When any feature in the phase has `tier_1_involved=true`, the TDD references the corresponding UX Design Spec instance path (`apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`); the UX coverage itself lives in the UX Design Spec instance (Hub-authored at Step 2.3) rather than as a TDD sub-section
@@ -394,7 +394,7 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
 - **Failure routing**: Phase PRD gaps → TK-01; MECE violation → revise within Step 2.1; **design file quality check `Reject` disposition → return to CD per [MECH] Cross-Tool Workflow Handoff §6, Step 2.2 redo**; **UX Design Spec authoring gap (Hub Claude finds design files insufficient to ground UX Design Spec content) → return to CD for additional design file coverage**; Design System change required → produce DS change request per [RULE] DSG §12 (additive: captured in UX Design Spec instance §2.4 at Step 2.3; breaking: separate change file + review gate); new domain capability needed → schedule as feature-driven domain extension
 - **Human intervention**: **Required**
 
-**Per-unit node assignment note**: `assigned_node` is per-unit, not per-phase. A phase may contain multiple units (one Phase 1 walking_skeleton + multiple feature units + zero-or-more app_integration units) executing on different nodes. Each assignment is an independent operator decision per [RULE] Workspace Topology §6.1 step 1.
+**Per-unit node assignment note**: `assigned_node` is per-unit, not per-phase. A phase may contain multiple units (one Phase 1 walking_skeleton + multiple feature units + zero-or-more app_integration units) executing on different nodes. Each assignment is an independent operator decision per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 1).
 
 **Walking skeleton scope (Phase 1 only)**: The Phase 1 TDD's §3 Walking skeleton scope sub-section captures the thinnest end-to-end vertical slice that proves foundational architecture works before Phase 1 feature units begin. When walking-skeleton scope itself touches Tier 1 (rare), Step 2.2 + Step 2.3 fire for the walking-skeleton scope as if it were a feature with `tier_1_involved=true`; the UX Design Spec instance is authored at `apps/{app-slug}/specs/ux-design-spec/walking-skeleton.md`.
 
@@ -402,7 +402,7 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
 
 **Cross-model review reminder at sign-off** ([Enforcement·reminder-only]): Same mechanics as TK-01. Hub Claude surfaces a reminder; operator chooses to invoke cross-model review (e.g., Codex review of the TDD architecture) or proceed.
 
-**Hub-to-assigned_node onboarding (between TK-02 and the unit's first node-side TK)**: Immediately after TK-02 sign-off, for each unit in the phase the operator onboards that unit's `assigned_node` per [RULE] Workspace Topology §6.1 step 4. Onboarding includes: `git fetch && git checkout -b feature/<app-slug>/<unit-slug>`, transfer of phase-level TK-01 PRD and TK-02 outputs (TDD, test-plan, openapi, slice-list, **and per-feature UX Design Spec instance markdown when authored**) into `apps/{app-slug}/specs/{prd,tdd,test-plan,openapi,slice-list,ux-design-spec}/` on the working branch, `git push -u`, and starting a Claude Code session on assigned_node. The CD-authored design files accompany as visual reference (transferred to CC at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1, not committed to the monorepo unless the operator explicitly opts to). From this point, all subsequent node-side TKs for that unit execute within that Claude Code session.
+**Hub-to-assigned_node onboarding (between TK-02 and the unit's first node-side TK)**: Immediately after TK-02 sign-off, for each unit in the phase the operator onboards that unit's `assigned_node` per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). Onboarding includes: `git fetch && git checkout -b feature/<app-slug>/<unit-slug>`, transfer of phase-level TK-01 PRD and TK-02 outputs (TDD, test-plan, openapi, slice-list, **and per-feature UX Design Spec instance markdown when authored**) into `apps/{app-slug}/specs/{prd,tdd,test-plan,openapi,slice-list,ux-design-spec}/` on the working branch, `git push -u`, and starting a Claude Code session on assigned_node. The CD-authored design files accompany as visual reference (transferred to CC at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1, not committed to the monorepo unless the operator explicitly opts to). From this point, all subsequent node-side TKs for that unit execute within that Claude Code session.
 
 ---
 
@@ -537,9 +537,9 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 - **Failure routing**: No-go → back to specific TK
 - **Human intervention**: **Required**
 
-**Branch model note**: Per [RULE] Workspace Topology §5.1, feature branches merge directly to `main` in the single-branch topology. Production deployment from `main` is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2; the AI-dev CI/CD chain terminates at TK-13 staging deploy.
+**Branch model note**: Per CC substantive Workspace Topology canonical (branch topology), feature branches merge directly to `main` in the single-branch topology. Production deployment from `main` is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2; the AI-dev CI/CD chain terminates at TK-13 staging deploy.
 
-**Scheduling note**: TK-12 may execute per-slice or batched per [MECH] CI/CD Milestone Policy §2.5.1. Per-slice integrity (one Test Evidence Report, one PR, one go/no-go, one merge action per slice) is preserved in either mode; batching is purely review-session scheduling.
+**Scheduling note**: TK-12 may execute per-slice or batched per CC substantive CI/CD Milestone Policy canonical (M4 review scheduling per-slice/batched). Per-slice integrity (one Test Evidence Report, one PR, one go/no-go, one merge action per slice) is preserved in either mode; batching is purely review-session scheduling.
 
 ---
 
@@ -576,7 +576,7 @@ This transition happens conditionally — only per feature with `tier_1_involved
 
 The hub-to-assigned_node handoff happens immediately after TK-02 sign-off (covering all three steps when applicable) per [MECH] Cross-Tool Workflow Handoff §3.1. From the first node-side TK onwards through TK-11, all node-side work executes on assigned_node.
 
-- After TK-02 sign-off, operator manually onboards the assigned_node per [RULE] Workspace Topology §6.1 step 4:
+- After TK-02 sign-off, operator manually onboards the assigned_node per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4):
   - `git fetch && git checkout -b feature/<app-slug>/<unit-slug>`
   - Transfer phase-level TK-01 PRD and TK-02 outputs (TDD, test-plan, openapi, slice-list, **and per-feature UX Design Spec instance markdown when authored**) to `apps/{app-slug}/specs/{prd,tdd,test-plan,openapi,slice-list,ux-design-spec}/` on the feature branch
   - `git push -u`
@@ -596,7 +596,7 @@ Per-slice TK-03 artifacts (intent / acceptance / test-plan) are placed at assign
 
 ## 5.5 CC → Hub (TK-11 evidence + Codex review)
 
-After TK-11 completes, the operator may transfer the Codex review output to a Hub Claude conversation for judgment and archive per [MECH] Cross-Tool Workflow Handoff §3.2 and [RULE] Codex Plugin Usage processing rules.
+After TK-11 completes, the operator may transfer the code review tool output to a Hub Claude conversation for judgment and archive per [MECH] Cross-Tool Workflow Handoff §3.2 (specific code review tool processing rules owned by CC substantive Codex Plugin Usage canonical post-Phase-3 migration).
 
 ## 5.6 Hub or assigned_node → CI/CD (TK-12 → TK-13)
 
@@ -723,7 +723,7 @@ If steady-state interventions exceed the §6.1 per-unit-type budget for 2+ conse
 
 **Multi-node deployment**: see [RULE] Workspace Topology §7 for the canonical red-flag list. DTW local variants:
 - TDD missing `assigned_node` field at TK-02 Step 2.1 sign-off
-- Cross-node Codex invocation at TK-11 (canonical anti-pattern owned by [RULE] WT §3.5)
+- Cross-node Codex invocation at TK-11 (canonical anti-pattern owned by [RULE] Workspace Topology constitutional residue §6 (cross-workspace anti-drift))
 - GitHub Issue marker block missing or malformed at TK-04 entry (the marker block authoring step inside TK-04 sub-task 2)
 
 **Bias firewall**: see [RULE] Claude Code Architecture Rules §8 for the canonical red-flag list. DTW local variant:
@@ -747,7 +747,7 @@ If steady-state interventions exceed the §6.1 per-unit-type budget for 2+ conse
 - TK-11 Codex review output bypasses Hub judgment (per [MECH] Cross-Tool Workflow Handoff §3.2.3)
 - **TK-12 DS markdown export sync skipped or partial when slice carries DS change** (violates [RULE] DSG §12.5 lock-step invariant; results in Hub mirror and CC mirror at different versions)
 
-**UX and accessibility**: most red flags here are owned by [MECH] Code Quality Rule Set §10 and [RULE] Design System Governance §16 governance. DTW local variants:
+**UX and accessibility**: most red flags here are owned by CC substantive Code Quality Rule Set canonical §10 and [RULE] Design System Governance §16 governance. DTW local variants:
 - **SK-F (`hdc-arco-enterprise-ui`) not invoked during TK-04 Tier 1 code generation** (the TK-04 instance of skill-loading drift)
 - **Tier-1-involving feature's UX Design Spec instance missing at TK-02 Step 2.3 sign-off** (when CD-side design files were produced but Hub-side UX Design Spec authoring was skipped)
 - **Tier-1-involving slice's intent.md missing UX brief section** (TK-03 surface — when feature's UX Design Spec instance is missing or insufficient)

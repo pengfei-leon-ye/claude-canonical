@@ -11,7 +11,7 @@
 - **Relationship to [MECH] Development Track Workflow**: Phase test plan (master) and feature integration test plans are produced in TK-02 alongside the phase TDD; per-slice test plans are produced in TK-03 by Hub Claude (Hub-only per [MECH] DTW §4 TK-03 + [TPL] Writing Standard §1.11) and referenced by TK-06, TK-09, TK-10, TK-11 (test-writer agents and adversarial loop). When Tier 1 is involved, the CD-authored UX Design Spec bundle is consumed by Hub Claude at TK-03 as the source for accessibility test case authoring; SK-F loads on the assigned_node CC at TK-04 onwards for code generation, not at TK-03 test-plan authoring time
 - **Relationship to [RULE] Claude Code Architecture Rules**: The `context_scope` field in the slice tier binds each test case to a specific subagent per the context-scope policy defined in that source (§X); repository path layout (`apps/{app-slug}/specs/test-plan/`, `apps/{app-slug}/tests/`, `apps/{app-slug}/evidence/`) is owned by Architecture Rules §Y.1; consumer-driven Pact pair convention `{app-slug}-bff_{domain-name}` is owned by Architecture Rules §Y.4
 - **Relationship to [MECH] CI/CD Milestone Policy**: Test types declared at the slice tier map onto milestones defined in that source (§2.2 M1 unit/internal-integration; §2.3 M2 contract/external-integration; §2.4 M3 e2e/visual/performance); phase exit criteria in the phase test plan map onto Milestone Policy §2.5–§2.6; Pact contract pairing semantics owned by Milestone Policy §2.3. **Accessibility is not a milestone-gated test type** per [RULE] DSG §6 (no formal a11y gate at any milestone)
-- **Relationship to [RULE] Codex Plugin Usage**: Codex code review at TK-12 references slice test plans for context (e.g., confirming code matches the test cases declared); Codex does not author or adversarially review test plans. Adversarial review of test plan content is owned by the M0 operator review at TK-04 and by adversarial-tester subagent A3 at TK-10 (M2 adversarial loop).
+- **Relationship to CC substantive Codex Plugin Usage canonical (post-Phase-3 migration)**: Code review tool review at TK-12 (formerly governed by Hub `[RULE] Codex Plugin Usage`, now CC substantive) references slice test plans for context (e.g., confirming code matches the test cases declared); the code review tool does not author or adversarially review test plans. Adversarial review of test plan content is owned by the M0 operator review at TK-04 and by adversarial-tester subagent A3 at TK-10 (M2 adversarial loop).
 - **Relationship to [RULE] Design System Governance**: Accessibility test cases (`test_type: accessibility`) are **optional** at the slice tier per DS instance §2.6 (HDC has no formal WCAG conformance target). When present, such cases describe slice-specific a11y concerns in plain terms, not WCAG criteria. The `hdc-wcag-accessibility-checker` skill (SK-W) is an on-demand utility per DSG §6.3 and is not auto-invoked by these cases.
 - **Relationship to adjacent [TPL] sources**:
   - `[TPL] Phase Test Plan` — companion. Owns the phase-level markdown master (`apps/{app-slug}/specs/test-plan/phase-{N}.md`). This source no longer authors the phase tier; phase test plans cross-reference the feature integration yaml plans owned here.
@@ -503,7 +503,7 @@ a11y_tool:
                                 # manual is "operator-smoke-test"
 ```
 
-**Tool stance** (cross-reference [MECH] Code Quality Rule Set §1.2 and DSG §6):
+**Tool stance** (cross-reference CC substantive Code Quality Rule Set canonical §1.2 and DSG §6):
 - `eslint-plugin-jsx-a11y`: routine, automatic, runs at `warn` severity in normal lint; no separate gate
 - `axe-core` via SK-W: on-demand utility only; not auto-invoked by milestones or other skills
 - `manual`: operator's M4 smoke test; non-gating
@@ -866,7 +866,7 @@ The test-plan.yaml is a design-level artifact, not an executable. The following 
 | Environment-specific values (API tokens, URLs for specific environments) | Those belong in fixtures and environment configuration, not test design |
 | Repository path layout structure | [RULE] Claude Code Architecture Rules §Y.1 owns layout |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
-| Codex command semantics | [RULE] Codex Plugin Usage |
+| Code review tool command semantics | CC substantive Codex Plugin Usage canonical (post-Phase-3) |
 | Pact pair mechanics (consumer-driven setup, broker config) | [RULE] Architecture Rules §Y.4 + tooling docs |
 
 Cross-source boundary (what belongs in adjacent sources instead) is covered by each field's scoping rules above: `traces_to_*` fields attach the plan to acceptance, TDD, and Design System Governance without duplicating their content.

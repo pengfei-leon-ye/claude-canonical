@@ -409,7 +409,7 @@ Source: UX Design Spec instance §2.5 (Accessibility call-outs, slice-specific o
 Rule:
 - Per [RULE] DSG §6, HDC has no formal WCAG conformance target; this section is **optional** and used only when the slice has specific a11y considerations beyond Arco component defaults
 - When the UX Design Spec instance §2.5 declares feature-specific a11y call-outs, convert each into an `accessibility_expectations` entry; otherwise omit the section entirely
-- Each entry includes `verification: automated | manual | both`; "automated" maps to either `eslint-plugin-jsx-a11y` (warn-level lint, per [MECH] Code Quality Rule Set §1.2) or to an on-demand SK-W audit; "manual" means an operator spot-check at M4
+- Each entry includes `verification: automated | manual | both`; "automated" maps to either `eslint-plugin-jsx-a11y` (warn-level lint, per CC substantive Code Quality Rule Set canonical §1.2) or to an on-demand SK-W audit; "manual" means an operator spot-check at M4
 - No entry creates a milestone gate; the project a11y stance is "no formal gate"
 
 ## 4.8 out_of_scope
@@ -585,5 +585,5 @@ The following leakage patterns indicate the conversion has pulled in content tha
 | Sprint planning, estimation, runtime config | Not a specification concern |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 | Repository path layout structure | [RULE] Claude Code Architecture Rules §Y.1 |
-| Codex command semantics | [RULE] Codex Plugin Usage |
+| Code review tool command semantics | CC substantive Codex Plugin Usage canonical (post-Phase-3) |
 | Skill internal prompts | `.claude/skills/{name}/SKILL.md` |

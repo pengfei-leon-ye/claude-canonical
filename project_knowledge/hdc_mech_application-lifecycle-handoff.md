@@ -156,8 +156,8 @@ The handoff content set must include all of the following, at the `main`-branch 
 | `apps/{app-slug}/CLAUDE.md` and tier-level `CLAUDE.md` files | Architecture context and tier boundaries — readable by humans even when not used as AI control files |
 | `packages/domain/{domain-name}/**` for every domain the app consumes | Domain logic, contracts, and tests on the producer side — the app cannot be maintained without its consumed domains |
 | Design System code at the monorepo-level path consumed by the app's Tier 1 | Required for visual consistency on enhancement; refer to [RULE] Design System Governance for the canonical DS code location (DS code is the CC-pillar artifact in the three-way distributed DS per [REF] Hub-CD-CC Architecture §5.2) |
-| `apps/{app-slug}/dev/**` | Dev-loopback orchestration (docker compose, fixtures, placeholder implementations) — required for regression rehearsal, emergency fallback, and onboarding per [MECH] Dev-Loopback Mode §7 (paired per P-37) |
-| `apps/{app-slug}/HANDOFF.md` | Placeholder migration guide — required for production-target replacement of each dev-loopback placeholder per [MECH] Dev-Loopback Mode §7.2 |
+| `apps/{app-slug}/dev/**` | Dev-loopback orchestration (docker compose, fixtures, placeholder implementations) — required for regression rehearsal, emergency fallback, and onboarding per CC substantive Dev-Loopback Mode canonical (HANDOFF.md migration document section); P-37 retired in Phase 3 (counterparty fully migrated to CC) |
+| `apps/{app-slug}/HANDOFF.md` | Placeholder migration guide — required for production-target replacement of each dev-loopback placeholder per CC substantive Dev-Loopback Mode canonical |
 
 If a domain is consumed by the handed-off app **and** at least one other app that remains in AI-dev, the domain is included in the handoff content but a copy is also retained in the AI-dev monorepo. This source does not regulate the divergence-control mechanism between the two copies after handoff; that is a §5 re-entry concern.
 
@@ -179,7 +179,7 @@ The following are recommended to accompany the handoff so the receiving team und
 | `.claude/skills/hdc-arco-enterprise-ui/**` and `.claude/skills/hdc-wcag-accessibility-checker/**` | Skill definitions: SK-F constrained Tier 1 generation against the Arco-based Design System; SK-W is an on-demand a11y diagnostic utility (no formal WCAG target per DSG §6.3) |
 | `.claude/hooks/**` (relevant subset) | Hooks that mediated state transitions during development |
 | Project-root `CLAUDE.md` | Workspace-level rules referenced by the app — useful as context |
-| `[RULE] Claude Code Architecture Rules`, `[MECH] Development Track Workflow`, `[MECH] CI/CD Milestone Policy`, `[RULE] Codex Plugin Usage`, `[RULE] Workspace Topology`, this source ([MECH] Application Lifecycle Handoff) | Canonical sources that governed the production process — useful as orientation material |
+| `[RULE] Claude Code Architecture Rules` (constitutional residue), `[MECH] Development Track Workflow` (constitutional residue + Hub-internal substantive), `[MECH] CI/CD Milestone Policy` (constitutional residue), `[RULE] Workspace Topology` (constitutional residue + Hub-internal substantive), this source ([MECH] Application Lifecycle Handoff), plus CC substantive canonical files for code review tool, code quality rules, dev-loopback mode, and CC-side execution mechanics | Canonical sources that governed the production process — useful as orientation material; receiving team consults both Hub constitutional residues and the CC substantive canonical layer per the decoupled-reference model in [REF] Hub-CD-CC §5.4.4 |
 
 The recommended content can be packaged as a single "AI-dev provenance bundle" alongside the mandatory content, or omitted by operator decision. Omission should be documented in the handoff acknowledgment record (§4.3).
 

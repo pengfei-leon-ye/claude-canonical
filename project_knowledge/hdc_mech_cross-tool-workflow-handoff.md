@@ -15,13 +15,13 @@
   - CD-authored **DS markdown export** flows CD → Hub mirror + CC mirror in lock-step at change finalization (per DSG §12.5 + §12.7), maintaining mirror parity at every change boundary
   - Hub-authored **UX Design Spec instance markdown** (Hub TK-02 Step 2.3 output) flows Hub → CC at TK-04 entry alongside other spec artifacts (§3.1)
   - The three-way distribution generates DS-related cross-tool flows in all three handoff paths (Hub ↔ CD, Hub ↔ CC, CD ↔ CC); cross-tool flows that carry DS-related content apply DSG rules accordingly. DSG §12 additive update path drives DS instance changes at the originating feature's M4 → merge-to-main milestone, at which point the DS markdown export sync re-aligns both mirrors
-- **Relationship to [RULE] Codex Plugin Usage**: Anchored. The CC → operator → Hub direction in §3.2 includes Codex review output flow; [RULE] Codex Plugin Usage owns the fire condition contract and review output processing rules.
+- **Relationship to [RULE] Codex Plugin Usage**: **Migrated to CC substantive canonical (Phase 3)**. The CC → operator → Hub direction in §3.2 includes code review tool output flow; the specific code review tool (historically Codex) is governed by CC substantive Codex Plugin Usage canonical at CC. This source declares only the cross-workspace content contract; the fire-condition and output-processing rules live at CC.
 - **Relationship to [RULE] Workspace Topology**: Anchored. Constitutional canonical inception sync follows WT §10. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow WT §6.1 step 4.
 - **Relationship to [MECH] Development Track Workflow**: Cross-tool handoffs operate continuously during AI-dev work driven by DTW TK sequence. This source does not author TK orchestration but provides the content contracts that DTW TKs invoke when they touch cross-tool flows. Key TK-bound flows:
   - TK-02 Step 2.2 entry: Hub → CD drop files (§2.1)
   - TK-02 Step 2.2 → Step 2.3: CD → Hub design files transfer (§2.2)
   - TK-03 → TK-04 entry: Hub → CC spec bundle including UX Design Spec instance markdown + design files as visual reference (§3.1)
-  - TK-11 Codex review output → Hub: CC → Hub (§3.2)
+  - TK-11 code review tool output → Hub: CC → Hub (§3.2; specific tool governed by CC substantive canonical)
   - TK-12 DS change finalization (when applicable): DS markdown export sync to both mirrors (§2.2 + §3.1, operator-mediated)
 - **Relationship to [TPL] UX Design Spec**: Cross-references. CD-authored design files transferred via §2.2 are the source material for the Hub-authored UX Design Spec instance (authored per [TPL] UX Design Spec at TK-02 Step 2.3). The UX Design Spec instance markdown is transferred via §3.1 to CC at TK-04 entry as part of the spec bundle.
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [MECH] Cross-Tool Workflow Handoff` header fields per [OS] §8.5.1a)
@@ -41,7 +41,7 @@ Do not use as:
 - An application-level handoff reference ([MECH] Application Lifecycle Handoff — covers AI-dev → human dev team event)
 - A three-workspace topology reference ([REF] Hub-CD-CC Architecture — owns workspace identity and boundaries)
 - A DS governance rule reference ([RULE] Design System Governance — owns DS governance discipline, including the three-way distribution model and DS markdown export specification)
-- A Codex review fire condition reference ([RULE] Codex Plugin Usage)
+- A code review tool fire condition reference (CC substantive Codex Plugin Usage canonical owns this; Codex was migrated to CC in Phase 3)
 - A TK-by-TK orchestration reference ([MECH] Development Track Workflow)
 - An enforcement mechanism — this source declares reminder-form discipline (per §5) rather than mechanical enforcement
 
@@ -80,7 +80,7 @@ This source does not apply to:
 - DS governance rules and the three-way distribution model specification (owned by [RULE] Design System Governance §1.1 + §12)
 - DS markdown export format specification (owned by [RULE] Design System Governance §12.7)
 - DSG §13.3 Hub-side consumption discipline rules (owned by DSG)
-- Codex review fire condition rules (owned by [RULE] Codex Plugin Usage)
+- Code review tool fire condition rules (owned by CC substantive Codex Plugin Usage canonical)
 - TK-by-TK orchestration (owned by [MECH] Development Track Workflow)
 - TK-02 internal step structure (Step 2.1 / Step 2.2 / Step 2.3) — owned by DTW §4 TK-02
 - UX Design Spec instance content contract — owned by [TPL] UX Design Spec
@@ -96,7 +96,7 @@ This source does not apply to:
 | [REF] Hub-CD-CC Architecture | Operationalized. This source provides content contracts for the §9 handoff topology declared in Architecture; §3.4.1 CD outputs (design files) and §5.2 revised three-way DS distribution model anchor the DS-related flows here. |
 | [MECH] Application Lifecycle Handoff | Companion. Different lifecycle layer (cross-tool flows during AI-dev vs application-level terminal event). |
 | [RULE] Design System Governance | Anchored. Cross-tool flows carrying DS content apply DSG rules; DSG §12.5 lock-step invariant is realized by the DS markdown export sync mechanism declared here; DSG §12.7 owns the export specification this source consumes. |
-| [RULE] Codex Plugin Usage | Anchored. CC → operator → Hub direction includes Codex review output flow. |
+| [RULE] Codex Plugin Usage | **Migrated to CC substantive canonical (Phase 3)**. CC → operator → Hub direction includes code review tool output flow; the specific tool's contract lives at CC. |
 | [RULE] Workspace Topology | Anchored. Constitutional canonical inception sync follows WT §10. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow WT §6.1 step 4. |
 | [MECH] Development Track Workflow | Continuous. Cross-tool flows operate throughout DTW TK sequence; this source provides the contracts DTW TKs invoke. TK-02 Step 2.2 + Step 2.3 and TK-04 entry are key trigger points. |
 | [TPL] UX Design Spec | Cross-referenced. CD-authored design files transferred via §2.2 are the source material for the Hub-authored UX Design Spec instance per [TPL] UX Design Spec at TK-02 Step 2.3; the instance markdown is transferred via §3.1 to CC at TK-04 entry. |
@@ -376,7 +376,7 @@ For the UX Design Spec instance markdown (when present), CC's TK-04 M0 entry sel
 ### 3.2.1 What content moves
 
 This direction carries CC-produced content back to Hub:
-- Codex review output (review object: application code; produced at TK-11 per [RULE] Codex Plugin Usage)
+- Code review tool output (review object: application code; produced at TK-11; the specific code review tool is owned by CC substantive Codex Plugin Usage canonical)
 - CC-internal canonical change notifications (when `.claude/rules/`, `.claude/agents/`, `.claude/commands/`, `.claude/skills/`, `.claude/hooks/` files are added, modified, or removed)
 - CC-side DS mirror drift detection notifications (when CC's M0 entry self-check, or compliance-checker A9, or SK-F runtime surfaces inconsistency between CC mirror and the in-flight code)
 - Architecture decision notes that warrant ADR authoring at Hub
@@ -384,18 +384,18 @@ This direction carries CC-produced content back to Hub:
 ### 3.2.2 Source format
 
 CC content exists as:
-- Codex review output files at `apps/{app-slug}/evidence/{slice-id}/codex/codex-review.md` per [RULE] Codex Plugin Usage
+- Code review tool output files at `apps/{app-slug}/evidence/{slice-id}/codex/codex-review.md` (file path convention per CC substantive Codex Plugin Usage canonical)
 - CC-internal canonical files at `.claude/**` and `CLAUDE.md` paths
 - CC DS mirror at `specs/design-system.md` (read-only at CC per DSG §12.6)
 - CC session conversation content for architectural observations
 
 ### 3.2.3 Operator actions
 
-**For Codex review output transfer**:
+**For code review tool output transfer**:
 
-1. Open the Codex review file in CC or read its content
+1. Open the code review file in CC or read its content
 2. Copy the review findings into a Hub Claude conversation
-3. Hub Claude judges findings (per [RULE] Codex Plugin Usage processing rules)
+3. Hub Claude judges findings (per CC substantive Codex Plugin Usage canonical processing rules)
 4. Hub Claude archives the judgment outcome in the appropriate location (e.g., evidence digest, ADR, or Hub conversation log)
 
 **For CC-internal canonical change notifications**:

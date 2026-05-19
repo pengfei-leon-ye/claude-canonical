@@ -13,7 +13,7 @@
 - **Relationship to [RULE] Claude Code Architecture Rules**: Constrains Tier 1 (React) work exclusively; Tier 2 and Tier 3 are out of scope. The CC mirror of the DS instance is a project-level singleton at the monorepo root per CCAR §Y.1, not under any `apps/{app-slug}/` directory; downstream feature artifacts that reference it (per-feature UX Design Spec instances authored in Hub per `[TPL] UX Design Spec`, intent.md UX brief, test-plan.yaml accessibility cases) are app-scoped under `apps/{app-slug}/specs/...`. The CC mirror is included in CCAR §X.2.1 `business_rules_only` scope allow list as `specs/design-system.md`.
 - **Relationship to [MECH] Development Track Workflow**: The DS instance and both mirrors are established at workspace inception per [RULE] Workspace Topology §10 via initial CD authoring + DS markdown export to both mirror locations. Hub mirror is referenced by TK-02 step 2.3 (design file quality check + UX Design Spec authoring grounding per the revised TK-02 internal structure). CC mirror is referenced by TK-04 (M0 entry, per-slice spec consumption) and TK-05+ (code writing, M3 visual review). Additive updates to the instance authored in CD propagate to both mirrors via the §12 sync mechanism in this rule.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2 (Hub ↔ CD path) carries DS-related discussions, CD-authored design files transferred to Hub for TK-02 step 2.3 consumption, and CD-generated DS markdown export transferred to Hub for mirror sync; §3 (Hub ↔ CC path) carries DSG governance text into CC and transfers the CD-generated DS markdown export to CC mirror at the same sync cycle as Hub mirror; §4 (CD ↔ CC path, decoupled-by-default during research preview) is currently not directly used for DS sync (CC mirror receives DS markdown via operator-mediated transfer from CD through the Hub session). The mirror-sync cadence and triggers are owned by §12 of this rule.
-- **Relationship to [MECH] Code Quality Rule Set**: The Code Quality Rule Set declares the runtime and build-time tool-level enforcement of Tier 1 visual rules; this rule declares the design-level rules that those tools enforce. Token-consumption rules in §4 and component-inventory rules in §5 are implemented as ESLint rules and dependency-cruiser rules per Code Quality Rule Set §3
+- **Relationship to [MECH] Code Quality Rule Set**: **CQ migrated to CC substantive canonical (Phase 3)**. CC substantive Code Quality Rule Set canonical declares the runtime and build-time tool-level enforcement of Tier 1 visual rules; this rule declares the design-level rules that those tools enforce. Token-consumption rules in §4 and component-inventory rules in §5 are implemented as ESLint rules and dependency-cruiser rules per CC substantive CQ canonical §3. Hub↔CC coordination is governed by the decoupled-reference model in [REF] Hub-CD-CC Architecture §5.4.4.
 - **Relationship to adjacent [TPL] sources**:
   - Upstream of `[TPL] UX Design Spec` — DSG governs the design rules; UX Design Spec instances declare per-feature UX coverage Hub-authored from CD design files per [TPL] UX Design Spec §0; the UX Design Spec's component selections and any new-component / new-token plans MUST respect DSG inventory and §12 change flow
   - Upstream of `[TPL] Intent and Acceptance Interface Writing Standard` (intent.md UX brief section authors components and a11y references that MUST respect DSG inventory + §6 stance)
@@ -23,7 +23,7 @@
   - Consumed at Claude Code runtime by `hdc-wcag-accessibility-checker` skill **on operator demand only** (per §6.3); not auto-invoked
   - Consumed at Hub Claude runtime in TK-02 step 2.3 by reading the Hub mirror at `hdc_ref_design-system.md`; this is not a "skill" in the CC sense but a consumption discipline described in §13.3
 - **Relationship to [RULE] DingTalk Markdown Format Control Specification**: When DS instance content is uploaded to DingTalk Docs for stakeholder visibility, apply that rule (uploading happens from CD source or from either mirror, not authored at Hub)
-- **Pairings I participate in**: P-19 (with `hdc-arco-enterprise-ui` + `hdc-wcag-accessibility-checker` SKILL.md), P-34 (with [MECH] Code Quality Rule Set lint rules)
+- **Pairings I participate in**: P-19 (with `hdc-arco-enterprise-ui` + `hdc-wcag-accessibility-checker` SKILL.md). P-34 (was: with [MECH] Code Quality Rule Set lint rules) **RETIRED in Phase 3** per [REF] Hub-CD-CC §5.4.4 — counterparty CQ fully migrated to CC substantive canonical; alignment with DSG design-level rules now governed at CC's discretion.
 
 ## How to use this source
 
@@ -96,7 +96,7 @@ The DS instance is bounded by adjacent canonical sources. Content that belongs i
 | Per-feature visual artifacts (mockups, prototypes, interaction flows) | CD-authored design files (per [REF] Hub-CD-CC Architecture §3.4.1) — these are the source material from which UX Design Spec instances are Hub-authored |
 | Per-slice UX brief (screen list, interactions, slice-level a11y/i18n call-outs) | intent.md (cross-ref §1.2) |
 | Implementation-level React component code | Code |
-| Tool-level lint and architecture-rule enforcement | [MECH] Code Quality Rule Set |
+| Tool-level lint and architecture-rule enforcement | CC substantive Code Quality Rule Set canonical (post-Phase-3) |
 | Complete restatement of Arco Design official guidelines | Reference Arco docs, don't duplicate |
 
 The instance captures project-level design foundation and authoritative lists (tokens, components, layout-pattern mapping, a11y hygiene, i18n scope). Per-feature UX decisions live in UX Design Spec instances; per-slice UX briefs live in intent.md.
@@ -181,7 +181,7 @@ The instance MUST organize tokens into the following taxonomies. The taxonomies 
 
 **Rule 4.2.4**: Token values that diverge from Arco defaults MUST be motivated by corporate VI or HR-specific design need; recorded in the instance with rationale.
 
-**Rule 4.2.5**: Enforcement is via ESLint rules and Tailwind config in [MECH] Code Quality Rule Set §3.2; this rule declares the design-level rules, Code Quality Rule Set declares the tool-level enforcement.
+**Rule 4.2.5**: Enforcement is via ESLint rules and Tailwind config in CC substantive Code Quality Rule Set canonical §3.2; this rule declares the design-level rules, Code Quality Rule Set declares the tool-level enforcement.
 
 ---
 
@@ -230,7 +230,7 @@ Every Tier A and Tier B component listed in the instance §4 inventory MUST decl
 
 # 6. Accessibility stance
 
-HDC has **no formal WCAG conformance target**. The stance is engineering hygiene rules only, enforced via Arco component defaults and `eslint-plugin-jsx-a11y` at `warn` severity (per [MECH] Code Quality Rule Set §1.2). On-demand validation via `hdc-wcag-accessibility-checker` skill is operator-triggered, not automated.
+HDC has **no formal WCAG conformance target**. The stance is engineering hygiene rules only, enforced via Arco component defaults and `eslint-plugin-jsx-a11y` at `warn` severity (per CC substantive Code Quality Rule Set canonical §1.2). On-demand validation via `hdc-wcag-accessibility-checker` skill is operator-triggered, not automated.
 
 ## 6.1 Recommended engineering practices
 
@@ -270,7 +270,7 @@ This is a deliberate design choice, not a deferral. If regulatory or contractual
 
 **Rule 7.2**: RTL capability MUST be declared in the instance regardless of whether any launch language is RTL, so that future RTL additions do not require breaking governance changes.
 
-**Rule 7.3**: All Tier 1 text MUST resolve via the i18n resource system; hardcoded user-facing strings in code are forbidden (lint-enforced per [MECH] Code Quality Rule Set §3.5 if configured).
+**Rule 7.3**: All Tier 1 text MUST resolve via the i18n resource system; hardcoded user-facing strings in code are forbidden (lint-enforced per CC substantive Code Quality Rule Set canonical §3.5 if configured).
 
 **Rule 7.4**: Text expansion budget — Tier 1 layouts MUST accommodate the longest declared launch language (typically German or French for European-language sets) with at least 30% width margin on dense labels (form field labels, table column headers, button text).
 
@@ -390,7 +390,7 @@ Every Tier A and Tier B component in the instance §4 inventory MUST declare its
 3. **Governance-rule review** (Hub-side, against §3-§11 of this rule):
    - For additive: Hub Claude assists in checking conformance with §3-§11 during TK-02 step 2.3 when authoring the UX Design Spec instance; operator signs off as part of TK-02 sign-off
    - For breaking: a separate review gate is convened; Hub Claude assists in checking conformance against §3-§11 of this rule
-4. Optional adversarial review via Codex — operator transports the change to CC for `/codex:adversarial-review` invocation if desired. **Note**: this optional Codex adversarial review for DS changes is independent from the M0 entry self-check at TK-04; per [RULE] Codex Plugin Usage §1, Codex is not invoked at M0 in the post-refactor architecture. The DS-change Codex review here is a separate, optional governance-review pathway, distinct from any TK-sequence M0 / M4 review.
+4. Optional adversarial review via code review tool — operator transports the change to CC for the optional adversarial-review invocation if desired (specific code review tool governed by CC substantive Codex Plugin Usage canonical post-Phase-3). **Note**: this optional adversarial review for DS changes is independent from the M0 entry self-check at TK-04; the DS-change review here is a separate, optional governance-review pathway, distinct from any TK-sequence M0 / M4 review.
 5. Project owner approves or rejects
 6. If approved:
    - CD-side: CD finalizes the change in the DS instance content (CD authoring); the change is recorded in instance §14 change log
@@ -467,7 +467,7 @@ When this rule changes, the skill MAY need prompt adjustment to track the change
 - An **on-demand sanity-check utility** (per §6.3). NOT auto-invoked at any milestone.
 - Operator manually invokes when a screen warrants a spot check or before a major release.
 - The skill wraps `axe-core` and produces a non-binding diagnostic report; findings are advisory.
-- ESLint `eslint-plugin-jsx-a11y` at `warn` severity (per [MECH] Code Quality Rule Set §1.2) is the routine a11y check, not this skill.
+- ESLint `eslint-plugin-jsx-a11y` at `warn` severity (per CC substantive Code Quality Rule Set canonical §1.2) is the routine a11y check, not this skill.
 - Skill source: `.claude/skills/hdc-wcag-accessibility-checker/SKILL.md`
 - The skill name retains "wcag" for stable identifier; functionally it is an a11y diagnostic tool.
 
@@ -502,15 +502,17 @@ Each slice's intent.md MAY include a UX brief section listing screens and compon
 
 ## 14.4 Pairing with Tier 1 code
 
-All Tier 1 React code references design tokens (§4) and component inventory (§5). The `hdc-arco-enterprise-ui` skill enforces this at code generation time by reading the CC mirror; compliance-checker (A9) audits at M4. Lint-level enforcement of the same rules is owned by [MECH] Code Quality Rule Set §3.
+All Tier 1 React code references design tokens (§4) and component inventory (§5). The `hdc-arco-enterprise-ui` skill enforces this at code generation time by reading the CC mirror; compliance-checker (A9) audits at M4. Lint-level enforcement of the same rules is owned by CC substantive Code Quality Rule Set canonical §3.
 
 ## 14.5 Pairing with custom skills
 
 Skills §13.1 and §13.2 consume the CC mirror of the DS instance plus this rule's content. Hub Claude §13.3 consumes the Hub mirror plus this rule's content. When this rule or the instance is updated (additive or breaking), the skills may need prompt adjustment and the Hub consumption discipline tracks automatically. This is a paired-update relationship (P-19 in [OS] §8.5.2).
 
-## 14.6 Pairing with [MECH] Code Quality Rule Set
+## 14.6 Pairing with CC substantive Code Quality Rule Set canonical (post-Phase-3)
 
-The Code Quality Rule Set declares the runtime and build-time tool-level enforcement of Tier 1 visual rules. Token-consumption rules in §4 and component-inventory rules in §5 are implemented as ESLint rules and dependency-cruiser rules per Code Quality Rule Set §3.2 and §3.3. The accessibility recommendations in §6.1 map to `eslint-plugin-jsx-a11y` rules in Code Quality Rule Set §1.2 at `warn` severity (advisory only). When this rule changes the design-level rules, Code Quality Rule Set is updated under same-period pairing (P-34 in [OS] §8.5.2).
+**Pairing status note**: P-34 (was: DSG ↔ [MECH] Code Quality Rule Set lint rules) was **RETIRED in Phase 3** per [REF] Hub-CD-CC §5.4.4 — counterparty CQ fully migrated to CC substantive canonical. The substantive alignment between DSG design-level rules and CC-side lint enforcement is now governed at CC's discretion under the decoupled-reference model.
+
+CC substantive Code Quality Rule Set canonical declares the runtime and build-time tool-level enforcement of Tier 1 visual rules. Token-consumption rules in §4 and component-inventory rules in §5 of this Hub-side DSG canonical are implemented as ESLint rules and dependency-cruiser rules per CC substantive CQ canonical §3.2 and §3.3. The accessibility recommendations in §6.1 map to `eslint-plugin-jsx-a11y` rules in CC substantive CQ canonical §1.2 at `warn` severity (advisory only). When this rule changes the design-level rules, the operator notifies CC for CC-side substantive CQ to update under CC's own discipline; no Hub-side P-NN pairing tracks this Hub↔CC coordination.
 
 ---
 
