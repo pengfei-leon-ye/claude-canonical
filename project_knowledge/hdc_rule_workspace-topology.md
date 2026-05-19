@@ -112,6 +112,14 @@ Parity is achieved through three mechanisms (existence-declared here; substantiv
 
 3. **Upgrade discipline**: toolchain upgrades flow through a Renovate-mediated cadence (substantive specifics including PR creation, review, and merge protocol live at CC substantive canonical).
 
+**Scope of parity — what parity applies to and what it does not**:
+
+Parity in this section applies to **CC monorepo-committed content**: toolchain declarations and `.claude/` substantive content. These are subject to the divergence-as-anti-drift-signal rule because they are committed within the monorepo and consumed by per-node Claude Code instances.
+
+Hub canonical content (`hdc_*.md` files in the canonical repository / Hub PK) is **not** subject to per-node parity discipline at CC. Hub canonical follows a **read-from-authoritative-source** model: each CC node accesses the authoritative Hub canonical source independently. Parity emerges naturally because all consumers — Hub Claude via RAG, CC instances via their access mechanism — read from the same authoritative source rather than maintaining synchronized committed copies.
+
+The specific Hub-canonical access mechanism at CC (e.g., local clone of the canonical GitHub repository) is **operator-personal infrastructure**, not canonical-governed. This canonical declares only the contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin.
+
 **Cross-workspace implication**: Hub-side handoff documentation does not need to specify per-node versions because parity guarantees a single effective version at any handoff time.
 
 ---

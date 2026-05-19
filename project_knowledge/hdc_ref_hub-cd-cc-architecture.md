@@ -390,7 +390,7 @@ CC accepts these canonical inputs:
 
 | Input | Source | Mechanism |
 |---|---|---|
-| Hub constitutional canonical set | Hub PK `hdc_*.md` files (synced from GitHub `claude_ai_canonical/project_knowledge/`) | Inlined into CC working directory via `INCEPTION_BOOTSTRAP.md` per dev-node-parity discipline |
+| Hub constitutional canonical set | Hub PK `hdc_*.md` files (synced from GitHub `claude_ai_canonical/project_knowledge/`) | CC accesses Hub canonical as a **read-only authoritative source** via operator-chosen mechanism (e.g., local clone of the canonical GitHub repository, operator-mediated paste, or any other access method). This canonical declares only the contract — one-way Hub → CC flow, no back-flow, CC consumes Hub canonical without modifying its origin. Specific access mechanism is operator-personal infrastructure, not canonical-governed. |
 | Hub spec artifact main bodies | Hub-authored PRD / TDD / per-feature UX Design Spec instances / intent / acceptance / test-plan main | Provided as files in the monorepo at `specs/` paths or operator-transferred per CC session |
 | CD-authored design files (visual reference) | CD-exported design files | Operator-mediated transfer at TK-04 alongside Hub UX Design Spec instances; CC consumes design files as **visual reference** during code implementation (visual mockups, component arrangement, motion specifications). CC does NOT author UX-touching field values from design files — those were Hub-authored at TK-03 from the UX Design Spec instance |
 | Hub-authored UX Design Spec instance | Hub markdown at `apps/{slug}/specs/ux-design-spec/{feature-slug}.md` | The **primary textual UX specification** consumed by CC at TK-04+ for tier-1 code implementation; this is what CC reads for component selections, interaction patterns, a11y requirements, i18n considerations, responsive behavior. Authored by Hub Claude at TK-02 step 2.3 from CD-authored design files + DS Hub mirror grounding |
@@ -445,10 +445,10 @@ CC does not:
 ## 4.5 Operator action checklist (CC session)
 
 The operator in a CC session:
-1. Starts the CC session by inlining relevant Hub canonical via `INCEPTION_BOOTSTRAP.md`
+1. Ensures CC has access to current Hub canonical via the operator's chosen mechanism (e.g., local clone of the canonical GitHub repository) — specific mechanism is operator-personal infrastructure, not canonical-governed
 2. Reviews CC outputs (code / CC-internal canonical / implementation artifacts)
 3. Transfers CC outputs back to the Hub as needed:
-   - Codex review output → Hub judgment and archive
+   - Code review tool output → Hub judgment and archive
    - CC canonical index information → Hub canonical inventory update
    - DS code change notifications → Hub DSG §12 routing (subsequent CD SOT update + mirror re-sync)
 
@@ -742,7 +742,7 @@ For DS instance changes (per DSG §12):
 **Hub → operator → CC direction:**
 - Hub produces specification artifact main bodies (PRD, TDD, per-feature UX Design Spec instances, per-slice intent main, acceptance main, test-plan main)
 - Hub produces or updates constitutional canonical sources
-- Operator transfers content to CC via `INCEPTION_BOOTSTRAP.md` inlining mechanism (canonical) or by placing files at canonical paths in the monorepo (specs)
+- Operator transfers content to CC via the operator's chosen mechanism for each content type — for canonical: any access mechanism the operator chooses (e.g., local clone of the canonical GitHub repository, paste, etc.; mechanism is operator-personal infrastructure, not canonical-governed); for spec artifacts: placing files at canonical paths in the monorepo
 - Per-feature UX Design Spec instances land at `apps/{slug}/specs/ux-design-spec/{feature-slug}.md`; per-slice spec artifacts land at `apps/{slug}/specs/{intent,acceptance,test-plan}/{slice-id}.{md,yaml}`
 
 **CC → operator → Hub direction:**

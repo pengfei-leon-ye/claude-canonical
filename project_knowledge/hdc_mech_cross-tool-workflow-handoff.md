@@ -16,7 +16,7 @@
   - Hub-authored **UX Design Spec instance markdown** (Hub TK-02 Step 2.3 output) flows Hub → CC at TK-04 entry alongside other spec artifacts (§3.1)
   - The three-way distribution generates DS-related cross-tool flows in all three handoff paths (Hub ↔ CD, Hub ↔ CC, CD ↔ CC); cross-tool flows that carry DS-related content apply DSG rules accordingly. DSG §12 additive update path drives DS instance changes at the originating feature's M4 → merge-to-main milestone, at which point the DS markdown export sync re-aligns both mirrors
 - **Relationship to [RULE] Codex Plugin Usage**: **Migrated to CC substantive canonical (Phase 3)**. The CC → operator → Hub direction in §3.2 includes code review tool output flow; the specific code review tool (historically Codex) is governed by CC substantive Codex Plugin Usage canonical at CC. This source declares only the cross-workspace content contract; the fire-condition and output-processing rules live at CC.
-- **Relationship to [RULE] Workspace Topology**: Anchored. Constitutional canonical inception sync follows WT §10. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow WT §6.1 step 4.
+- **Relationship to [RULE] Workspace Topology**: Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; specific Hub canonical access mechanism at CC is operator-personal infrastructure (not canonical-governed) per Phase 4 Finding A revision. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4).
 - **Relationship to [MECH] Development Track Workflow**: Cross-tool handoffs operate continuously during AI-dev work driven by DTW TK sequence. This source does not author TK orchestration but provides the content contracts that DTW TKs invoke when they touch cross-tool flows. Key TK-bound flows:
   - TK-02 Step 2.2 entry: Hub → CD drop files (§2.1)
   - TK-02 Step 2.2 → Step 2.3: CD → Hub design files transfer (§2.2)
@@ -97,7 +97,7 @@ This source does not apply to:
 | [MECH] Application Lifecycle Handoff | Companion. Different lifecycle layer (cross-tool flows during AI-dev vs application-level terminal event). |
 | [RULE] Design System Governance | Anchored. Cross-tool flows carrying DS content apply DSG rules; DSG §12.5 lock-step invariant is realized by the DS markdown export sync mechanism declared here; DSG §12.7 owns the export specification this source consumes. |
 | [RULE] Codex Plugin Usage | **Migrated to CC substantive canonical (Phase 3)**. CC → operator → Hub direction includes code review tool output flow; the specific tool's contract lives at CC. |
-| [RULE] Workspace Topology | Anchored. Constitutional canonical inception sync follows WT §10. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow WT §6.1 step 4. |
+| [RULE] Workspace Topology | Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; specific Hub canonical access mechanism at CC is operator-personal infrastructure per Phase 4 Finding A revision. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). |
 | [MECH] Development Track Workflow | Continuous. Cross-tool flows operate throughout DTW TK sequence; this source provides the contracts DTW TKs invoke. TK-02 Step 2.2 + Step 2.3 and TK-04 entry are key trigger points. |
 | [TPL] UX Design Spec | Cross-referenced. CD-authored design files transferred via §2.2 are the source material for the Hub-authored UX Design Spec instance per [TPL] UX Design Spec at TK-02 Step 2.3; the instance markdown is transferred via §3.1 to CC at TK-04 entry. |
 | [TPL] family | Referenced. Hub spec artifact content contracts referenced from [TPL] PRD, [TPL] TDD, [TPL] Intent and Acceptance Interface Writing Standard, etc. |
@@ -300,7 +300,7 @@ Before integrating, the operator verifies:
 
 This direction carries Hub-produced content into CC for code implementation work. Multiple sub-flows exist:
 
-**Sub-flow A — Constitutional canonical inception sync**: All sources at `/mnt/project/hdc_*.md` (the Cat 4 family plus relevant meta-layer sources) transferred at workspace inception per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) mechanism. Subsequent canonical updates require re-running inception sync.
+**Sub-flow A — Hub canonical access at CC**: CC accesses the Hub canonical set (`hdc_*.md` files in the canonical repository) as a **read-only authoritative source**. This canonical declares the contract: one-way Hub → CC flow; CC consumes Hub canonical without modifying it at origin. The specific access mechanism (local clone of the canonical GitHub repository, operator-mediated paste, or any other method) is **operator-personal infrastructure** and not canonical-governed. Hub canonical updates flow to CC at the operator's discretion — typically at workspace inception and as needed when canonical evolves.
 
 **Sub-flow B — Spec artifact transfer at TK-03 → TK-04 entry**: Hub-authored spec artifacts transferred to the assigned_node working directory at TK-04 entry (or at hub-to-assigned_node onboarding when the unit starts). Content carried:
 - PRD main (TK-01 output)
@@ -329,11 +329,12 @@ Hub content exists as:
 
 ### 3.1.3 Operator actions
 
-**For Sub-flow A — constitutional canonical inception sync**:
+**For Sub-flow A — Hub canonical access at CC**:
 
-1. Start a CC session (assigned node)
-2. Inline relevant Hub constitutional canonical via the `INCEPTION_BOOTSTRAP.md` mechanism per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance)
-3. The mechanism produces an inlined snapshot in CC's working directory; subsequent canonical updates require re-running inception sync
+1. Ensure CC has access to the current Hub canonical source via the operator's chosen mechanism (e.g., local clone of the canonical GitHub repository synced to the latest commit; or operator-mediated paste of relevant content into the CC session)
+2. The specific mechanism is operator-personal infrastructure; this canonical does not prescribe it
+3. When Hub canonical evolves (new commit lands at `claude_ai_canonical/project_knowledge/`), the operator refreshes CC's access as needed (e.g., `git pull` on the local clone; re-paste; etc.)
+4. CC contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin
 
 **For Sub-flow B — spec artifact transfer at TK-03 → TK-04 entry**:
 
