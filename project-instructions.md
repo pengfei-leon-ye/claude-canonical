@@ -34,6 +34,7 @@ The canonical sources listed below are the detailed source of truth for their re
 For judgment principles applied across HR digital work, defer to [PRIN] HR Digital Decision Design Principles (cross-topic) and [PRIN] People Experience Design Principles (when People Experience is the topic lens). For policy architecture, defer to [POL] Digital Solution Policy Architecture Map. For stable journey reference content, defer to [REF] People Journey and Moments Catalog. For working template selection, defer to the [TPL] family.
 
 Conflict handling:
+
 - If UP conflicts with PI on a behavioral rule, follow UP.
 - If PI conflicts with an [OS] or [RULE] source on a project-internal rule, follow PI and surface the conflict.
 - If historical chat context or non-canonical material conflicts with active canonical sources, follow the active canonical sources unless I direct otherwise.
@@ -58,11 +59,12 @@ Follow [OS] §5 for the output family classification (management-system outputs,
 
 When updating Project Instructions (PI) or any canonical source in Project Knowledge (PK), deliver the **complete updated file** as a single rendered artifact in the current chat, not as a patch, diff, change-only snippet, or instruction set for me to apply manually.
 
-**Why this rule exists.** The hub Project workspace on Claude.ai does not currently support PK file download. My local copies of PI and PK canonical sources may be stale relative to the active versions in the project workspace, and any patch-based update I apply locally introduces copy-paste human-error risk that has repeatedly produced rework. Receiving the complete updated file lets me replace the project-knowledge entry in one step (upload the new file, then delete the old one) without depending on local file state.
+**Why this rule exists.** Patch-based revisions repeatedly produce paste-error rework — partial edits applied against potentially stale local copies have a track record of introducing inconsistencies that are hard to detect downstream. Under the current GitHub-sync model for canonical sources, the operator commits the complete updated file to the canonical repository and the project knowledge base re-indexes from that commit. Receiving the complete file from Hub Claude as a single artifact keeps the commit unit atomic, avoids the local-vs-remote divergence that patch flows are prone to, and preserves a clean revision boundary in git history for future audit traceability.
 
 **Operational contract.**
-- For PI updates: emit the entire revised PI as one artifact, ready to paste into the Project Instructions field in full.
-- For PK canonical source updates: emit the entire revised canonical source as one Markdown artifact, ready to upload to Project Knowledge.
+
+- For PI updates: emit the entire revised PI as one artifact, ready for the operator to paste into the Project Instructions field via the Claude.ai project settings UI in full.
+- For PK canonical source updates: emit the entire revised canonical source as one Markdown artifact, ready for the operator to commit (replacing the prior version) to the canonical repository under GitHub-sync; the project knowledge base re-indexes automatically from the commit.
 - A short change summary may accompany the artifact as supplementary commentary in the chat, but the artifact itself is always the complete, self-contained replacement file.
 - This rule applies to every revision regardless of size — even a single-line change is delivered as the full updated file.
 
@@ -71,6 +73,7 @@ When updating Project Instructions (PI) or any canonical source in Project Knowl
 # Automatic activations (pointers)
 
 The following rules activate automatically without being invoked; the canonical source owns the detail:
+
 - Project-level operating premises: per [OS] §0.1
 - Category-specific role anchors: per [OS] §0.2
 - Three-layer audience-surface matrix (canonical = AI-RAG-only optimization): per [OS] §0.1.4

@@ -20,7 +20,7 @@ Use this source as the operational baseline for:
 - Resolving boundary questions about whether a particular quality concern falls under the seven dimensions or under another governance mechanism
 
 Do not use this source as:
-- A general-purpose document quality checker for non-canonical files (the scope is bounded to canonical sources under `/mnt/project/hdc_*.md` per §1.4)
+- A general-purpose document quality checker for non-canonical files (the scope is bounded to canonical sources matching `hdc_*.md` in the project knowledge base per §1.4)
 - A replacement for [OS] §8.5 consistency-check rule (this audit operationalizes the rule; it does not supersede it)
 - A replacement for [OS] §12 anti-drift corrections (audit findings of certain shapes map onto §12 signals per §7.2; the §12 catalog remains the canonical anti-drift register)
 - A replacement for the source-ready generation protocol in [OS] §8.9 (the audit runs after generation; the protocol still owns the pre-generation declarations and same-pass generation discipline)
@@ -65,7 +65,7 @@ This source does not own:
 | [OS] §8.5.4 pairing maintenance | Defers to. New couplings discovered during audit are escalated to §8.5.4 for pairing assignment via §8.5.1a Tier discrimination |
 | [PRIN] §5 management mechanism over ad hoc control | Embodies. This source is itself a management mechanism replacing ad-hoc audit invocation |
 | [PRIN] §14 preserve ambiguity rather than fabricate resolution | Implements at audit time. Findings record ambiguity as a finding rather than auto-resolving it |
-| PI (system prompt; not under `/mnt/project/`) | Audits but does not own. PI structure and content are operator-managed via Claude.ai project settings; this audit surfaces quality findings against PI dimensions (adapted per §3.10) but does not define PI's structural standard |
+| PI (operator-managed via Claude.ai project settings; not part of the PK canonical set) | Audits but does not own. PI structure and content are operator-managed via Claude.ai project settings; this audit surfaces quality findings against PI dimensions (adapted per §3.10) but does not define PI's structural standard |
 
 ---
 
@@ -84,9 +84,9 @@ Audit canonical sources after creation or substantive revision against a stable 
 ## 1.3 Applicability scope
 
 In scope:
-- All canonical sources under `/mnt/project/hdc_*.md` (the seven prefix families per [OS] §9.2: `os`, `prin`, `pol`, `tpl`, `ref`, `rule`, `mech`)
+- All canonical sources in the project knowledge base matching `hdc_*.md` (the seven prefix families per [OS] §9.2: `os`, `prin`, `pol`, `tpl`, `ref`, `rule`, `mech`)
 - Both new canonical source creation and substantive revision to existing canonical sources
-- Project Instructions (PI) as configured in the Claude.ai project settings. Although PI is not stored under `/mnt/project/`, it sits in the three-layer harness (UP > PI > PK) as the project-level instruction layer that shapes Hub Claude behavior with effect comparable to a canonical source. PI is therefore subject to this audit when substantively revised or when explicit audit is requested.
+- Project Instructions (PI) as configured in the Claude.ai project settings. Although PI is not part of the PK canonical source set, it sits in the three-layer harness (UP > PI > PK) as the project-level instruction layer that shapes Hub Claude behavior with effect comparable to a canonical source. PI is therefore subject to this audit when substantively revised or when explicit audit is requested.
 
 Out of scope:
 - User Preferences (UP) — operator's account-level harness that crosses projects
@@ -413,7 +413,7 @@ PI differs from canonical sources in three structural ways that require dimensio
 
 - PI has no §10 header
 - PI is pointer-only by design — its preamble explicitly states "PI does not restate behavioral rules already specified in UP, and does not duplicate content already specified in PK"; rationale lives in PK
-- PI is operator-managed via the Claude.ai project settings UI rather than via file authoring under `/mnt/project/`
+- PI is operator-managed via the Claude.ai project settings UI rather than via canonical-source authoring within the PK
 
 The seven dimensions adapt as follows:
 
@@ -421,7 +421,7 @@ The seven dimensions adapt as follows:
 |---|---|---|
 | **D1** Structural Integrity | Yes | Apply ME/CE within PI's own section ontology (typical sections: Priority/Conflict, Role, Boundaries, Output Classification, Automatic Activations, Response Mode, Grounding). Do not apply [OS] §10 chapter-numbering convention — PI has no canonical chapter scheme |
 | **D2.1** Internal Coherence | Yes | Standard within-source coherence checks per §3.3.1 |
-| **D2.2** External Coherence | Yes, with header check removed | [OS] §10 header conformance does NOT apply (PI has no §10 header). External coherence for PI is: (a) PI's canonical-source enumeration matches the actual canonical set under `/mnt/project/`; (b) PI cross-references to UP and to canonical sources resolve to existing content; (c) PI's "defer to X" pointers point to current source names and current section numbers |
+| **D2.2** External Coherence | Yes, with header check removed | [OS] §10 header conformance does NOT apply (PI has no §10 header). External coherence for PI is: (a) PI's canonical-source enumeration matches the actual canonical set in the project knowledge base; (b) PI cross-references to UP and to canonical sources resolve to existing content; (c) PI's "defer to X" pointers point to current source names and current section numbers |
 | **D3** Non-Redundancy | Yes, with explicit success criterion | PI's own preamble declares "PI does not restate behavioral rules already specified in UP, and does not duplicate content already specified in PK". D3 audits this principle directly against PI's text — any inline restatement of UP rules or PK content is a D3 finding regardless of whether the restatement is semantically faithful |
 | **D4** Operationalizability | Yes | Standard two-readers test per §3.5 |
 | **D5** Soundness | Yes | Standard purpose-traceability and necessity test per §3.6 |
@@ -556,14 +556,14 @@ Each finding's recommended action states what to change, where, and why. Avoid h
 
 When a T1 or T2 trigger fires per §2.2, Hub Claude executes the audit using the audited source's full content (via filesystem or canonical search), its header per [OS] §10, the set of canonical sources cited by or citing the audited file, and the trigger tier per §2.2.
 
-**Verification channel priority for canonical source content**: Hub Claude has two channels through which canonical source content is accessible — the conversation-level filesystem snapshot at `/mnt/project/` and the real-time Claude.ai project knowledge base index queried via `project_knowledge_search`. These two channels are not always synchronized:
+**Verification channel priority for canonical source content**: Hub Claude accesses canonical source content primarily through the Claude.ai project knowledge base index queried via `project_knowledge_search` (the RAG layer). A filesystem view (historically at `/mnt/project/`) may additionally be exposed when present, but is secondary. The two channels are not always synchronized:
 
-- The `/mnt/project/` filesystem snapshot is session-level — captured at conversation start and frozen for the duration of that conversation. It does not refresh when the operator uploads new versions mid-conversation.
-- The `project_knowledge_search` index is real-time — it reflects the operator's most recent upload state.
+- The RAG layer reflects the project knowledge base's current indexed state. Under the GitHub-sync mechanism, the RAG layer is re-indexed asynchronously after each commit to the canonical repository.
+- The filesystem view, when present, is captured at conversation start and frozen for the duration of that conversation; it does not refresh mid-conversation. Under GitHub-sync, the filesystem view may be empty or partially populated.
 
-**Operational rule**: when verifying the post-fix state of a recently-uploaded canonical source within the same conversation in which the upload occurred, `project_knowledge_search` is the authoritative channel. A `/mnt/project/` inconsistency in that scenario is a snapshot timing artifact, not a finding. When the audit itself is initiated in a fresh conversation (snapshot taken after all uploads complete), the two channels normally agree and either is admissible.
+**Operational rule**: when verifying the post-fix state of a recently-committed canonical source within the same conversation in which the commit occurred, `project_knowledge_search` is the authoritative channel; allow time for re-indexing to complete before treating the search result as definitive. A filesystem-view inconsistency in that scenario (or its absence) is a snapshot/indexing-timing artifact, not a finding. When the audit itself is initiated in a fresh conversation (after the most recent commits have completed indexing), the RAG layer remains authoritative; the filesystem view, if populated, is admissible only as a supplementary check.
 
-Audit reports that surface `/mnt/project/` inconsistencies must explicitly state which channel was the authority used and rule out snapshot-timing artifacts before classifying the inconsistency as a finding.
+Audit reports that surface filesystem-view inconsistencies must explicitly state which channel was the authority used and rule out snapshot/indexing-timing artifacts before classifying the inconsistency as a finding.
 
 ## 6.2 Sequencing of dimensions
 

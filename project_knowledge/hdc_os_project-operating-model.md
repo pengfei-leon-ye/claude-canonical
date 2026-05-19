@@ -91,6 +91,30 @@ Canonical sources (PK + PI) exist to drive AI behavior at retrieval time. Their 
 
 **Relationship to §0.1.3**: §0.1.3 governs operator-consumed surfaces; §0.1.4 governs the canonical layer. The two premises are complementary, not contradictory — each governs the surface where it applies. At the canonical layer, §0.1.4 explicitly overrides §0.1.3.
 
+### 0.1.5 Premise 5 — Constitutional / substantive boundary at the workspace interface
+
+Hub canonical sources serve two functionally distinct purposes:
+
+- **Constitutional content** — cross-workspace interface contracts, governance rules, and existence-declaring rules. Constitutional content must live at Hub because it governs cooperation between workspaces (Hub / CD / CC) and across time. Examples: TK-chain existence and Hub/CC ownership boundaries, M-gate body existence and the Test Evidence Report interface, tier-separation discipline, handoff readiness contracts, anti-drift rules, and audit governance.
+
+- **Substantive content** — workspace-internal operational rules: specific tool choices, parameter values, paths, step sequences, configuration specifics. Substantive content belongs at the workspace that executes it. Examples: specific lint rules, TK-NN operational step details, M-N gate criteria, repository layout specifics, agent roster entries, skill catalog entries.
+
+**Workspace ownership under this boundary**:
+
+| Workspace | Owns | Does not own |
+|---|---|---|
+| Hub canonical (PK + PI) | All cross-workspace constitutional content; Hub-internal substantive content | CC-internal substantive content |
+| CC canonical (`.claude/canonical/` per [REF] CC Project Memory Bank Layout) | CC-internal substantive content; CC-side audit + maintenance mechanisms | Constitutional rules (CC consumes them by reference) |
+| CD | Design files as SOT for design system content (per [RULE] Design System Governance); no canonical layer of its own | Constitutional rules and substantive Hub/CC operational content |
+
+**Design test for source placement**: A rule belongs at Hub if and only if its change requires another workspace to respond (interface re-alignment, handoff contract adjustment, audit re-verification). Otherwise the rule belongs at the workspace that executes it.
+
+**Relationship to §0.1.4**: §0.1.4 governs canonical-layer RAG-optimization regardless of which workspace owns the canonical. Premise 5 governs which canonical content lives at which workspace. The two premises are orthogonal — both constraints apply to every canonical source independently.
+
+**Migration transitional state**: When a substantive rule currently resides at Hub PK but per the design test belongs at CC, the rule is a migration candidate. During the migration period, Hub-side substantive residue is tolerated; the design target is zero Hub-side CC-domain substantive content. The per-source migration disposition is owned by [REF] Hub-CD-CC Architecture.
+
+**Priority interaction**: PI encodes the workspace-level priority chain that operationalizes this premise. When CC `.claude/canonical/` substantive content and Hub constitutional rules potentially conflict, constitutional rules win (governance authority). When Hub-side legacy substantive residue (pending migration) and CC `.claude/canonical/` substantive content conflict, CC wins (domain authority) and the Hub-side residue is flagged as pending migration. See PI "Priority and conflict handling" for the layered priority encoding.
+
 ---
 
 ## 0.2 Category-specific role anchors
@@ -150,10 +174,10 @@ Project Instructions and all canonical sources in Project Knowledge constitute t
 
 Hub Claude and Claude Code (CC) operate against disjoint file-system contexts:
 
-- **Hub Claude** reads canonical sources from the project knowledge base (`/mnt/project/`). It does not read Development Track repository files unless they are explicitly attached to a hub conversation.
-- **Claude Code** reads files from its local Development Track repository (CLAUDE.md hierarchy, `.claude/agents/*.md`, `.claude/skills/{name}/SKILL.md`, `apps/**`, `specs/**`, etc.). It does not read hub canonical sources at `/mnt/project/`.
+- **Hub Claude** reads canonical sources from the project knowledge base via the RAG layer (`project_knowledge_search` and equivalent retrieval APIs). The hub may additionally expose a filesystem view (historically at `/mnt/project/`); when present, this view is secondary and may diverge from the RAG layer per §8.5.3a. Hub Claude does not read Development Track repository files unless they are explicitly attached to a hub conversation.
+- **Claude Code** reads files from its local Development Track repository (CLAUDE.md hierarchy, `.claude/agents/*.md`, `.claude/skills/{name}/SKILL.md`, `apps/**`, `specs/**`, etc.). It does not read hub canonical sources from the hub's RAG layer or any hub-side filesystem view.
 
-**Implication for cross-audience referencing**: any constraint that a hub canonical source places on CC behavior must reach CC by being **inlined into a CC-readable file** (typically the CLAUDE.md hierarchy, an agent definition, a SKILL.md, or a hub-produced spec file destined for CC consumption — project-level singletons under monorepo-root `specs/` or app-scoped artifacts under `apps/{app-slug}/specs/**`). Path-style references to hub canonical files (e.g., `/mnt/project/hdc_rule_*.md`), or a bare `[RULE] X §N` cross-reference without inlined content, are not resolvable on the CC side and must not appear in CC-targeted files.
+**Implication for cross-audience referencing**: any constraint that a hub canonical source places on CC behavior must reach CC by being **inlined into a CC-readable file** (typically the CLAUDE.md hierarchy, an agent definition, a SKILL.md, or a hub-produced spec file destined for CC consumption — project-level singletons under monorepo-root `specs/` or app-scoped artifacts under `apps/{app-slug}/specs/**`). Path-style references to hub canonical files (e.g., any hub-side filesystem path such as `/mnt/project/hdc_rule_*.md`), or a bare `[RULE] X §N` cross-reference without inlined content, are not resolvable on the CC side and must not appear in CC-targeted files.
 
 **Operational mechanism**: the canonical-to-runtime-artifact pairings registered in §8.5.2 are the operational mechanism for this inlining. Hub canonical is the SOT; CC-side runtime artifacts (CLAUDE.md, agent definitions, SKILL.md, hub-produced spec files) are downstream mirrors carrying the inlined content. When the SOT changes, the mirror is updated under same-revision discipline per §8.5.2.
 
@@ -734,12 +758,14 @@ This discipline also applies to navigation/index sections inside canonical sourc
 
 ### 8.5.3a Grep-verify operational layer
 
-The grep-verify discipline in §8.5.3 runs against **the canonical set as visible to Hub Claude through `project_knowledge_search`** (the project knowledge base / RAG layer), not against the `/mnt/project/` filesystem view that Hub Claude exposes through bash tools. The two views may diverge: a canonical source present in the RAG layer may not be mounted to `/mnt/project/`, and vice versa. The RAG layer is the authoritative canonical-set view because it is what Hub Claude actually consumes during conversation per §1.4 audience model.
+The grep-verify discipline in §8.5.3 runs against **the canonical set as visible to Hub Claude through `project_knowledge_search`** (the project knowledge base / RAG layer). The RAG layer is the authoritative canonical-set view because it is what Hub Claude actually consumes during conversation per §1.4 audience model.
+
+Under the current GitHub-sync mechanism, the canonical repository (e.g., the operator's `claude-canonical` GitHub repo) commits flow into the RAG layer via the project knowledge base re-indexing pipeline. The hub may additionally expose a filesystem view (historically at `/mnt/project/`); when present, this view is secondary and may diverge from the RAG layer for indexing-timing or mounting reasons. The RAG layer wins on any divergence.
 
 When verifying citations during a revision:
 - Use `project_knowledge_search` with the citation target (e.g., `[OS] §4.3`) as the query; confirm the target is reachable and content matches the cited claim
-- For exact-string verification (e.g., a § number rename), bash grep on `/mnt/project/` is acceptable as a supplementary check on whatever subset of the canonical set is filesystem-mounted, but is not authoritative when the two views diverge — the RAG layer wins
-- When the operator commits to a structural change (rename, renumbering, retirement), ensure the change reaches both views before declaring §8.5.3 verified; if the project knowledge base ingestion is asynchronous (typical), wait for ingestion to complete before final sign-off
+- For exact-string verification (e.g., a § number rename), bash grep against the canonical repository clone (or the filesystem view if mounted) is acceptable as a supplementary check, but is not authoritative when the view diverges from the RAG layer — the RAG layer wins
+- When the operator commits to a structural change (rename, renumbering, retirement), ensure the change reaches the RAG layer before declaring §8.5.3 verified; if the project knowledge base ingestion is asynchronous (typical under GitHub-sync), wait for ingestion to complete before final sign-off
 
 This rule applies to canonical-to-canonical citations only. Canonical-to-runtime-artifact (C2R) pairings in §8.5.2 verify against the Development Track repository per the C2R subtype's own discipline.
 
@@ -898,7 +924,7 @@ A canonical source is **retired** rather than deleted when its content is fully 
 
 1. **Confirm absorption or obsolescence**: every load-bearing rule in the source being retired must either (a) already exist in another canonical source, or (b) be promoted to another canonical source in the same revision that retires this one. Orphan rules — rules that disappear from the canonical set entirely — are not permitted as a retirement side effect.
 
-2. **Mark the file, do not delete it**: rename the source file to add a `.RETIRED.YYYY-MM-DD` suffix (e.g., `hdc_tpl_lessons-harvest-memo.RETIRED.2026-03-15.md`) and place a single-paragraph retirement notice at the top of the file body declaring (a) the retirement date, (b) the canonical source(s) that absorb the prior content, and (c) a back-pointer to the §8.10 reserved-empty registry entry if applicable. The file remains in `/mnt/project/` for historical resolution of past references.
+2. **Mark the file, do not delete it**: rename the source file to add a `.RETIRED.YYYY-MM-DD` suffix (e.g., `hdc_tpl_lessons-harvest-memo.RETIRED.2026-03-15.md`) and place a single-paragraph retirement notice at the top of the file body declaring (a) the retirement date, (b) the canonical source(s) that absorb the prior content, and (c) a back-pointer to the §8.10 reserved-empty registry entry if applicable. The file remains in the canonical repository (and thereby in the project knowledge base after re-indexing) for historical resolution of past references.
 
 3. **Update §8.5.2 pairings**: every pairing the retired source participates in is handled per §8.5.4 — remove the §8.5.2 row, convert the §8.5.5 catalog entry to a single-line `RETIRED` record. ID reuse is forbidden.
 
@@ -1282,7 +1308,7 @@ Claude should surface anti-drift corrections when any of the following happen:
 - a Cat 4 source's §0 / §1 boundary chapter materially changes its owned scope without the §8.5.6 Cat 4 source map being re-verified in the same revision
 - a new coupling is registered as `P-NN` in §8.5.2 without applying §8.5.1a Tier discrimination first; or a Tier B coupling is registered as `P-NN` despite being fully discoverable via semantic search and explicit cross-reference in the source's `Relationship to ...` header field
 - a §8.5.7 harness re-architecture threshold is crossed (active pairings > 50, anti-drift dimensions > 20, canonical sources > 30, single source > 1500 lines, single source's `Pairings I participate in` > 10 for non-hub sources or > 12 for hub-pattern sources) without an Options Paper evaluation initiated — adding more pairings, sources, or anti-drift dimensions before the evaluation completes is itself a drift signal
-- a CC-targeted file (CLAUDE.md, `.claude/agents/*.md`, `.claude/skills/{name}/SKILL.md`, or a hub-produced spec file destined for CC consumption — project-level singletons under monorepo-root `specs/` or app-scoped artifacts under `apps/{app-slug}/specs/**`) carries a bare cross-reference to a hub canonical source — a path under `/mnt/project/`, or a `[RULE] X §N` / `[MECH] Y §N` reference without the substantive inlined content the reference depends on — violating the visibility boundary declared in §1.4
+- a CC-targeted file (CLAUDE.md, `.claude/agents/*.md`, `.claude/skills/{name}/SKILL.md`, or a hub-produced spec file destined for CC consumption — project-level singletons under monorepo-root `specs/` or app-scoped artifacts under `apps/{app-slug}/specs/**`) carries a bare cross-reference to a hub canonical source — any hub-side filesystem path (e.g., `/mnt/project/...`), or a `[RULE] X §N` / `[MECH] Y §N` reference without the substantive inlined content the reference depends on — violating the visibility boundary declared in §1.4
 - a canonical source carries content that does not drive AI behavior at retrieval time — derived statistics, derived counts, restated boilerplate of rules owned elsewhere, "Why X exists" motivation sub-sections, historical status snapshots that are superseded, decorative meta-text, operator-navigation tables, summary closures — violating §0.1.4 AI-consumer-RAG-optimization premise
 
 ## 12.1 Lite / Deep response mode
