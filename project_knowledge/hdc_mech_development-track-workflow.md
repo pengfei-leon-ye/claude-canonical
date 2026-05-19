@@ -3,41 +3,43 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Workflow Orchestration Specification
 - **Status**: Active canonical
-- **Role**: Stable source for the end-to-end task sequence (TK-01 through TK-13) that spans hub-side specification production (with Claude Design participation embedded inside TK-02 for per-feature design files when Tier 1 is involved) and Claude Code–side implementation, defining task identity, inputs, outputs, triggers, and human intervention points from per-phase initialization through staging deploy on `main`, including per-app initialization and multi-node parallel execution. Production deployment is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2 and is not covered by this source.
+- **Role**: Constitutional declaration of the end-to-end task sequence (TK-01 through TK-13) and the cross-workspace orchestration contract. Hub-side ownership: full substantive content for Hub-authored tasks (TK-01 / TK-02 with sub-steps / TK-03 / TK-12 operator gate), the unit_type catalog as cross-workspace interface, the per-task workspace mapping, the milestone-to-task mapping, the transition mechanism catalog, the human intervention budget, the failure routing matrix, cross-workspace anti-drift signals, and Hub Claude soft compliance trigger phrases (Hub-internal substantive). CC-executed tasks (TK-04 through TK-11 and TK-13) are declared at constitutional identity + Hub-facing interface level only; their detailed step-by-step execution mechanics live at CC substantive DTW canonical.
 - **Source Category**: Cat 4
 - **Management-System Role**: Workflow orchestration specification; outside L1-L5 hierarchy; not itself an L2–L5 artifact
-- **Relationship to [OS]**: Detailed task-level expansion of the Development Track routing defined in [OS] §7.1. Cross-source ownership map for the eight Cat 4 [RULE] / [MECH] sources is owned by [OS] §8.5.6.
+- **Relationship to [OS]**: Detailed task-level expansion of the Development Track routing defined in [OS] §7.1. The constitutional / substantive boundary in [OS] §0.1.5 (Premise 5) applies: Hub-side residue carries the constitutional skeleton + Hub-authored substantive content; CC-side substantive canonical owns the CC-executed task mechanics.
 - **Relationship to [PRIN]**: Applies HR Digital Decision Design Principles §5 (management mechanism over ad hoc control), §6 (operation management and value realization by design), §10 MECE, §12 make important work executable.
-- **Relationship to [REF] Hub-CD-CC Architecture**: TK sequence operates across the three workspaces (Hub / CD / CC) defined in [REF] Hub-CD-CC Architecture §1. Hub-side TKs (TK-01, TK-02 Step 2.1 + Step 2.3, TK-03) author content per [REF] Hub-CD-CC Architecture §5.1 content pillar; CD-side participation embedded inside TK-02 Step 2.2 produces per-feature design files when `tier_1_involved=true` per CD's presentation pillar (per the revised §3.4.1 — CD outputs are design files, not markdown specs); CC-side TKs (TK-04 onwards) consume content for implementation per the implementation pillar.
-- **Relationship to [MECH] Cross-Tool Workflow Handoff**: Three-path handoffs are referenced at the relevant TK transitions:
+- **Relationship to [REF] Hub-CD-CC Architecture**: TK sequence operates across the three workspaces (Hub / CD / CC). Hub-side TKs (TK-01, TK-02 sub-steps, TK-03) author content per the content pillar; CD-side participation embedded inside TK-02 Step 2.2 produces per-feature design files when `tier_1_involved=true`; CC-side TKs (TK-04 onwards) consume content for implementation per the implementation pillar.
+- **Relationship to [MECH] Cross-Tool Workflow Handoff**: Three-path handoffs at the relevant TK transitions:
   - TK-01 → TK-02 hub-side: PRD consumed in hub for TDD authoring
-  - TK-02 Step 2.1 → Step 2.2 (Hub → CD): Hub PRD/TDD relevant sections transferred to CD as drop files per [MECH] Cross-Tool Workflow Handoff §2.1
-  - TK-02 Step 2.2 → Step 2.3 (CD → Hub): CD-produced design files transferred to Hub per [MECH] Cross-Tool Workflow Handoff §2.2 for Hub-side design-file quality check + UX Design Spec instance authoring
-  - TK-03 → TK-04 (Hub → CC): completed per-slice spec artifacts (intent / acceptance / test-plan) + per-feature UX Design Spec instance + CD-authored design files (as visual reference) transferred to assigned_node working directory per [MECH] Cross-Tool Workflow Handoff §3.1
-  - TK-11 Codex review output → Hub: per [MECH] Cross-Tool Workflow Handoff §3.2 and [RULE] Codex Plugin Usage
+  - TK-02 Step 2.1 → Step 2.2 (Hub → CD): Hub PRD/TDD relevant sections transferred to CD per [MECH] Cross-Tool Workflow Handoff §2.1
+  - TK-02 Step 2.2 → Step 2.3 (CD → Hub): CD-produced design files transferred to Hub per §2.2 for Hub-side design-file quality check + UX Design Spec instance authoring
+  - TK-03 → TK-04 (Hub → CC): completed per-slice spec artifacts + per-feature UX Design Spec instance + CD-authored design files transferred to assigned_node working directory per §3.1
+  - TK-11 code review output → Hub: per §3.2 (the specific code review tool — historically Codex — is governed by CC substantive canonical)
   - DS markdown export sync at TK-12 M4 merge (when DS instance changed): CD → Hub mirror + CC mirror, in lock-step per [RULE] Design System Governance §12.5 / §12.7
-- **Relationship to [RULE] Workspace Topology**: Companion. DTW §4 imports WT §4 unit_type catalog + §6 node assignment; hub-to-assigned_node onboarding (after TK-02) implements WT §6.1 step 4.
-- **Relationship to [RULE] Claude Code Architecture Rules**: Imports CCAR §1 tiers + §5.1 subagents + §X scopes + §Y paths + §Z skill loading.
-- **Relationship to [RULE] Codex Plugin Usage**: References Codex commands; this source declares when Codex fires in the TK sequence (TK-11). Cross-model review reminders at TK-01 / TK-02 sign-offs ([Enforcement·reminder-only]) are advisory; they do not constitute Codex invocations governed by [RULE] Codex Plugin Usage.
-- **Relationship to [MECH] CI/CD Milestone Policy**: Imports M0–M5 gate semantics; task-to-milestone mapping reflected in §0.3 with TK-13 as the terminal CI/CD task.
+- **Relationship to [RULE] Workspace Topology**: Companion. DTW imports WT constitutional residue's unit_type catalog and node-assignment interface contract; hub-to-assigned_node onboarding (after TK-02) implements WT's node assignment workflow.
+- **Relationship to [RULE] Claude Code Architecture Rules**: Imports CCAR constitutional residue's tier identity; CC substantive CCAR owns the subagent roster, context scopes, paths, and skill loading rules consumed by TK-04+.
+- **Relationship to [MECH] CI/CD Milestone Policy**: Imports M0–M5 gate identity from CI/CD constitutional residue; task-to-milestone mapping reflected in §0.3 with TK-13 as the terminal CI/CD task.
 - **Relationship to [MECH] Application Lifecycle Handoff**: TK-12 merges feature branches directly to `main`. Application-level handoff to a human dev team is a distinct lifecycle event after one or more apps reach maturity per [MECH] Application Lifecycle Handoff §2; the AI-dev CI/CD chain terminates at TK-13 staging deploy.
-- **Relationship to [RULE] Design System Governance**: TK-02 Step 2.3 implements the DSG §13.3 Hub-side consumption discipline (design file quality check + UX Design Spec instance authoring grounded in Hub DS mirror at `hdc_ref_design-system.md`). DSG §12 additive change requests are surfaced at TK-02 Step 2.3 when authoring the UX Design Spec instance reveals a gap in the current DS; CD authors the corresponding instance content change at the originating feature's M4 → merge-to-main milestone per DSG §12.5, at which point both DS mirrors (Hub + CC) are re-synced via CD-generated DS markdown export.
+- **Relationship to [RULE] Design System Governance**: TK-02 Step 2.3 implements DSG §13.3 Hub-side consumption discipline (design file quality check + UX Design Spec instance authoring grounded in Hub DS mirror at `hdc_ref_design-system.md`). DSG §12 additive change requests are surfaced at TK-02 Step 2.3 when authoring the UX Design Spec instance reveals a gap in the current DS.
 - **Relationship to [TPL] sources**: References TDD template, Intent-Acceptance Writing Standard, PRD+TDD Conversion Spec, Test Plan YAML Schema, UX Design Spec, and Design System Governance as artifact contracts.
-- **Relationship to custom skills**: References `hdc-arco-enterprise-ui` (SK-F) and `hdc-wcag-accessibility-checker` (SK-W) as runtime capabilities; SK-F loads in TK-04 onwards on assigned_node for Tier 1 code generation; SK-W is on-demand only.
-- **Pairings I participate in**: P-03 (with [MECH] CI/CD §2), P-09 (with [MECH] CI/CD §2.0), P-10 (with [RULE] WT §6.2 marker schema), P-31 (with [TPL] PRD §0.7 + [TPL] TDD §0.7), P-32 (with [RULE] Codex §1.4 + [MECH] CI/CD §2.0), P-38 (with [MECH] Dev-Loopback §4 + §6)
+- **Pairings I participate in**: P-03 (with [MECH] CI/CD constitutional residue §2 — milestone-to-TK anchoring), P-09 (with [MECH] CI/CD constitutional residue §2.7 — per-unit-type milestone profile), P-10 (with [RULE] WT constitutional residue §4 — node-assignment marker schema), P-31 (with [TPL] PRD §0.7 + [TPL] TDD §0.7), P-38 (with CC substantive Dev-Loopback canonical — constitutional pairing reduced to handoff-interface level). Pre-split pairings P-32 / P-49 retired at this Hub residue level; substantive obligations migrate to CC.
 
-## How to use this source
+## How to use this source (Hub-side)
 
-Use this source when planning task sequence, deciding agent invocation, setting up hooks or Routines, onboarding new agent definitions, introducing a new app into the monorepo, or troubleshooting where in the TK sequence a slice has stalled.
+Use this source when:
+- Authoring Hub-side TDDs or handoff documentation that reference TK identifiers or per-unit-type task paths
+- Reasoning about which workspace executes which TK
+- Authoring TK-01, TK-02, TK-03 specifications (full Hub-authored substantive content below)
+- Coordinating the M4 operator gate at TK-12
+- Confirming a transition mechanism (§5) used between workspaces
 
-Do not use as:
-- a tier architecture reference ([RULE] Claude Code Architecture Rules)
-- a multi-node infrastructure reference ([RULE] Workspace Topology)
-- a three-workspace topology reference ([REF] Hub-CD-CC Architecture)
-- a milestone semantics reference ([MECH] CI/CD Milestone Policy)
-- a cross-tool handoff content contract reference ([MECH] Cross-Tool Workflow Handoff)
-- an application-level handoff reference ([MECH] Application Lifecycle Handoff)
-- a sprint plan or project management handbook
+Do not use this source as:
+- A reference for CC-executed TK detailed mechanics (CC substantive DTW canonical)
+- A subagent invocation reference for TK-04+ (CC substantive)
+- A specific tool/command reference within TK-04+ execution (CC substantive)
+- A tier architecture reference ([RULE] CCAR constitutional residue)
+- A multi-node infrastructure reference ([RULE] WT constitutional residue)
+- A milestone semantics reference ([MECH] CI/CD constitutional residue)
 
 ---
 
@@ -451,214 +453,67 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 
 ---
 
+## TK-04 through TK-11 — CC-executed task block (constitutional interface)
+
+> **Constitutional scope at Hub residue**: TK-04 through TK-11 are CC-executed tasks. Their detailed execution mechanics (specific subagent invocations, tool commands, sub-steps, internal transitions) are CC substantive content owned by CC substantive DTW canonical. Hub-side residue declares only constitutional identity and Hub-facing interface per task.
+
 ## TK-04: M0 entry self-check + spec consumption + code writing
 
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S2 (entry) → S3 (code writing); **Milestone**: M0 entry self-check folded in; M1 code writing
-- **Role sequence**:
-  1. CC main loop performs **M0 entry self-check** on all received specs: PRD (TK-01), TDD (TK-02 Step 2.1 outputs), per-slice intent / acceptance / test-plan (TK-03 outputs), and — when Tier 1 involved — the Hub-authored UX Design Spec instance markdown for the feature (TK-02 Step 2.3 output) plus the CD-authored design files (visual reference accompanying the UX Design Spec instance). The self-check verifies: file presence completeness; trace fields consistency (`app_slug`, `phase_number`, `feature_slug`, `slice_id`); component references in intent.md UX brief are present in DS instance via SK-F (CC mirror `specs/design-system.md`); UX Design Spec instance references match Hub mirror version metadata against CC mirror (lock-step check per [RULE] DSG §12.5); no stale references to retired paths per [RULE] DSG + [TPL] Writing Standard §0.2
-  2. CC executes `gh issue edit` to author or update GitHub Issue marker block per [RULE] Workspace Topology §6.2 (`<!-- HDC-NODE-ASSIGNMENT --> ... <!-- /HDC-NODE-ASSIGNMENT -->` containing `assigned_node`, `assigned_at`, `feature_branch`, `status: in-progress`)
-  3. CC executes `git commit && git push` for the spec bundle (first commit on the feature branch contains the Hub-produced specs including the Hub-authored UX Design Spec instance markdown when present)
-  4. CC main loop (code-writer) with **SK-F auto-loaded for Tier 1 work** begins code generation per slice scope
-- **Inputs**: intent (TK-03); acceptance (TK-03); test-plan (TK-03); TDD (TK-02 Step 2.1); openapi (TK-02 Step 2.1); **Hub-authored UX Design Spec instance markdown** (when Tier 1, from TK-02 Step 2.3, forwarded from Hub via [MECH] Cross-Tool Workflow Handoff §3.1); **CD-authored design files** (when Tier 1, as visual reference accompanying the UX Design Spec instance — CC reads textual annotations only; visual files are operator-side reference); DS instance content via CC mirror at `specs/design-system.md` (loaded by SK-F at runtime); `.claude/skills/hdc-arco-enterprise-ui/SKILL.md` (loaded at session start)
-- **Outputs**:
-  - **GitHub Issue body marker block authored or updated** per [RULE] Workspace Topology §6.2
-  - First commit on feature branch containing the Hub-produced spec bundle (intent / acceptance / test-plan + when Tier 1, the Hub-authored UX Design Spec instance markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`)
-  - Code: `apps/{app-slug}/src/frontend/**` / `apps/{app-slug}/src/bff/**` / `packages/domain/{domain-name}/src/**` per slice scope; `apps/{app-slug}/src/frontend/i18n/{locale}.json` entries when Tier 1 introduces user-facing text
-- **Prerequisite**: TK-03 sign-off (Hub-side cross-model review consensus + artifacts transferred to assigned_node)
-- **Trigger**: **Manual** (operator starts CC session on assigned_node); CC autonomous within slice scope thereafter
-- **Completion**: M0 self-check passes (no missing or inconsistent specs; no stale references; Hub mirror version == CC mirror version per DSG §12.5 lock-step); marker block present and well-formed; first commit pushed; code compiles in every affected tier; PostToolUse hook static analysis passes; **Tier 1: components from DS authorized list; tokens from DS authorized list only** (enforced via SK-F reading CC mirror)
-- **Failure routing**: M0 self-check finds spec inconsistency → CC raises to operator; operator routes back to Hub TK-03 for re-conversion. M0 self-check finds Hub/CC mirror version mismatch → operator triggers DS markdown export resync per [RULE] DSG §12.5 lock-step invariant. Static analysis critical → CC fixes in TK-04; **Tier 1 Design System drift → CC rewrites with SK-F reinforcement; repeated drift → escalate**; repeated failure → Notification hook
-- **Human intervention**: **Conditional** at M0 self-check (only fires when self-check surfaces inconsistency); steady state **None** during code writing; escalation **Conditional**
-
-**Multi-node note**: All slices belonging to a unit execute on the same assigned_node per unit-level affinity in [RULE] Workspace Topology §4.2. Same-node multi-slice parallelism uses git worktree isolation per [RULE] Workspace Topology §4.3.
-
-**Unit_type applicability**: TK-04 runs for `feature` and `walking_skeleton` units. `app_integration` units skip TK-04 (no production feature code and no per-slice M0 entry; integration test code authoring happens at TK-08). For a `walking_skeleton` unit, TK-04 produces the six outputs of [RULE] Workspace Topology §4.6.3 within the single slice's scope.
-
----
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: Entry point for CC's slice implementation. Absorbs the M0 design-freeze function as a lightweight intake check (spec bundle intact upon CC reception) — not a re-decision of design freeze (per [MECH] CI/CD constitutional residue §2.1).
+- **Hub-facing interface — inputs**: Per-slice spec bundle handed off from TK-03 (intent.md, acceptance.yaml, test-plan.yaml + per-feature UX Design Spec instance + design files as visual reference) per [MECH] Cross-Tool Workflow Handoff §3.1
+- **Hub-facing interface — outputs**: First commit on feature branch; GitHub Issue marker block updated to `status: in-progress` per [RULE] WT constitutional residue §4.2
+- **Substantive execution detail**: CC substantive DTW canonical
 
 ## TK-05: M1 auto cycle (whitebox testing)
 
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S3; **Milestone**: M1
-- **Role sequence**:
-  1. TOOL (lint / type / static analysis)
-  2. A1 (test-writer-whitebox, unit phase)
-  3. TOOL (unit runner)
-  4. A1 (integration-internal phase)
-  5. TOOL (integration runner)
-- **Inputs**: `apps/{app-slug}/src/**` and (when slice touches Tier 3) `packages/domain/{domain-name}/src/**`; test-plan filtered to `test_type ∈ {unit, integration-internal}`; TDD; intent; acceptance
-- **Outputs**:
-  - `apps/{app-slug}/tests/unit/{frontend|bff}/{module}/**`
-  - `packages/domain/{domain-name}/tests/unit/domain/{module}/**` (when Tier 3 touched)
-  - `apps/{app-slug}/tests/integration/internal/**`
-  - `apps/{app-slug}/evidence/{slice-id}/unit-results.json`
-  - `apps/{app-slug}/evidence/{slice-id}/internal-integration-results.json`
-- **Prerequisite**: TK-04
-- **Trigger**: **Auto via hooks** (PostToolUse + SubagentStop)
-- **Completion**: Static analysis clean + all unit tests pass + all internal-integration tests pass
-- **Failure routing**: Unit fail → TK-06 (auto-repair ≤3); internal-integration fail → TK-07; unit fail after 3 repairs → TK-07
-- **Human intervention**: **None** steady state
-
-**Unit_type applicability**: TK-05 runs for `feature` and `walking_skeleton` units. `app_integration` units skip TK-05.
-
----
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: M1 Feature Slice gate — slice-level whitebox testing
+- **Hub-facing interface — inputs**: Implementation code from TK-04 + acceptance.yaml + test-plan.yaml
+- **Hub-facing interface — outputs**: M1 evidence (test results); on failure routes to TK-06 / TK-07
+- **Substantive execution detail**: CC substantive DTW canonical
 
 ## TK-06: Unit test auto-repair
 
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S3; **Milestone**: M1; Repeats: ≤3 per failing unit test
-- **Role sequence**: A5 (unit-test-auto-repair) + TOOL (unit runner)
-- **Inputs**: Failing test context; relevant `apps/{app-slug}/src/**` or `packages/domain/{domain-name}/src/**`; relevant `apps/{app-slug}/tests/unit/**` or `packages/domain/{domain-name}/tests/unit/**`
-- **Outputs**: Repaired unit tests in their respective paths; updated unit results
-- **Prerequisite**: TK-05 (unit failure)
-- **Trigger**: **Auto via hook**
-- **Completion**: Test passes after repair
-- **Failure routing**: Success → TK-05 next step; 3 failures → TK-07
-- **Human intervention**: **None**
-
-**Unit_type applicability**: TK-06 runs for `feature` and `walking_skeleton` units only.
-
----
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: Failure routing target from TK-05; auto-repair attempt before escalating to RCA
+- **Hub-facing interface**: Repair attempt count and outcome surface in Test Evidence Report per [MECH] CI/CD constitutional residue §3.2
+- **Substantive execution detail**: CC substantive DTW canonical
 
 ## TK-07: RCA report
 
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S3; **Milestone**: M1 / M2 / M3
-- **Role sequence**: A6 (rca-reporter)
-- **Inputs**: Failed test context; `apps/{app-slug}/src/**`; `packages/domain/{domain-name}/src/**` (if domain involved); relevant test directories; relevant `apps/{app-slug}/specs/**`
-- **Outputs**: `apps/{app-slug}/evidence/{slice-id}/rca/{timestamp}-{test-id}.md`
-- **Prerequisite**: TK-05, TK-06 (exhausted), TK-08, TK-09, TK-10
-- **Trigger**: **Auto via hook** when failure not auto-repairable
-- **Completion**: RCA produced; Notification hook fires
-- **Failure routing**: Operator decides → revise specs (TK-03+), revise code (TK-04), **revise DS via DS change request per [RULE] Design System Governance**, accept limitation
-- **Human intervention**: **Required**
-
-**Unit_type applicability**: TK-07 fires for any unit when an upstream test reports a non-auto-repairable failure. For `app_integration` units, only TK-08 / TK-09 / TK-10 are upstream sources.
-
----
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: Root cause analysis when TK-06 fails to auto-repair; outputs feed Test Evidence Report
+- **Hub-facing interface**: RCA report surfaces in Test Evidence Report per [MECH] CI/CD constitutional residue §3.2
+- **Substantive execution detail**: CC substantive DTW canonical
 
 ## TK-08: M2 core (contract + external integration testing)
 
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S3; **Milestone**: M2
-- **Role sequence**:
-  1. A2 (contract phase — consumer-side: authors `apps/{app-slug}/tests/contract/{app-slug}-bff_{domain-name}/**` per [RULE] Architecture Rules §Y.4.4 Pact convention)
-  2. TOOL (contract runner — consumer side)
-  3. A2 (producer-verification phase — domain-side: authors `packages/domain/{domain-name}/tests/contract-verification/**`)
-  4. TOOL (contract runner — producer side)
-  5. A2 (integration-external phase)
-  6. TOOL (external integration runner)
-  7. A9 (compliance-checker first-pass — **includes Design System Governance compliance check if Tier 1 involved; verifies app/domain placement per Architecture Rules §Y**)
-- **Inputs**: test-plan filtered to `test_type ∈ {contract, integration-external}`; TDD; openapi; CC mirror at `specs/design-system.md` (for A9 DSG compliance check); UI selector references (if Tier 1); infrastructure config
-- **Outputs**:
-  - `apps/{app-slug}/tests/contract/{app-slug}-bff_{domain-name}/**` (consumer)
-  - `packages/domain/{domain-name}/tests/contract-verification/**` (producer)
-  - `apps/{app-slug}/tests/integration/external/**`
-  - Contract + external-integration results in `apps/{app-slug}/evidence/{slice-id}/`
-  - `apps/{app-slug}/evidence/{slice-id}/compliance-first-pass.md`
-- **Prerequisite**: TK-05 (M1 done) for `feature` / `walking_skeleton` units; TK-02 sign-off + assigned_node onboarding for `app_integration` units (which enter at TK-08 directly per §4.0.4)
-- **Trigger**: **Auto via hook**
-- **Completion**: All contract tests (consumer + producer) pass; all external-integration tests pass; compliance first-pass clean
-- **Failure routing**: Test fail → TK-07; severe compliance → Notification
-- **Human intervention**: Steady state **None**; compliance escalation **Conditional**
-
-**A2 is forbidden from reading any `src/**`** during TK-08.
-
-**Unit_type variant**: TK-08's authoring + execution scope expands per unit_type, owned by [MECH] CI/CD Milestone Policy:
-
-- `feature` unit (non-last slice): standard scope above
-- `feature` unit (last slice): standard scope **plus** feature integration test execution (`apps/{app-slug}/specs/test-plan/feature-{feature-slug}.yaml` cross-slice flow scenarios) authored at TK-08 if not already authored, then executed
-- `walking_skeleton` unit: standard scope; M2 pass empirically asserts that the CI/CD pipeline is established for the app
-- `app_integration` unit: TK-08 is the unit's entry point (no upstream M0/M1 within the unit). Scope shifts to: phase test plan master cross-feature scenarios, feature integration test cross-feature variants not covered at any individual `feature` unit's TK-08, and app-scale NFR validation
-
----
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: M2 Integration Green gate core — contract testing (Pact, Tier 2-Tier 3 seam per [RULE] CCAR constitutional residue §6) + external integration validation
+- **Hub-facing interface — outputs**: openapi.yaml (per [MECH] CI/CD constitutional residue §4.1 output gate, when last slice of a feature or app_integration unit); Pact pair status surfaces in Test Evidence Report
+- **Substantive execution detail**: CC substantive DTW canonical
 
 ## TK-09: M2 adversarial loop
 
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S3; **Milestone**: M2
-- **Role sequence**:
-  1. A3 (adversarial-tester)
-  2. CC main loop (reads findings, patches test-plan via file mediation)
-  3. A2 or A1 (re-runs with added cases)
-  4. TOOL (test runner)
-- **Inputs**: acceptance; PRD §13.1 risks; test-plan
-- **Outputs**: `apps/{app-slug}/evidence/{slice-id}/adversarial-findings.md`; patched `apps/{app-slug}/specs/test-plan/{slice-id}.yaml`; additional tests; updated test results
-- **Prerequisite**: TK-08
-- **Trigger**: Low/medium severity: **Auto via hook**; high severity: **Conditional manual** (operator ack required before patch)
-- **Completion**: All adversarial findings resolved (cases added + passing, or triaged out-of-scope with justification)
-- **Failure routing**: Added tests fail → TK-07
-- **Human intervention**: High severity **Conditional required**; other **None**
-
-**A3 is forbidden from reading any `src/**` and any `tests/**`**.
-
----
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: Adversarial loop following TK-08 to surface edge cases; findings feed Test Evidence Report
+- **Hub-facing interface**: Adversarial findings and resolutions surface in Test Evidence Report per [MECH] CI/CD constitutional residue §3.2
+- **Substantive execution detail**: CC substantive DTW canonical
 
 ## TK-10: M3 cycle (pre-release validation)
 
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S3; **Milestone**: M3
-- **Role sequence**:
-  1. A2 (e2e phase)
-  2. TOOL (E2E runner)
-  3. A2 (visual phase)
-  4. TOOL (visual runner)
-  5. A7 (visual-regression-reviewer)
-  6. A2 (performance phase)
-  7. TOOL (performance runner)
-  8. A8 (security-reviewer, conditional)
-- **Inputs**: test-plan filtered to `test_type ∈ {e2e, visual, performance}` (accessibility no longer mandatory per [RULE] DSG §6); TDD; openapi; CC mirror at `specs/design-system.md` (used by A7 for Design System consistency); CD-authored design files (used by A7 as visual reference for regression comparison); SLI/SLO (TDD NFR); `apps/{app-slug}/src/**` + `packages/domain/{domain-name}/src/**` + dependency manifests (A8 only)
-- **Outputs**:
-  - `apps/{app-slug}/tests/e2e/{flow}/**`
-  - `apps/{app-slug}/tests/visual/{screen}/**`
-  - `apps/{app-slug}/tests/performance/{scenario}/**`
-  - `apps/{app-slug}/evidence/{slice-id}/e2e-results.json`
-  - `apps/{app-slug}/evidence/{slice-id}/visual-diffs/`
-  - `apps/{app-slug}/evidence/{slice-id}/visual-review.md`
-  - `apps/{app-slug}/evidence/{slice-id}/performance-report.md`
-  - `apps/{app-slug}/evidence/{slice-id}/security-report.md` (if A8 enabled)
-- **Prerequisite**: TK-09
-- **Trigger**: **Auto via hooks**
-- **Completion**: E2E pass; visual review no unapproved regressions + Design System consistency confirmed; performance meets SLI/SLO; security no critical CVEs (if A8). **No accessibility gate** (per DSG §6; SK-W remains available as on-demand utility, but is not part of TK-10 completion criteria).
-- **Failure routing**: Test fail → TK-07; visual regression requiring judgement → Notification; security critical → Notification
-- **Human intervention**: Steady state **None**; severe visual / security critical **Conditional**
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: M3 Pre-Release Validation gate — E2E tests, visual regression, performance, security, compliance audit
+- **Hub-facing interface — outputs**: traceability matrix (per [MECH] CI/CD constitutional residue §4.3 output gate); all M3 evidence surfaces in Test Evidence Report
+- **Substantive execution detail**: CC substantive DTW canonical (specific E2E framework, visual regression tool, performance test scope, security scan)
 
-**A2 is forbidden from reading any `src/**`** during this task. A8 reads `apps/{app-slug}/src/**` + `packages/domain/{domain-name}/src/**` + deps, writes only `security-report.md`.
+## TK-11: M4 preparation (evidence compilation + code review)
 
-**Unit_type applicability**: TK-10 runs for all three unit types. Codex code review does NOT fire at M3; per [RULE] Codex Plugin Usage, Codex code review fires at M4 (TK-11) for all three unit types.
-
----
-
-## TK-11: M4 preparation (evidence compilation + Codex code review)
-
-- **Workspace**: assigned_node Claude Code
-- **Stage**: S3; **Milestone**: M4
-- **Role sequence**:
-  1. A4 (domain-judge — **includes UX perspective: reviews intent UX brief, accessibility audit, visual review against PRD user value**)
-  2. A9 (compliance-checker final pass — **includes Design System Governance drift audit; verifies app/domain placement per Architecture Rules §Y**)
-  3. CX (`/codex:review` on full slice scope; co-located on assigned_node per [RULE] Codex Plugin Usage)
-  4. A10 (evidence-compiler — **aggregates accessibility audit + Design System compliance + contract test results; produces operator digest one-pager per [MECH] CI/CD Milestone Policy §6.4**)
-- **Inputs**: all prior `apps/{app-slug}/evidence/{slice-id}/**`; acceptance; PRD; TDD; CC mirror at `specs/design-system.md` (A9 final pass reference); `apps/{app-slug}/src/**` + `packages/domain/{domain-name}/src/**` (A9 + CX); `apps/{app-slug}/tests/**` + `packages/domain/{domain-name}/tests/**` (A9)
-- **Outputs**:
-  - `apps/{app-slug}/evidence/{slice-id}/domain-judge-questions.md`
-  - `apps/{app-slug}/evidence/{slice-id}/compliance-final.md`
-  - `apps/{app-slug}/evidence/{slice-id}/codex/codex-review.md`
-  - `apps/{app-slug}/reports/m4/{slice-id}/test-evidence-report.md` **(includes accessibility + Design System + contract test sections)**
-  - `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` **(one-page operator-readable digest per [MECH] CI/CD Milestone Policy §6.4)**
-- **Prerequisite**: TK-10
-- **Trigger**: **Auto via hooks**; Stop hook prevents session end before Test Evidence Report written
-- **Completion**: All five artifacts produced; Notification hook fires
-- **Failure routing**: Agent cannot produce artifact → CC escalates
-- **Human intervention**: **None** steady state
-
-**A4 and A10 are forbidden from reading any `src/**` and any `tests/**`**. A9 and CX read code.
-
-**Co-location note**: TK-11 Codex invocation runs on the slice's `assigned_node`. Evidence file path `apps/{app-slug}/evidence/{slice-id}/codex/codex-review.md` is local to assigned_node's worktree and committed to the feature branch in the same git push that closes TK-11.
-
-**Codex review output return to Hub**: After TK-11 completes, the operator may transfer the Codex review output to a Hub Claude conversation for judgment and archive per [MECH] Cross-Tool Workflow Handoff §3.2 and [RULE] Codex Plugin Usage processing rules.
-
----
+- **Executing workspace**: assigned_node Claude Code
+- **Constitutional identity**: M4 Merge Decision preparation — compile evidence from all upstream TKs into Test Evidence Report + operator digest one-pager; code review gate executes here
+- **Hub-facing interface — outputs**: Test Evidence Report at `apps/{app-slug}/reports/m4/{slice-id}/test-evidence-report.md` per [MECH] CI/CD constitutional residue §3.1; operator digest at `operator-digest.md` per §3.3; code review tool output (historically Codex) included in Test Evidence Report. The specific code review tool is CC substantive.
+- **Substantive execution detail**: CC substantive DTW canonical
 
 ## TK-12: M4 gate (merge decision + smoke test)
 
@@ -690,22 +545,12 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 
 ## TK-13: Staging deploy
 
-- **Workspace**: TOOL (CI/CD)
-- **Stage**: S4; **Milestone**: M5 per [MECH] CI/CD Milestone Policy §2.6
-- **Role sequence**: TOOL (CI/CD)
-- **Inputs**: Merged code on `main`
-- **Outputs**: Deployed application in staging environment
-- **Prerequisite**: TK-12 (merge go)
-- **Trigger**: **Auto** (merge to `main`)
-- **Completion**: Staging deploy succeeds + staging smoke checks pass + (for walking_skeleton units) [MECH] Dev-Loopback Mode §6 supplemental assertions pass
-- **Failure routing**: Auto rollback + Notification
-- **Human intervention**: **None** in success path
-
-**Branch model note**: Staging fires per-merge to `main`. There is no intermediate integration branch.
-
-**Terminal task note**: TK-13 is the terminal task in the AI-dev CI/CD chain. Production deployment after handoff is the receiving company's CI/CD responsibility per [MECH] Application Lifecycle Handoff §0.2.
-
-**Walking-skeleton gate release**: For Phase 1 `walking_skeleton` units, successful TK-13 (including all [MECH] Dev-Loopback §6 supplemental assertions passing) releases the walking-skeleton-first ordering gate per [RULE] Workspace Topology §4.6.2; downstream `feature` and `app_integration` units in the same Phase 1 may then begin their first node-side milestone.
+- **Executing workspace**: TOOL (CI/CD automation)
+- **Constitutional identity**: Terminal task in the AI-dev CI/CD chain — staging deploy on `main` merge. Production deployment after handoff is the receiving company's CI/CD responsibility per [MECH] Application Lifecycle Handoff §0.2.
+- **Hub-facing interface — inputs**: Merged code on `main` (from TK-12)
+- **Hub-facing interface — outputs**: Deployed application in staging environment; staging smoke check results
+- **Walking-skeleton gate release (constitutional invariant)**: For Phase 1 `walking_skeleton` units, successful TK-13 releases the walking-skeleton-first ordering gate per [RULE] WT constitutional residue §3; downstream `feature` and `app_integration` units in the same Phase 1 may then begin their first node-side milestone.
+- **Substantive execution detail**: CC substantive DTW canonical (specific CI/CD automation, staging environment configuration, smoke check scope, dev-loopback supplemental assertions integration)
 
 ---
 
