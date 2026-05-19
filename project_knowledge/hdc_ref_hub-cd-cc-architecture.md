@@ -99,13 +99,14 @@ This source does not own:
 | [RULE] Workspace Topology | Different scope. Multi-node dev environment inside CC; this source is hub/CD/CC at the AI tool level. |
 | [RULE] Claude Code Architecture Rules | Operates inside the CC workspace boundary that this source defines. |
 | [RULE] Design System Governance | Consumes this source's revised three-way DS distribution; owns the governance discipline and the mirror sync mechanism. |
-| [RULE] Codex Plugin Usage | Operates inside the CC workspace boundary that this source defines. |
+| [RULE] Codex Plugin Usage | **Migrated to CC substantive canonical (Phase 3)**. Code review tooling executes inside the CC workspace; the canonical governance now lives at CC. Hub-side handoff documentation refers to "code review gate" / "code review tool output" generically. |
 | [MECH] Development Track Workflow | Consumes this source's CC workspace boundary and the three-path handoff topology; owns the TK-02 internal Step 2.1 / 2.2 / 2.3 sub-structure that operationalizes the Hub-CD interaction. |
 | [MECH] Application Lifecycle Handoff | Distinct flow (AI-dev → human dev team); not the cross-tool workflow handoff this source describes. |
 | [MECH] Cross-Tool Workflow Handoff | Operationalizes this source's three operator-mediated handoff paths into content contracts. |
 | [MECH] CI/CD Milestone Policy | Operates inside the CC workspace boundary that this source defines. |
-| [MECH] Code Quality Rule Set | Operates inside the CC workspace boundary that this source defines. |
-| [MECH] Dev-Loopback Mode | Operates inside the CC workspace boundary that this source defines. |
+| [MECH] Code Quality Rule Set | **Migrated to CC substantive canonical (Phase 3)**. Quality enforcement executes inside the CC workspace; canonical governance now at CC. |
+| [MECH] Dev-Loopback Mode | **Migrated to CC substantive canonical (Phase 3)**. Dev-environment runnability contract is CC-internal; canonical governance now at CC. |
+| [MECH] Tools Health Cadence | **Migrated to CC substantive canonical (Phase 3)**. Periodic tools health inventory is CC-internal; canonical governance now at CC. |
 | [MECH] Canonical File Self-Audit | Audits canonical sources held in the Hub workspace; this source defines the Hub workspace's canonical inventory boundary. |
 | [MECH] Sign-Off Cleanup Policy | Applies to spec artifacts produced in the Hub workspace; this source defines the Hub workspace's spec authoring scope. |
 | [TPL] family (all templates) | Hub-workspace-held content contracts; this source defines the Hub workspace's [TPL] inventory location and contrasts with CD Templates / CD Skills in §7. |
@@ -411,19 +412,19 @@ CC authors:
 
 intent UX brief reference fields, acceptance UX-related acceptance criteria, and test-plan a11y / motion / DS-coupling fields are **NOT** authored by CC. They are authored by **Hub Claude at TK-03** consuming the Hub-authored UX Design Spec instance (which itself was authored at TK-02 step 2.3 from CD design files + DS Hub mirror grounding). CC consumes the completed spec at TK-04 for code implementation; design files accompany the spec at TK-04 transfer as visual reference, not as a source for CC field authoring.
 
-**CC-internal canonical files (Substantive):**
-- `.claude/rules/*.md` (path-scoped rule files, governed by [RULE] Claude Code Architecture Rules §X agent context scope)
-- `.claude/agents/*.md` (subagent definitions, governed by [RULE] Claude Code Architecture Rules §5)
-- `.claude/commands/*.md` (Codex command shortcuts, governed by [RULE] Codex Plugin Usage)
-- `.claude/skills/{name}/SKILL.md` (skill definitions, governed by [RULE] Claude Code Architecture Rules §Z)
-- `.claude/hooks/*.md` (hook trigger logic)
-- `CLAUDE.md` at each of the 5 hierarchy levels per [REF] CC Project Memory Bank Layout
+**CC-internal canonical files (Substantive at CC):**
+- `.claude/rules/*.md` (path-scoped rule files, governed by CC substantive CCAR canonical's context-scope content)
+- `.claude/agents/*.md` (subagent definitions, governed by CC substantive CCAR canonical's subagent roster content)
+- `.claude/commands/*.md` (code review command shortcuts, governed by CC substantive Codex Plugin Usage canonical)
+- `.claude/skills/{name}/SKILL.md` (skill definitions, governed by CC substantive CCAR canonical's skill loading content)
+- `.claude/hooks/*.md` (hook trigger logic, governed by CC substantive CCAR canonical's hook content)
+- `CLAUDE.md` at each of the 5 hierarchy levels per [REF] CC Project Memory Bank Layout constitutional residue (CC substantive Memory Bank Layout canonical owns specific paths and authoring discipline)
 
-**CC-side artifacts governed by [MECH] sources:**
-- `.github/workflows/*.yml` (CI pipeline YAML, governed by [MECH] CI/CD Milestone Policy)
-- `monorepo-root/configs/eslint/*`, `configs/checkstyle/*` (governed by [MECH] Code Quality Rule Set)
-- `monorepo-root/fixtures/*`, `.dev-loopback/*` (governed by [MECH] Dev-Loopback Mode)
-- `monorepo-root/docs/workspace-onboarding.md` (governed by [RULE] Workspace Topology)
+**CC-side artifacts governed by canonical:**
+- `.github/workflows/*.yml` (CI pipeline YAML, governed by CC substantive CI/CD Milestone Policy canonical for specific tooling; [MECH] CI/CD constitutional residue at Hub governs the gate identity + Test Evidence Report schema)
+- `monorepo-root/configs/eslint/*`, `configs/checkstyle/*` (governed by CC substantive Code Quality Rule Set canonical)
+- `monorepo-root/fixtures/*`, `.dev-loopback/*` (governed by CC substantive Dev-Loopback Mode canonical)
+- `monorepo-root/docs/workspace-onboarding.md` (governed by CC substantive Workspace Topology canonical for specific tool stack/setup; [RULE] WT constitutional residue at Hub governs multi-node existence + parity invariant)
 
 **DS code-time mirror (Substantive):**
 - `specs/design-system.md` — read-only mirror of CD DS SOT, populated from CD-generated DS markdown export per [RULE] DSG §12 sync mechanism; CC does NOT author this content, only mirrors
@@ -534,21 +535,32 @@ The §5.1 tripartition classifies content by ownership dimension (content / pres
 3. Tool runtime persists the Substantive content at its native path (CC commits to monorepo paths; CD persists within the CD project)
 4. Hub indexes the **existence** of the Substantive content via the relevant `[REF]` source (e.g., [REF] CC Project Memory Bank Layout indexes CC-internal Substantive layouts) but does **not** mirror the Substantive content itself — with the explicit exception of DS content, which Hub mirrors at `hdc_ref_design-system.md` per the revised §5.2 three-way distribution model for spec-time consumption
 
-### 5.4.4 Relationship to the SPLIT canonical sources
+### 5.4.4 Relationship to the SPLIT and MIGRATED-OUT canonical sources
 
-Seven canonical sources at Hub PK were structurally SPLIT during Path B2 refactor to enforce the layer split:
+Nine Hub canonical sources were structurally restructured during Phase 3 of the Hub-CC architecture refactor (per [OS] §0.1.5 Premise 5 constitutional / substantive boundary). Five were **split** (Hub-side constitutional residue + Hub-internal substantive retained; CC-side substantive externalized); four were **fully migrated** (no Hub residue retained).
 
-| Hub Constitutional retention | Substantive externalization target |
+**Split sources (5)** — Hub keeps the constitutional skeleton + Hub-internal substantive (e.g., Hub Claude behavior); CC owns operational details:
+
+| Hub-side residue retains | CC-side substantive canonical owns |
 |---|---|
-| `[RULE] Workspace Topology` — principles, parity invariants, branch topology, node assignment workflow | Operator-personal onboarding scripts, GitHub command sequences (not canonical) |
-| `[RULE] Claude Code Architecture Rules` — §1 tier architecture, §X agent context scopes, §Y repo layout, cross-layer dependency | §5 subagent prompt full text, §Z skill loading runtime details (CC-side `.claude/agents/`, `.claude/skills/` Substantive) |
-| `[RULE] Codex Plugin Usage` — interface contract, trigger logic, per-unit-type fire conditions | Specific Codex command flags and invocation scripts (CC-side `.claude/commands/` Substantive or operator-personal) |
-| `[RULE] Design System Governance` — singleton model, revised three-way distribution (CD SOT / CC code-time mirror / Hub spec-time mirror), instance section contract, change governance, mirror sync mechanism | DS instance content itself (CD Substantive as SOT); CC mirror at `specs/design-system.md` (CC Substantive); Hub mirror at `hdc_ref_design-system.md` (Hub PK reference content — sync target, not authored content) |
-| `[MECH] CI/CD Milestone Policy` — M0-M5 gate semantics, per-unit-type milestone profile | Specific CI YAML files (CC Substantive at monorepo `.github/workflows/`) |
-| `[MECH] Code Quality Rule Set` — Tier 1/2/3 severity, rule-set evolution governance | Specific eslint/checkstyle/pmd config files (CC Substantive at monorepo) |
-| `[MECH] Dev-Loopback Mode` — walking-skeleton M5 acceptance contract, env switch gate semantics | Fixture format, placeholder pattern implementations (CC Substantive at monorepo `apps/{slug}/dev/`) |
+| `[REF] CC Project Memory Bank Layout` — CC canonical layer existence + tier-aligned hierarchy structure + visibility boundary + cross-workspace notification protocol | Specific paths and naming conventions for CLAUDE.md hierarchy and `.claude/` subdirectories, indexing rules, update discipline, anti-drift red flags (CC substantive Memory Bank Layout canonical) |
+| `[RULE] Workspace Topology` — multi-node existence, parity discipline, walking-skeleton-first ordering rule, node-assignment interface contract, workspace inception governance, Hub Claude trigger phrases (Hub-internal substantive), Hub Claude observability boundary (Hub-internal substantive) | Specific tool stack and versions, GitHub workflow configuration, node-assignment 4-step procedure, operational anti-drift signals, workspace inception checklist (CC substantive Workspace Topology canonical) |
+| `[RULE] Claude Code Architecture Rules` — three-tier architecture identity, Tier 2 thinning rule, permission decision placement principle, CLAUDE.md hierarchy pointer, subagent topology existence, high-level monorepo structure | Specific tier-internal tools, A1-A10 subagent roster with permissions, named context scopes with configurations, repository path patterns and rules, skill catalog (SK-F, SK-W) with load triggers, domain lifecycle and Pact contract testing operational specifics (CC substantive CCAR canonical) |
+| `[MECH] CI/CD Milestone Policy` — M0–M5 ladder identity, per-unit-type milestone profile interface, Test Evidence Report schema, required artifact output gates, multi-node evidence parity invariant | Specific gate criteria per M-N, tooling baseline, accessibility thresholds, slice-size advisory, stuck recovery protocol, performance test scope (CC substantive CI/CD canonical) |
+| `[MECH] Development Track Workflow` — TK chain identity (TK-01 to TK-13), per-unit-type task paths, workspace-by-task mapping, transition mechanism catalog, human intervention budget, failure routing matrix, cross-workspace anti-drift signals; Hub-internal substantive for TK-01/TK-02/TK-03 (Hub-authored), TK-12 (operator gate), §9 Hub Claude soft compliance trigger phrases | TK-04 through TK-11 + TK-13 execution mechanics (specific subagent invocations, tool commands, sub-steps), CC-side transition mechanism details (CC substantive DTW canonical) |
 
-Each SPLIT source's §0 boundary chapter declares "what this source owns" (Constitutional portion) and "what this source does not own" (Substantive portion + adjacent-source boundaries). The retention/externalization split is structurally encoded in each source's chapter organization rather than via explicit "Constitutional section / Substantive section" markup — the chapter organization itself implements the split.
+**Fully migrated sources (4)** — no Hub canonical residue retained; cross-workspace references generalized at Hub:
+
+| Migrated source | CC-side substantive canonical | Hub-side reference adjustment |
+|---|---|---|
+| `[RULE] Codex Plugin Usage` | CC substantive Codex Plugin Usage canonical | Hub-side handoff documentation refers to "code review gate" / "code review tool output" generically |
+| `[MECH] Code Quality Rule Set` | CC substantive Code Quality Rule Set canonical | Hub-side TDDs reference "code quality enforcement at CC substantive canonical" |
+| `[MECH] Dev-Loopback Mode` | CC substantive Dev-Loopback Mode canonical | Hub-side handoff documentation refers to "dev-environment runnability contract at CC substantive canonical" |
+| `[MECH] Tools Health Cadence` | CC substantive Tools Health Cadence canonical | Hub-side handoff documentation refers to "periodic tools health inventory at CC substantive canonical" |
+
+**Sources unchanged in Phase 3**: [OS], [PRIN] (×2), [POL], [REF] People Journey, [REF] Hub-CD-CC (this source — gets §8 inventory updates), [REF] Design System Hub mirror (pending sync), [RULE] Claude Platform Behavior, [RULE] DingTalk MD Format Control, [RULE] Design System Governance, [MECH] Application Lifecycle Handoff, [MECH] Cross-Tool Workflow Handoff, [MECH] Canonical File Self-Audit, [MECH] Sign-Off Cleanup Policy, all 10 [TPL] sources.
+
+Each split source's §0 boundary chapter declares "what this source owns" (Hub-side constitutional + Hub-internal substantive) and "what this source does not own" (CC substantive content externalized + adjacent-source boundaries).
 
 ### 5.4.5 Anti-drift signals
 
@@ -633,23 +645,30 @@ The three asset systems run in parallel without overlap:
 
 # 8. Canonical inventory by workspace
 
-## 8.1 Hub-held canonical (current)
+## 8.1 Hub-held canonical (current, post-Phase-3 refactor)
 
-Hub workspace holds the canonical set listed under Hub PK `hdc_*.md` files. The current set by family:
+Hub workspace holds the canonical set listed under Hub PK `hdc_*.md` files. The current set by family (post-Phase-3 constitutional / substantive split per [OS] §0.1.5 Premise 5):
 
 | Family | Members | Role |
 |---|---|---|
 | [OS] | Project Operating Model | Meta authority |
 | [PRIN] | HR Digital Decision Design Principles, People Experience Design Principles | Cross-topic judgment |
 | [POL] | Digital Solution Policy Architecture Map | Cat 1 policy architecture |
-| [REF] | People Journey and Moments Catalog, Hub-CD-CC Architecture (this source), CC Project Memory Bank Layout, **Design System (Hub mirror — reintroduced per [RULE] DSG §1.1 revised three-way distribution; content authored by CD as SOT, synced to Hub PK per DSG §12)** | Stable references |
-| [RULE] | Claude Platform Behavior, DingTalk MD Format Control, Workspace Topology, Claude Code Architecture Rules, Design System Governance, Codex Plugin Usage | Operational rules across multiple Cat scopes |
-| [MECH] | Development Track Workflow, CI/CD Milestone Policy, Application Lifecycle Handoff, Cross-Tool Workflow Handoff, Code Quality Rule Set, Dev-Loopback Mode, Canonical File Self-Audit, Sign-Off Cleanup Policy | Governance mechanisms |
-| [TPL] | Options Paper, Problem Framing Memo, PRD Prototype MVP, TDD, UX Design Spec, Test Plan YAML Schema, PRD-TDD to Intent/Acceptance Conversion Spec, Intent and Acceptance Interface Writing Standard, ADR Spec, Phase Test Plan, CD Project Preparation Checklist | Content contract templates |
+| [REF] | People Journey and Moments Catalog, Hub-CD-CC Architecture (this source), CC Project Memory Bank Layout (**constitutional residue post-split** — CC-internal substantive layout migrated to CC), Design System (Hub mirror — declared per [RULE] DSG §1.1 revised three-way distribution; content authored by CD as SOT, synced to Hub PK per DSG §12; **mirror file pending first CD-generated DS markdown export sync**) | Stable references |
+| [RULE] | Claude Platform Behavior, DingTalk MD Format Control, Workspace Topology (**constitutional residue + Hub-internal substantive post-split** — multi-node operational details migrated to CC), Claude Code Architecture Rules (**constitutional residue post-split** — subagent roster / context scopes / repository layout / skill catalog migrated to CC), Design System Governance | Operational rules across multiple Cat scopes |
+| [MECH] | Development Track Workflow (**constitutional residue + Hub-internal substantive post-split** — TK-04~TK-11 + TK-13 execution mechanics migrated to CC), CI/CD Milestone Policy (**constitutional residue post-split** — gate criteria detail migrated to CC), Application Lifecycle Handoff, Cross-Tool Workflow Handoff, Canonical File Self-Audit, Sign-Off Cleanup Policy | Governance mechanisms |
+| [TPL] | Options Paper, Problem Framing Memo, PRD Prototype MVP, TDD, UX Design Spec, Test Plan YAML Schema, PRD-TDD to Intent/Acceptance Conversion Spec, Intent and Acceptance Interface Writing Standard, ADR Spec, Phase Test Plan | Content contract templates |
 
-Note on `[REF] Design System` status: this canonical was retired in the prior revision under the "Hub holds neither SOT nor mirror" three-way distribution model. The revised model in §5.2 reintroduces it as the Hub spec-time mirror. The reintroduced file is content-authored by CD (SOT) and synced via [RULE] DSG §12; its semantics differ from the legacy frozen reference (which was hand-maintained at Hub).
+**Sources fully migrated to CC (no Hub canonical residue retained, Phase 3 commit `70133e8`)**:
+- `[RULE] Codex Plugin Usage` → CC substantive canonical
+- `[MECH] Code Quality Rule Set` → CC substantive canonical
+- `[MECH] Dev-Loopback Mode` → CC substantive canonical
+- `[MECH] Tools Health Cadence` → CC substantive canonical
 
-Note on completeness: this table reflects the canonical inventory after the Step 2 canonical refactor completes. During the refactor, the inventory may show transitional intermediate states.
+Notes on inventory:
+- **[REF] Design System (Hub mirror)** status: declared as a three-way distribution mirror per DSG §1.1; the file `hdc_ref_design-system.md` is **pending** first sync from CD-generated DS markdown export per DSG §12 (will land when a DS instance update is committed at CD)
+- **[TPL] inventory**: 10 active templates (the formerly listed "CD Project Preparation Checklist" is not currently in canonical inventory; if reintroduced, the count updates accordingly)
+- **Constitutional / substantive boundary**: per [OS] §0.1.5 Premise 5, Hub canonical owns constitutional content (cross-workspace interface) plus Hub-internal substantive content (e.g., Hub Claude behavior). CC substantive canonical at CC's own canonical layer owns CC-internal operational details. The post-split Hub residues at [RULE] WT, [RULE] CCAR, [MECH] CI/CD, [MECH] DTW, [REF] CCMBL retain only the constitutional + Hub-internal-substantive portions; their CC-side substantive content is at CC.
 
 ## 8.2 CD-held substantive content
 
@@ -663,17 +682,19 @@ CD workspace holds these substantive content forms (none of which are canonical 
 | Operator-authored CD Templates | None (per §7.2 scope) | Outside hub canonical scope |
 | Operator-authored CD Projects and stakeholder review outputs | [MECH] Cross-Tool Workflow Handoff (for HDC-scoped projects only) | Output bundles audited before transfer |
 
-## 8.3 CC-held substantive content
+## 8.3 CC-held substantive content (post-Phase-3 refactor)
 
-CC workspace holds these substantive content forms (none of which are canonical sources at the Hub, per [OS] §9.4 non-canonical naming):
+CC workspace holds these substantive content forms (none of which are canonical sources at the Hub, per [OS] §9.4 non-canonical naming, with the **CC-side substantive canonical layer** introduced in Phase 3 per [OS] §0.1.5 Premise 5):
 
 | Content form | Hub canonical governance | Path |
 |---|---|---|
-| Application code, tests, configurations | [RULE] Claude Code Architecture Rules (architecture), [MECH] Code Quality Rule Set (quality) | Monorepo files |
-| CC-internal canonical files | [REF] CC Project Memory Bank Layout (memory bank), [RULE] Claude Code Architecture Rules (subagent / skill / hook discipline) | `.claude/rules/`, `.claude/agents/`, `.claude/commands/`, `.claude/skills/`, `.claude/hooks/`, `CLAUDE.md`, `apps/{slug}/CLAUDE.md` |
-| CI/CD configurations | [MECH] CI/CD Milestone Policy | `.github/workflows/*.yml` |
-| Quality tool configurations | [MECH] Code Quality Rule Set | `monorepo-root/configs/eslint/`, `monorepo-root/configs/checkstyle/`, etc. |
-| Fixture / placeholder data | [MECH] Dev-Loopback Mode | `monorepo-root/fixtures/`, `monorepo-root/.dev-loopback/` |
+| Application code, tests, configurations | [RULE] Claude Code Architecture Rules (constitutional residue — tier architecture); CC substantive CCAR (subagent roster, context scopes, repository layout details, skill catalog); CC substantive Code Quality Rule Set (quality) | Monorepo files |
+| CC-internal canonical files | [REF] CC Project Memory Bank Layout (constitutional residue — CC canonical layer existence + tier-aligned hierarchy); CC substantive Memory Bank Layout (specific paths, naming conventions, indexing rules) + CC substantive CCAR (subagent / skill / hook content discipline) | `.claude/rules/`, `.claude/agents/`, `.claude/commands/`, `.claude/skills/`, `.claude/hooks/`, `CLAUDE.md`, `apps/{slug}/CLAUDE.md` |
+| CI/CD configurations | [MECH] CI/CD Milestone Policy (constitutional residue — M0-M5 ladder identity + Test Evidence Report schema); CC substantive CI/CD canonical (specific gate criteria, tooling baseline) | `.github/workflows/*.yml` |
+| Quality tool configurations | CC substantive Code Quality Rule Set canonical | `monorepo-root/configs/eslint/`, `monorepo-root/configs/checkstyle/`, etc. |
+| Fixture / placeholder data | CC substantive Dev-Loopback Mode canonical | `monorepo-root/fixtures/`, `monorepo-root/.dev-loopback/` |
+| Code review tooling (Codex) | CC substantive Codex Plugin Usage canonical | CC-internal |
+| Periodic tools health inventory | CC substantive Tools Health Cadence canonical | CC-internal |
 | DS code-time mirror | [RULE] Design System Governance §12 | `specs/design-system.md` (read-only mirror of CD SOT) |
 | Operator-personal manuals | None (operator-personal, per [OS] §9.4) | `MANUAL_*.md` files |
 

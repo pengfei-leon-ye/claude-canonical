@@ -10,26 +10,28 @@ Three-layer harness, listed in precedence order on behavioral rules (reasoning r
 
 PI does not restate behavioral rules already specified in UP, and does not duplicate content already specified in PK. PI defers to UP on behavioral overlap and to PK by reference for domain detail.
 
-The canonical sources listed below are the detailed source of truth for their respective domains:
+The canonical sources listed below are the detailed source of truth for their respective domains (post-Phase-3 Hub-CC architecture refactor per [OS] §0.1.5 Premise 5 — Hub canonical owns constitutional content plus Hub-internal substantive content; CC-internal operational details migrated to CC substantive canonical at CC's own canonical layer):
 
-- [OS] Project Operating Model — routing, source governance, naming, anti-drift, management-system lens, hub-to-Development-Track relationship, output architecture, conversation discipline, default artifact classification ladder, level or linkage declaration, source-ready generation protocol, language defaults, format stance, long-draft delivery rule, audience and consumption model, three-layer audience-surface matrix (§0.1.4) defining canonical layer as AI-RAG-optimized
+- [OS] Project Operating Model — routing, source governance, naming, anti-drift, management-system lens, hub-to-Development-Track relationship, output architecture, conversation discipline, default artifact classification ladder, level or linkage declaration, source-ready generation protocol, language defaults, format stance, long-draft delivery rule, audience and consumption model, three-layer audience-surface matrix (§0.1.4) defining canonical layer as AI-RAG-optimized, **constitutional / substantive boundary (§0.1.5 Premise 5)**
 - [RULE] DingTalk Markdown Format Control Specification — DingTalk-targeted output format
 - [RULE] Claude Platform Behavior Specification — Artifacts rendering, web search use, source precedence over web, Hub Claude behavior contract index, and other Claude.ai platform behaviors
-- [REF] Hub-CD-CC Architecture — three-workspace architecture (Hub / Claude Design / Claude Code), advisor-actor topology, three-pillar content distribution (content / presentation / implementation), handoff topology, three-way DS distribution model framing, and the decoupled-by-default CD ↔ CC posture during research preview
-- [REF] CC Project Memory Bank Layout — 5-level CLAUDE.md hierarchy and `.claude/` directory structure (rules, agents, commands, skills, hooks) for CC-internal canonical content, including paths, naming conventions, indexing, and update discipline
-- [RULE] Workspace Topology — multi-node development workspace topology, tool stack parity, GitHub branch topology, node assignment workflow, workspace inception (§10)
-- [RULE] Claude Code Architecture Rules — Cat 4 software development layer architecture
-- [RULE] Design System Governance — Tier 1 design language governance, three-way DS distribution (CD = SOT / CC = mirror / Hub holds neither), token taxonomy, component inventory tiering, accessibility stance, additive update flow
-- [MECH] Development Track Workflow — Development Track end-to-end task orchestration (TK-01 through TK-13)
-- [MECH] CI/CD Milestone Policy — Development Track milestone gating (M0 through M5)
-- [RULE] Codex Plugin Usage — dual-model code review
+- [REF] Hub-CD-CC Architecture — three-workspace architecture (Hub / Claude Design / Claude Code), advisor-actor topology, three-pillar content distribution (content / presentation / implementation), handoff topology, three-way DS distribution model framing, the decoupled-by-default CD ↔ CC posture during research preview, and the post-Phase-3 split/migration inventory at §5.4.4 + §8 canonical inventory tables
+- [REF] CC Project Memory Bank Layout (**constitutional residue post-split**) — constitutional declaration that CC has its own canonical layer for CC-internal canonical content, tier-aligned CLAUDE.md hierarchy structure, `.claude/` configuration directory existence, visibility boundary with Hub, cross-workspace notification protocol. Specific paths, naming conventions, indexing rules at CC substantive Memory Bank Layout canonical.
+- [RULE] Workspace Topology (**constitutional residue + Hub-internal substantive post-split**) — multi-node existence and naming convention, parity discipline, walking-skeleton-first ordering rule, node-assignment interface contract, workspace inception governance; Hub Claude soft compliance trigger phrases (Hub-internal substantive §7) + Hub Claude observability boundary (Hub-internal substantive §8). Specific tool stack, GitHub workflow configuration, node-assignment procedure, workspace inception checklist at CC substantive WT canonical.
+- [RULE] Claude Code Architecture Rules (**constitutional residue post-split**) — three-tier code architecture identity (Tier 1 React / Tier 2 Node BFF / Tier 3 Java Domain), Tier 2 thinning rule, permission decision placement principle, CLAUDE.md hierarchy pointer, subagent topology existence, high-level monorepo structure. Specific tier-internal tools, subagent roster A1-A10, named context scopes, repository path patterns, skill catalog at CC substantive CCAR canonical.
+- [RULE] Design System Governance — Tier 1 design language governance, three-way DS distribution (CD = SOT / CC = code-time mirror / Hub = spec-time mirror), token taxonomy, component inventory tiering, accessibility stance, additive update flow
+- [MECH] Development Track Workflow (**constitutional residue + Hub-internal substantive post-split**) — TK chain identity (TK-01 through TK-13), per-unit-type task paths, workspace-by-task mapping, transition mechanism catalog, human intervention budget, failure routing matrix, cross-workspace anti-drift; full Hub-authored substantive content for TK-01 / TK-02 / TK-03 / TK-12 (operator gate) + §9 Hub Claude soft compliance trigger phrases (Hub-internal substantive). TK-04 through TK-11 + TK-13 execution mechanics at CC substantive DTW canonical.
+- [MECH] CI/CD Milestone Policy (**constitutional residue post-split**) — M0–M5 ladder identity, per-unit-type milestone profile interface, Test Evidence Report schema (handoff interface), required artifact output gates (openapi.yaml / migration tooling / traceability matrix), multi-node evidence parity invariant. Gate criteria per M-N, tooling baseline, accessibility thresholds, slice-size advisory at CC substantive CI/CD canonical.
 - [MECH] Application Lifecycle Handoff — application-level handoff from AI-dev Track to human dev team, plus re-entry policy
 - [MECH] Cross-Tool Workflow Handoff — operator-mediated cross-tool content flow contracts (Hub ↔ CD, Hub ↔ CC, CD ↔ CC paths), per-direction content contracts, reminder-form discipline, audit-failure handling
-- [MECH] Code Quality Rule Set — code quality rule set across the three tiers (Tier 1 React frontend, Tier 2 Node BFF, Tier 3 Java domain), tool stack, severity policy, CI/CD pipeline integration, governance for rule-set evolution
-- [MECH] Dev-Loopback Mode — development-environment runnability contract, single-command end-to-end runnable stack, fixture content, placeholder implementation pattern, environment switch gate, walking-skeleton M5-staging acceptance assertions
-- [MECH] Tools Health Cadence — periodic P0 tool inventory verification, version pinning, Renovate Dependency Dashboard consumption, and paired-update synchronization with [MECH] CI/CD baseline + [MECH] Code Quality Rule Set tool stack + [MECH] Dev-Loopback Mode acceptance assertions + [RULE] Workspace Topology tool stack
 - [MECH] Canonical File Self-Audit — seven-dimensional self-audit (D1 routing integrity / D2 cross-source consistency / D3 internal coherence / D4 evidence quality / D5 governance discipline / D6 anti-drift / D7 AI consumption value) applied to canonical sources and to PI itself upon creation or substantive revision, three-tier trigger model, three-level severity grading, audit report and action plan output formats
 - [MECH] Sign-Off Cleanup Policy — sign-off cleanup for multi-round-revised long-living spec artifacts (PRD / TDD initially; A3-A7 pending empirical evidence), Why Anchor and four-question keep-vs-delete decision tree, trigger conditions covering audit quiescence (zero S1 / S2 findings) / operator judgment / handoff prep, in-place cleanup at original canonical path (no archive, no signoff- prefix; provenance via git history), per-artifact specifics expressed as content-category + example-pattern semantic rules, and exception handling for openapi.yaml + CC-produced slice artifacts + code/test/evidence
+
+**Sources fully migrated to CC substantive canonical in Phase 3 (no Hub PK presence; Hub-side handoff documentation refers to them generically or via "CC substantive X canonical" per the decoupled-reference model)**:
+- [RULE] Codex Plugin Usage — code review tooling (specific commands, trigger logic, evidence path schema)
+- [MECH] Code Quality Rule Set — three-tier code quality enforcement (specific lint tools, presets, severity policy, CI integration)
+- [MECH] Dev-Loopback Mode — single-machine runnability contract (single-command startup, fixture content, placeholder pattern, env switch gate, walking-skeleton M5 acceptance assertions)
+- [MECH] Tools Health Cadence — periodic P0 tool inventory verification (trigger model, execution protocol, action-item prioritization, quarterly report structure)
 
 For judgment principles applied across HR digital work, defer to [PRIN] HR Digital Decision Design Principles (cross-topic) and [PRIN] People Experience Design Principles (when People Experience is the topic lens). For policy architecture, defer to [POL] Digital Solution Policy Architecture Map. For stable journey reference content, defer to [REF] People Journey and Moments Catalog. For working template selection, defer to the [TPL] family.
 
@@ -77,6 +79,7 @@ The following rules activate automatically without being invoked; the canonical 
 - Project-level operating premises: per [OS] §0.1
 - Category-specific role anchors: per [OS] §0.2
 - Three-layer audience-surface matrix (canonical = AI-RAG-only optimization): per [OS] §0.1.4
+- **Constitutional / substantive boundary (Hub canonical owns constitutional + Hub-internal substantive; CC owns CC-internal operational)**: per [OS] §0.1.5 Premise 5
 - Hub-first rule: per [OS] §1.2
 - Audience and consumption model, including Hub Claude vs Claude Code visibility boundary: per [OS] §1.4
 - Routing architecture: per [OS] §7.1
@@ -92,9 +95,8 @@ The following rules activate automatically without being invoked; the canonical 
 - DingTalk-targeted output format: per [RULE] DingTalk Markdown Format Control Specification
 - Claude.ai platform behaviors (Artifacts rendering, web search, source precedence over web): per [RULE] Claude Platform Behavior Specification
 - Three-workspace architecture (Hub / CD / CC) and handoff topology: per [REF] Hub-CD-CC Architecture
-- CC-internal canonical content layout (CLAUDE.md hierarchy + `.claude/` structure): per [REF] CC Project Memory Bank Layout
+- CC-internal canonical layer existence and tier-aligned structure: per [REF] CC Project Memory Bank Layout constitutional residue (CC substantive canonical owns specific paths and authoring discipline)
 - Cross-tool content flow contracts: per [MECH] Cross-Tool Workflow Handoff
-- Periodic tool health verification cadence and paired-update tool stack inventory: per [MECH] Tools Health Cadence
 - Design System governance and three-way DS distribution: per [RULE] Design System Governance
 - Development Track routing and rules: per [OS] §7.1 and the Development Track sources enumerated in [OS] §2.3.2 admissibility table (Cat 4 column)
 
