@@ -402,7 +402,7 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
 
 **Cross-model review reminder at sign-off** ([Enforcement·reminder-only]): Same mechanics as TK-01. Hub Claude surfaces a reminder; operator chooses to invoke cross-model review (e.g., Codex review of the TDD architecture) or proceed.
 
-**Hub-to-assigned_node onboarding (between TK-02 and the unit's first node-side TK)**: Immediately after TK-02 sign-off, for each unit in the phase the operator onboards that unit's `assigned_node` per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). Onboarding includes: `git fetch && git checkout -b feature/<app-slug>/<unit-slug>`, transfer of phase-level TK-01 PRD and TK-02 outputs (TDD, test-plan, openapi, slice-list, **and per-feature UX Design Spec instance markdown when authored**) into `apps/{app-slug}/specs/{prd,tdd,test-plan,openapi,slice-list,ux-design-spec}/` on the working branch, `git push -u`, and starting a Claude Code session on assigned_node. The CD-authored design files accompany as visual reference (transferred to CC at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1, not committed to the monorepo unless the operator explicitly opts to). From this point, all subsequent node-side TKs for that unit execute within that Claude Code session.
+**Hub-to-assigned_node onboarding (between TK-02 and the unit's first node-side TK)**: Immediately after TK-02 sign-off, for each unit in the phase the operator onboards that unit's `assigned_node` per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). The Hub-level contracts for this onboarding: (a) the working branch follows the naming pattern `feature/<app-slug>/<unit-slug>`; (b) phase-level TK-01 PRD and TK-02 outputs (TDD, test-plan, openapi, slice-list, **and per-feature UX Design Spec instance markdown when authored**) land at `apps/{app-slug}/specs/{prd,tdd,test-plan,openapi,slice-list,ux-design-spec}/` on the working branch; (c) the working branch is published so assigned_node can access it; (d) a Claude Code session is started on assigned_node, becoming the execution context for all subsequent node-side TKs for that unit. The specific SCM commands, branch-publication mechanics, and session-bootstrap procedure are operator-personal mechanism owned by CC substantive Workspace Topology canonical. The CD-authored design files accompany as visual reference (transferred to CC at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1, not committed to the monorepo unless the operator explicitly opts to). From this point, all subsequent node-side TKs for that unit execute within that Claude Code session.
 
 ---
 
@@ -576,11 +576,13 @@ This transition happens conditionally — only per feature with `tier_1_involved
 
 The hub-to-assigned_node handoff happens immediately after TK-02 sign-off (covering all three steps when applicable) per [MECH] Cross-Tool Workflow Handoff §3.1. From the first node-side TK onwards through TK-11, all node-side work executes on assigned_node.
 
-- After TK-02 sign-off, operator manually onboards the assigned_node per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4):
-  - `git fetch && git checkout -b feature/<app-slug>/<unit-slug>`
-  - Transfer phase-level TK-01 PRD and TK-02 outputs (TDD, test-plan, openapi, slice-list, **and per-feature UX Design Spec instance markdown when authored**) to `apps/{app-slug}/specs/{prd,tdd,test-plan,openapi,slice-list,ux-design-spec}/` on the feature branch
-  - `git push -u`
-  - Start Claude Code session on assigned_node
+- After TK-02 sign-off, operator manually onboards the assigned_node per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). The Hub-level contracts:
+  - A working branch is created from the unit's base branch, following the naming pattern `feature/<app-slug>/<unit-slug>`
+  - Phase-level TK-01 PRD and TK-02 outputs (TDD, test-plan, openapi, slice-list, **and per-feature UX Design Spec instance markdown when authored**) land at `apps/{app-slug}/specs/{prd,tdd,test-plan,openapi,slice-list,ux-design-spec}/` on the working branch
+  - The working branch is published so assigned_node can access it
+  - A Claude Code session is started on assigned_node, becoming the execution context for all subsequent node-side TKs for that unit
+
+  The specific SCM commands, branch-publication mechanics, and session-bootstrap procedure are operator-personal mechanism owned by CC substantive Workspace Topology canonical.
 
 Per-slice TK-03 artifacts (intent / acceptance / test-plan) are placed at assigned_node working directory by the operator at the end of each TK-03 iteration per [MECH] Cross-Tool Workflow Handoff §3.1. CD-authored design files accompany the spec bundle as visual reference for the operator and CC, but are not committed to the monorepo unless the operator explicitly opts to.
 

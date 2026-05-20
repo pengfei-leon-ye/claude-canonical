@@ -110,7 +110,7 @@ Parity is achieved through three mechanisms (existence-declared here; substantiv
 
 2. **Shared `.claude/` canonical content**: subagents, skills, hooks, and rules in `.claude/` are not duplicated per node — they live in the monorepo and each node pulls the same content. (Cross-reference [REF] CC Project Memory Bank Layout constitutional residue for the existence of the `.claude/` directory; this source declares the parity requirement.)
 
-3. **Upgrade discipline**: toolchain upgrades flow through a Renovate-mediated cadence (substantive specifics including PR creation, review, and merge protocol live at CC substantive canonical).
+3. **Upgrade discipline**: toolchain upgrades flow through an automated dependency-upgrade PR cadence (specific tool selection and the PR creation, review, and merge protocol are CC substantive content).
 
 **Scope of parity — what parity applies to and what it does not**:
 

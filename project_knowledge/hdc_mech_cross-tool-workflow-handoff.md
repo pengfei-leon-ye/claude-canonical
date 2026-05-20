@@ -166,8 +166,8 @@ This direction carries Hub-produced content into a CD session as context for des
 
 ### 2.1.2 Source format
 
-Hub content exists in:
-- Canonical sources at `/mnt/project/hdc_*.md` (including the Hub DS mirror at `hdc_ref_design-system.md`)
+Hub content exists as:
+- Hub canonical sources (the `hdc_*.md` file set in the canonical repository / Hub PK, including the Hub DS mirror `hdc_ref_design-system.md`); Hub Claude reads them via the RAG layer per [OS] §1.4; the specific access channel used to surface canonical content into a Hub conversation is operator-personal infrastructure and not canonical-governed
 - Spec artifacts at `apps/{app-slug}/specs/**` or similar
 - Conversation-level content produced by Hub Claude
 
@@ -323,7 +323,7 @@ This direction carries Hub-produced content into CC for code implementation work
 ### 3.1.2 Source format
 
 Hub content exists as:
-- Canonical files (`/mnt/project/hdc_*.md`)
+- Hub canonical files (the `hdc_*.md` file set in the canonical repository / Hub PK)
 - Spec artifacts in the monorepo (`apps/{app-slug}/specs/**`) authored in Hub Claude conversations and committed by the operator
 - Conversation content (one-off advisory output)
 
@@ -333,7 +333,7 @@ Hub content exists as:
 
 1. Ensure CC has access to the current Hub canonical source via the operator's chosen mechanism (e.g., local clone of the canonical GitHub repository synced to the latest commit; or operator-mediated paste of relevant content into the CC session)
 2. The specific mechanism is operator-personal infrastructure; this canonical does not prescribe it
-3. When Hub canonical evolves (new commit lands at `claude_ai_canonical/project_knowledge/`), the operator refreshes CC's access as needed (e.g., `git pull` on the local clone; re-paste; etc.)
+3. When Hub canonical evolves (new commit lands at `claude_ai_canonical/project_knowledge/`), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
 4. CC contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin
 
 **For Sub-flow B — spec artifact transfer at TK-03 → TK-04 entry**:
