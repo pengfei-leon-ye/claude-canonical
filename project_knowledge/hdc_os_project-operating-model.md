@@ -33,7 +33,7 @@ Do not use this document as:
 
 ## 0.1 Premises
 
-Four premises hold across all four work categories in this project. They are the irreducible foundation for the project's design choices and the load-bearing anchor for anti-mimicry framing in downstream canonical sources.
+Six premises hold across all four work categories in this project. They are the irreducible foundation for the project's design choices and the load-bearing anchor for anti-mimicry framing in downstream canonical sources.
 
 ### 0.1.1 Premise 1 — Co-production layer, not work environment
 
@@ -114,6 +114,39 @@ Hub canonical sources serve two functionally distinct purposes:
 **Migration transitional state**: When a substantive rule currently resides at Hub PK but per the design test belongs at CC, the rule is a migration candidate. During the migration period, Hub-side substantive residue is tolerated; the design target is zero Hub-side CC-domain substantive content. The per-source migration disposition is owned by [REF] Hub-CD-CC Architecture.
 
 **Priority interaction**: PI encodes the workspace-level priority chain that operationalizes this premise. When CC `.claude/canonical/` substantive content and Hub constitutional rules potentially conflict, constitutional rules win (governance authority). When Hub-side legacy substantive residue (pending migration) and CC `.claude/canonical/` substantive content conflict, CC wins (domain authority) and the Hub-side residue is flagged as pending migration. See PI "Priority and conflict handling" for the layered priority encoding.
+
+### 0.1.6 Premise 6 — AI topology is not human topology
+
+This project's [MECH] sources (governance mechanism specifications — workflow orchestration, milestone gating, audit governance, handoff protocols, sign-off cleanup, cross-tool handoff) coordinate work across AI sub-agents, fresh sessions, and cross-tool boundaries. AI collaboration has fundamentally different primitives than human team collaboration:
+
+- **Statelessness**: each AI invocation is a cold start; no persistent context between calls beyond what is explicitly re-supplied via canonical RAG or runtime context
+- **Finite attention**: context window is finite and exhibits non-uniform attention (Lost-in-the-Middle, Context Rot) — adding more rules does not guarantee they are all read
+- **No latent agency**: AI does not autonomously escalate, follow up, or notice things outside the current invocation's scope
+- **Ephemeral instance identity**: AI sub-agent instances are not coworkers with continuous memory of prior tasks
+
+Mechanism design for [MECH] sources must reason from these AI primitives rather than transplant patterns from human team workflows. Commercial CI/CD pipelines, PR review protocols, human-in-the-loop sign-offs, and similar patterns may be referenced **only after explicit compatibility analysis with the AI primitives above**. Mechanism fragments that implicitly assume "a coworker holds the context", "someone will follow up", "state persists between sessions without being re-supplied", or "an actor proactively escalates" must be redesigned to make the assumed primitive explicit and to provide a state-supply or escalation mechanism that does not depend on AI possessing that primitive.
+
+**Application scope**: this premise applies primarily to [MECH] sources and to multi-actor workflow rules in [RULE] sources (e.g., Workspace Topology multi-node coordination, Claude Code Architecture multi-agent topology). Single-actor Hub-internal rules ([OS], [PRIN], [TPL], [REF], single-axis [RULE]) are less affected because they do not involve sub-agent or cross-session coordination.
+
+**Audit operationalization**: [MECH] CFSA §3.11 operationalizes this premise as a D5 Soundness check applied specifically to [MECH] sources.
+
+**Origin**: this premise codifies a costly lesson from the early Development Track CI/CD design, where commercial CI/CD patterns assuming continuous-context coworker review were transplanted into AI-sub-agent contexts and produced repeated execution stalls. The pattern of "AI mimicry of human workflow primitives" is the failure mode this premise prevents.
+
+### 0.1.7 How new Premises are added (meta-note)
+
+Adding a new §0.1.x Premise expands the project's constitutional layer and must clear a higher bar than adding a [RULE] or [MECH] rule. A new Premise proposal must pass at least three of the following five AI Consumption dimensions before being added to §0.1:
+
+1. **RAG hit improvement** — the new Premise will be referenced by multiple canonical sources (≥3 distinct sources), making it a high-frequency RAG retrieval anchor
+2. **Cross-source disambiguation** — the principle is currently expressed with drifted wording across multiple canonical sources, and the Premise unifies the wording at a single authoritative location
+3. **Decision gating** — the Premise can serve as a decision standard during §8.9 pre-generation declarations or other procedural gates
+4. **Audit triggering** — the Premise maps to a concrete CFSA dimension check (existing D1-D7 or a new dimensional adaptation in §3.10 / §3.11)
+5. **Cross-session consistency** — Hub Claude needs to apply the Premise repeatedly across sessions; codifying as a §0.1 Premise prevents per-session drift
+
+The threshold is **≥3 of 5 dimensions passing** for upgrade to Premise; if fewer than 3 pass, the principle belongs at a lower layer ([REF], [RULE], [MECH], or in an existing source's section) rather than at §0.1.
+
+**Bias acknowledgement**: this checklist preferentially scores high-frequency rules over low-frequency-but-structurally-critical gates. When evaluating a proposed structural gate (e.g., a Premise about how new canonical sources are added), interpret the "decision gating" dimension as gating leverage × single-occurrence consequence, not as raw frequency. Likewise the checklist preferentially scores audit-layer extensions over Premise-layer additions because the former trivially satisfy dimensions 3 and 4; operators should match the principle to its true structural layer rather than route everything through audit dimensions to inflate the score.
+
+**Example application**: Premise 6 (this revision) passes all 5 dimensions: it applies across all [MECH] sources (RAG hit), unifies wording previously scattered across DTW / CFSA / PI (cross-source disambiguation), gates new [MECH] design (decision gating), maps to CFSA §3.11 (audit triggering), and applies in every [MECH] revision conversation (cross-session consistency). A counter-example — a proposed Premise "Single authoritative source for cross-workspace content" — was evaluated under this checklist and **withdrawn** (0 of 5 passed) because the principle was already adequately implemented at [REF] Hub-CD-CC Architecture and at CFSA D3 implicit-mirroring failure mode.
 
 ---
 
@@ -998,6 +1031,7 @@ Before generating the final source-ready Markdown, state:
 - active consistency-check scope (which canonical sources the consistency check in §8.5 will run against)
 - active format authority, if format materially affects the source (e.g., when the source itself documents DingTalk Markdown syntax)
 - mechanism verification status, when the source declares how an external tool, system, or mechanism behaves (per the Mechanism verification rule below)
+- constitutional / substantive placement per §0.1.5 Premise 5: declare whether the source is (a) cross-workspace constitutional content owned by Hub canonical, (b) Hub-internal substantive content owned by Hub canonical, or (c) CC-internal substantive content that should not be generated at Hub. Option (c) blocks Hub generation and routes the source to CC's canonical layer per [REF] CC Project Memory Bank Layout. For [MECH] sources, additionally confirm §0.1.6 Premise 6 compliance (no implicit dependence on human-team primitives)
 
 ### Generation
 

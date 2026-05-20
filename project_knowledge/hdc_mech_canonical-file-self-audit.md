@@ -279,6 +279,7 @@ No semantically duplicate rules exist within the source or across canonical sour
 - Across sources: this source does not duplicate rule content already owned by another canonical source
 - Across sources: this source does not claim authority that another canonical source already owns (authority overlap)
 - Concept-drift restatement: a rule that "rephrases" another rule with slightly different wording but no new substantive content is still a duplicate
+- **Implicit mirroring**: this source does not copy content (rules, definitions, tables, lists) from another canonical source — including from canonical sources in other workspaces (e.g., CC-side canonical) — by inlining the content verbatim or with cosmetic re-wording when a read-from-authoritative-source reference would serve the same purpose. Mirroring is a D3 violation equivalent to explicit rule duplication and creates parity-failure risk when the authoritative source changes. Naming a counterpart source for traceability (per [OS] §1.4 Operational mechanism) is permitted; copying its substantive content for local convenience is not
 
 ### 3.4.3 Failure modes D3 catches
 
@@ -286,6 +287,8 @@ No semantically duplicate rules exist within the source or across canonical sour
 - A rule in this source duplicates a rule in another canonical source
 - This source's stated authority overlaps with another canonical source's stated authority
 - A rule begins as a clarification of an earlier rule but, through revision, has drifted into a near-restatement
+- A source inlines substantive content (definitions, rule bodies, decision tables) from another canonical source — including cross-workspace — when a reference would serve the same purpose; the inlined content creates a silent parity-failure surface when the authoritative source changes
+- A cross-workspace canonical (e.g., a Hub [REF] source describing a CC-side concept) restates the substantive details owned by the counterpart workspace's canonical layer instead of declaring existence + boundary + reference, violating [OS] §0.1.5 Premise 5 ownership boundaries
 
 ### 3.4.4 Distinction from D1 and D7
 
@@ -456,6 +459,36 @@ The seven dimensions adapt as follows:
 | **D5** Soundness | Yes | Standard purpose-traceability and necessity test per §3.6 |
 | **D6** Rationale Transparency | **Re-scoped** | PI is intentionally pointer-only; rationale lives in PK by design. D6 for PI checks that PI's pointers correctly resolve to the canonical-source location where rationale lives, NOT that PI itself states rationale. A PI pointer to a renamed or restructured PK target is a D6 finding |
 | **D7** AI Consumption Value | Yes, with PI-specific emphasis | PI is pointer-only by design, so the D7 derived-content / motivation / decorative-meta failure modes are particularly salient. D7 for PI checks: (a) PI's pointer text is minimal — no inlined rationale that belongs in PK; (b) PI does not contain "Why this exists" sections or operator-navigation scaffolding; (c) PI's enumeration of canonical sources is purpose-bearing (drives AI retrieval routing) rather than decorative |
+
+## 3.11 Dimensional applicability adjustments for [MECH] sources
+
+[MECH] sources (governance mechanism specifications — workflow orchestration, milestone gating, audit governance, handoff protocols, sign-off cleanup, cross-tool handoff) coordinate work across AI sub-agents, fresh sessions, and cross-tool boundaries. [OS] §0.1.6 Premise 6 (AI topology is not human topology) imposes additional constraints on [MECH] design that the §3.2-§3.8 base dimensions do not directly check. This section adapts D5 Soundness for [MECH]-specific scrutiny while keeping the other dimensions at their base definitions.
+
+The seven dimensions apply to [MECH] sources as follows:
+
+| Dim | [MECH] adaptation |
+|---|---|
+| **D1** Structural Integrity | Standard per §3.2. [MECH] sources frequently have richer sub-section taxonomies (multi-stage workflows, multi-tier gating); ME/CE checks apply to each stage's sub-section set |
+| **D2.1** Internal Coherence | Standard per §3.3.1. Particular attention to terminology stability across workflow stages (a term introduced in §1 must carry the same definition through downstream stage descriptions) |
+| **D2.2** External Coherence | Standard per §3.3.2 |
+| **D3** Non-Redundancy | Standard per §3.4, with the implicit-mirroring failure mode (§3.4.2 / §3.4.3) particularly salient because [MECH] sources frequently reference each other (workflow → milestone → handoff chains create cross-reference fan-out) |
+| **D4** Operationalizability | Standard per §3.5 |
+| **D5** Soundness | **Extended with Premise 6 compliance check**. In addition to the §3.6 base purpose-traceability and necessity tests, [MECH] sources are audited against [OS] §0.1.6 (AI topology is not human topology): for each gate, transition, handoff node, escalation point, and inter-actor protocol step in the [MECH], verify that the step does not implicitly assume an AI primitive that AI does not possess. Specifically check for hidden assumptions of (a) **continuous-context coworker review** (an actor reading the step's output is assumed to also hold prior conversation context), (b) **proactive escalation** (an AI actor is assumed to autonomously notice and surface anomalies outside the current invocation), (c) **implicit state persistence** (state is assumed to carry across sessions without being explicitly re-supplied via canonical RAG or runtime context), or (d) **ephemeral-instance coworker identity** (an AI sub-agent is treated as a coworker with memory of prior tasks). When a step depends on a human primitive, the [MECH] must either redesign the step to supply the missing primitive explicitly (e.g., make the prior context an explicit input to the next stage) or declare the human-actor requirement and the cost it imposes |
+| **D6** Rationale Transparency | Standard per §3.7. [MECH] sources benefit from explicit rationale for non-obvious design choices (e.g., why a particular gate order was chosen, why a workflow step exists at all) |
+| **D7** AI Consumption Value | Standard per §3.8 |
+
+**D5 Premise 6 check operationalization**:
+
+For each [MECH] sub-section that describes a workflow step, gate, transition, handoff, or inter-actor protocol, run the four-part question set:
+
+1. Does this step rely on an actor (human or AI) holding context from a prior step that is not explicitly re-supplied here?
+2. Does this step rely on an actor noticing or escalating something outside the immediate scope of the step's input?
+3. Does this step rely on state persisting between sessions or invocations without being explicitly re-supplied?
+4. Does this step treat an AI instance as a coworker with memory of prior interactions?
+
+Any "yes" without an accompanying explicit state-supply or escalation mechanism is a D5 finding under Premise 6.
+
+**Origin**: this adaptation codifies the audit lens that surfaced the early Development Track CI/CD mimicry failure (commercial CI/CD patterns assuming continuous-context coworker review transplanted into AI sub-agent contexts). The lens generalizes from that specific case to all [MECH] sources.
 
 ---
 
