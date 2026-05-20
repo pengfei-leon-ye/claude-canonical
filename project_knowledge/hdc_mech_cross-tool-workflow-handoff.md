@@ -497,13 +497,29 @@ This direction is rare. It fires when:
 - Implementation-observed visual / interaction issues warranting CD-side revision of design files (when the affected feature is in-flight and the design files are being revised)
 - Implementation observations supplementing the DSG §12 flow when CC surfaces a need for DS content change
 
-### 4.3.3 Operator actions
+### 4.3.3 Source format
+
+CC implementation observations exist in informal form:
+- Free-form natural-language description by the operator paraphrasing the CC-surfaced issue
+- Optional accompanying material: code excerpt, screenshot of running implementation, or reference to a specific test failure
+
+There is no structured schema — this direction's rarity and the free-form CD reception (§4.3.6) do not warrant one.
+
+### 4.3.4 Operator actions
 
 1. Note the CC observation
 2. If the issue requires DS change: route primarily via §3.2 CC → Hub → DSG §12 flow; secondarily communicate the implementation observation to CD as free-form context
 3. If the issue requires design file revision (without DS change): open the relevant CD session for the feature; communicate the observation as free-form prompt; CD may produce revised design files; if the affected feature is still pre-TK-02-signoff, the revised design files re-enter §2.2 Sub-flow A; if post-signoff, the revision may flow into TK-03 escalation routing per [MECH] DTW §4 TK-03 failure routing
 
-### 4.3.4 CD reception
+### 4.3.5 Audit checklist (pre-transfer)
+
+Before transferring a CC observation to CD, the operator verifies:
+- The observation genuinely warrants CD-side action — distinguish "implementation-level adjustment within current design" (handle inside CC) from "design intent revision needed" (warrants CD revisit)
+- The DSG §12 path is not the more appropriate route — DS-content-impacting observations belong on the §3.2 CC → Hub → DSG §12 chain primarily, with CD communication secondary; do not bypass DSG §12 for content that should evolve the DS instance
+- The affected feature's TK-02 sign-off status is known — pre-signoff observations re-enter §2.2 Sub-flow A; post-signoff observations route into TK-03 failure handling per [MECH] DTW §4
+- The CD session for the affected feature is identifiable — if multiple CD sessions touch the feature, the operator selects the one carrying the current canonical design intent
+
+### 4.3.6 CD reception
 
 CD treats the operator-communicated CC observation as free-form context, same as any §2.1 Hub → CD transfer.
 

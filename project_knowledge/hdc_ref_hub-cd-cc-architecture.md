@@ -326,7 +326,7 @@ Within a CD project, the operator may compose multiple skills to produce richer 
 
 For HDC project work specifically, the operator typically uses CD to produce:
 
-- **Per-feature design files** (when TDD declares tier_1_involved=true): hi-fi mockups, interactive prototypes, wireframes, component callouts, interaction flows, with embedded textual annotations covering design rationale, a11y considerations, i18n notes, responsive behavior, motion expectations. These are the **source material from which Hub Claude authors the per-feature UX Design Spec instance** at TK-02 step 2.3. Design files cover [TPL] UX Design Spec §2 content categories (CD chooses the native form; coverage means the design files contain material on each category).
+- **Per-feature design files** (when TDD declares tier_1_involved=true): hi-fi mockups, interactive prototypes, wireframes, component callouts, interaction flows, with embedded textual annotations covering design rationale, a11y considerations, i18n notes, responsive behavior, motion expectations. These design files are **raw source material** from which Hub Claude authors the per-feature UX Design Spec instance at TK-02 step 2.3 — not a CC-consumable spec equivalent. Design files contain material on each [TPL] UX Design Spec §2 content category (CD chooses the native form; coverage means the material is present), but **CC does not consume design files directly as specification**: Hub-side synthesis is required to (a) translate visual + informal annotation form into structured markdown that CC can deterministically consume, (b) ground each category against the current Hub DS mirror (a check CD cannot perform because CD lacks Hub DS mirror access), and (c) produce a per-feature spec instance integrated with adjacent specification artifacts (PRD, TDD, per-slice intent/acceptance/test-plan) that share the Hub-side authoring context. The CD → Hub → CC chain therefore has a substantive synthesis step at the Hub middle; CD output and CC input are **not at the same content layer**.
 - **DS instance content** (additive or breaking changes to DS authored in CD as SOT per [RULE] DSG §12): when CD-side authoring produces new components, tokens, patterns, or other DS evolution, the change is finalized in CD SOT; CD also generates an updated DS markdown export for sync to Hub mirror and CC mirror.
 - **Stakeholder review materials** (prototypes, slide decks) for operator's own use; not integrated into Hub canonical.
 
@@ -765,35 +765,48 @@ During the current operating period (CD research preview), there is no direct CD
 - If CC code changes affect DS visual representation, the operator notifies CD via Hub routing (CC → Hub → CD path through DSG §12)
 - Direct CC → CD content flow is rare relative to CD → CC
 
-## 9.4 Direct CD ↔ CC coupling: not enabled during research preview
+## 9.4 Direct CD ↔ CC coupling: not enabled, and architecturally non-trivial
 
-CD has a native "Send to Claude Code" handoff path in its product surface. During the current research preview operating period, this direct coupling is not enabled for HDC project use. The operator routes all CD → CC content through audited operator-mediated transfer (§9.3).
+CD has a native "Send to Claude Code" handoff path in its product surface. Direct CD ↔ CC coupling is not enabled for HDC project use, and the rationale is **primarily architectural rather than procedural**:
+
+**Architectural primary reason** — CD output and CC input are not at the same content layer. CD produces design files (raw source material in visual + informal annotation form, per §3.4.1); CC consumes per-feature UX Design Spec instances (structured markdown integrated with PRD / TDD / per-slice spec artifacts, grounded against the current Hub DS mirror). The synthesis from raw material to CC-consumable spec is a substantive authoring step that currently resides at Hub (TK-02 Step 2.3 per [MECH] DTW). Direct CD → CC content transfer would bypass this synthesis, leaving CC with input that is not at its consumption layer.
+
+**Operational secondary reason** — even if CD output could be CC-consumable, the current research-preview operating period adds caution. The operator routes all CD → CC content through audited operator-mediated transfer (§9.3) for traceability and governance.
+
+The two reasons compound but are distinct. The architectural reason is structural to the current three-workspace synthesis division (CD = design SOT, Hub = spec synthesis, CC = code generation). The operational reason would relax with research-preview maturity. The architectural reason would only relax if the synthesis responsibility migrated.
 
 ---
 
-# 10. Conditions for re-enabling direct CD ↔ CC coupling
+# 10. Conditions under which direct CD ↔ CC coupling could become viable
 
-## 10.1 Three concurrent prerequisites
+## 10.1 Architectural condition (necessary)
 
-Direct CD ↔ CC coupling may be re-enabled when all three of the following hold:
+The synthesis step currently at Hub TK-02 Step 2.3 must move — either to CD (CD evolves spec authoring capability) or to CC (CC evolves to consume raw design files directly and synthesize internally) or to a new intermediate workspace replacing Hub's middle role. Without this migration, direct CD ↔ CC coupling leaves a content-layer gap that CC cannot bridge alone.
+
+This is a non-trivial architectural change to the three-workspace responsibility division. It is not predictable on the current roadmap; it is registered here as a structural prerequisite, not a near-term plan.
+
+## 10.2 Operational conditions (necessary)
+
+If the architectural condition is met, the following operational conditions remain to gate direct coupling:
 
 1. **CD reaches general availability (GA)** — exits research preview status as a Claude product
-2. **CD design file transfer format is documented** — the concrete file structure and naming of CD design files when transferred is documented stably enough that CC can consume design files deterministically; also covers DS markdown export format stability
-3. **CD token cost is stabilized** — the per-operation token consumption pattern is predictable enough for the HDC operator to budget around
+2. **CD design file transfer format is documented** — concrete file structure and naming of CD design files when transferred is documented stably enough that the consumer (CC, or whichever workspace owns synthesis post-migration) can consume them deterministically; also covers DS markdown export format stability
+3. **CD token cost is stabilized** — per-operation token consumption pattern is predictable enough for the HDC operator to budget around
 
-All three are required. Any one alone is insufficient: GA without documented transfer format leaves the consumer side ambiguous; documented format without GA risks ongoing breaking changes; both without stable token cost makes operation budgeting infeasible.
+All three operational conditions plus the architectural condition are required. Any operational condition alone (without architectural change) is insufficient — GA + documented format + stable token cost still leave the content-layer gap.
 
-## 10.2 Path to verification
+## 10.3 Path to verification
 
-When the operator believes one or more prerequisites may be satisfied:
-1. The operator runs a verification exercise (analogous to the §3.7 R1 verification, but specifically targeting the three prerequisites)
+If the operator believes the architectural condition has shifted (e.g., CD's product surface evolves to include spec authoring, or CC evolves to consume design files directly):
+
+1. The operator runs a verification exercise targeting both the architectural condition and the three operational conditions, analogous to the §3.7 R1 verification
 2. Verification findings are recorded as an ADR in the Hub workspace per [TPL] ADR Spec
 3. The ADR's decision section specifies whether to re-enable direct coupling, and if so, with what initial scope
-4. If re-enabled, this source ([REF] Hub-CD-CC Architecture) is revised in the same revision to remove the "decoupled-by-default" framing in §9.4 and replace with the current direct-coupling discipline
+4. If re-enabled, this source ([REF] Hub-CD-CC Architecture) is revised in the same revision to remove the "decoupled-by-default" framing in §9.4 and replace with the current direct-coupling discipline; §10 itself is revised to reflect the new architectural division
 
-## 10.3 Reversibility
+## 10.4 Reversibility
 
-Re-enabling direct coupling is reversible: if direct coupling produces audit failures or content quality issues after re-enabling, the operator may revert to operator-mediated transfer by reverting the ADR and the §9.4 revision. Reversibility is preserved because the operator remains the controlling node across all coupling states.
+If direct coupling is re-enabled and subsequently produces audit failures or content quality issues, the operator may revert by reverting the ADR and the §9.4 + §10 revision. Reversibility is preserved because the operator remains the controlling node across all coupling states.
 
 ---
 

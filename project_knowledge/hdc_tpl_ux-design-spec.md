@@ -43,6 +43,7 @@ This template's scope is **per-feature UX coverage**, not per-slice. A UX Design
 
 ## 0.1 What this source owns
 
+- **The synthesis nature of the instance**: each UX Design Spec instance is a **Hub-authored synthesis** from CD-authored design files (raw source material) grounded against the current Hub DS mirror — not a transcription of design files into markdown. Design files alone are not CC-consumable specification; the synthesis at TK-02 Step 2.3 is the substantive authoring step that produces CC-consumable content. See [REF] Hub-CD-CC Architecture §3.4.1 + §9.4 for the architectural framing.
 - The coverage contract: what categories of UX content the Hub-authored UX Design Spec instance must provide for a feature when `tier_1_involved: true`
 - The reviewer checklists applied at TK-02 Step 2.3:
   - **Design file quality check** — applied by Hub Claude + operator against CD-authored design files entering Step 2.3 (per [RULE] DSG §13.3 Hub-side consumption discipline)
