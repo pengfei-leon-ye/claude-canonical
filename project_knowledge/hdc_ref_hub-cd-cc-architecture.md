@@ -16,7 +16,6 @@
   - [MECH] Cross-Tool Workflow Handoff — operationalizes this source's three operator-mediated handoff paths into content contracts
   - [MECH] Application Lifecycle Handoff — distinct flow (AI-dev to human dev team, application-level); not the cross-tool workflow handoff this source describes
   - [RULE] Design System Governance — consumes this source's revised three-way DS distribution model (CD SOT / CC mirror / Hub mirror)
-- **Relationship to [RULE] Claude Platform Behavior**: Cross-category-layer peer per [OS] §2.3.2. That source owns Claude.ai platform-level behaviors; this source owns the three-workspace architecture built on top of those behaviors for HDC project use.
 - **Relationship to [RULE] DingTalk MD Format Control**: Cross-category-layer peer per [OS] §2.3.2. Delivery-interface for DingTalk-destined outputs; orthogonal to this source's structural architecture.
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [REF] Hub-CD-CC Architecture` header fields per [OS] §8.5.1a)
 
@@ -76,7 +75,6 @@ This source does not own:
 - Multi-node dev environment topology inside the CC workspace (owned by [RULE] Workspace Topology)
 - Internal task orchestration of the Development Track (owned by [MECH] Development Track Workflow, including the TK-02 internal Step 2.1 / 2.2 / 2.3 sub-structure)
 - Substantive rules of any individual canonical inside any workspace (owned by their respective canonical sources)
-- Claude.ai platform-level behaviors (owned by [RULE] Claude Platform Behavior)
 - Design System governance rules and mirror sync mechanics (owned by [RULE] Design System Governance §1.1 + §12)
 - Specific cross-workspace handoff content contracts (owned by [MECH] Cross-Tool Workflow Handoff)
 - Application-level handoff from AI-dev track to human dev team (owned by [MECH] Application Lifecycle Handoff)
@@ -94,7 +92,6 @@ This source does not own:
 | [REF] People Journey and Moments Catalog | Domain reference for HR lifecycle stages; orthogonal to architectural concerns. |
 | [REF] Design System | Anchored. The Hub mirror of DS instance content; consumed by Hub Claude at TK-02 step 2.3 quality check + UX Design Spec authoring grounding; synced from CD SOT per [RULE] DSG §12. |
 | [REF] CC Project Memory Bank Layout | Different scope (CC-internal canonical layout); operates inside the CC workspace boundary that this source defines. |
-| [RULE] Claude Platform Behavior | Cross-category-layer peer per [OS] §2.3.2. Describes Claude.ai surface behaviors that this source composes into the three-workspace architecture. |
 | [RULE] DingTalk MD Format Control | Cross-category-layer peer per [OS] §2.3.2. Delivery-interface for DingTalk-destined outputs; orthogonal to structural architecture. |
 | [RULE] Workspace Topology | Different scope. Multi-node dev environment inside CC; this source is hub/CD/CC at the AI tool level. |
 | [RULE] Claude Code Architecture Rules | Operates inside the CC workspace boundary that this source defines. |
@@ -558,7 +555,7 @@ Nine Hub canonical sources were structurally restructured during Phase 3 of the 
 | `[MECH] Dev-Loopback Mode` | CC substantive Dev-Loopback Mode canonical | Hub-side handoff documentation refers to "dev-environment runnability contract at CC substantive canonical" |
 | `[MECH] Tools Health Cadence` | CC substantive Tools Health Cadence canonical | Hub-side handoff documentation refers to "periodic tools health inventory at CC substantive canonical" |
 
-**Sources unchanged in Phase 3**: [OS], [PRIN] (×2), [POL], [REF] People Journey, [REF] Hub-CD-CC (this source — gets §8 inventory updates), [REF] Design System Hub mirror (pending sync), [RULE] Claude Platform Behavior, [RULE] DingTalk MD Format Control, [RULE] Design System Governance, [MECH] Application Lifecycle Handoff, [MECH] Cross-Tool Workflow Handoff, [MECH] Canonical File Self-Audit, [MECH] Sign-Off Cleanup Policy, all 10 [TPL] sources.
+**Sources unchanged in Phase 3**: [OS], [PRIN] (×2), [POL], [REF] People Journey, [REF] Hub-CD-CC (this source — gets §8 inventory updates), [REF] Design System Hub mirror (pending sync), [RULE] DingTalk MD Format Control, [RULE] Design System Governance, [MECH] Application Lifecycle Handoff, [MECH] Cross-Tool Workflow Handoff, [MECH] Canonical File Self-Audit, [MECH] Sign-Off Cleanup Policy, all 10 [TPL] sources.
 
 Each split source's §0 boundary chapter declares "what this source owns" (Hub-side constitutional + Hub-internal substantive) and "what this source does not own" (CC substantive content externalized + adjacent-source boundaries).
 
@@ -655,7 +652,7 @@ Hub workspace holds the canonical set listed under Hub PK `hdc_*.md` files. The 
 | [PRIN] | HR Digital Decision Design Principles, People Experience Design Principles | Cross-topic judgment |
 | [POL] | Digital Solution Policy Architecture Map | Cat 1 policy architecture |
 | [REF] | People Journey and Moments Catalog, Hub-CD-CC Architecture (this source), CC Project Memory Bank Layout (**constitutional residue post-split** — CC-internal substantive layout migrated to CC), Design System (Hub mirror — declared per [RULE] DSG §1.1 revised three-way distribution; content authored by CD as SOT, synced to Hub PK per DSG §12; **mirror file pending first CD-generated DS markdown export sync**) | Stable references |
-| [RULE] | Claude Platform Behavior, DingTalk MD Format Control, Workspace Topology (**constitutional residue + Hub-internal substantive post-split** — multi-node operational details migrated to CC), Claude Code Architecture Rules (**constitutional residue post-split** — subagent roster / context scopes / repository layout / skill catalog migrated to CC), Design System Governance | Operational rules across multiple Cat scopes |
+| [RULE] | DingTalk MD Format Control, Workspace Topology (**constitutional residue + Hub-internal substantive post-split** — multi-node operational details migrated to CC), Claude Code Architecture Rules (**constitutional residue post-split** — subagent roster / context scopes / repository layout / skill catalog migrated to CC), Design System Governance | Operational rules across multiple Cat scopes |
 | [MECH] | Development Track Workflow (**constitutional residue + Hub-internal substantive post-split** — TK-04~TK-11 + TK-13 execution mechanics migrated to CC), CI/CD Milestone Policy (**constitutional residue post-split** — gate criteria detail migrated to CC), Application Lifecycle Handoff, Cross-Tool Workflow Handoff, Canonical File Self-Audit, Sign-Off Cleanup Policy | Governance mechanisms |
 | [TPL] | Options Paper, Problem Framing Memo, PRD Prototype MVP, TDD, UX Design Spec, Test Plan YAML Schema, PRD-TDD to Intent/Acceptance Conversion Spec, Intent and Acceptance Interface Writing Standard, ADR Spec, Phase Test Plan | Content contract templates |
 

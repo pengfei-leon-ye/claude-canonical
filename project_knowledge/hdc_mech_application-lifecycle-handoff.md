@@ -312,7 +312,7 @@ This soft compliance is conversational, not blocking. The intent is to surface c
 
 # 7. Anti-drift red flags
 
-> **Scope**: this section enumerates **application-level handoff-specific** anti-drift red flags (maturity / readiness, content scope, mechanism, re-entry, conversation). Cross-tool workflow handoff red flags are owned by [MECH] Cross-Tool Workflow Handoff. Cross-cutting red flags whose canonical statement lives elsewhere are referenced inline rather than duplicated. See [RULE] Claude Platform Behavior §5 for the full anti-drift ownership index.
+> **Scope**: this section enumerates **application-level handoff-specific** anti-drift red flags (maturity / readiness, content scope, mechanism, re-entry, conversation). Cross-tool workflow handoff red flags are owned by [MECH] Cross-Tool Workflow Handoff. Cross-cutting red flags whose canonical statement lives elsewhere are referenced inline rather than duplicated. See [OS] §12.3 for the full anti-drift red flag ownership map.
 
 **Maturity / readiness dimension**:
 - Handoff initiated without §2.2 checklist completion

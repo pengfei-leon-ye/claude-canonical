@@ -222,7 +222,7 @@ These updates apply in the same revision per [OS] §8.5.2 paired-update discipli
 
 # 7. Anti-drift red flags
 
-> **Scope**: this section enumerates **phase-test-plan-specific** anti-drift red flags. Cross-cutting test-plan red flags are owned by [TPL] Test Plan YAML Schema; cross-cutting canonical-source red flags by [RULE] Claude Platform Behavior §5.
+> **Scope**: this section enumerates **phase-test-plan-specific** anti-drift red flags. Cross-cutting test-plan red flags are owned by [TPL] Test Plan YAML Schema; cross-cutting canonical-source red flags by [OS] §12.3.
 
 **Content category dimension**:
 - Phase test plan containing specific test case definitions (should be in slice test plan)

@@ -697,7 +697,7 @@ If steady-state interventions exceed the §6.1 per-unit-type budget for 2+ conse
 
 # 8. Anti-drift red flags
 
-> **Scope**: this section enumerates **DTW-specific** anti-drift red flags. Cross-cutting red flags whose canonical statement lives elsewhere are referenced rather than duplicated. See [RULE] Claude Platform Behavior §5 for the full anti-drift ownership index.
+> **Scope**: this section enumerates **DTW-specific** anti-drift red flags. Cross-cutting red flags whose canonical statement lives elsewhere are referenced rather than duplicated. See [OS] §12.3 for the full anti-drift red flag ownership map.
 
 **Task-level** (DTW-specific):
 - A task silently skipped

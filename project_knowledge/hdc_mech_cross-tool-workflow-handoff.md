@@ -647,7 +647,7 @@ This soft compliance is conversational, not blocking.
 
 # 8. Anti-drift red flags
 
-> **Scope**: this section enumerates **cross-tool handoff-specific** anti-drift red flags. Cross-cutting red flags whose canonical statement lives elsewhere are referenced inline rather than duplicated. See [RULE] Claude Platform Behavior §5 for the full anti-drift ownership index.
+> **Scope**: this section enumerates **cross-tool handoff-specific** anti-drift red flags. Cross-cutting red flags whose canonical statement lives elsewhere are referenced inline rather than duplicated. See [OS] §12.3 for the full anti-drift red flag ownership map.
 
 **Path discipline dimension**:
 - A cross-tool transfer attempted without operator audit (e.g., direct CD ↔ CC coupling during research preview, per §4.1)

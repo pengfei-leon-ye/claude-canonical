@@ -322,7 +322,6 @@ The following rules govern `Relationship to ...` fields in canonical source head
 **Universally admissible — Cross-category layer (global substantive content; not canonical-source governance)**:
 - `[PRIN] HR Digital Decision Design Principles` — cross-topic judgment layer applied to HR digital work
 - `[REF] Hub-CD-CC Architecture` — cross-tool architecture reference frame (three-workspace structure)
-- `[RULE] Claude Platform Behavior Specification` — Claude.ai delivery-interface rule
 - `[RULE] DingTalk Markdown Format Control Specification` — DingTalk delivery-interface rule
 - `[TPL] Problem Framing Memo` — cross-category framing vehicle
 - `[TPL] Options Paper` — cross-category option-comparison vehicle
@@ -838,7 +837,7 @@ For the design rationale of each pairing and historical record of retired pairin
 
 When a canonical source's name (family prefix or kebab identifier) changes per §8.8, or when its internal § numbering is restructured, every citation in every other canonical source must be grep-verified and updated in the same revision. This discipline applies across the full canonical set and is independent of the pairings in §8.5.2.
 
-This discipline also applies to navigation/index sections inside canonical sources — sections whose function is to enumerate cross-source pointers rather than encode rules of their own (e.g., the Hub Claude behavior contract index in [RULE] Claude Platform Behavior §5, or any future analogous index). Index sections are pure read views over their referenced sources; when a referenced § is renamed, renumbered, or retired, the index entry must be updated in the same revision.
+This discipline also applies to navigation/index sections inside canonical sources — sections whose function is to enumerate cross-source pointers rather than encode rules of their own (e.g., the anti-drift red flag ownership map in §12.3, the Cat 4 source map in §8.5.6, or any future analogous index). Index sections are pure read views over their referenced sources; when a referenced § is renamed, renumbered, or retired, the index entry must be updated in the same revision.
 
 ### 8.5.3a Grep-verify operational layer
 
@@ -1086,6 +1085,7 @@ The following slots are deliberately empty in the current canonical set, with do
 - **Cat 3 (Configuration workbook production)** — see §2.3.5. Activation when the first configuration-workbook production workflow for a specific vendor product or product family matures to a reusable [TPL] family member.
 - **Cat 1 detailed-template family** — Cat 1 governs L1 management-system anchors (per §2.3.1). Detailed templates under Cat 1 are not authored at hub canonical level, since L1 anchor authoring belongs to enterprise policy implementation outside hub scope. Activation: not anticipated in current project scope.
 - **Lessons-harvest memo template** — retired in the Path B2 refactor; lessons-harvest is captured operationally via `MANUAL_*` artifacts under §9.4 rather than via a dedicated [TPL] family member. Re-activation as canonical [TPL] only if a stable lessons-harvest pattern emerges across 5 or more uses and the operational artifact form starts to constrain rather than enable the harvest work.
+- **claude.ai platform-facts reference** — load-bearing claude.ai product-surface behavior facts (e.g., the conversation-open snapshot model of the project knowledge base) are currently captured as operating assumptions inside the mechanism that consumes them ([MECH] Canonical File Self-Audit §6.1 holds the conversation-open snapshot model). Activation as a dedicated canonical source only if three or more distinct load-bearing platform facts accumulate and begin to drift across their consuming mechanisms — until then, per §0.1.7 Premise 7, a single fact does not justify a source.
 
 When a slot is activated, the activating revision moves the entry from this registry to the appropriate location (a new § block, a new [TPL] file, etc.) and the registry entry is replaced by a back-pointer.
 
@@ -1104,7 +1104,7 @@ When a slot is activated, the activating revision moves the entry from this regi
 - `pol` — policy architecture and policy documents
 - `tpl` — deliverable templates
 - `ref` — domain content catalogs
-- `rule` — format, tool, and architecture rules. Format rules govern output discipline (e.g., DingTalk Markdown specification). Tool rules govern tool/platform behavior (e.g., Claude Platform Behavior). Architecture rules govern code or infrastructure structure (e.g., Claude Code Architecture, Workspace Topology, Design System Governance).
+- `rule` — format and architecture rules. Format rules govern output discipline (e.g., DingTalk Markdown specification). Architecture rules govern code or infrastructure structure (e.g., Claude Code Architecture, Workspace Topology, Design System Governance).
 - `mech` — governance mechanism specifications. Mech sources specify gating, milestone progression, task orchestration, and inter-actor protocols. Distinguished from `rule` by primary axis: `rule` declares what something is or how it must be formatted; `mech` declares how a multi-step governed process unfolds and what gates apply at each step.
 
 A `rule` source MAY contain ancillary process/gate sub-sections (e.g., a workflow chapter, a gate-trigger chapter) when those sub-sections are operationally inseparable from the primary rule subject. Examples: `[RULE] Workspace Topology` constitutional residue §4 Node-assignment interface contract is an operational extension of the topology rule itself. The `rule`-vs-`mech` axis applies to the *primary subject* of a source, not to every sub-section.
@@ -1289,7 +1289,6 @@ Use one of:
 | `[PRIN]` | `Principles` | Multiple PRIN sources share this value |
 | `[REF]` | `Reference Catalog` | Cat 2/3 reference digests |
 | `[RULE]` (format-focused) | `Format Control Specification` | e.g., DingTalk Markdown format |
-| `[RULE]` (tool-focused) | `Tool Usage Specification` | e.g., Claude Platform Behavior |
 | `[RULE]` (architecture-focused) | `Architecture Specification` | e.g., Claude Code Architecture Rules, Design System Governance |
 | `[RULE]` (infrastructure-focused) | `Infrastructure Specification` | e.g., Workspace Topology |
 | `[MECH]` (workflow-focused) | `Workflow Orchestration Specification` | e.g., Development Track Workflow, Application Lifecycle Handoff |
@@ -1429,3 +1428,36 @@ For the authoritative Lite / Deep mode definition, selection logic, and Deep mod
 ## 12.2 Source-intent topics
 
 When a topic clearly intends to produce or update canonical source material, Deep mode applies by default and the §8.9 source-ready generation protocol activates before any final Markdown is produced.
+
+## 12.3 Anti-drift red flag ownership map
+
+This section is a **navigation map**, not a rule source. It enumerates where each cross-cutting anti-drift red flag dimension is owned across the canonical set, so that a reader looking for "which source declares the canonical statement of red flag X" can locate the owner source without scanning every anti-drift section.
+
+The anti-drift sections in the canonical set are split by topic across multiple owner sources per §8.2 one-source-one-job rule. This map is a read view; the owner sources remain authoritative. When an owner source's § numbering changes, this map must be updated in the same revision per §8.5.3 navigation/index discipline.
+
+| Red flag dimension | Owner source | Reference | Local variants in |
+|---|---|---|---|
+| Multi-node infrastructure (tool stack drift, logical role drift, parallelism violations including same-node multi-slice without worktree isolation, GitHub workflow drift, node assignment drift) | [RULE] Workspace Topology | §7 | DTW §8 (TK-step instances); CI/CD §8 (milestone-gate view of subagent-definition divergence) |
+| Cross-node Codex invocation anti-pattern | [RULE] WT constitutional residue + CC substantive Codex Plugin Usage canonical (co-owned post-Phase-3) | WT residue §6 + CC-side Codex §8 | DTW §8 (TK-04 / TK-13 trigger-time view) |
+| Tier-boundary red flags (Tier 1 / 2 / 3 ownership violations; CLAUDE.md hierarchy missing; Tier 2 entirely removed) | [RULE] CCAR | §8 | CQ §10 (lint-implementation projection) |
+| Bias firewall red flags (agent context scope violations; silent scope expansion; per-app context-scopes override) | [RULE] CCAR | §8 + §X.3 | DTW §8 (TK-11 test-plan.yaml patch flow); CI/CD §8 (milestone-gate view) |
+| App / domain placement (DSG singleton path; custom skills location; cross-app domain duplication; domain-vs-app code placement; app-slug roster conflict) | [RULE] CCAR | §8 | DTW §8 (TK-step view) |
+| Contract testing convention (`{app-slug}-bff_{domain-name}` naming; producer-consumer contract drift; consumer/producer path violations) | [RULE] CCAR | §8 (with §Y.4 conventions) | (none — DTW §8 references this owner) |
+| Skill loading (SK-F not active for Tier 1; SK-W not active when applicable; skills outside Anthropic-native location) | CC substantive Claude Code Architecture Rules canonical (skill anti-drift §Z.5) | CC-side CCAR §Z.5 | DTW §8 (TK-03 / TK-06 trigger-time view); CI/CD §8 (milestone-gate view) |
+| Spec-to-implementation alignment (implementation diverging from TDD without change control; specs/design-system.md not enforced in Tier 1) | [RULE] CCAR | §8 | (none) |
+| Lint-level Tier 1 / Tier 2 / Tier 3 quality (suppression rate; eslint preset chain; tsconfig strict flags; architecture lint disablement; dependency allow-list; coverage threshold; custom HDC plugin; Tier 1 visual rules drift — `hdc/no-hardcoded-token-value`, `hdc/use-arco-component`) | CC substantive Code Quality Rule Set canonical (post-Phase-3; CQ fully migrated to CC) | CC-side CQ §10 | DTW §8 (UX/a11y category references this owner); CI/CD §8 (a11y inverse-drift references) |
+| DSG-policy-level governance (formal a11y CI gate without DSG §12 approval; DSG feature-branch updates outside merge path; new Tier 1 component without DSG update plan in TDD) | [RULE] Design System Governance | §12 | CI/CD §8 (milestone view); DTW §8 (TK-step view); CQ §10 (lint-rule projection) |
+| Code review tool specific (invocation pattern drift; path drift; M0 review on partial spec bundle; rescue used repeatedly for same problem; cross-app invocation) | CC substantive Codex Plugin Usage canonical (post-Phase-3; Codex fully migrated to CC) | CC-side Codex §8 | (none) |
+| Source governance (source duplicated instead of updated; canonical without §10 header; pairing skipped; landing rule §5.4 skipped; classification §5.5 violated; Cat 2/3/4 citing [POL]; canonical name change without grep-verify; CC-targeted file with bare cross-reference) | [OS] | §12 (the catalog above) | (none — §12 is cross-cutting authority) |
+| TK-step execution (task silently skipped; hook chain incomplete; sign-off skipped; workspace-dimension violations; intervention budget exceeded; evidence cross-contamination) | [MECH] Development Track Workflow | §8 | (none — DTW-specific) |
+| Milestone-gate-specific (user review budget; execution loop hygiene including auto-repair > 3 and stuck recovery skipped; Claude Code tooling baseline; slice-size advisory; TER integrity; operator digest integrity; AI-dev / company-side boundary discipline) | [MECH] CI/CD Milestone Policy | §8 | (none — CI/CD-specific; note: Claude Code tooling baseline here is **distinct from** Node/Java/pnpm tool stack owned by WT §7) |
+| Handoff (maturity / readiness; content scope; mechanism including tag namespace collisions; re-entry including walking-skeleton-first ordering for new app's Phase 1; conversation discipline) | [MECH] Application Lifecycle Handoff | §7 | (none — Handoff-specific) |
+| Source-authoring neutrality | CC substantive Dev-Loopback Mode canonical (post-Phase-3; DLM fully migrated to CC) | CC-side DLM §8 | Different kind of "anti-drift" — concerns authoring the DLM source itself (brand neutrality, spec reference neutrality, milestone semantics neutrality, repository layout reference neutrality), not runtime operational red flags |
+
+This map covers **cross-canonical anti-drift red flag ownership** — which canonical source owns the authoritative statement of each red flag dimension. It does not cover:
+
+- The full enumeration of red flags within each owner source (read the owner's anti-drift § directly)
+- Runtime detection mechanism (CI tooling, lint rules, agent invocation hooks — see CC substantive Code Quality Rule Set canonical for deterministic enforcement, [MECH] CI/CD Milestone Policy constitutional residue for milestone-gate enforcement at the interface contract level)
+- Anti-drift severity policy (no canonical severity grading — all anti-drift red flags surface as correction prompts under §12 generic anti-drift logic)
+
+When a red flag dimension cannot be located in this map, the dimension is either (a) genuinely missing from the canonical set and warrants discussion under §8.6 anti-duplication before authoring a new red flag, or (b) misclassified by the reader as a cross-cutting concern when it is in fact a single-source local issue (e.g., a TK-specific evidence-integrity red flag belongs to DTW §8 alone, not to a cross-cutting category).
