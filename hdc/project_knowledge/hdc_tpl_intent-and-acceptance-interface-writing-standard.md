@@ -11,14 +11,14 @@
 - **Relationship to [MECH] Development Track Workflow**: intent.md and acceptance.yaml are produced in TK-03 of the Development Track Workflow; consumed in TK-06, TK-10, TK-11, TK-12, TK-13
 - **Relationship to [RULE] Claude Code Architecture Rules**: Permissions declared in acceptance.yaml must respect tier boundaries defined in that source; UX brief in intent.md only appears when Tier 1 is involved; repository path layout (`apps/{app-slug}/specs/...`) is owned by CC substantive CCAR canonical §Y.1
 - **Relationship to [MECH] CI/CD Milestone Policy**: §6 owns the semantic disambiguation between `evidence.md` and the milestone-level Test Evidence Report; §6.4 owns the `operator_digest` definition that appears in this source's evidence_required default set
-- **Relationship to [REF] Hub-CD-CC Architecture**: intent.md and acceptance.yaml main bodies are produced by Hub Claude at TK-03 per §5.1 content pillar; when Tier 1 is involved, the upstream UX Design Spec instance is Hub-authored at TK-02 Step 2.3 per [TPL] UX Design Spec (drawing from CD-produced design files per §5.2 presentation pillar concept-vs-realization split, plus the Hub DS mirror per [RULE] DSG §13.3), and is consumed as input source for the intent.md UX brief field per §2.3 below. After TK-03 conclusion, both files are transferred to CC via [MECH] Cross-Tool Workflow Handoff §3.1 for the implementation pillar.
+- **Relationship to [REF] Hub-CD-CC Architecture**: intent.md and acceptance.yaml main bodies are produced by Hub Claude at TK-03 per §5.1 content pillar; when Tier 1 is involved, the upstream UX Design Spec instance is Hub-authored at TK-02 Step 2.3 per [TPL] UX Design Spec (drawing from CD-produced design files per §5.2 presentation pillar concept-vs-realization split, per [RULE] DSG §13.3), and is consumed as input source for the intent.md UX brief field per §2.3 below. After TK-03 conclusion, both files are transferred to CC via [MECH] Cross-Tool Workflow Handoff §3.1 for the implementation pillar.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2.2 (CD → Hub) brings CD-produced design files into Hub as input to TK-02 Step 2.3 UX Design Spec instance authoring when Tier 1 is involved; §3.1 (Hub → CC) carries the finished interface pair plus the Hub-authored UX Design Spec instance markdown and CD design files (as visual reference) onward to CC.
 - **Relationship to adjacent [TPL] sources**:
   - Y-chain upstream: `[TPL] PRD / Prototype / MVP Spec Template` + `[TPL] Technical Design Document Template` both feed this artifact pair
-  - When Tier 1 involved: `[TPL] UX Design Spec` instance for the feature — Hub-authored at TK-02 Step 2.3 from CD design files + Hub DS mirror, landed at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` before TK-03 — supplies UX brief content
+  - When Tier 1 involved: `[TPL] UX Design Spec` instance for the feature — Hub-authored at TK-02 Step 2.3 from CD-authored design files, landed at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` before TK-03 — supplies UX brief content
   - Paired with `[TPL] Test Plan YAML Schema` (same slice, parallel production in TK-03)
   - Conversion mechanics: `[TPL] PRD + TDD to Intent and Acceptance Conversion Specification`
-  - Project-level reference: `[RULE] Design System Governance` (DS instance content lives in CD as SOT per DSG §1.1 three-way distribution; mirrored on both sides under the dual-mirror architecture — Hub mirror at `hdc_ref_design-system.md` per DSG §13.3 for spec-time grounding, CC mirror at `specs/design-system.md` per DSG §1.1 for code-time grounding; the two mirrors are version-locked via the lock-step sync discipline in DSG §12.5 + §12.7)
+  - Project-level reference: `[RULE] Design System Governance` (DS instance content lives in CD as SOT per DSG §1.1 two-way distribution; CC carries a read-only code-time mirror at `specs/design-system.md`, synced from CD via the reviewed DS markdown export per DSG §12.3 + §12.7; Hub holds no DS instance copy)
 - **Pairings I participate in**: P-29 (with [TPL] UX Design Spec §2 — when Tier 1 is involved, this Writing Standard's §2.3 UX brief and §3.9 accessibility_expectations both read UX Design Spec instance content as upstream)
 
 ## How to use this source
@@ -54,13 +54,13 @@ Both files are under the active feature's app directory per CC substantive Claud
 
 One project-level singleton path is referenced by intent.md and acceptance.yaml (not under any app):
 
-- `specs/design-system.md` — the **CC code-time mirror** of the DS instance per [RULE] DSG §1.1 (the DS instance SOT lives in CD; CC carries this read-only mirror at the monorepo root; under the three-way distribution model, Hub additionally carries a **spec-time mirror** at `hdc_ref_design-system.md` in Hub PK per DSG §13.3, with the two mirrors version-locked via the lock-step sync discipline in DSG §12.5 + §12.7). The CC mirror is the path intent.md and acceptance.yaml reference at code-generation time; the Hub mirror is the path Hub Claude consults at spec authoring time and does not appear in intent.md or acceptance.yaml field values.
+- `specs/design-system.md` — the **CC code-time mirror** of the DS instance per [RULE] DSG §1.1 (the DS instance SOT lives in CD; CC carries this read-only mirror at the monorepo root, synced from CD via the reviewed DS markdown export per DSG §12.3 + §12.7). The CC mirror is the path intent.md and acceptance.yaml reference at code-generation time; Hub holds no DS instance copy and consults the CD-authored design files at spec authoring time.
 
 This singleton remains at the repository root because it declares project-wide UX foundation, not feature-scoped content.
 
 One per-feature path is also referenced when Tier 1 is involved (under the active app):
 
-- `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` — the **Hub-authored UX Design Spec instance markdown**, produced at TK-02 Step 2.3 per [TPL] UX Design Spec from CD-authored design files (CD-side per [REF] Hub-CD-CC Architecture §5.2 presentation pillar, transferred to Hub per [MECH] Cross-Tool Workflow Handoff §2.2) grounded in the Hub DS mirror per [RULE] DSG §13.3. Hub Claude authors this markdown; it is committed to the CC monorepo before TK-03 begins and forwarded to CC alongside intent.md / acceptance.yaml at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1.
+- `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` — the **Hub-authored UX Design Spec instance markdown**, produced at TK-02 Step 2.3 per [TPL] UX Design Spec from CD-authored design files (CD-side per [REF] Hub-CD-CC Architecture §5.2 presentation pillar, transferred to Hub per [MECH] Cross-Tool Workflow Handoff §2.2) grounded in the CD-authored design files per [RULE] DSG §13.3. Hub Claude authors this markdown; it is committed to the CC monorepo before TK-03 begins and forwarded to CC alongside intent.md / acceptance.yaml at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1.
 
 Two earlier-revision paths are intentionally removed and remain drift signals if referenced:
 - `specs/design-system-changes/{change-id}.md` — no longer exists as a CC-side artifact. DS instance change drafts are CD-internal per [RULE] DSG §1.1 + §12; the additive update plan content travels through the feature's UX Design Spec instance §2.4 instead. Any reference to this legacy path in intent.md or acceptance.yaml is a drift signal.
@@ -95,7 +95,7 @@ A requirement sentence should normally contain one main judgment point. If one s
 - constraints derived from architecture boundaries (from TDD)
 - validation logic
 - externally visible outcomes
-- UX brief only when Tier 1 is involved (from the Hub-authored UX Design Spec instance at TK-02 Step 2.3 per [TPL] UX Design Spec, grounded in CD design files + Hub DS mirror, with [RULE] DSG topic-level rules as sanity-check baseline)
+- UX brief only when Tier 1 is involved (from the Hub-authored UX Design Spec instance at TK-02 Step 2.3 per [TPL] UX Design Spec, grounded in CD-authored design files, with [RULE] DSG topic-level rules as sanity-check baseline)
 - accessibility expectations only when Tier 1 is involved (from the UX Design Spec instance §2.5 accessibility call-outs)
 - slice-level implementation tasks (the operator-authored work plan that orients CC execution at slice start)
 
@@ -216,7 +216,7 @@ The interface pair fields originate from different content pillars per [REF] Hub
 | intent.md `Assumptions`, `Open questions`, `References` | Hub Claude | Drawn from PRD + TDD + UX Design Spec when applicable |
 | acceptance.yaml `must_pass_scenarios`, `non_regression_constraints`, `edge_cases`, `permissions`, `data_expectations`, `observability_expectations`, `out_of_scope`, `evidence_required` | Hub Claude | Phase PRD + phase TDD |
 | acceptance.yaml `accessibility_expectations` (when Tier 1 involved) | Hub Claude | UX Design Spec instance §2.5 |
-| traces_to_design_system path (when Tier 1 involved) | Hub Claude | Refers to the CC mirror path `specs/design-system.md`; the path is constant project-wide and is the path downstream CC consumers read at code time; Hub Claude records the path without reading the CC mirror file at TK-03 (Hub Claude's spec-time grounding flows through the Hub mirror at `hdc_ref_design-system.md` per DSG §13.3, not through the CC mirror path that appears in this field) |
+| traces_to_design_system path (when Tier 1 involved) | Hub Claude | Refers to the CC mirror path `specs/design-system.md`; the path is constant project-wide and is the path downstream CC consumers read at code time; Hub Claude records the path without reading the CC mirror file at TK-03 (Hub Claude's spec-time grounding flows through the CD-authored design files per DSG §13.3, not through the CC mirror path that appears in this field) |
 
 **No CC-side authoring at TK-03**: CC does not author intent.md / acceptance.yaml / test-plan.yaml fields. The pair is finalized in Hub before transfer to CC. After transfer, CC may produce slice-level annotations (e.g., implementation notes) inside slice-execution artifacts (commit messages, M0 entry self-check log, etc.), but those are not modifications to the canonical interface pair.
 
@@ -307,7 +307,7 @@ State stable existing behaviors, contracts, controls, or data expectations that 
 
 **Applicability**: Required when any module affected by this slice is in Tier 1 (frontend). Omit entirely when the slice is purely Tier 2 or Tier 3.
 
-**Source**: The Hub-authored UX Design Spec instance markdown for this feature, at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`. The instance is authored by Hub Claude at TK-02 Step 2.3 per [TPL] UX Design Spec, grounded in CD-produced design files (transferred from CD per [MECH] Cross-Tool Workflow Handoff §2.2) and the Hub DS mirror at `hdc_ref_design-system.md` per [RULE] DSG §13.3, then committed to the CC monorepo before TK-03 begins. The UX brief here is a **slice-narrow extraction** from the feature-level UX Design Spec instance — it picks the screens, interactions, and call-outs that fall within this slice's modules.
+**Source**: The Hub-authored UX Design Spec instance markdown for this feature, at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`. The instance is authored by Hub Claude at TK-02 Step 2.3 per [TPL] UX Design Spec, grounded in CD-produced design files (transferred from CD per [MECH] Cross-Tool Workflow Handoff §2.2) per [RULE] DSG §13.3, then committed to the CC monorepo before TK-03 begins. The UX brief here is a **slice-narrow extraction** from the feature-level UX Design Spec instance — it picks the screens, interactions, and call-outs that fall within this slice's modules.
 
 **Producer**: Hub Claude at TK-03, consuming the Hub-authored UX Design Spec instance markdown as input (per §1.11 producer-locations table). Hub Claude does not invent UX content at TK-03; if the UX Design Spec instance is silent on a UX point the slice needs, surface as a clarification trigger and route back — either to TK-02 Step 2.3 for instance re-authoring (when the gap is content the existing CD design files can support) or further upstream to CD for additional design file coverage (when the gap requires new visual design work) per [TPL] Conversion Spec §5.4.
 
@@ -524,7 +524,7 @@ feature_slug:                # string, matches feature-slug
 traces_to_prd:               # relative path, e.g., "apps/{app-slug}/specs/prd/phase-{N}.md"
 traces_to_tdd:               # relative path, e.g., "apps/{app-slug}/specs/tdd/phase-{N}.md"
 traces_to_intent:            # relative path, e.g., "apps/{app-slug}/specs/intent/{slice-id}.md"
-traces_to_design_system:     # relative path (when Tier 1 is involved), "specs/design-system.md" (project-level singleton; the CC mirror path, not the Hub mirror path)
+traces_to_design_system:     # relative path (when Tier 1 is involved), "specs/design-system.md" (project-level singleton; the CC mirror path)
 schema_version:              # string, e.g., "1.0"
 
 must_pass_scenarios: []           # see §3.3
@@ -538,7 +538,7 @@ out_of_scope: []                  # see §3.10
 evidence_required: []             # see §3.11
 ```
 
-**Path discipline**: app-scoped paths (`traces_to_prd`, `traces_to_tdd`, `traces_to_intent`) all use the `apps/{app-slug}/` prefix; PRD and TDD paths use phase-level naming (`phase-{N}.md`); intent paths use slice-level naming (`{slice-id}.md`). The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix; it points to the **CC mirror** at `specs/design-system.md` because downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read the CC mirror as their authoritative DS reference — not the Hub mirror at `hdc_ref_design-system.md`, which is Hub Claude's spec-time grounding artifact and does not appear in CC-side traceability fields. This split mirrors the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
+**Path discipline**: app-scoped paths (`traces_to_prd`, `traces_to_tdd`, `traces_to_intent`) all use the `apps/{app-slug}/` prefix; PRD and TDD paths use phase-level naming (`phase-{N}.md`); intent paths use slice-level naming (`{slice-id}.md`). The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix; it points to the **CC mirror** at `specs/design-system.md` because downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read the CC mirror as their authoritative DS reference. Hub holds no DS instance copy; Hub Claude's spec-time grounding flows through the CD-authored design files and does not appear in CC-side traceability fields. This split follows the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
 
 **App slug + phase consistency**: `app_slug` must match the value populated in phase PRD §1.1 `App Slug` (per [TPL] PRD §0.7.1) and phase TDD §1 `app_slug` header field (per [TPL] TDD §1); `phase_number` must match phase PRD §1.1 `Phase Number` and phase TDD §1 `phase_number`. A mismatch is a conversion-time blocker, not a downstream cleanup item.
 
@@ -784,7 +784,7 @@ evidence_required:
 - `accessibility_expectations` criteria reference [RULE] DSG §6 stance plus UX Design Spec instance §2.5 slice-specific items
 - intent.md `UX brief.Screens` must match UX Design Spec instance §2.1 (Affected Tier 1 scope) for screens applicable to this slice
 - intent.md `UX brief.Key interactions` references components from UX Design Spec instance §2.3
-- intent.md `UX brief.New components or tokens` references UX Design Spec instance §2.4 additive update plan entries; the plan itself merges to DS instance at the originating feature's M4 → merge-to-main milestone per [RULE] DSG §12.5 (TK-12), with DS markdown export syncing to both the Hub mirror at `hdc_ref_design-system.md` and the CC mirror at `specs/design-system.md` per DSG §12.7
+- intent.md `UX brief.New components or tokens` references UX Design Spec instance §2.4 additive update plan entries; the plan itself merges to DS instance at the originating feature's M4 → merge-to-main milestone per [RULE] DSG §12.5 (TK-12), with the reviewed DS markdown export syncing to the CC mirror at `specs/design-system.md` per DSG §12.3 + §12.7
 - No reference is made to `specs/design-system-changes/{change-id}.md` (retired CC-side artifact) or `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` (retired UX bundle path; replaced by Hub-authored UX Design Spec instance markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`)
 
 ## 4.4 Pairing with test-plan.yaml
@@ -826,6 +826,6 @@ Red flags that should trigger correction:
 - **Feature-scoped paths missing `apps/{app-slug}/` prefix; or the DS instance CC mirror `specs/design-system.md` wrongly placed under `apps/`**
 - **Reference to `specs/design-system-changes/{change-id}.md` anywhere in intent.md or acceptance.yaml — this legacy path is no longer at CC; replace with reference to the Hub-authored UX Design Spec instance §2.4 entry**
 - **Reference to `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` anywhere in intent.md or acceptance.yaml — this legacy path is retired under the TK-02 Step 2.3 Hub-authoring flip; replace with the Hub-authored UX Design Spec instance markdown path `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`**
-- **`traces_to_design_system` field value pointing to the Hub mirror path `hdc_ref_design-system.md` instead of the CC mirror path `specs/design-system.md` — the traces field must point to the CC-side path that downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read; the Hub mirror is Hub Claude's spec-time grounding artifact and does not appear in CC-side traceability fields. (Note: the Hub mirror itself is a valid, current artifact under the three-way distribution model — only its appearance in CC-bound trace fields is a drift signal.)**
+- **`traces_to_design_system` field value pointing anywhere other than the CC mirror path `specs/design-system.md`** — the traces field must point to the CC-side path that downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read. Hub holds no DS instance copy; Hub Claude's spec-time grounding flows through the CD-authored design files and does not appear in CC-side traceability fields.
 - **`evidence_required` missing `operator_digest` (required default per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4))**
 - Reference to phase TDD `§4.{feature-slug}.UX-Strategy` — this sub-section has been removed from TDD; replace with reference to the Hub-authored UX Design Spec instance for the feature

@@ -3,18 +3,18 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Template
 - **Status**: Active canonical template
-- **Role**: Reusable slim content contract declaring (a) what coverage a per-feature UX Design Spec instance must provide as Hub-authored markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`, produced by Hub Claude at [MECH] Development Track Workflow TK-02 Step 2.3 from CD-authored design files plus Hub DS mirror grounding; and (b) the reviewer checklists applied at TK-02 Step 2.3 — both the design file quality check (against CD-authored design files entering Step 2.3) and the UX Design Spec instance authoring quality check (against the Hub-authored markdown leaving Step 2.3 before TK-02 sign-off)
+- **Role**: Reusable slim content contract declaring (a) what coverage a per-feature UX Design Spec instance must provide as Hub-authored markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`, produced by Hub Claude at [MECH] Development Track Workflow TK-02 Step 2.3 from CD-authored design files; and (b) the reviewer checklists applied at TK-02 Step 2.3 — both the design file quality check (against CD-authored design files entering Step 2.3) and the UX Design Spec instance authoring quality check (against the Hub-authored markdown leaving Step 2.3 before TK-02 sign-off)
 - **Source Category**: Cat 4
 - **Management-System Role**: Outside L1-L5 hierarchy; specification-support template; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1; admissibility per [OS] §2.3.2 Cat 4 specification templates row
 - **Relationship to [PRIN] People Experience Design Principles**: Applies these principles to per-feature UX content scope; CD-authored design files are expected to be principle-aligned and the Hub-authored UX Design Spec instance grounded in those design files preserves principle application at the spec layer; this template's reviewer checklists surface principle-application gaps at both layers
-- **Relationship to [REF] Hub-CD-CC Architecture**: Per §3.4.1 revised, CD outputs **design files** (CD-native visual artifacts) — hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations — at TK-02 Step 2.2 when a feature has `tier_1_involved=true`. Per §5.2 revised three-way distribution model + §5.4 self-authoring discipline, the UX Design Spec instance markdown counterpart is **Hub-authored** at TK-02 Step 2.3, grounded in CD design files + the Hub DS mirror at `hdc_ref_design-system.md`. The content categories enumerated in §2 of this template define what the Hub-authored markdown must cover so downstream consumption (Hub TK-03 + CC TK-04+) is deterministic
+- **Relationship to [REF] Hub-CD-CC Architecture**: Per §3.4.1 revised, CD outputs **design files** (CD-native visual artifacts) — hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations — at TK-02 Step 2.2 when a feature has `tier_1_involved=true`. Per §5.2 two-way distribution model + §5.4 self-authoring discipline, the UX Design Spec instance markdown counterpart is **Hub-authored** at TK-02 Step 2.3, grounded in the CD-authored design files. The content categories enumerated in §2 of this template define what the Hub-authored markdown must cover so downstream consumption (Hub TK-03 + CC TK-04+) is deterministic
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2.1 (Hub → operator → CD) carries Hub PRD/TDD relevant sections as drop files into CD at TK-02 Step 2.2 entry; §2.2 (CD → operator → Hub) carries CD-authored design files back to Hub for TK-02 Step 2.3 design file quality check + UX Design Spec instance authoring; §3.1 (Hub → operator → CC) carries the completed spec bundle (intent / acceptance / test-plan + Hub-authored UX Design Spec instance + CD design files as visual reference) to CC at TK-04 entry
-- **Relationship to [MECH] Development Track Workflow**: TK-02 Step 2.2 produces CD-authored design files when `tier_1_involved=true`; TK-02 Step 2.3 produces the Hub-authored UX Design Spec instance markdown grounded in those design files + the Hub DS mirror; TK-03 consumes the UX Design Spec instance as the primary textual UX source for per-slice intent / acceptance / test-plan authoring; TK-04+ consumes the UX Design Spec instance alongside the spec bundle plus design files as visual reference
+- **Relationship to [MECH] Development Track Workflow**: TK-02 Step 2.2 produces CD-authored design files when `tier_1_involved=true`; TK-02 Step 2.3 produces the Hub-authored UX Design Spec instance markdown grounded in those design files; TK-03 consumes the UX Design Spec instance as the primary textual UX source for per-slice intent / acceptance / test-plan authoring; TK-04+ consumes the UX Design Spec instance alongside the spec bundle plus design files as visual reference
 - **Relationship to [TPL] Technical Design Document Template**: Paired. TDD `§4.{feature-slug}.Header.tier_1_involved` declares whether a feature requires both CD design files (Step 2.2) and a Hub-authored UX Design Spec instance (Step 2.3) for that feature; when true, both are produced before TK-03 per-slice authoring proceeds. The TDD does not carry UX strategy content itself; it references the UX Design Spec instance path
 - **Relationship to [TPL] PRD-TDD to Intent and Acceptance Conversion Spec**: Paired. Conversion Spec §3.8 reads the Hub-authored UX Design Spec instance as the source for intent.md UX brief content when Tier 1 is involved in a slice. Flow: CD design files → Hub TK-02 Step 2.3 → UX Design Spec instance markdown → Hub TK-03 (slice intent UX brief extraction) → spec bundle to CC at TK-04
 - **Relationship to [TPL] Intent and Acceptance Interface Writing Standard**: Paired. Writing Standard §2.3 defines what intent.md UX brief must contain; this template defines what the upstream Hub-authored UX Design Spec instance must cover so Hub Claude at TK-03 has sufficient material to author the slice-narrow UX brief. The two together close the UX content chain from CD design files (visual) → Hub UX Design Spec (per-feature textual spec) → slice intent UX brief (slice-narrow textual extract)
-- **Relationship to [RULE] Design System Governance**: The Hub-authored UX Design Spec instance is grounded in the Hub DS mirror at `hdc_ref_design-system.md` per DSG §13.3 Hub-side consumption discipline. The UX Design Spec instance's §2.4 New-Components-Or-Tokens entry, when present, captures the additive change plan that drives the DSG §12 additive update flow — CD authors the corresponding instance content change at the originating feature's M4 → merge-to-main milestone per DSG §12.5, at which point both DS mirrors (Hub + CC) are re-synced via CD-generated DS markdown export
+- **Relationship to [RULE] Design System Governance**: The Hub-authored UX Design Spec instance is grounded in the CD-authored design files per DSG §13.3 Hub-side consumption discipline. The UX Design Spec instance's §2.4 New-Components-Or-Tokens entry, when present, captures the additive change plan that drives the DSG §12 additive update flow — CD authors the corresponding instance content change at the originating feature's M4 → merge-to-main milestone per DSG §12.5, at which point the CC mirror is re-synced via the reviewed CD-generated DS markdown export
 - **Pairings I participate in**: P-28 (with [TPL] Conversion Spec §2 + §3.8 + [TPL] TDD §4.{feature-slug}.Module-Decomposition — UX Design Spec content-category §2 structural changes trigger Conversion Spec UX brief extraction re-verification), P-29 (with [TPL] Intent-Acceptance §2.3 + §3.9 — UX Design Spec content-category §2 organization changes trigger Writing Standard consumer-side re-verification)
 
 ## How to use this source
@@ -22,7 +22,7 @@
 Use this template when:
 - A phase's TDD declares `tier_1_involved: true` for one or more `§4.{feature-slug}` entries at TK-02 Step 2.1, triggering CD design file production (Step 2.2) followed by Hub-side UX Design Spec instance authoring (Step 2.3) for those features
 - Hub Claude is performing the design file quality check at TK-02 Step 2.3 entry (against CD-authored design files just transferred from CD)
-- Hub Claude is authoring the per-feature UX Design Spec instance markdown at TK-02 Step 2.3, grounding component / token / pattern claims in the Hub DS mirror
+- Hub Claude is authoring the per-feature UX Design Spec instance markdown at TK-02 Step 2.3, grounding component / token / pattern claims in the CD-authored design files
 - The operator is reviewing the Hub-authored UX Design Spec instance before TK-02 sign-off
 - Hub Claude at TK-03 is extracting slice-narrow UX brief content from the UX Design Spec instance for intent.md authoring
 - CC at TK-04+ needs to consume the UX Design Spec instance alongside the spec bundle for code generation
@@ -30,7 +30,7 @@ Use this template when:
 Do not use this template:
 - As a CD-authoring template — CD produces design files in its CD-native format (per [REF] Hub-CD-CC Architecture §3.4.1); the UX Design Spec instance is the Hub-authored markdown counterpart, not the CD output. CD does not consume this template
 - As a substitute for the CD-authored design files — design files are the visual source material from which Hub authors the UX Design Spec instance markdown; they are operator-side reference for CC TK-04+ (visual context for implementation) but are not committed to the monorepo unless the operator explicitly opts to
-- As a substitute for the DS instance — DS instance content lives in CD as SOT, with Hub and CC mirrors per [RULE] DSG §1.1 revised three-way distribution model; this template covers per-feature UX scope, not project-wide design system content
+- As a substitute for the DS instance — DS instance content lives in CD as SOT, with a CC code-time mirror per [RULE] DSG §1.1 two-way distribution model; this template covers per-feature UX scope, not project-wide design system content
 - As a CC-authored deliverable — content of this template's instance is Hub-authored at TK-02 Step 2.3, then consumed by CC at TK-04+; CC does not author UX Design Spec instances
 
 ## Scope note
@@ -43,7 +43,7 @@ This template's scope is **per-feature UX coverage**, not per-slice. A UX Design
 
 ## 0.1 What this source owns
 
-- **The synthesis nature of the instance**: each UX Design Spec instance is a **Hub-authored synthesis** from CD-authored design files (raw source material) grounded against the current Hub DS mirror — not a transcription of design files into markdown. Design files alone are not CC-consumable specification; the synthesis at TK-02 Step 2.3 is the substantive authoring step that produces CC-consumable content. See [REF] Hub-CD-CC Architecture §3.4.1 + §9.4 for the architectural framing.
+- **The synthesis nature of the instance**: each UX Design Spec instance is a **Hub-authored synthesis** from CD-authored design files (raw source material) — a structuring of the design files' visual + informal-annotation content into CC-consumable markdown, integrated with adjacent spec artifacts, not a verbatim transcription. Design files alone are not CC-consumable specification; the synthesis at TK-02 Step 2.3 is the substantive authoring step that produces CC-consumable content. See [REF] Hub-CD-CC Architecture §3.4.1 + §9.4 for the architectural framing.
 - The coverage contract: what categories of UX content the Hub-authored UX Design Spec instance must provide for a feature when `tier_1_involved: true`
 - The reviewer checklists applied at TK-02 Step 2.3:
   - **Design file quality check** — applied by Hub Claude + operator against CD-authored design files entering Step 2.3 (per [RULE] DSG §13.3 Hub-side consumption discipline)
@@ -54,7 +54,7 @@ This template's scope is **per-feature UX coverage**, not per-slice. A UX Design
 ## 0.2 What this source does not own
 
 - The CD-authored design file format (CD-native; visual artifacts including hi-fi mockups, prototypes, wireframes — owned by CD platform behavior per [REF] Hub-CD-CC Architecture §3.4.1; not file-format-specified here)
-- The DS instance content (tokens, component inventory, layout patterns) — owned by DSG; lives in CD as SOT with Hub mirror at `hdc_ref_design-system.md` and CC mirror at `specs/design-system.md` per DSG §1.1 revised three-way distribution model
+- The DS instance content (tokens, component inventory, layout patterns) — owned by DSG; lives in CD as SOT with a CC mirror at `specs/design-system.md` per DSG §1.1 two-way distribution model
 - The intent.md UX brief content — owned by Writing Standard §2.3; Hub-authored at TK-03 by extracting slice-narrow subset from this template's instance
 - The accessibility test cases — owned by Test Plan YAML Schema; Hub-authored at TK-03 by deriving from this template's instance §2.5
 - TDD `§4.{feature-slug}.Header.tier_1_involved` declaration logic — owned by TDD template
@@ -95,8 +95,7 @@ The instance is **per-feature**, not per-slice. Naming convention anchors on `{f
 - **app_slug**: <app-slug>
 - **feature_slug**: <feature-slug> (must match TDD §4.{feature-slug}.Header.feature-slug)
 - **phase_number**: <N> (must match TDD phase_number)
-- **DS instance version**: <semver> (from Hub mirror at hdc_ref_design-system.md header at authoring time)
-- **DS markdown export reference**: <path or commit reference for the export that populated the Hub mirror Hub Claude consulted>
+- **DS instance version**: <semver> (the DS version recorded in the CD-authored design files at authoring time)
 - **Source design files**: <reference to CD-authored design files used as source material; informal path or operator-managed location>
 - **Status**: Draft | Active | Superseded
 - **Authored at**: <date> (TK-02 Step 2.3)
@@ -107,7 +106,7 @@ The instance is **per-feature**, not per-slice. Naming convention anchors on `{f
 
 # 2. Required content categories
 
-A Hub-authored UX Design Spec instance for a feature must cover the categories below. Coverage means "the instance markdown contains material on this category"; Hub Claude grounds each category in the CD-authored design files + Hub DS mirror per DSG §13.3 consumption discipline. The reviewer checklists in §3 verify coverage at TK-02 Step 2.3.
+A Hub-authored UX Design Spec instance for a feature must cover the categories below. Coverage means "the instance markdown contains material on this category"; Hub Claude grounds each category in the CD-authored design files per DSG §13.3 consumption discipline. The reviewer checklists in §3 verify coverage at TK-02 Step 2.3.
 
 ## 2.1 Affected Tier 1 scope
 
@@ -117,12 +116,12 @@ A Hub-authored UX Design Spec instance for a feature must cover the categories b
 
 ## 2.2 HDC layout pattern selection
 
-For each screen in §2.1, the HDC layout pattern from the DS instance pattern catalog (referenced via the Hub DS mirror §5). Rationale required only when the pattern choice is non-obvious or deviates from the standard mapping in DS instance for the screen type.
+For each screen in §2.1, the HDC layout pattern from the DS instance pattern catalog (as called out in the CD-authored design files). Rationale required only when the pattern choice is non-obvious or deviates from the standard mapping for the screen type.
 
 ## 2.3 Components and interaction patterns
 
-- **Tier A (Arco components used)** — components from the DS instance Tier A inventory consumed by this feature (referenced via Hub mirror §4)
-- **Tier B (HDC custom components used)** — components from the DS instance Tier B inventory consumed by this feature (referenced via Hub mirror §4)
+- **Tier A (Arco components used)** — components from the DS instance Tier A inventory consumed by this feature (as called out in the CD-authored design files)
+- **Tier B (HDC custom components used)** — components from the DS instance Tier B inventory consumed by this feature (as called out in the CD-authored design files)
 - **Key interactions per screen** — one-sentence descriptions of the load-bearing interactions extracted from CD design files; components implementing each interaction; entry / exit / branching conditions when non-obvious
 
 ## 2.4 New components or tokens (additive update plan, conditional)
@@ -133,7 +132,7 @@ For each new asset:
 - Asset name and type (component / token / icon / locale)
 - Rationale (why existing DS items are insufficient, traceable to specific design file content)
 - Proposed specification — for components, composition from Arco primitives or new-built structure as observed in design files; for tokens, value and semantic role
-- DS instance update plan — pointer to the DSG additive update process per [RULE] DSG §12.3 + §12.4 minimum change content structure; the change merges into CD SOT at the originating feature's M4 → merge-to-main milestone per DSG §12.5, with both mirrors re-synced via CD-generated DS markdown export
+- DS instance update plan — pointer to the DSG additive update process per [RULE] DSG §12.3 + §12.4 minimum change content structure; the change merges into CD SOT at the originating feature's M4 → merge-to-main milestone per DSG §12.5, with the CC mirror re-synced via the reviewed CD-generated DS markdown export
 
 If the change is breaking rather than additive, do not capture in §2.4; instead surface as a standalone change file routed through DSG §12.2 breaking-update path before UX Design Spec authoring continues. Hub Claude flags the breaking nature to the operator during TK-02 Step 2.3 authoring.
 
@@ -173,7 +172,7 @@ Per [RULE] DSG §6, HDC has no formal WCAG conformance target. Routine a11y reco
 TK-02 Step 2.3 has two reviewer checklists applied at distinct points in the step:
 
 - **§3.1 Design file quality check** — applied at Step 2.3 entry, when CD-authored design files arrive in Hub from CD via [MECH] Cross-Tool Workflow Handoff §2.2. Verifies design files are sufficient grounding material for Hub to author the UX Design Spec instance markdown
-- **§3.2 UX Design Spec instance authoring quality check** — applied at Step 2.3 exit, before TK-02 sign-off. Verifies the Hub-authored markdown covers all §2 categories grounded in design files + Hub DS mirror
+- **§3.2 UX Design Spec instance authoring quality check** — applied at Step 2.3 exit, before TK-02 sign-off. Verifies the Hub-authored markdown covers all §2 categories grounded in the CD-authored design files
 
 Both checklists are operator-side; Hub Claude assists in walking each but does not declare items pass / fail unilaterally — operator decides each disposition.
 
@@ -186,9 +185,9 @@ For each §2.x category: design files contain visual / annotation material suffi
 ### 3.1.2 Alignment check
 
 - Affected Tier 1 scope visible in design files matches the TDD `§4.{feature-slug}` scope it pairs with — no screens or roles outside TDD scope, no missing scope from TDD
-- Components depicted in design files exist in the DS instance Tier A or Tier B inventory (verified via Hub DS mirror §4) — components not in the inventory require either a §2.4 additive update plan OR the design files are incomplete (return to CD)
-- Layout pattern choices in design files align with DS instance pattern catalog (Hub mirror §5) — deviations carry rationale in design file annotations
-- Token usage in design files (where annotated) aligns with DS instance token taxonomy (Hub mirror §3)
+- Components called out in design files are clearly named and CD-attributed to the DS — components CD flags as new (not yet in the DS) are captured as §2.4 additive update plans. DS-conformance of the callouts is CD's responsibility as DS owner (DSG §13.3); Hub does not re-verify against a DS mirror
+- Layout pattern choices are clearly annotated in the design files — deviations from the standard mapping carry rationale in design file annotations
+- Token usage in design files (where annotated) is clear enough to transcribe into the UX Design Spec instance
 - Accessibility annotations in design files conform to DSG §6 stance — no formal WCAG conformance claims; engineering hygiene only
 
 ### 3.1.3 Grounding sufficiency check
@@ -215,9 +214,9 @@ For each §2.x category: the Hub-authored UX Design Spec instance markdown conta
 
 ### 3.2.2 Alignment check
 
-- Every component reference in §2.3 corresponds to an actual Tier A or Tier B entry in the Hub DS mirror at the version declared in the instance header
-- Every token reference (where present) corresponds to an actual taxonomy entry in the Hub DS mirror
-- Every layout pattern reference in §2.2 corresponds to an actual pattern in the Hub DS mirror §5
+- Every component reference in §2.3 traces to a component callout in the CD-authored design files
+- Every token reference (where present) traces to a token annotation in the CD-authored design files
+- Every layout pattern reference in §2.2 traces to a pattern annotation in the CD-authored design files
 - §2.4 New-Components-Or-Tokens entries follow [RULE] DSG §12.4 minimum change content structure
 - §2.5 accessibility call-outs are slice-specific (no restatement of DSG §6 baseline)
 - §2.6 i18n call-outs are within DS instance i18n scope or trigger §2.4 additive plan
@@ -233,8 +232,7 @@ For each §2.x category: the Hub-authored UX Design Spec instance markdown conta
 
 - All §1 instance header required fields are present and well-formed
 - `feature_slug`, `app_slug`, `phase_number` match the paired TDD `§4.{feature-slug}.Header`
-- `DS instance version` matches the Hub mirror header version metadata at the time of authoring
-- `DS markdown export reference` is present (for traceability per DSG §12.7)
+- `DS instance version` matches the DS version recorded in the CD-authored design files at the time of authoring
 
 ### 3.2.5 Disposition
 
@@ -252,11 +250,10 @@ Three outcomes:
 |---|---|---|
 | A UX Design Spec instance exists for a feature whose TDD `§4.{feature-slug}.Header.tier_1_involved` is `false` | TDD vs UX Spec scope drift; one of the two is wrong | Reconcile TDD and UX Spec scope before proceeding; do not silently accept the spec |
 | A UX Design Spec instance covers content that DS instance would own (project-wide token taxonomy, project-wide layout pattern definitions) | Boundary violation between feature-level UX Spec and project-wide DS instance | Route to DSG additive or breaking update path; do not embed project-wide content in feature-level instance |
-| UX Design Spec §2.3 references components not in DS instance and §2.4 additive update plan is missing | Incomplete instance; Hub Claude authored §2.3 without grounding in Hub mirror, OR the operator authorized §2.3 component references without insisting on §2.4 additive plan | Return to Step 2.3 authoring; flag the missing §2.4 entry; if the components were depicted in CD design files, also surface a §3.1 design file alignment failure (the design files should have triggered the additive concern earlier) |
+| UX Design Spec §2.3 references components not in DS instance and §2.4 additive update plan is missing | Incomplete instance; Hub Claude authored §2.3 without grounding in the CD-authored design files, OR the operator authorized §2.3 component references without insisting on §2.4 additive plan | Return to Step 2.3 authoring; flag the missing §2.4 entry; if the components were depicted in CD design files, also surface a §3.1 design file alignment failure (the design files should have triggered the additive concern earlier) |
 | **Operator sign-off on TK-02 without applying §3.1 or §3.2 reviewer checklists** | Process bypass; checklist application is the gate | Re-apply applicable checklists before sign-off; checklist application is the gate, not the artifact's existence |
 | **Hub Claude declares any §3 checklist item pass / fail unilaterally without operator decision** | Hub Claude scope violation — Hub Claude assists, does not author UX design judgments | Hub Claude reverts to assist-only mode; operator decides each checklist disposition |
 | **`[TPL] UX Design Spec` is treated as a CD-authoring template** | Misuse — this is a Hub-authored markdown spec contract; CD does not consume this template | Reorient: CD produces design files (CD-native visual artifacts) per [REF] Hub-CD-CC Architecture §3.4.1; this template governs the Hub-authored markdown counterpart authored at TK-02 Step 2.3 |
-| **A UX Design Spec instance authored at Hub TK-02 Step 2.3 without consulting the Hub DS mirror** | Authoring without grounding violates DSG §13.3 Hub-side consumption discipline | Re-author with mirror grounding; verify every §2.3 component reference, §2.2 pattern reference, and §2.5/§2.6 stance against current Hub mirror |
 | **A UX Design Spec instance authored at Hub TK-02 Step 2.3 without consulting CD-authored design files** (when Step 2.2 fired) | Authoring without visual grounding; results in spec content disconnected from actual UI design | Re-author with design file grounding; verify §2.1 screens, §2.3 interactions, §2.7 visual states against design files |
 | **TK-03 intent.md UX brief invents content not present in the UX Design Spec instance** | Downstream authoring drift; Hub Claude at TK-03 must extract from the upstream instance, not invent | Return to TK-03 conversion; if the UX Design Spec instance is genuinely silent on a needed UX point, escalate back to TK-02 Step 2.3 for instance revision (route through Step 2.2 if design files also lack the content) |
 | **Reference to retired path `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` in any spec artifact** | Stale reference from the prior architecture (when UX content was a CD-authored bundle at this path); the new path is `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` | Update the reference to the new path; verify no other spec artifacts carry the stale path |
@@ -275,4 +272,4 @@ This template is maintained at the slim content-contract level. When content cat
 - The change is reviewed against [MECH] Development Track Workflow §4 TK-02 Step 2.3 — if the step's role sequence or output set changes, this template's instance authoring location and authoring discipline must be re-verified
 - The change is reviewed against [MECH] Cross-Tool Workflow Handoff §2.2 / §3.1 — if the content contracts for CD-authored design file transfer or UX Design Spec instance forwarding change, this template's §0.3 + §1 declarations must be re-verified
 
-When new mirror-related governance is introduced in DSG (e.g., a new Hub mirror consumption rule beyond §13.3), §3.2 alignment check items may need extension to verify the new rule's application.
+When new DSG governance affects the design file grounding or the export conformance review (e.g., a change to §13.3 consumption discipline), §3.1 and §3.2 checklist items may need extension to verify the new rule's application.

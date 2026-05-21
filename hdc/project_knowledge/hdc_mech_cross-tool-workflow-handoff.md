@@ -3,18 +3,18 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Workflow Orchestration Specification
 - **Status**: Active canonical
-- **Role**: Stable source defining the content contracts for the three operator-mediated cross-tool handoff paths during AI-dev work (Hub ↔ operator ↔ CD, Hub ↔ operator ↔ CC, CD ↔ operator ↔ CC) — including what content moves in each direction, operator transfer actions, audit steps, integration steps, reminder-form discipline, and the DS markdown export sync mechanism that maintains the three-way DS mirror distribution
+- **Role**: Stable source defining the content contracts for the three operator-mediated cross-tool handoff paths during AI-dev work (Hub ↔ operator ↔ CD, Hub ↔ operator ↔ CC, CD ↔ operator ↔ CC) — including what content moves in each direction, operator transfer actions, audit steps, integration steps, reminder-form discipline, and the DS markdown export review-and-sync mechanism that maintains the CC DS mirror
 - **Source Category**: Cat 4
 - **Management-System Role**: Workflow orchestration specification; outside L1-L5 hierarchy; not itself an L2-L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1; conversation discipline rules in [OS] §7.2 apply to the Hub Claude trigger behavior in §7. Cross-source ownership map for the Cat 4 [RULE] / [MECH] sources is owned by [OS] §8.5.6.
 - **Relationship to [PRIN]**: Applies HR Digital Decision Design Principles §5 (management mechanism over ad hoc control).
-- **Relationship to [REF] Hub-CD-CC Architecture**: Operationalizes. [REF] Hub-CD-CC Architecture §9 declares the three-path handoff topology and the decoupled-by-default discipline during CD research preview; §3.4.1 declares CD outputs design files (CD-native visual artifacts); §5.2 declares the revised three-way distribution model (CD = SOT / CC = code-time mirror / Hub = spec-time mirror). This source defines the concrete content contracts and operator actions that realize those paths.
+- **Relationship to [REF] Hub-CD-CC Architecture**: Operationalizes. [REF] Hub-CD-CC Architecture §9 declares the three-path handoff topology and the decoupled-by-default discipline during CD research preview; §3.4.1 declares CD outputs design files (CD-native visual artifacts); §5.2 declares the two-way distribution model (CD = SOT / CC = code-time mirror). This source defines the concrete content contracts and operator actions that realize those paths.
 - **Relationship to [MECH] Application Lifecycle Handoff**: Distinct lifecycle layer. [MECH] Application Lifecycle Handoff governs the application-level handoff event (AI-dev → human dev team, terminal). This source governs cross-tool content flows during AI-dev work (recurrent during the entire AI-dev period). Both reference operator-mediated discipline but at different boundaries.
-- **Relationship to [RULE] Design System Governance**: Anchored. DSG §1.1 owns the revised three-way distribution model — CD = SOT at the CD workspace, CC = code-time mirror at `specs/design-system.md`, Hub = spec-time mirror at `hdc_ref_design-system.md`. This source operationalizes the cross-tool content flows that maintain that model:
+- **Relationship to [RULE] Design System Governance**: Anchored. DSG §1.1 owns the two-way distribution model — CD = SOT at the CD workspace, CC = code-time mirror at `specs/design-system.md`. This source operationalizes the cross-tool content flows that maintain that model:
   - CD-authored **design files** flow CD → Hub at TK-02 Step 2.3 entry (§2.2) carrying per-feature visual UX content for Hub-side UX Design Spec instance authoring
-  - CD-authored **DS markdown export** flows CD → Hub mirror + CC mirror in lock-step at change finalization (per DSG §12.5 + §12.7), maintaining mirror parity at every change boundary
+  - CD-authored **DS markdown export** flows CD → Hub (DSG §15 export conformance review) → CC mirror at change finalization (per DSG §12.3 + §12.7)
   - Hub-authored **UX Design Spec instance markdown** (Hub TK-02 Step 2.3 output) flows Hub → CC at TK-04 entry alongside other spec artifacts (§3.1)
-  - The three-way distribution generates DS-related cross-tool flows in all three handoff paths (Hub ↔ CD, Hub ↔ CC, CD ↔ CC); cross-tool flows that carry DS-related content apply DSG rules accordingly. DSG §12 additive update path drives DS instance changes at the originating feature's M4 → merge-to-main milestone, at which point the DS markdown export sync re-aligns both mirrors
+  - The two-way distribution generates DS-related cross-tool flows in the Hub ↔ CD and Hub ↔ CC handoff paths; cross-tool flows that carry DS-related content apply DSG rules accordingly. DSG §12 additive update path drives DS instance changes at the originating feature's M4 → merge-to-main milestone, at which point the reviewed DS markdown export syncs to the CC mirror
 - **Relationship to [RULE] Codex Plugin Usage**: **Migrated to CC substantive canonical (Phase 3)**. The CC → operator → Hub direction in §3.2 includes code review tool output flow; the specific code review tool (historically Codex) is governed by CC substantive Codex Plugin Usage canonical at CC. This source declares only the cross-workspace content contract; the fire-condition and output-processing rules live at CC.
 - **Relationship to [RULE] Workspace Topology**: Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; specific Hub canonical access mechanism at CC is operator-personal infrastructure (not canonical-governed) per Phase 4 Finding A revision. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4).
 - **Relationship to [MECH] Development Track Workflow**: Cross-tool handoffs operate continuously during AI-dev work driven by DTW TK sequence. This source does not author TK orchestration but provides the content contracts that DTW TKs invoke when they touch cross-tool flows. Key TK-bound flows:
@@ -22,7 +22,7 @@
   - TK-02 Step 2.2 → Step 2.3: CD → Hub design files transfer (§2.2)
   - TK-03 → TK-04 entry: Hub → CC spec bundle including UX Design Spec instance markdown + design files as visual reference (§3.1)
   - TK-11 code review tool output → Hub: CC → Hub (§3.2; specific tool governed by CC substantive canonical)
-  - TK-12 DS change finalization (when applicable): DS markdown export sync to both mirrors (§2.2 + §3.1, operator-mediated)
+  - TK-12 DS change finalization (when applicable): DS markdown export §15 review + sync to the CC mirror (§2.2 + §3.1, operator-mediated)
 - **Relationship to [TPL] UX Design Spec**: Cross-references. CD-authored design files transferred via §2.2 are the source material for the Hub-authored UX Design Spec instance (authored per [TPL] UX Design Spec at TK-02 Step 2.3). The UX Design Spec instance markdown is transferred via §3.1 to CC at TK-04 entry as part of the spec bundle.
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [MECH] Cross-Tool Workflow Handoff` header fields per [OS] §8.5.1a)
 
@@ -35,12 +35,12 @@ Use this source when:
 - Determining what integration steps apply after content arrives at the destination
 - Resolving an audit failure on a cross-tool transfer
 - Reviewing whether a Hub Claude conversation has drifted across cross-tool handoff boundaries
-- Performing DS markdown export sync to maintain Hub + CC mirror lock-step at change finalization
+- Performing the DS markdown export §15 conformance review and CC-mirror sync at change finalization
 
 Do not use as:
 - An application-level handoff reference ([MECH] Application Lifecycle Handoff — covers AI-dev → human dev team event)
 - A three-workspace topology reference ([REF] Hub-CD-CC Architecture — owns workspace identity and boundaries)
-- A DS governance rule reference ([RULE] Design System Governance — owns DS governance discipline, including the three-way distribution model and DS markdown export specification)
+- A DS governance rule reference ([RULE] Design System Governance — owns DS governance discipline, including the two-way distribution model and DS markdown export specification)
 - A code review tool fire condition reference (CC substantive Codex Plugin Usage canonical owns this; Codex was migrated to CC in Phase 3)
 - A TK-by-TK orchestration reference ([MECH] Development Track Workflow)
 - An enforcement mechanism — this source declares reminder-form discipline (per §5) rather than mechanical enforcement
@@ -51,7 +51,7 @@ This source applies to:
 - Cross-tool content flows during AI-dev work between Hub / CD / CC for HDC project content
 - Operator transfer actions that mediate these flows
 - Audit and integration steps at each end of each transfer
-- DS markdown export sync mechanics maintaining the Hub + CC mirror lock-step (per DSG §12.5 invariant)
+- DS markdown export §15 conformance review and CC-mirror sync mechanics (per DSG §12.3)
 
 This source does not apply to:
 - Cross-tool flows for operator activities outside HDC project scope (per [REF] Hub-CD-CC Architecture §6 hub canonical scope boundary)
@@ -70,14 +70,14 @@ This source does not apply to:
 - Reminder-form constraints (this source establishes [Enforcement·reminder-only]; Hub Claude surfaces reminders but does not enforce)
 - Audit failure handling procedures
 - Hub Claude soft compliance trigger phrases for cross-tool handoff conversations
-- DS markdown export sync mechanics (the cross-tool mechanism that realizes the DSG §12.5 mirror lock-step invariant)
+- DS markdown export review and CC-mirror sync mechanics (the cross-tool mechanism realizing the DSG §12.3 export conformance review + CC-mirror sync)
 - Anti-drift red flags specific to cross-tool handoff boundary violations
 
 ## 0.2 What this source does not own
 
 - The three-workspace topology itself (owned by [REF] Hub-CD-CC Architecture)
 - Application-level handoff to human dev team (owned by [MECH] Application Lifecycle Handoff)
-- DS governance rules and the three-way distribution model specification (owned by [RULE] Design System Governance §1.1 + §12)
+- DS governance rules and the two-way distribution model specification (owned by [RULE] Design System Governance §1.1 + §12)
 - DS markdown export format specification (owned by [RULE] Design System Governance §12.7)
 - DSG §13.3 Hub-side consumption discipline rules (owned by DSG)
 - Code review tool fire condition rules (owned by CC substantive Codex Plugin Usage canonical)
@@ -93,9 +93,9 @@ This source does not apply to:
 
 | Adjacent source | Relationship |
 |---|---|
-| [REF] Hub-CD-CC Architecture | Operationalized. This source provides content contracts for the §9 handoff topology declared in Architecture; §3.4.1 CD outputs (design files) and §5.2 revised three-way DS distribution model anchor the DS-related flows here. |
+| [REF] Hub-CD-CC Architecture | Operationalized. This source provides content contracts for the §9 handoff topology declared in Architecture; §3.4.1 CD outputs (design files) and §5.2 two-way DS distribution model anchor the DS-related flows here. |
 | [MECH] Application Lifecycle Handoff | Companion. Different lifecycle layer (cross-tool flows during AI-dev vs application-level terminal event). |
-| [RULE] Design System Governance | Anchored. Cross-tool flows carrying DS content apply DSG rules; DSG §12.5 lock-step invariant is realized by the DS markdown export sync mechanism declared here; DSG §12.7 owns the export specification this source consumes. |
+| [RULE] Design System Governance | Anchored. Cross-tool flows carrying DS content apply DSG rules; the DSG §12.3 export conformance review + CC-mirror sync is realized by the DS markdown export mechanism declared here; DSG §12.7 owns the export specification this source consumes. |
 | [RULE] Codex Plugin Usage | **Migrated to CC substantive canonical (Phase 3)**. CC → operator → Hub direction includes code review tool output flow; the specific tool's contract lives at CC. |
 | [RULE] Workspace Topology | Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; specific Hub canonical access mechanism at CC is operator-personal infrastructure per Phase 4 Finding A revision. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). |
 | [MECH] Development Track Workflow | Continuous. Cross-tool flows operate throughout DTW TK sequence; this source provides the contracts DTW TKs invoke. TK-02 Step 2.2 + Step 2.3 and TK-04 entry are key trigger points. |
@@ -164,10 +164,14 @@ This direction carries Hub-produced content into a CD session as context for des
 - **attention prompt** directing CD to UI-relevant sections of the drop files (Hub does not pre-extract a "UI summary" because what's "UI-relevant" depends on CD's design judgment; the attention prompt names the sections most likely to drive UI decisions)
 - Output expectations: per-feature design files covering hi-fi mockups for affected Tier 1 screens, prototypes / wireframes for interaction flows where static mockups are insufficient, component callouts identifying which DS components are used per screen, interaction flows with embedded textual annotations (state transitions, edge cases, empty/loading/error states), and any new-component / new-token proposals
 
+**Sub-flow C — DS instance authoring input (HDC-specific, when a DS change is needed)**: When a DS instance change has been approved per [RULE] DSG §12, the operator initiates a CD session for CD-side DS instance authoring. The content transferred:
+- The current `[RULE] Design System Governance` text — transferred to CD as a **read-only input** so CD authors the DS instance change in conformance with DSG §2-§11 and self-checks the change before generating the DS markdown export. DSG's SOT remains at Hub; CD receives it as a transferred input, not as owned content
+- The specific change request — the additive change plan (the Hub-authored UX Design Spec instance §2.4 entry) or, for a breaking change, the change requirements + rationale traceable to the triggering feature's PRD/TDD
+
 ### 2.1.2 Source format
 
 Hub content exists as:
-- Hub canonical sources (the `hdc_*.md` file set in the canonical repository / Hub PK, including the Hub DS mirror `hdc_ref_design-system.md`); Hub Claude reads them via the RAG layer per [OS] §1.4; the specific access channel used to surface canonical content into a Hub conversation is operator-personal infrastructure and not canonical-governed
+- Hub canonical sources (the `hdc_*.md` file set in the canonical repository / Hub PK); Hub Claude reads them via the RAG layer per [OS] §1.4; the specific access channel used to surface canonical content into a Hub conversation is operator-personal infrastructure and not canonical-governed
 - Spec artifacts at `apps/{app-slug}/specs/**` or similar
 - Conversation-level content produced by Hub Claude
 
@@ -191,6 +195,13 @@ For Sub-flow B (TK-02 Step 2.2 design file production):
 4. Paste the attention prompt directing CD to the UI-relevant sections of the drop files
 5. State the design file output expectations explicitly (per the per-feature design file output list in §2.1.1 Sub-flow B)
 6. Initiate CD design file production
+
+For Sub-flow C (DS instance authoring):
+
+1. Open the CD session holding the HDC DS instance
+2. Transfer the current `[RULE] Design System Governance` text into the CD session as read-only context
+3. Transfer the specific change request (the §2.4 additive plan, or the breaking-change requirements + rationale)
+4. State that CD must author the change in conformance with DSG §2-§11 and self-check the change before generating the DS markdown export
 
 ### 2.1.4 Audit checklist (pre-transfer)
 
@@ -217,7 +228,7 @@ This direction carries CD-produced content back into Hub. Three distinct sub-flo
 - CD-authored design files for the feature (hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations) per [REF] Hub-CD-CC Architecture §3.4.1
 - Any new-component / new-token proposals embedded in the design files (these become the source material for the UX Design Spec instance §2.4 New-Components-Or-Tokens entry)
 
-**Sub-flow B — DS markdown export sync at change finalization (when applicable)**: When a DS change merges at the originating feature's M4 → merge-to-main milestone (per DSG §12.5), CD generates an updated DS markdown export per DSG §12.7. The operator transfers this export to both the Hub mirror (`hdc_ref_design-system.md`) and the CC mirror (`specs/design-system.md`) in lock-step. The Hub mirror update is the §2.2 sub-flow; the CC mirror update is the §3.1 sub-flow (these execute together as a single operator-mediated sync cycle).
+**Sub-flow B — DS markdown export review at change finalization (when applicable)**: When a DS change merges at the originating feature's M4 → merge-to-main milestone (per DSG §12.5), CD generates an updated DS markdown export per DSG §12.7. The operator brings the export into the Hub session, where Hub Claude reviews it against the DSG §15 reviewer checklist (the export conformance review per DSG §12.3). On a passing review, the export is committed to the CC mirror (`specs/design-system.md`) — the §3.1 Sub-flow C transfer. Hub retains no copy of the export.
 
 **Sub-flow C — Stakeholder review materials**: Slide decks, prototypes, and other CD outputs for the operator's own use (e.g., presenting to stakeholders) — not integrated into Hub canonical.
 
@@ -244,16 +255,14 @@ CD content exists as:
    - **Reject** → return to CD per §6 fallback; Step 2.2 redo for the affected feature
 5. Note design file provenance in the UX Design Spec instance header (`Source design files` field per [TPL] UX Design Spec §1)
 
-**For Sub-flow B — DS markdown export sync at change finalization**:
+**For Sub-flow B — DS markdown export review at change finalization**:
 
 1. At the originating feature's M4 → merge-to-main milestone (TK-12), trigger DS markdown export generation in CD per DSG §12.7
 2. Save the export file (operator-side working copy)
-3. Audit the export for completeness (covers all DS instance section topics per DSG §2) and accuracy (matches the DS change just merged)
-4. **Update both mirrors in lock-step** (per DSG §12.5 invariant — neither mirror may lag the other across a change boundary):
-   - Hub mirror: replace `hdc_ref_design-system.md` content with the export; commit to the canonical hub PK source set per [OS] §8.5.3 grep-verify discipline
-   - CC mirror: replace `specs/design-system.md` content with the export; commit to the monorepo on the active branch
-5. Verify version metadata in both mirrors after sync (header semver matches the export's version)
-6. Note the sync in the slice's evidence or TK-12 conversation log
+3. Bring the export into a Hub conversation; Hub Claude reviews it against the DSG §15 reviewer checklist (the export conformance review per DSG §12.3) — verifying completeness (covers all DS instance section topics per DSG §2) and conformance to DSG §2-§11. On a material finding, the export returns to CD for correction
+4. On a passing review, commit the reviewed export to the **CC mirror**: replace `specs/design-system.md` content with the export; commit to the monorepo on the active branch (the §3.1 Sub-flow C transfer)
+5. Verify CC mirror version metadata after sync (header semver matches the export's version)
+6. Note the review and sync in the slice's evidence or TK-12 conversation log
 
 **For Sub-flow C — stakeholder review materials**:
 
@@ -272,8 +281,8 @@ Before integrating, the operator verifies:
 
 **For Sub-flow B**:
 - DS markdown export is complete (covers all DSG §2 section topics) and current (reflects the just-merged DS change)
-- Both target paths are writable and not in a stale-snapshot state
-- Operator is prepared to commit both mirrors in the same cycle (no half-applied sync)
+- The export has passed the DSG §15 conformance review before the CC mirror is committed
+- The CC mirror path is writable and not in a stale-snapshot state
 
 ### 2.2.5 Hub integration
 
@@ -283,9 +292,9 @@ Before integrating, the operator verifies:
 - Design files themselves are operator-side reference; not committed to the monorepo unless the operator explicitly opts to commit exports at `apps/{app-slug}/design-references/{feature-slug}/` for visual reference at TK-04+
 
 **For Sub-flow B**:
-- Hub mirror at `hdc_ref_design-system.md` is updated to match the new DS instance version
-- The Hub mirror update unblocks Hub-side consumption (DSG §13.3) at the new DS version for downstream TK-02 Step 2.3 authoring of subsequent features
-- The lock-step invariant means the CC mirror sync (§3.1 sub-flow) happens in the same cycle — Hub-mirror-only updates without CC-mirror updates constitute a §8 anti-drift red flag
+- The DS markdown export is reviewed against DSG §15 in the Hub session (the export conformance review per DSG §12.3); Hub retains no copy of the export
+- On a passing review, the CC mirror (`specs/design-system.md`) is updated to the new DS instance version via the §3.1 Sub-flow C transfer
+- Committing the export to the CC mirror without the §15 review having passed constitutes a §8 anti-drift red flag
 
 **For Sub-flow C**:
 - No Hub canonical state change
@@ -314,7 +323,7 @@ This direction carries Hub-produced content into CC for code implementation work
 - ADRs (operator-curated, when applicable)
 - **CD-authored design files** (when Tier 1 involved) — accompany as visual reference for CC implementation; operator-side reference, not committed to the monorepo unless the operator explicitly opts to commit exports at `apps/{app-slug}/design-references/{feature-slug}/`
 
-**Sub-flow C — DS markdown export sync to CC mirror (at change finalization)**: At a feature's M4 → merge-to-main milestone when that slice carries a DS change, the CC mirror at `specs/design-system.md` is updated to the new DS version per DSG §12.5 lock-step invariant. This sync executes together with the Hub mirror sync (§2.2 Sub-flow B) as a single operator-mediated cycle.
+**Sub-flow C — DS markdown export sync to CC mirror (at change finalization)**: At a feature's M4 → merge-to-main milestone when that slice carries a DS change, the CC mirror at `specs/design-system.md` is updated to the new DS version. The export is first reviewed against DSG §15 in the Hub session (§2.2 Sub-flow B); on a passing review the operator commits the reviewed export to the CC mirror.
 
 **Sub-flow D — Cross-model review reminder content**: Conversational reminders fired at TK-01 / TK-02 sign-offs per [MECH] DTW; transferred informally into CC sessions when downstream TKs are operating in CC.
 
@@ -345,10 +354,10 @@ Hub content exists as:
 
 **For Sub-flow C — DS markdown export sync to CC mirror (at change finalization)**:
 
-1. At the slice's TK-12 M4 → merge-to-main, when this slice carries a DS change, execute the sync cycle that updates both mirrors per DSG §12.5
-2. CC mirror leg: update `specs/design-system.md` in the monorepo on the active branch (typically `main` after merge); the Hub mirror leg executes per §2.2 Sub-flow B
-3. Verify CC mirror header version matches Hub mirror header version after sync
-4. The DS markdown export source is the CD-generated export from §2.2 Sub-flow B; both mirrors are updated from the same source artifact
+1. At the slice's TK-12 M4 → merge-to-main, when this slice carries a DS change, the CD-generated DS markdown export is first reviewed against DSG §15 in the Hub session per §2.2 Sub-flow B
+2. On a passing review, update the CC mirror: replace `specs/design-system.md` in the monorepo on the active branch (typically `main` after merge) with the reviewed export
+3. Verify CC mirror header version matches the export's declared version after sync
+4. The DS markdown export source is the CD-generated export reviewed at §2.2 Sub-flow B
 
 **For Sub-flow D — cross-model review reminder transfer**:
 
@@ -362,7 +371,7 @@ Before transferring, the operator verifies:
 - Spec artifacts are at sign-off form per [MECH] Sign-Off Cleanup Policy when transferring to the monorepo
 - Spec artifact paths match the canonical layout per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1)
 - **For TK-04 entry (Sub-flow B)**: when Tier 1 features are present, the per-feature UX Design Spec instance markdown is present in the transfer set at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`; the M0 entry self-check at TK-04 will validate the markdown's grounding against CC DS mirror via SK-F
-- **For DS markdown export sync (Sub-flow C)**: the CC mirror update executes in the same cycle as the Hub mirror update (§2.2 Sub-flow B); the operator is prepared to commit both within the same boundary
+- **For DS markdown export sync (Sub-flow C)**: the export has passed the DSG §15 conformance review (§2.2 Sub-flow B) before the CC mirror is committed
 
 ### 3.1.5 CC reception
 
@@ -405,13 +414,13 @@ CC content exists as:
 2. Inform Hub Claude of the change in conversation
 3. Hub Claude updates the Hub-side canonical inventory tracking ([REF] CC Project Memory Bank Layout serves as the structural reference but does not mirror individual files)
 
-**For CC-side DS mirror drift detection notifications** (e.g., M0 entry self-check finds Hub mirror version vs CC mirror version mismatch, or SK-F runtime flags a component reference not in CC mirror):
+**For CC-side DS mirror drift detection notifications** (e.g., SK-F runtime flags a component reference not in the CC mirror, or M0 entry self-check finds the CC mirror stale relative to the latest DS instance version):
 
 1. Note the drift signal (which mirror is behind; which component / token / pattern is involved)
 2. Inform Hub Claude in conversation
 3. Hub Claude routes the drift through [RULE] DSG §12 update path:
-   - If the drift is rooted in a DS instance change that has not yet propagated to one mirror: trigger a DS markdown export resync via §2.2 Sub-flow B + §3.1 Sub-flow C (both mirrors aligned in the same cycle, restoring DSG §12.5 lock-step)
-   - If the drift is rooted in a CC-observed need for a DS change (e.g., implementation reveals a missing token): route the change through DSG §12.3 additive update flow — captured in the originating feature's UX Design Spec instance §2.4 (or as a new UX Design Spec instance §2.4 entry if the originating feature is in-flight), merged into CD SOT at the originating feature's M4, with both mirrors re-synced via DS markdown export at that boundary
+   - If the drift is rooted in a DS instance change that has not yet propagated to the CC mirror: trigger a DS markdown export resync via §2.2 Sub-flow B (DSG §15 review) + §3.1 Sub-flow C (CC-mirror commit)
+   - If the drift is rooted in a CC-observed need for a DS change (e.g., implementation reveals a missing token): route the change through DSG §12.3 additive update flow — captured in the originating feature's UX Design Spec instance §2.4 (or as a new UX Design Spec instance §2.4 entry if the originating feature is in-flight), merged into CD SOT at the originating feature's M4, with the CC mirror re-synced via the reviewed DS markdown export at that boundary
 
 **For ADR-warranting architecture observations**:
 
@@ -431,7 +440,7 @@ Before transferring, the operator verifies:
 
 Codex findings receive Hub judgment and archival. Hub-side canonical inventory tracking is updated for CC-internal canonical changes. DS-related drift signals trigger either DS markdown export resync (when caused by mirror lag) or DSG §12 additive update flow (when caused by DS gap). ADRs are authored and indexed.
 
-**Note on Hub mirror**: Unlike the prior architecture, Hub now maintains a spec-time DS mirror at `hdc_ref_design-system.md` per DSG §1.1 revised three-way distribution model. CC-side DS drift signals that reveal mirror inconsistency must be resolved via the DS markdown export sync mechanism (§2.2 Sub-flow B + §3.1 Sub-flow C in lock-step) rather than by ad-hoc Hub-side edits — direct edits to either mirror violate DSG §12.6 read-only mirror discipline.
+**Note on the two-way model**: Hub holds no DS instance mirror per DSG §1.1. CC-side DS drift signals that reveal CC-mirror staleness must be resolved via the DS markdown export mechanism (§2.2 Sub-flow B DSG §15 review + §3.1 Sub-flow C CC-mirror commit) rather than by ad-hoc edits — direct edits to the CC mirror violate DSG §12.6 read-only mirror discipline.
 
 ---
 
@@ -443,7 +452,7 @@ During CD research preview, this path operates under decoupled-by-default discip
 
 Direct CD ↔ CC coupling (e.g., CD's native "Send to Claude Code" handoff path) is **not enabled** for HDC project use during this period. The conditions for re-enabling direct coupling are owned by [REF] Hub-CD-CC Architecture §10.
 
-**DS markdown export sync flow note**: The DS markdown export generated by CD at change finalization (per DSG §12.7) technically affects both the Hub mirror and the CC mirror. During research preview, this sync does NOT execute as direct CD → CC transfer; instead, it executes as CD → operator → Hub (per §2.2 Sub-flow B) and CD → operator → CC (per §3.1 Sub-flow C, with the CD → operator transfer in the same cycle providing the export source for both mirrors). The operator is the trust gate for both legs of the lock-step sync.
+**DS markdown export flow note**: The DS markdown export generated by CD at change finalization (per DSG §12.7) is reviewed Hub-side and synced to the CC mirror. During research preview, this does NOT execute as direct CD → CC transfer; instead it executes as CD → operator → Hub (the DSG §15 export conformance review, per §2.2 Sub-flow B) and then → CC (per §3.1 Sub-flow C, the CC-mirror commit). The operator is the trust gate.
 
 ## 4.2 CD → operator → CC direction
 
@@ -542,7 +551,7 @@ When a Hub Claude conversation initiates or references a cross-tool transfer, Hu
 - Suggests pre-transfer audit checks per §2.x.4 / §3.x.4 / §4.2.4
 - Notes the destination integration steps per §2.x.5 / §3.x.5 / §4.2.5
 - Flags scope boundary checks per [REF] Hub-CD-CC Architecture §6 when ambiguity may exist
-- For DS-related flows: flags the DSG §12.5 lock-step invariant (both mirrors update in the same cycle)
+- For DS-related flows: flags the DSG §12.3 export conformance review (the CD-generated export is reviewed against DSG §15 before the CC mirror is committed)
 
 Reminders are conversational and non-blocking. The operator may proceed without invoking a reminder; the reminder simply surfaces the structure if the operator wants to consult it.
 
@@ -551,7 +560,7 @@ Reminders are conversational and non-blocking. The operator may proceed without 
 If a reminder is missed and a transfer proceeds without the documented audit:
 - No automatic recovery — the operator may re-invoke Hub Claude later to re-audit retroactively
 - If retroactive audit reveals scope leakage or quality issues, fallback per §6
-- For DS markdown export sync: if one mirror was updated without the other (DSG §12.5 invariant violation), the operator must complete the lagging mirror update before proceeding with any downstream consumption that would otherwise see inconsistent mirror state
+- For DS markdown export sync: if the CC mirror was committed without the DSG §15 export review having passed, the operator must run the §15 review retroactively and correct the CC mirror if the review finds nonconformance
 
 ---
 
@@ -565,7 +574,7 @@ If a reminder is missed and a transfer proceeds without the documented audit:
 | Content contract violation | The transferred content lacks expected content (e.g., CD-authored design files missing component callouts when those were expected; UX Design Spec instance missing §2.x category coverage; DS markdown export missing DSG §2 section coverage) |
 | Quality below threshold | The transferred content meets contract but is judged insufficient for HDC use |
 | Integration failure | The destination cannot accommodate the transferred content's structure |
-| **Mirror lock-step violation** | DS markdown export sync updated only one mirror; the other lags, violating DSG §12.5 invariant |
+| **Export review skipped** | DS markdown export committed to the CC mirror without passing the DSG §15 export conformance review |
 
 ## 6.2 Fallback procedures
 
@@ -593,12 +602,12 @@ For each failure type:
 2. If manual integration fails, escalate to Hub Claude for advisory on integration approach
 3. Pause the cross-tool flow until integration approach is confirmed
 
-**Mirror lock-step violation**:
-1. Identify which mirror lags (compare header version metadata between Hub mirror at `hdc_ref_design-system.md` and CC mirror at `specs/design-system.md`)
-2. Source the canonical export — preferred path: locate the CD-generated DS markdown export from the originating sync cycle; fallback path: regenerate the export from CD if the original is lost
-3. Apply the export to the lagging mirror within the same operator session as the discovery
-4. Verify post-fix: both mirrors carry identical version metadata and content
-5. If the lag was discovered downstream (e.g., TK-04 M0 entry self-check or SK-F runtime flagged the inconsistency), additionally verify that no spec artifacts authored during the lag window referenced the lagging mirror's stale content
+**Export review skipped**:
+1. Locate the DS markdown export that was committed to the CC mirror without review — preferred path: the CD-generated export from the originating cycle; fallback path: regenerate the export from CD if the original is lost
+2. Run the DSG §15 export conformance review retroactively in a Hub conversation
+3. If the review finds nonconformance, return the export to CD for correction and re-sync the CC mirror with the corrected export
+4. Verify post-fix: the CC mirror header version matches the reviewed export's declared version
+5. If the unreviewed export was discovered downstream (e.g., TK-04 M0 entry self-check or SK-F runtime flagged an inconsistency), additionally verify that no code generated during the window consumed nonconformant DS content
 
 In all failure types, the canonical inventory and spec artifact state remain consistent. Failed transfers leave no partial canonical updates.
 
@@ -622,7 +631,7 @@ When a Hub Claude conversation contains any of the following phrases or their cl
 2. **"start the TK-02 Step 2.2 design files for this feature"** / **"open a CD session for the Tier 1 feature"** — explicit Hub → CD Sub-flow B intent; surface §2.1 Sub-flow B content contract specifically (drop file structure + attention prompt; CD grounds DS in its own instance per [REF] Hub-CD-CC Architecture §5.2)
 3. "**bring back from CD**" / "**integrate the prototype / design files**" / "**use the CD output**" — CD → Hub intent; surface §2.2 content contract (note which sub-flow: A design files for Step 2.3, B DS markdown export for mirror sync, or C personal stakeholder material)
 4. **"transfer the design files back to Hub"** / **"start Step 2.3 with these design files"** — explicit CD → Hub Sub-flow A intent; surface §2.2 Sub-flow A content contract + [TPL] UX Design Spec §3.1 design file quality check
-5. **"sync the DS markdown export"** / **"update both mirrors"** / **"the DS instance changed, propagate"** — DS markdown export sync intent; surface §2.2 Sub-flow B + §3.1 Sub-flow C lock-step requirement per DSG §12.5
+5. **"sync the DS markdown export"** / **"review the DS export"** / **"the DS instance changed, propagate"** — DS markdown export review + sync intent; surface §2.2 Sub-flow B (DSG §15 export conformance review) + §3.1 Sub-flow C (CC-mirror commit) per DSG §12.3
 6. "**send to CC**" / "**give CC the spec**" / "**inception sync**" — Hub → CC intent; surface §3.1 content contract (note which sub-flow: A inception, B spec bundle at TK-04, C DS markdown sync, D review reminder, E memos)
 7. **"transfer the spec bundle for TK-04"** / **"onboard the assigned_node for this unit"** — explicit Hub → CC Sub-flow B intent; surface §3.1 Sub-flow B content contract + verify UX Design Spec instance markdown is in the transfer set when Tier 1 involved
 8. "**copy the Codex review back**" / "**transfer to Hub**" (in CC context) / "**update the canonical**" (after CC change) — CC → Hub intent; surface §3.2 content contract
@@ -630,7 +639,7 @@ When a Hub Claude conversation contains any of the following phrases or their cl
 10. "**use the CD design files in CC**" / "**hand the design files to CC mid-implementation**" — CD → CC intent; surface §4.2 content contract and the §4.1 decoupled-by-default discipline (note: this is rare; the normal flow routes through Hub via §2.2 + §3.1)
 11. "**send CC's feedback to CD**" / "**update CD with the implementation finding**" — CC → CD intent; surface §4.3 content contract (and note that DS-implicating findings primarily route through §3.2 → DSG §12)
 12. "**enable direct CD-to-CC**" / "**skip operator audit**" — direct coupling activation intent; surface §4.4 non-enablement and [REF] Hub-CD-CC Architecture §10 re-enablement conditions
-13. **"edit the Hub mirror directly"** / **"hand-fix `hdc_ref_design-system.md`"** / **"patch `specs/design-system.md` locally"** — mirror direct-edit intent; surface DSG §12.6 read-only mirror discipline + §6.2 mirror lock-step violation handling
+13. **"hand-fix `specs/design-system.md`"** / **"patch the CC DS mirror locally"** — CC-mirror direct-edit intent; surface DSG §12.6 read-only mirror discipline
 
 ## 7.3 Action upon detection
 
@@ -660,12 +669,12 @@ This soft compliance is conversational, not blocking.
 - Hub canonical inventory tracking not updated after CC-internal canonical changes (per §3.2.3)
 - Codex review output bypasses Hub judgment (per §3.2.3)
 
-**DS three-way distribution dimension** (replaces the prior "Hub DS frozen reference not updated" red flag, which referenced the retired Hub-holds-neither model):
-- **DS markdown export sync executes for only one mirror** (Hub mirror updated without CC mirror, or vice versa) — violates DSG §12.5 lock-step invariant; route through §6.2 mirror lock-step violation handling
-- **Direct edits to either mirror** (`hdc_ref_design-system.md` or `specs/design-system.md`) — violates DSG §12.6 read-only mirror discipline; mirrors are exclusively updated via CD-generated DS markdown export
+**DS two-way distribution dimension**:
+- **DS markdown export committed to the CC mirror without the DSG §15 export conformance review** — violates DSG §12.3; route through §6.2 export-review-skipped handling
+- **Direct edits to the CC mirror** (`specs/design-system.md`) — violates DSG §12.6 read-only mirror discipline; the CC mirror is exclusively updated via the reviewed CD-generated DS markdown export
 - **CC DS mirror drift signal from M0 entry self-check or SK-F runtime ignored** — the drift signal must route through §3.2.3 to either trigger a resync or a DSG §12 additive update; ignoring causes downstream code generation to consume inconsistent DS reference
-- **DS markdown export generated at a non-DSG-§12.5 boundary** (e.g., mid-slice export attempted) — exports only generate at the originating feature's M4 → merge-to-main milestone; off-cycle exports create floating-version mirror state
-- **Hub mirror or CC mirror manually patched to match a CD-side DS change without going through the DS markdown export sync mechanism** — bypasses DSG §12.7 export specification + §12.5 lock-step invariant
+- **DS markdown export generated at a non-DSG-§12.5 boundary** (e.g., mid-slice export attempted) — exports only generate at the originating feature's M4 → merge-to-main milestone; off-cycle exports create floating-version CC-mirror state
+- **A Hub-side DS instance mirror re-introduced** — the two-way model holds no DS instance copy at Hub; re-introducing a Hub DS mirror is drift back toward the retired three-way model (per DSG §16)
 
 **Scope boundary dimension**:
 - Cross-tool transfers carrying non-HDC scope content (per [REF] Hub-CD-CC Architecture §6)

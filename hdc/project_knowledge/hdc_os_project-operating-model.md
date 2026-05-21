@@ -626,7 +626,7 @@ Relationship to hub:
     - [MECH] CI/CD Milestone Policy (constitutional residue — M0–M5 ladder identity, Test Evidence Report schema, evidence parity)
     - [MECH] Application Lifecycle Handoff (handoff readiness criteria, content scope, acknowledgment record format, re-entry policy)
     - [MECH] Cross-Tool Workflow Handoff (three-path handoff content contracts)
-    - [RULE] Design System Governance (singleton DS model, three-way distribution, instance contract)
+    - [RULE] Design System Governance (singleton DS model, two-way distribution, instance contract)
   - **CC substantive canonical at CC's own canonical layer** (migrated in Phase 3 per [OS] §0.1.5 Premise 5):
     - CC substantive CCAR (subagent roster A1-A10, named context scopes, repository path patterns, skill catalog, domain lifecycle and Pact contract testing specifics)
     - CC substantive Workspace Topology (specific tool stack and versions, GitHub workflow configuration, node-assignment procedure, workspace inception checklist)

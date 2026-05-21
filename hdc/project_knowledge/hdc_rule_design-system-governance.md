@@ -3,16 +3,16 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Architecture Specification
 - **Status**: Active canonical
-- **Role**: Stable governance-rules source defining the design-system framework that constrains all Tier 1 frontend work across the project — design language foundation rules, token taxonomy and consumption discipline, component inventory tiering, layout-pattern governance, accessibility stance, internationalization approach, motion hygiene, iconography rules, content style norms, platform-tier framework, change-process governance, custom-skill integration contract, pairing rules with adjacent canonical sources, reviewer checklist, and anti-drift red flags. The DS instance content itself (tokens, component inventories, layout pattern catalog, etc.) is the source-of-truth in Claude Design (CD-internal); CC carries a read-only code-time mirror at `specs/design-system.md` for code generation; **Hub carries a read-only spec-time mirror at `hdc_ref_design-system.md` for spec authoring and quality check** per the revised three-way distribution model in §1.1.
+- **Role**: Stable governance-rules source defining the design-system framework that constrains all Tier 1 frontend work across the project — design language foundation rules, token taxonomy and consumption discipline, component inventory tiering, layout-pattern governance, accessibility stance, internationalization approach, motion hygiene, iconography rules, content style norms, platform-tier framework, change-process governance, custom-skill integration contract, pairing rules with adjacent canonical sources, reviewer checklist, and anti-drift red flags. The DS instance content itself (tokens, component inventories, layout pattern catalog, etc.) is the source-of-truth in Claude Design (CD-internal); CC carries a read-only code-time mirror at `specs/design-system.md` for code generation, per the two-way distribution model in §1.1. Hub holds no DS instance copy — it holds the governance rules (this source) and consumes CD-authored design files at spec-authoring time.
 - **Source Category**: Cat 4
 - **Management-System Role**: Governance specification; outside L1-L5 hierarchy; this source is not itself an L2, L3, L4, or L5 artifact. The instance it governs is a project-level singleton specification output, not a per-feature artifact.
 - **Relationship to [OS]**: Serves the Specify loop by establishing the design-system governance framework that downstream feature-level specification artifacts (PRD, TDD, intent, acceptance, per-feature UX Design Spec instances) must respect; subject to [OS] §8.5 paired-update consistency. Grounded in [OS] §0.1 project-level operating premises and [OS] §0.2 Cat 4 role anchor.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §3 (global core with governed local variance — Arco Design as global core for HDC's Tier 1 visual layer, regional i18n and RTL as governed variance), §5 (management mechanism over ad hoc control — this governance is the mechanism preventing per-slice visual drift), §6 (operation management and value realization by design — accessibility hygiene and i18n are operation realities captured upfront), §10 (MECE — component inventory)
 - **Relationship to [PRIN] People Experience Design Principles**: This rule is the primary implementation carrier for People Experience principles when the topic lens is experience quality and consistency; the dual-platform (PC + mobile) coverage in §11 directly serves People Experience moments-of-truth that occur outside the desktop
-- **Relationship to [REF] Hub-CD-CC Architecture**: This rule's SOT-distribution declarations in §1.1 align to §5.2 revised three-way distribution model (CD = SOT / CC = code-time mirror / Hub = spec-time mirror). CD is the instance SOT; CC carries a read-only mirror at `specs/design-system.md` for code-time consumption; Hub carries a read-only mirror at PK `hdc_ref_design-system.md` for spec-time consumption (TK-02 step 2.3 design file quality check + UX Design Spec authoring grounding). When the architecture's distribution model changes substantively, §1.1 of this rule is re-verified.
+- **Relationship to [REF] Hub-CD-CC Architecture**: This rule's SOT-distribution declarations in §1.1 align to §5.2 two-way distribution model (CD = SOT / CC = code-time mirror). CD is the instance SOT; CC carries a read-only mirror at `specs/design-system.md` for code-time consumption. Hub holds no DS instance copy; at TK-02 step 2.3 Hub Claude consumes CD-authored design files (not a DS mirror) per §13.3. When the architecture's distribution model changes substantively, §1.1 of this rule is re-verified.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Constrains Tier 1 (React) work exclusively; Tier 2 and Tier 3 are out of scope. The CC mirror of the DS instance is a project-level singleton at the monorepo root per CCAR §Y.1, not under any `apps/{app-slug}/` directory; downstream feature artifacts that reference it (per-feature UX Design Spec instances authored in Hub per `[TPL] UX Design Spec`, intent.md UX brief, test-plan.yaml accessibility cases) are app-scoped under `apps/{app-slug}/specs/...`. The CC mirror is included in CCAR §X.2.1 `business_rules_only` scope allow list as `specs/design-system.md`.
-- **Relationship to [MECH] Development Track Workflow**: The DS instance and both mirrors are established at workspace inception per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) via initial CD authoring + DS markdown export to both mirror locations. Hub mirror is referenced by TK-02 step 2.3 (design file quality check + UX Design Spec authoring grounding per the revised TK-02 internal structure). CC mirror is referenced by TK-04 (M0 entry, per-slice spec consumption) and TK-05+ (code writing, M3 visual review). Additive updates to the instance authored in CD propagate to both mirrors via the §12 sync mechanism in this rule.
-- **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2 (Hub ↔ CD path) carries DS-related discussions, CD-authored design files transferred to Hub for TK-02 step 2.3 consumption, and CD-generated DS markdown export transferred to Hub for mirror sync; §3 (Hub ↔ CC path) carries DSG governance text into CC and transfers the CD-generated DS markdown export to CC mirror at the same sync cycle as Hub mirror; §4 (CD ↔ CC path, decoupled-by-default during research preview) is currently not directly used for DS sync (CC mirror receives DS markdown via operator-mediated transfer from CD through the Hub session). The mirror-sync cadence and triggers are owned by §12 of this rule.
+- **Relationship to [MECH] Development Track Workflow**: The DS instance and the CC mirror are established at workspace inception per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) via initial CD authoring + DS markdown export to the CC mirror location (after the §15 export review per §12). TK-02 step 2.3 consumes CD-authored design files — design file quality check (spec-readiness) + UX Design Spec authoring grounded in the design files — per §13.3. CC mirror is referenced by TK-04 (M0 entry, per-slice spec consumption) and TK-05+ (code writing, M3 visual review). Additive updates to the instance authored in CD propagate to the CC mirror via the §12 sync mechanism in this rule.
+- **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2 (Hub ↔ CD path) carries DS-related discussions, DSG governance text into CD as a read-only input for DS instance authoring (per §12.1), CD-authored design files transferred to Hub for TK-02 step 2.3 consumption, and the CD-generated DS markdown export transferred to Hub for the §15 export conformance review; §3 (Hub ↔ CC path) carries DSG governance text into CC and transfers the reviewed DS markdown export to the CC mirror; §4 (CD ↔ CC path, decoupled-by-default during research preview) is currently not directly used for DS sync (the CC mirror receives DS markdown via operator-mediated transfer from CD through the Hub review session). The export-review cadence and triggers are owned by §12 of this rule.
 - **Relationship to [MECH] Code Quality Rule Set**: **CQ migrated to CC substantive canonical (Phase 3)**. CC substantive Code Quality Rule Set canonical declares the runtime and build-time tool-level enforcement of Tier 1 visual rules; this rule declares the design-level rules that those tools enforce. Token-consumption rules in §4 and component-inventory rules in §5 are implemented as ESLint rules and dependency-cruiser rules per CC substantive CQ canonical §3. Hub↔CC coordination is governed by the decoupled-reference model in [REF] Hub-CD-CC Architecture §5.4.4.
 - **Relationship to adjacent [TPL] sources**:
   - Upstream of `[TPL] UX Design Spec` — DSG governs the design rules; UX Design Spec instances declare per-feature UX coverage Hub-authored from CD design files per [TPL] UX Design Spec §0; the UX Design Spec's component selections and any new-component / new-token plans MUST respect DSG inventory and §12 change flow
@@ -21,23 +21,23 @@
 - **Relationship to custom skills**:
   - Consumed at Claude Code runtime by `hdc-arco-enterprise-ui` skill during Tier 1 code generation, by reading the CC mirror at `specs/design-system.md`
   - Consumed at Claude Code runtime by `hdc-wcag-accessibility-checker` skill **on operator demand only** (per §6.3); not auto-invoked
-  - Consumed at Hub Claude runtime in TK-02 step 2.3 by reading the Hub mirror at `hdc_ref_design-system.md`; this is not a "skill" in the CC sense but a consumption discipline described in §13.3
-- **Relationship to [RULE] DingTalk Markdown Format Control Specification**: When DS instance content is uploaded to DingTalk Docs for stakeholder visibility, apply that rule (uploading happens from CD source or from either mirror, not authored at Hub)
+  - Consumed at Hub Claude runtime in TK-02 step 2.3 — Hub Claude grounds in CD-authored design files (Hub holds no DS mirror); this is not a "skill" in the CC sense but a consumption discipline described in §13.3
+- **Relationship to [RULE] DingTalk Markdown Format Control Specification**: When DS instance content is uploaded to DingTalk Docs for stakeholder visibility, apply that rule (uploading happens from CD source or the CC mirror, not authored at Hub)
 - **Pairings I participate in**: P-19 (with `hdc-arco-enterprise-ui` + `hdc-wcag-accessibility-checker` SKILL.md). P-34 (was: with [MECH] Code Quality Rule Set lint rules) **RETIRED in Phase 3** per [REF] Hub-CD-CC §5.4.4 — counterparty CQ fully migrated to CC substantive canonical; alignment with DSG design-level rules now governed at CC's discretion.
 
 ## How to use this source
 
 Use this source when:
-- Initializing a new HR Digital Cockpit workstream and the design-system governance framework needs to be applied (CD instance is created; both mirrors — Hub at `hdc_ref_design-system.md` and CC at `specs/design-system.md` — are established at workspace inception via CD-generated DS markdown export)
+- Initializing a new HR Digital Cockpit workstream and the design-system governance framework needs to be applied (CD instance is created; the CC mirror at `specs/design-system.md` is established at workspace inception via CD-generated DS markdown export, reviewed against §15 per §12)
 - Introducing a new component, token, or layout pattern that will be reused across slices (governance flow per §12)
 - Elevating a locally-invented pattern from one slice into a shared asset
 - Reviewing whether a Tier 1 implementation respects the project design system
 - Updating accessibility hygiene rules or internationalization scope
-- Authoring a feature's UX Design Spec instance (Hub-authored markdown at TK-02 step 2.3 from CD design files + Hub mirror grounding; this rule declares the governance baseline for what design content the spec must respect)
-- Performing design file quality check at TK-02 step 2.3 (Hub Claude verifies CD-authored design files against the Hub mirror to confirm component / pattern / token usage is DS-compliant before authoring the UX Design Spec instance)
+- Authoring a feature's UX Design Spec instance (Hub-authored markdown at TK-02 step 2.3 from CD design files; this rule declares the governance baseline for what design content the spec must respect)
+- Performing design file quality check at TK-02 step 2.3 (Hub Claude verifies CD-authored design files are spec-ready — complete against PRD/TDD scope, internally consistent, annotations rich enough to author the UX Design Spec instance from — per §13.3)
 
 Do not use this source as:
-- The DS content itself (content is authored in CD as instance SOT; both mirrors are read-only — Hub mirror at `hdc_ref_design-system.md`, CC mirror at `specs/design-system.md`; neither mirror is directly edited)
+- The DS content itself (content is authored in CD as instance SOT; the CC mirror at `specs/design-system.md` is read-only and not directly edited)
 - A per-feature or per-slice artifact (the rule is project-level, not feature-level)
 - A substitute for the Arco Design official guidelines (this rule adapts and anchors, not replaces)
 - A full design system implementation library (the rule captures governance and pointers, not component source code)
@@ -49,41 +49,42 @@ Do not use this source as:
 
 # 1. Scope and boundary
 
-## 1.1 Singleton instance model and revised three-way distribution
+## 1.1 Singleton instance model and two-way distribution
 
 The DS instance is a **project-level singleton**, not a per-app or per-feature artifact. The instance is created **once at workspace inception** and updated as governed by §12.
 
-Revised three-way distribution model (per [REF] Hub-CD-CC Architecture §5.2 revised):
+Two-way distribution model (per [REF] Hub-CD-CC Architecture §5.2):
 
 | Location | Role | Update mechanism |
 |---|---|---|
-| **CD (Claude Design)** | **Authoritative SOT** — the authoritative DS instance content; CD-native format | CD authors changes via §12 flow; CD is where instance content originates and where breaking changes are decided; CD generates DS markdown export at every change finalization for downstream mirror sync (per §12.7) |
-| **CC monorepo** at `specs/design-system.md` | **Code-time mirror** — read-only derived from CD SOT via CD-generated DS markdown export; consumed by `hdc-arco-enterprise-ui` skill at code generation time | Synced from CD-generated DS markdown export at every §12 change finalization (additive: at originating feature's M4 → merge-to-main; breaking: after CD-side breaking change is finalized at the separate review gate); operator-mediated transfer per [MECH] Cross-Tool Workflow Handoff |
-| **Hub PK** at `hdc_ref_design-system.md` | **Spec-time mirror** — read-only derived from CD SOT via the same CD-generated DS markdown export; consumed by Hub Claude at TK-02 step 2.3 design file quality check + UX Design Spec authoring grounding | Synced from CD-generated DS markdown export at the **same sync cycle** as CC mirror; the two mirrors MUST stay in lock-step (same DS version at any moment) |
-| **[RULE] DSG** at Hub PK (this source) | **Governance rules** — topic-level rules that govern DS evolution; not instance content | Authored at Hub under [MECH] Canonical File Self-Audit governance |
+| **CD (Claude Design)** | **Authoritative SOT** — the authoritative DS instance content; CD-native format | CD authors changes via §12 flow; CD is where instance content originates and where breaking changes are decided; CD generates the DS markdown export at every change finalization for the §15 review and CC-mirror sync (per §12.7) |
+| **CC monorepo** at `specs/design-system.md` | **Code-time mirror** — read-only derived from CD SOT via the reviewed CD-generated DS markdown export; consumed by `hdc-arco-enterprise-ui` skill at code generation time | Synced from the DS markdown export — after the §15 export conformance review per §12.3 — at every §12 change finalization (additive: at originating feature's M4 → merge-to-main; breaking: after CD-side breaking change is finalized at the separate review gate); operator-mediated transfer per [MECH] Cross-Tool Workflow Handoff |
+| **[RULE] DSG** at Hub PK (this source) | **Governance rules** — topic-level rules that govern DS evolution; not instance content. Hub holds DSG but no DS instance copy. DSG is transferred to CD as a read-only input for DS instance authoring (per §12.1) | Authored at Hub under [MECH] Canonical File Self-Audit governance |
+
+Hub holds no DS instance mirror. At spec-authoring time (TK-02 step 2.3) Hub Claude consumes CD-authored design files, not a DS instance copy; the export conformance review (§12.3) is the Hub-side touchpoint with DS instance content, performed transiently on the export rather than via a persisted mirror.
 
 Update categories:
-- **Additive updates** (new component added, new token added, i18n scope expanded, new layout pattern added): authored in CD per a feature's UX needs (the additive plan is captured as the corresponding feature's UX Design Spec instance §2.4 New-Components-Or-Tokens entry, Hub-authored at TK-02 step 2.3). Once approved per §12, CD finalizes the change; CD regenerates the DS markdown export; **both mirrors** (Hub at `hdc_ref_design-system.md` and CC at `specs/design-system.md`) are re-synced in the same cycle, typically at the feature's merge-to-main milestone (see [MECH] Development Track Workflow TK-12 M4 gate).
-- **Breaking updates** (token value change, Arco major version upgrade, accessibility hygiene rule change, mobile-tier change): require explicit review gate per §12.2; back-propagate to all affected slices; both mirrors are re-synced after CD-side breaking change is finalized, in the same cycle.
+- **Additive updates** (new component added, new token added, i18n scope expanded, new layout pattern added): authored in CD per a feature's UX needs (the additive plan is captured as the corresponding feature's UX Design Spec instance §2.4 New-Components-Or-Tokens entry, Hub-authored at TK-02 step 2.3). Once approved per §12, CD finalizes the change; CD regenerates the DS markdown export; the export is reviewed Hub-side against §15 per §12.3; on a passing review the **CC mirror** (`specs/design-system.md`) is re-synced, typically at the feature's merge-to-main milestone (see [MECH] Development Track Workflow TK-12 M4 gate).
+- **Breaking updates** (token value change, Arco major version upgrade, accessibility hygiene rule change, mobile-tier change): require explicit review gate per §12.2; back-propagate to all affected slices; the CC mirror is re-synced after the CD-side breaking change is finalized and the export passes the §15 review.
 
-There is one instance per project (HDC has exactly one DS instance covering all apps). The instance is shared across all apps, all phases, all features. There is one DS markdown export per instance version, transferred to two mirror destinations in lock-step.
+There is one instance per project (HDC has exactly one DS instance covering all apps). The instance is shared across all apps, all phases, all features. There is one DS markdown export per instance version, transferred to the CC mirror after the §15 export conformance review.
 
-**Closed-loop rationale**: CD-authored DS content becomes both Hub spec-time input (TK-02 step 2.3 quality check + UX Design Spec authoring grounding) and CC code-time input (SK-F runtime). The two consumption surfaces have different latency requirements (Hub at spec authoring time; CC at code generation time) but the same authoritative source. The lock-step mirror sync ensures both consumers operate against identical DS state at any moment.
+**Closed-loop rationale**: the DS instance has one SOT (CD) and one mirror (the CC code-time mirror, consumed by SK-F at code generation). Hub holds no DS instance copy — at spec-authoring time Hub consumes CD-authored design files, which carry the component / token / pattern callouts. DS-instance conformance to this governance rule is checked at the two workspaces that execute against the DS (CD at authoring time, holding DSG as a transferred input per §12.1; CC at code generation) plus a Hub-side review of the CD-generated DS markdown export before it reaches the CC mirror (per §12.3). The single mirror removes the lock-step synchronization burden that a multi-mirror model carries.
 
 ## 1.2 Boundary with feature-level artifacts
 
 | Artifact | Location | Scope | Contains |
 |---|---|---|---|
-| DS instance (SOT in CD; Hub mirror at `hdc_ref_design-system.md`; CC mirror at `specs/design-system.md`) | CD + Hub + CC | Project-level | Design language choice, tokens, component inventory, a11y hygiene rules, i18n scope, motion guidelines, mobile/PC platform split |
+| DS instance (SOT in CD; CC mirror at `specs/design-system.md`) | CD + CC | Project-level | Design language choice, tokens, component inventory, a11y hygiene rules, i18n scope, motion guidelines, mobile/PC platform split |
 | CD-authored design files (per feature, when tier_1_involved=true) | CD workspace; transferred to Hub at TK-02 step 2.2 → 2.3; transferred to CC at TK-04 as visual reference | Feature-level | Hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations; cover [TPL] UX Design Spec §2 categories in CD-native form |
-| **UX Design Spec instance per `[TPL] UX Design Spec` (Hub-authored markdown at TK-02 step 2.3 from CD design files + Hub mirror grounding)** | Hub-authored at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` | Feature-level | Affected Tier 1 scope, components from DS instance referenced by this feature, new components introduced (with §12 update plan), feature-specific a11y notes, mobile/PC scope; written in markdown for AI-RAG consumption |
+| **UX Design Spec instance per `[TPL] UX Design Spec` (Hub-authored markdown at TK-02 step 2.3 from CD design files)** | Hub-authored at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` | Feature-level | Affected Tier 1 scope, components from DS instance referenced by this feature, new components introduced (with §12 update plan), feature-specific a11y notes, mobile/PC scope; written in markdown for AI-RAG consumption |
 | `apps/{app-slug}/specs/intent/{slice-id}.md` UX brief section | Hub-authored at TK-03 (consumes UX Design Spec instance + design files as visual reference); transferred to CC | Slice-level | Screen list, interaction highlights, i18n/a11y call-outs specific to the slice |
 | `apps/{app-slug}/specs/acceptance/{slice-id}.yaml` | Hub-authored at TK-03; transferred to CC | Slice-level | Machine-readable acceptance scenarios including a11y expectations |
 | `apps/{app-slug}/specs/test-plan/{slice-id}.yaml` | Hub-authored at TK-03; transferred to CC | Slice-level | Test cases including `test_type: accessibility` |
 
 If content belongs in feature-level artifacts, do not duplicate it into the DS instance. The instance holds project-wide decisions only.
 
-**Path discipline note**: Both DS mirrors are project-level singletons — Hub mirror at PK `hdc_ref_design-system.md` (not under any `apps/...` path); CC mirror at the CC-monorepo root `specs/design-system.md` (not under any `apps/{app-slug}/` directory because the design system is shared across all apps). All feature-scoped artifacts referenced above use the `apps/{app-slug}/` prefix per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
+**Path discipline note**: The CC DS mirror is a project-level singleton at the CC-monorepo root `specs/design-system.md` (not under any `apps/{app-slug}/` directory because the design system is shared across all apps). All feature-scoped artifacts referenced above use the `apps/{app-slug}/` prefix per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
 
 ## 1.3 Cross-canonical-source boundary
 
@@ -105,7 +106,7 @@ The instance captures project-level design foundation and authoritative lists (t
 
 # 2. Instance section contract
 
-The DS instance must contain coverage for the following section topics. The specific content of each section lives in the instance (in CD as SOT, mirrored to both Hub and CC); this rule declares only **what topics must be covered**, not what the content must say.
+The DS instance must contain coverage for the following section topics. The specific content of each section lives in the instance (in CD as SOT, mirrored to CC); this rule declares only **what topics must be covered**, not what the content must say.
 
 Required instance section topics:
 1. **Design language foundation** — base design system reference and rationale
@@ -134,7 +135,7 @@ All sections §1 through §14 of the instance topic list are required in the ins
 - Design language foundation declaration
 - Accessibility stance declaration (must match §6 of this rule)
 - Change log location (in-file §14 or external reference)
-- **DS markdown export reference** — declared path or commit reference for the current export that populated both mirrors; ensures mirror version traceability per §12.7
+- **DS markdown export reference** — declared path or commit reference for the current export that populated the CC mirror; ensures mirror version traceability per §12.7
 
 ---
 
@@ -152,7 +153,7 @@ Governance over the implementation path is twofold:
 
 **Rule 3.5 — Custom component policy**: Components not in Arco standard are allowed only when (a) Arco does not provide a sufficient base, AND (b) the custom component is registered in the instance §4 component inventory as Tier B with a documented rationale.
 
-The specific theme values, version pins, and custom component list live in the instance (CD as SOT; both mirrors carry the same content).
+The specific theme values, version pins, and custom component list live in the instance (CD as SOT; the CC mirror carries the same content).
 
 ---
 
@@ -380,7 +381,7 @@ Every Tier A and Tier B component in the instance §4 inventory MUST declare its
 
 ## 12.2 Change categories
 
-- **Additive** (new component, new token, new locale, new layout pattern, new icon): proposed by Hub Claude in the feature's UX Design Spec instance §2.4 New-Components-Or-Tokens at TK-02 step 2.3 (Hub-authored markdown); the proposal travels via operator-mediated transfer to CD per [MECH] Cross-Tool Workflow Handoff §2.1 for CD-side instance authoring; the change merges into the DS instance (CD-side) when the originating feature's slice merges to main (see [MECH] Development Track Workflow TK-12); both Hub mirror and CC mirror are re-synced from the CD-generated DS markdown export after the CD-side change is finalized, in the same cycle.
+- **Additive** (new component, new token, new locale, new layout pattern, new icon): proposed by Hub Claude in the feature's UX Design Spec instance §2.4 New-Components-Or-Tokens at TK-02 step 2.3 (Hub-authored markdown); the proposal travels via operator-mediated transfer to CD per [MECH] Cross-Tool Workflow Handoff §2.1 for CD-side instance authoring; the change merges into the DS instance (CD-side) when the originating feature's slice merges to main (see [MECH] Development Track Workflow TK-12); the CC mirror is re-synced from the reviewed DS markdown export after the CD-side change is finalized.
 - **Breaking** (token value change, Arco major version upgrade, accessibility hygiene rule change, mobile-tier reassignment of existing screens, platform-tier downgrade of a feature already shipped): requires separate review gate outside the normal TK flow; all affected slices MUST be reviewed before rollout.
 
 ## 12.3 Change process
@@ -393,9 +394,10 @@ Every Tier A and Tier B component in the instance §4 inventory MUST declare its
 4. Optional adversarial review via code review tool — operator transports the change to CC for the optional adversarial-review invocation if desired (specific code review tool governed by CC substantive Codex Plugin Usage canonical post-Phase-3). **Note**: this optional adversarial review for DS changes is independent from the M0 entry self-check at TK-04; the DS-change review here is a separate, optional governance-review pathway, distinct from any TK-sequence M0 / M4 review.
 5. Project owner approves or rejects
 6. If approved:
-   - CD-side: CD finalizes the change in the DS instance content (CD authoring); the change is recorded in instance §14 change log
+   - **CD-side authoring**: CD finalizes the change in the DS instance content. CD authors against the current DSG (transferred to CD as a read-only input per [MECH] Cross-Tool Workflow Handoff §2.1) and self-checks the finalized change against §2-§11 of this rule before export. The change is recorded in instance §14 change log
    - **DS markdown export regeneration**: CD generates an updated DS markdown export reflecting the new instance state per §12.7 export specification
-   - **Both mirrors re-synced in same cycle**: operator transfers the updated DS markdown export to both Hub PK (`hdc_ref_design-system.md`) and CC monorepo (`specs/design-system.md`) at the next sync point (additive: at the originating feature's merge-to-main milestone per §12.5; breaking: after CD-side breaking change is finalized at the separate review gate)
+   - **Export conformance review (Hub-side)**: the operator brings the CD-generated DS markdown export into a Hub conversation; Hub Claude reviews the export against the §15 reviewer checklist to confirm the finalized instance conforms to §2-§11 of this rule. This review catches divergence between the approved change plan and what CD actually authored, including any out-of-band CD change. On a material finding, the export returns to CD for correction
+   - **CC mirror sync**: on a passing export review, the operator commits the reviewed export to the CC monorepo (`specs/design-system.md`) at the next sync point (additive: at the originating feature's merge-to-main milestone per §12.5; breaking: after CD-side breaking change is finalized at the separate review gate)
 
 ## 12.4 Change content minimum structure
 
@@ -411,11 +413,10 @@ A DS instance change (additive or breaking) MUST include:
 
 For `additive` changes, the Hub-authored UX Design Spec instance §2.4 carries the change plan; CD authors the corresponding instance content change at merge time. For `breaking` changes, the proposer produces this content as a standalone change file (CD-internal location) and a separate review gate is convened before rollout per §12.2.
 
-## 12.5 Merge timing and mirror lock-step
+## 12.5 Merge timing
 
-- **Additive merges**: at the originating feature's merge-to-main milestone (slice M4 → merge to `main`, per [MECH] Development Track Workflow TK-12 M4 gate). The DS instance content is finalized in CD; CD regenerates DS markdown export; **both mirrors are re-synced in the same cycle** via operator-mediated transfer per [MECH] Cross-Tool Workflow Handoff (Hub mirror updated in PK at `hdc_ref_design-system.md`; CC mirror updated in monorepo at `specs/design-system.md`; both reflect the same DS instance version).
-- **Breaking merges**: as scheduled by the separate review gate. Affected slices are re-reviewed before the merge; back-propagation work is completed before the breaking change is rolled out; both mirrors are re-synced after CD-side breaking change is finalized, in the same cycle.
-- **Lock-step invariant**: the two mirrors MUST always reflect the same DS instance version. If a sync cycle propagates to one mirror but not the other (e.g., operator transferred to Hub PK but forgot CC monorepo), this is a §16 anti-drift signal requiring immediate correction.
+- **Additive merges**: at the originating feature's merge-to-main milestone (slice M4 → merge to `main`, per [MECH] Development Track Workflow TK-12 M4 gate). The DS instance content is finalized in CD; CD regenerates the DS markdown export; the export is reviewed Hub-side against §15 per §12.3; on a passing review the CC mirror (`specs/design-system.md`) is updated via operator-mediated transfer per [MECH] Cross-Tool Workflow Handoff.
+- **Breaking merges**: as scheduled by the separate review gate. Affected slices are re-reviewed before the merge; back-propagation work is completed before the breaking change is rolled out; the CC mirror is updated after the CD-side breaking change is finalized and the export passes the §15 review.
 
 ## 12.6 Forbidden patterns
 
@@ -423,12 +424,11 @@ For `additive` changes, the Hub-authored UX Design Spec instance §2.4 carries t
 - Custom components in slice code that duplicate existing Arco components
 - Hardcoded color, typography, or spacing values in Tier 1 code outside Tailwind layout utilities
 - Cross-platform divergence not declared in the instance §4 component inventory mapping table
-- **Updates to either mirror** (Hub at `hdc_ref_design-system.md` OR CC at `specs/design-system.md`) without a corresponding CD-side SOT update — both mirrors are read-only and synced from CD via DS markdown export; direct edits create drift between SOT and mirror that Hub Claude (during spec authoring) and CC (during code generation) will both operate against incoherently
-- Sync cycle propagating to only one mirror, leaving Hub and CC mirrors at different DS versions (violates §12.5 lock-step invariant)
+- **Updates to the CC mirror** (`specs/design-system.md`) without a corresponding CD-side SOT update — the CC mirror is read-only and synced from CD via the reviewed DS markdown export; direct edits create drift between SOT and mirror that CC will operate against incoherently at code generation
 
 ## 12.7 DS markdown export specification
 
-The DS markdown export is the canonical artifact that propagates DS instance content from CD SOT to both mirrors. It is produced by CD on operator prompt at every change finalization (additive merge or breaking-change finalization) and at workspace inception (initial DS setup).
+The DS markdown export is the canonical artifact that propagates DS instance content from CD SOT to the CC mirror. It is produced by CD on operator prompt at every change finalization (additive merge or breaking-change finalization) and at workspace inception (initial DS setup).
 
 **Content requirement**: The DS markdown export MUST faithfully represent the DS instance content covering all §2 required section topics (§1 Design language foundation through §14 Change log). For each topic:
 - **§3 Design tokens**: List all tokens by taxonomy category with specific values (e.g., `primary: #1664FF`, `spacing-md: 16px`) and any per-token rationale.
@@ -441,17 +441,17 @@ The DS markdown export is the canonical artifact that propagates DS instance con
 
 **Format requirement**: Markdown with stable section anchors (`## §X.Y`) for AI-RAG consumption. Tables for token lists, component inventories, breakpoints. No proprietary CD-internal markup; the export is portable text.
 
-**Versioning**: The export MUST declare the instance version in its header. The Hub mirror file `hdc_ref_design-system.md` and the CC mirror file `specs/design-system.md` carry the same content with identical version metadata.
+**Versioning**: The export MUST declare the instance version in its header. The CC mirror file `specs/design-system.md` carries the export content with matching version metadata.
 
 **Generation mechanism**: Operator prompts CD to generate the export at each §12.5 sync point. The prompt should request a structured markdown summary covering all §2 topics; CD produces it from the SOT instance content.
 
-**Transfer mechanism**: Operator copies the CD-generated markdown to both destinations in the same operating session per [MECH] Cross-Tool Workflow Handoff (Hub PK and CC monorepo). The two mirrors are populated in lock-step.
+**Transfer mechanism**: The operator brings the CD-generated markdown into a Hub conversation for the §12.3 export conformance review; on a passing review, the operator commits it to the CC monorepo per [MECH] Cross-Tool Workflow Handoff.
 
 ---
 
 # 13. Custom skill integration and Hub consumption
 
-The DS instance is consumed at three runtime surfaces: two Claude Code skills (CC-side) and Hub Claude (during TK-02 step 2.3). Their respective contracts with this rule:
+The DS instance is consumed at two Claude Code runtime surfaces (`hdc-arco-enterprise-ui` and `hdc-wcag-accessibility-checker` skills, both reading the CC mirror). Hub Claude does not consume the DS instance — at TK-02 step 2.3 it consumes CD-authored design files and reviews the DS markdown export. Their respective contracts with this rule:
 
 ## 13.1 `hdc-arco-enterprise-ui`
 
@@ -473,14 +473,15 @@ When this rule changes, the skill MAY need prompt adjustment to track the change
 
 These skills are hub-designed specification outputs, not Claude Code runtime artifacts in the canonical sense. They are updated alongside this rule via the §12 governance process when applicable.
 
-## 13.3 Hub-side consumption discipline (TK-02 step 2.3)
+## 13.3 Hub-side consumption discipline (TK-02 step 2.3 + export review)
 
-The Hub mirror at `hdc_ref_design-system.md` is consumed by Hub Claude during TK-02 step 2.3 for two specific purposes:
+Hub holds no DS instance copy. Hub holds this governance rule (DSG) and consumes CD-authored design files and the CD-generated DS markdown export as transient inputs. Hub-side discipline covers three activities:
 
-- **Design file quality check**: When the operator transfers CD-authored design files to the Hub session, Hub Claude verifies the design's component selections, token references, layout pattern usage, and a11y annotations against the Hub mirror's authoritative inventory. Findings are surfaced to the operator per [TPL] UX Design Spec §3 reviewer checklist. If design files reference components or tokens not present in the current DS, Hub Claude either flags the gap as a §12 additive change candidate or routes back to CD for revision.
-- **UX Design Spec authoring grounding**: When Hub Claude authors the per-feature UX Design Spec instance markdown (after design file quality check passes), it grounds component / token / pattern claims in the Hub mirror — every `component: <name>` reference in the UX Design Spec corresponds to an actual Tier A or Tier B entry in the mirror; every token reference corresponds to an actual taxonomy entry; every layout pattern reference corresponds to an actual pattern in the mirror's §5.
+- **Design file quality check (spec-readiness)**: When the operator transfers CD-authored design files to the Hub session, Hub Claude verifies the design files are spec-ready — complete against the feature's PRD/TDD scope (all required screens, states, and flows covered), internally consistent, and carrying annotations rich enough to author the UX Design Spec instance from. This check uses the PRD/TDD (which Hub holds) and the design files themselves; it does not check DS-conformance against a DS mirror. DS-conformance of the design files is CD's responsibility — CD authored them holding the DS instance. A design file introducing a component / token not yet in the DS is a legitimate §12 additive proposal, not a defect; Hub Claude captures it as a UX Design Spec §2.4 entry. Findings are surfaced to the operator per [TPL] UX Design Spec §3 reviewer checklist.
+- **UX Design Spec authoring grounding**: When Hub Claude authors the per-feature UX Design Spec instance markdown (after the design file quality check passes), it grounds component / token / pattern claims in the **CD-authored design files** — every `component: <name>` reference in the UX Design Spec is transcribed from a component callout in the design files (which CD, as DS owner, authored using the DS instance). Hub does not hold an independent DS copy to cross-check against; the design file is the authoritative input. CC verifies the UX Design Spec's references against the CC mirror at TK-04 M0 entry via SK-F, and CC code generation is the downstream backstop for any non-canonical reference.
+- **Export conformance review**: When CD finalizes a DS instance change and generates a DS markdown export (§12.3 step 6), the operator brings the export into a Hub conversation. Hub Claude reviews the export against the §15 reviewer checklist to confirm the finalized instance conforms to §2-§11. This is the cross-workspace conformance gate — it catches divergence between the approved change plan and what CD authored, and any out-of-band CD change — before the export reaches the CC mirror.
 
-This is not a "skill" in the CC sense (Hub Claude does not load `.claude/skills/`). It is a consumption discipline applied directly by Hub Claude during conversation. When this rule changes, the Hub consumption discipline tracks the change automatically because Hub Claude reads the mirror at runtime.
+These are not "skills" in the CC sense (Hub Claude does not load `.claude/skills/`); they are consumption disciplines applied directly by Hub Claude during conversation. Hub Claude holds DSG at runtime, so the disciplines track this rule automatically when it changes.
 
 ---
 
@@ -488,13 +489,13 @@ This is not a "skill" in the CC sense (Hub Claude does not load `.claude/skills/
 
 ## 14.1 Pairing with UX Design Spec instances
 
-Every feature's UX Design Spec instance (Hub-authored markdown at TK-02 step 2.3 when `tier_1_involved=true` per `[TPL] UX Design Spec`) MUST reference the current DS instance version (via the Hub mirror's version metadata at the time of authoring) and declare the platform tier (per §11.2) the feature targets. If a feature introduces a new component, token, or layout pattern, the UX Design Spec instance §2.4 New-Components-Or-Tokens MUST include an update plan (per §12.4 change content structure); this triggers the §12 additive flow with CD-side authoring of the actual instance content change.
+Every feature's UX Design Spec instance (Hub-authored markdown at TK-02 step 2.3 when `tier_1_involved=true` per `[TPL] UX Design Spec`) MUST reference the current DS instance version (recorded in the CD-authored design files at the time of authoring) and declare the platform tier (per §11.2) the feature targets. If a feature introduces a new component, token, or layout pattern, the UX Design Spec instance §2.4 New-Components-Or-Tokens MUST include an update plan (per §12.4 change content structure); this triggers the §12 additive flow with CD-side authoring of the actual instance content change.
 
-The Hub-authored UX Design Spec instance is grounded in the Hub mirror per §13.3 consumption discipline.
+The Hub-authored UX Design Spec instance is grounded in the CD-authored design files per §13.3 consumption discipline.
 
 ## 14.2 Pairing with intent.md UX brief
 
-Each slice's intent.md MAY include a UX brief section listing screens and components used. The components referenced MUST exist in the instance §4 component inventory (Tier A or Tier B); platform coverage (PC, mobile, both) MUST be stated. Hub Claude authors the intent.md UX brief at TK-03 by extracting from the slice-relevant subset of the feature's UX Design Spec instance (which was itself authored at TK-02 step 2.3 grounded in the Hub mirror) — the chain of grounding ensures slice-level UX brief content is DS-compliant.
+Each slice's intent.md MAY include a UX brief section listing screens and components used. The components referenced MUST exist in the instance §4 component inventory (Tier A or Tier B); platform coverage (PC, mobile, both) MUST be stated. Hub Claude authors the intent.md UX brief at TK-03 by extracting from the slice-relevant subset of the feature's UX Design Spec instance (which was itself authored at TK-02 step 2.3 grounded in the CD-authored design files) — the chain of grounding ensures slice-level UX brief content is DS-compliant.
 
 ## 14.3 Pairing with test-plan.yaml
 
@@ -506,7 +507,7 @@ All Tier 1 React code references design tokens (§4) and component inventory (§
 
 ## 14.5 Pairing with custom skills
 
-Skills §13.1 and §13.2 consume the CC mirror of the DS instance plus this rule's content. Hub Claude §13.3 consumes the Hub mirror plus this rule's content. When this rule or the instance is updated (additive or breaking), the skills may need prompt adjustment and the Hub consumption discipline tracks automatically. This is a paired-update relationship (P-19 in [OS] §8.5.2).
+Skills §13.1 and §13.2 consume the CC mirror of the DS instance plus this rule's content. Hub Claude §13.3 consumes CD-authored design files plus this rule's content. When this rule or the instance is updated (additive or breaking), the skills may need prompt adjustment and the Hub consumption discipline tracks automatically. This is a paired-update relationship (P-19 in [OS] §8.5.2).
 
 ## 14.6 Pairing with CC substantive Code Quality Rule Set canonical (post-Phase-3)
 
@@ -531,7 +532,7 @@ Before signing off an instance update (additive merge at slice M4 / breaking rev
 9. Skill integration lists both `hdc-arco-enterprise-ui` and `hdc-wcag-accessibility-checker`; Hub-side consumption discipline per §13.3 is referenced
 10. Governance section in the instance references this rule's §12 process
 11. No duplication with PRD, UX Design Spec, intent, acceptance scope
-12. **Both mirrors** (Hub at `hdc_ref_design-system.md` and CC at `specs/design-system.md`) have been re-synced from the CD-generated DS markdown export after the update, in the same sync cycle; mirror version metadata matches CD-side declared instance version (per §12.5 lock-step invariant)
+12. The CC mirror (`specs/design-system.md`) has been re-synced from the reviewed DS markdown export after the update; mirror version metadata matches the CD-side declared instance version
 13. DS markdown export per §12.7 was generated for this update and is referenced in the instance header
 
 If 2+ items are materially weak, the instance update is not yet ready for sign-off.
@@ -558,9 +559,8 @@ Red flags that should trigger correction:
 - Mobile feature shipped using PC components (responsive workaround instead of mobile library)
 - PC feature shipped using mobile components
 - WeChat / DingTalk Mini Program component libraries imported in Tier 1
-- **Either mirror edited directly without corresponding CD-side SOT update** — both Hub mirror at `hdc_ref_design-system.md` and CC mirror at `specs/design-system.md` are read-only and synced from CD via DS markdown export; direct edits to either mirror create drift between SOT and mirror that Hub Claude (during TK-02 step 2.3 spec authoring) and CC (during code generation) will both operate against incoherently
-- **Hub mirror and CC mirror at different DS instance versions** (sync cycle propagated to only one destination per §12.5) — both must always reflect the same DS state; out-of-sync mirrors create incoherent grounding between spec authoring and code generation
-- **Hub canonical sources or PI referencing `hdc_ref_design-system.md` as if it were Hub-authored or directly editable** — the Hub mirror is read-only sync target authored by CD; references to its content are fine but it must not be treated as Hub-authored canonical content
-- **Hub Claude in TK-02 step 2.3 spec authoring not consulting the Hub mirror** — authoring UX Design Spec instance content without grounding component / token / pattern claims against the Hub mirror per §13.3 consumption discipline; results in UX Design Spec instances that may reference nonexistent or misnamed DS elements
-- **DS markdown export not regenerated at §12 change finalization** — instance content updated in CD SOT but no export produced, leaving both mirrors stale relative to SOT
-- **Mirror sync cycle bypasses operator audit** — direct CD-to-mirror push without operator-mediated transfer (violates [MECH] Cross-Tool Workflow Handoff operator-audit discipline)
+- **The CC mirror edited directly without corresponding CD-side SOT update** — the CC mirror at `specs/design-system.md` is read-only and synced from CD via the reviewed DS markdown export; direct edits create drift between SOT and mirror that CC will operate against incoherently at code generation
+- **A Hub-side DS instance mirror re-introduced** (a `hdc_ref_*` DS instance copy, or DS instance content inlined into a Hub canonical source or PI) — the two-way model in §1.1 deliberately holds no DS instance copy at Hub; re-introducing one is drift back toward the retired three-way model and re-incurs the lock-step synchronization burden §1.1 removed
+- **Hub Claude in TK-02 step 2.3 authoring the UX Design Spec instance without grounding in the CD-authored design files** — component / token / pattern claims must be transcribed from the design files' callouts per §13.3; ungrounded authoring produces UX Design Spec instances that may reference nonexistent or misnamed DS elements
+- **DS markdown export not regenerated at §12 change finalization** — instance content updated in CD SOT but no export produced, leaving the CC mirror stale relative to SOT
+- **CC mirror sync bypasses the §15 export review or the operator-mediated transfer** — the CC mirror must be updated only from a DS markdown export that passed the §12.3 export conformance review; a direct CD-to-mirror push bypassing the review or the operator audit violates §12.3 and [MECH] Cross-Tool Workflow Handoff operator-audit discipline

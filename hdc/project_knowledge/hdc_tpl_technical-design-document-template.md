@@ -14,7 +14,7 @@
 - **Relationship to [RULE] Claude Code Architecture Rules**: Module decomposition and tier mapping in per-feature §4.{feature-slug} must respect three-tier architecture defined there; per-feature module decomposition may reference `packages/domain/{domain-name}/` modules per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) Model B (independent domain lifecycle)
 - **Relationship to [MECH] Development Track Workflow**: Template consumed in TK-02; TK-02 outputs the phase TDD plus paired phase test plan, per-feature slice-lists, app-scoped openapi additions, and per-feature node assignments
 - **Relationship to [MECH] CI/CD Milestone Policy**: Per-feature module decomposition slice-size advisory cross-references CI/CD Milestone Policy §2.7 soft upper limits; phase-level a11y testing strategy in §2.2.7 aligns with Milestone Policy thresholds (Milestone Policy §2.4.1 if a11y gate semantics apply in a future revision)
-- **Relationship to [RULE] Design System Governance**: TDD per-feature `§4.{feature-slug}.Header.tier_1_involved` declaration triggers the UX Design Spec instance authoring path governed by DSG. TDD itself does not author DS-coupled UX content; it declares scope and leaves authoring to CD per the three-way distribution model in DSG §1.1.
+- **Relationship to [RULE] Design System Governance**: TDD per-feature `§4.{feature-slug}.Header.tier_1_involved` declaration triggers the UX Design Spec instance authoring path governed by DSG. TDD itself does not author DS-coupled UX content; it declares scope and leaves authoring to CD per the two-way distribution model in DSG §1.1.
 - **Relationship to adjacent [TPL] sources**:
   - Downstream of `[TPL] PRD / Prototype / MVP Spec Template` (1:1 phase-level pairing)
   - Paired with `[TPL] UX Design Spec` — per-feature `Header.tier_1_involved: true` triggers a UX Design Spec instance for that feature; this template does not embed UX strategy content
@@ -63,7 +63,7 @@ Declare level in document header. **Anti-pattern**: Lite for what is Feature/Ful
 - **Phase TDD owns**: phase-level **engineering** architecture (technology choices, deployment topology, persistence backend, tier-internal module decomposition, integration patterns), cross-feature concerns (NFR baselines, security, observability, deployment), walking skeleton scope (Phase 1), per-feature engineering spec (data model implementation, API contracts, module decomposition, slice list, domain class hierarchy, open questions) for each feature in the phase. **UX strategy is intentionally not owned here**; it lives in feature-level UX Design Spec instances Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` when a feature touches Tier 1.
 - **Phase test plan (master, markdown) owns**: phase-level test strategy, cross-feature integration scenarios, app-scale NFR targets, regression policy from prior phase (Phase N ≥ 2), phase exit criteria
 - **Feature integration test plan (yaml) owns**: per-feature cross-slice flow tests within a single feature scope
-- **Design System Governance owns**: project-level UX foundation (design language, tokens, component inventory, a11y target). The DS instance content itself lives in CD as SOT, with a CC code-time mirror at `specs/design-system.md` and a Hub spec-time mirror at `hdc_ref_design-system.md` per DSG §1.1 revised three-way distribution.
+- **Design System Governance owns**: project-level UX foundation (design language, tokens, component inventory, a11y target). The DS instance content itself lives in CD as SOT, with a CC code-time mirror at `specs/design-system.md` per DSG §1.1 two-way distribution.
 - **UX Design Spec owns**: per-feature UX coverage (affected Tier 1 scope, components from DS instance, new-component additive update plans, layout patterns, accessibility call-outs, i18n/RTL call-outs, visual regression anchors, responsive/motion expectations) — Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`; reviewed in Hub against the reviewer checklist; consumed in CC during slice authoring
 - **Intent owns**: per-slice execution boundary in business-facing language
 - **Acceptance owns**: per-slice validation contract
@@ -136,7 +136,7 @@ This convention keeps cross-references stable across phases: the same feature re
 - **Status**: Draft | Active | Superseded
 - **Paired PRD reference**: apps/<app-slug>/specs/prd/phase-<N>.md (version or commit)
 - **Prior phase TDD reference** (Phase N ≥ 2 only): apps/<app-slug>/specs/tdd/phase-<N-1>.md (or earlier phase referenced for baseline)
-- **Design System Governance instance reference**: instance version referenced (the DS instance content lives in CD as SOT with a CC code-time mirror at `specs/design-system.md` and a Hub spec-time mirror at `hdc_ref_design-system.md` per [RULE] DSG §1.1; this header field records the DS instance version in play) [only if any feature in this phase touches Tier 1]
+- **Design System Governance instance reference**: instance version referenced (the DS instance content lives in CD as SOT with a CC code-time mirror at `specs/design-system.md` per [RULE] DSG §1.1; this header field records the DS instance version in play) [only if any feature in this phase touches Tier 1]
 - **Author**: <you>
 - **Hub Claude session**: <session reference if applicable>
 - **Review history**:
@@ -633,7 +633,7 @@ Use this minimal template only for a Phase N ≥ 2 TDD that introduces no archit
 - **Status**: Active
 - **Paired PRD reference**: apps/<app-slug>/specs/prd/phase-<N>.md
 - **Prior phase TDD reference**: apps/<app-slug>/specs/tdd/phase-<N-1>.md
-- **Design System Governance instance reference**: v<x.y.z> (DS instance content lives in CD as SOT with a CC code-time mirror at `specs/design-system.md` and a Hub spec-time mirror at `hdc_ref_design-system.md` per DSG §1.1) [only if Tier 1 touched in §4]
+- **Design System Governance instance reference**: v<x.y.z> (DS instance content lives in CD as SOT with a CC code-time mirror at `specs/design-system.md` per DSG §1.1) [only if Tier 1 touched in §4]
 - **Author**: <you>
 - **Features in this phase**: <single feature-slug>
 

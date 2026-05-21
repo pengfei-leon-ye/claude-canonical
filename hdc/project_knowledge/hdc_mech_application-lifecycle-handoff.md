@@ -155,7 +155,7 @@ The handoff content set must include all of the following, at the `main`-branch 
 | `apps/{app-slug}/reports/**` | App-scoped reports |
 | `apps/{app-slug}/CLAUDE.md` and tier-level `CLAUDE.md` files | Architecture context and tier boundaries — readable by humans even when not used as AI control files |
 | `packages/domain/{domain-name}/**` for every domain the app consumes | Domain logic, contracts, and tests on the producer side — the app cannot be maintained without its consumed domains |
-| Design System code at the monorepo-level path consumed by the app's Tier 1 | Required for visual consistency on enhancement; refer to [RULE] Design System Governance for the canonical DS code location (DS code is the CC-pillar artifact in the three-way distributed DS per [REF] Hub-CD-CC Architecture §5.2) |
+| Design System code at the monorepo-level path consumed by the app's Tier 1 | Required for visual consistency on enhancement; refer to [RULE] Design System Governance for the canonical DS code location (DS code is the CC-pillar artifact in the two-way distributed DS per [REF] Hub-CD-CC Architecture §5.2) |
 | `apps/{app-slug}/dev/**` | Dev-loopback orchestration (docker compose, fixtures, placeholder implementations) — required for regression rehearsal, emergency fallback, and onboarding per CC substantive Dev-Loopback Mode canonical (HANDOFF.md migration document section); P-37 retired in Phase 3 (counterparty fully migrated to CC) |
 | `apps/{app-slug}/HANDOFF.md` | Placeholder migration guide — required for production-target replacement of each dev-loopback placeholder per CC substantive Dev-Loopback Mode canonical |
 
