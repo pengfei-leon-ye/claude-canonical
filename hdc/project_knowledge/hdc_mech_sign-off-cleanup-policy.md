@@ -5,7 +5,7 @@
 - **Status**: Active canonical
 - **Role**: Stable governance mechanism for multi-round-revised long-living spec artifact terminal-state cleanup, defining the trigger conditions for sign-off entry, the Why Anchor (WA) plus four-question decision tree governing keep-vs-delete during cleanup, the adjudication procedure for the in-place cleanup operation, per-artifact specifics for PRD and TDD expressed as content-category + example-pattern semantic rules (with A3, A4, A5, A7 placeholder pending empirical evidence), and exception handling for openapi.yaml + CC-produced slice artifacts + code/test/evidence
 - **Source Category**: Cat 4
-- **Management-System Role**: Outside L1-L5 hierarchy; governance mechanism running sign-off cleanup on long-living spec artifacts (PRD / TDD) to prepare them for Development Track downstream-task consumption; operates across the Cat 2 PRD and Cat 4 TDD spec-artifact set but its purpose-axis is Cat 4 DT readiness per [OS] §2.3.2; not itself an L2, L3, L4, or L5 artifact
+- **Management-System Role**: Outside L1-L5 hierarchy; governance mechanism running sign-off cleanup on long-living spec artifacts (PRD / TDD) to prepare them for Development Track downstream-task consumption; operates across the Cat 2 PRD and Cat 4 TDD spec-artifact set but its purpose-axis is Cat 4 DT readiness per [OS] §10.2; not itself an L2, L3, L4, or L5 artifact
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [MECH] Sign-Off Cleanup Policy` header fields per [OS] §8.5.1a)
 
 ## Position and boundary

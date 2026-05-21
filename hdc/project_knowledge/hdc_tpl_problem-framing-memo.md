@@ -6,7 +6,7 @@
 - **Role**: Reusable template for translating an ambiguous HR business need into a structured digital problem before solution design
 - **Source Category**: Cross-category
 - **Management-System Role**: Pre-artifact framing template; this source is not itself an L2, L3, L4, or L5 artifact
-- **Relationship to [OS]**: Supports the Think loop; this memo's landing logic follows [OS] §5.4, and its anti-drift posture is aligned with the red-flag triggers in [OS] §12.2.
+- **Relationship to [OS]**: Supports the Think loop; this memo's landing logic follows [OS] §5.4, and its anti-drift posture is aligned with the red-flag triggers in [OS] §12.
 - **Relationship to [PRIN]**: Applies [PRIN] HR Digital Decision Design Principles §1 (business-first, architecture-enabled), §3 (global core with governed local variance), §10 (apply MECE to important decomposition structures — applied here to problem-type separation), §12 (make important work executable — applied here to recommended next artifact)
 - **Relationship to adjacent [TPL] sources**:
   - Use this template before `[TPL] Options Paper` when the business issue, decision, or boundary is still too unclear for real option comparison
