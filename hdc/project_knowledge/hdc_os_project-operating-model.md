@@ -158,7 +158,7 @@ Adding a new §0.1.x Premise expands the project's constitutional layer and must
 1. **RAG hit improvement** — the new Premise will be referenced by multiple canonical sources (≥3 distinct sources), making it a high-frequency RAG retrieval anchor
 2. **Cross-source disambiguation** — the principle is currently expressed with drifted wording across multiple canonical sources, and the Premise unifies the wording at a single authoritative location
 3. **Decision gating** — the Premise can serve as a decision standard during §8.9 pre-generation declarations or other procedural gates
-4. **Audit triggering** — the Premise maps to a concrete CFSA dimension check (existing D1-D7 or a new dimensional adaptation in §3.10 / §3.11)
+4. **Audit triggering** — the Premise maps to a concrete CFSA dimension check (existing D1-D7 or a new dimensional adaptation in CFSA §3.10 / §3.11)
 5. **Cross-session consistency** — Hub Claude needs to apply the Premise repeatedly across sessions; codifying as a §0.1 Premise prevents per-session drift
 
 The threshold is **≥3 of 5 dimensions passing** for upgrade to Premise; if fewer than 3 pass, the principle belongs at a lower layer ([REF], [RULE], [MECH], or in an existing source's section) rather than at §0.1.
