@@ -147,7 +147,7 @@ Subagent codes (`A1`, `A2`, … as used in §4 task definitions) reference the C
 
 When task definitions in §4 mention these codes with a parenthetical role name (e.g., "A5 (unit-test-auto-repair)"), the parenthetical is a reading convenience; Architecture Rules §5.1 remains authoritative for any discrepancy.
 
-The subagent roster is a single shared definition at `HDC_ROOT/.claude/agents/`, deployed identically across all dev nodes per [RULE] Workspace Topology constitutional residue §2 (parity discipline). Each node runs single subagent instances; same-node multi-slice parallelism uses git worktree isolation per CC substantive Workspace Topology canonical (same-node multi-slice parallelism).
+The subagent roster is a single shared definition in the CC `.claude/` canonical layer, deployed identically across all dev nodes per [RULE] Workspace Topology constitutional residue §2 (parity discipline). Each node runs single subagent instances; same-node multi-slice parallelism uses git worktree isolation per CC substantive Workspace Topology canonical (same-node multi-slice parallelism).
 
 ## 2.3 External tool and skill roles (defined in their own canonical sources)
 
@@ -165,32 +165,18 @@ The subagent roster is a single shared definition at `HDC_ROOT/.claude/agents/`,
 
 The full repository layout — `HDC_ROOT/`, `apps/{app-slug}/`, `packages/domain/{domain-name}/`, `.claude/` — is owned by CC substantive Claude Code Architecture Rules canonical (repository layout). Task definitions in §4 reference paths under that layout without restating it here.
 
-## 3.2 Spec-artifact path summary (for task definition reference)
+## 3.2 Spec-artifact paths
 
-| Artifact | Path |
-|---|---|
-| Phase PRD | `apps/{app-slug}/specs/prd/phase-{N}.md` |
-| Phase TDD | `apps/{app-slug}/specs/tdd/phase-{N}.md` |
-| Phase test plan (master, markdown) | `apps/{app-slug}/specs/test-plan/phase-{N}.md` |
-| Feature integration test plan (yaml) | `apps/{app-slug}/specs/test-plan/feature-{feature-slug}.yaml` |
-| Per-feature slice-list | `apps/{app-slug}/specs/slice-list/{feature-slug}.md` |
-| App-scoped OpenAPI | `apps/{app-slug}/specs/openapi.yaml` |
-| **Per-feature UX Design Spec instance** (Hub-authored markdown when `tier_1_involved=true`) | `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` |
-| Per-slice intent | `apps/{app-slug}/specs/intent/{slice-id}.md` |
-| Per-slice acceptance | `apps/{app-slug}/specs/acceptance/{slice-id}.yaml` |
-| Per-slice test plan | `apps/{app-slug}/specs/test-plan/{slice-id}.yaml` |
-| CC mirror of DS instance (code-time mirror) | `specs/design-system.md` (monorepo root) |
-| Per-slice evidence | `apps/{app-slug}/evidence/{slice-id}/**` |
-| Per-slice M4 reports | `apps/{app-slug}/reports/m4/{slice-id}/**` |
+Spec-artifact paths are stated inline in the §4 task definition that produces or consumes each artifact; the repository layout is owned by CC substantive Claude Code Architecture Rules canonical (repository layout) per §3.1 and is not restated here. Cross-workspace handoff-interface paths — Test Evidence Report, operator digest, OpenAPI output gate, per-slice evidence — are declared constitutionally by [MECH] CI/CD Milestone Policy §1.2 / §3.1 / §3.3 / §4.1.
 
 ## 3.3 Placeholder definitions
 
 | Placeholder | Definition | Uniqueness scope |
 |---|---|---|
-| `{app-slug}` | Kebab-case app identifier, `[a-z0-9-]`, ≤50 chars, English, frozen on first declaration | Globally unique within `HDC_ROOT/apps/` |
+| `{app-slug}` | Kebab-case app identifier, `[a-z0-9-]`, English, frozen on first declaration | Globally unique within `HDC_ROOT/apps/` |
 | `{N}` | Phase number, positive integer, monotonic per app (Phase 1 = 0→1; Phase N≥2 = additive iteration) | App-internal sequence; one phase number per app per phase |
 | `{domain-name}` | Kebab-case domain identifier, `[a-z0-9-]`, descriptive of business capability, frozen | Globally unique within `HDC_ROOT/packages/domain/` |
-| `{feature-slug}` | Kebab-case feature identifier, `[a-z0-9-]`, ≤40 chars, English, frozen; a feature is introduced or evolved within a phase | App-internal uniqueness only; global feature identity = `{app-slug}/{feature-slug}` |
+| `{feature-slug}` | Kebab-case feature identifier, `[a-z0-9-]`, English, frozen; a feature is introduced or evolved within a phase | App-internal uniqueness only; global feature identity = `{app-slug}/{feature-slug}` |
 | `{slice-id}` | `{feature-slug}-{slice-seq}-{slice-name}` | Feature-internal; global slice identity = `{app-slug}/{feature-slug}/{slice-id}` |
 | `{module}` | Module name within a tier | Tier-internal |
 | `{flow}` / `{screen}` / `{scenario}` | E2E flow, visual/accessibility target screen, performance scenario | Test-suite-internal |
@@ -255,7 +241,7 @@ The phase ontology partitions a phase's work into `walking_skeleton` / `feature`
 | Unit type | Applicability | Slice count | Milestone profile | Cardinality per phase |
 |---|---|---|---|---|
 | `walking_skeleton` | Phase 1 only | exactly 1 | M0 → M1 → M2 → M3 → M4 → M5 (full chain) | exactly 1 (Phase 1); 0 (Phase N≥2) |
-| `feature` | All phases | 1+ (typical 3–10) | M0 → M1 → M2 → M3 → M4 → M5 per slice (full chain) | 1+ |
+| `feature` | All phases | 1+ | M0 → M1 → M2 → M3 → M4 → M5 per slice (full chain) | 1+ |
 | `app_integration` | All phases (per-phase only; not cross-phase) | 0 | M2 → M3 → M4 → M5 (truncated; no M0 / M1) | 0+ |
 
 Per-unit-type milestone profile is owned by [MECH] CI/CD Milestone Policy. Per-unit-type code review tool fire conditions are owned by CC substantive Codex Plugin Usage canonical (post-Phase-3 migration). Code review fires at M4 (TK-11) for all three unit types; cross-model review reminders at TK-01 / TK-02 sign-offs are operator-advisory and are not Codex invocations.
@@ -607,6 +593,8 @@ After TK-12 merge to `main`, CI/CD auto-fires TK-13 staging deploy. No operator 
 
 # 6. Human intervention budget
 
+> **Scope note** (per [OS] §0.1.5 Premise 5): The intervention-point structure — which TKs gate on the operator (§6.1 base table, §6.2 conditional list) — is constitutional: a change to where the human gates the cross-workspace workflow requires CC to respond. The numeric counts (§6.1 per-unit-type table) and the §6.3 drift thresholds are operator-facing calibration values — Hub-internal substantive, not CC-substantive runtime config and not a cross-workspace interface; they are deliberately not mirrored to the CC canonical layer. The budget is retained at this Hub residue rather than externalized because §8 and [OS] §12 anti-drift reference §6.1 as the canonical budget referent.
+
 ## 6.1 Steady-state (per slice for slice-bearing units; per unit for app_integration)
 
 The intervention budget varies by unit_type because `app_integration` units skip the M0 entry self-check (folded into TK-04 for `feature` and `walking_skeleton` units) and TK-03 entirely per §4.0.3.
@@ -672,7 +660,7 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 | Failure source | Routing target | Mechanism |
 |---|---|---|
 | Static analysis critical (TK-04) | TK-04 | automatic (CC-internal) |
-| **Tier 1 Design System drift (TK-04)** | **TK-04 with SK-F reinforcement** | **SK-F runtime** |
+| **Tier 1 Design System drift (TK-04)** | **TK-04** | **automatic (CC-internal)** |
 | **TK-04 M0 self-check finds the CC DS mirror stale** | **Operator triggers a DS markdown export resync (DSG §15 review + CC-mirror sync) per [RULE] DSG §12.3** | **Manual** |
 | **TK-02 Step 2.3 design file quality check `Reject` disposition** | **Return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.2 redo for affected feature** | **Operator manual** |
 | **TK-02 Step 2.3 UX Design Spec authoring gap (design files insufficient)** | **Return to CD for additional design file coverage; Step 2.2 → Step 2.3 redo for affected feature** | **Operator manual** |
@@ -680,15 +668,14 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 | Unit test failure (TK-05) | TK-06 (≤3) | automatic (CC-internal) |
 | Unit test failure after 3 (TK-06) | TK-07 | automatic (CC-internal) |
 | Internal-integration failure (TK-05) | TK-07 | automatic (CC-internal) |
-| Contract / external-integration failure (TK-08) | TK-07 | automatic (CC-internal) |
-| **Producer-side contract verification failure (TK-08)** | **TK-07** | **SubagentStop hook** |
+| Contract / external-integration failure, including producer-side contract verification (TK-08) | TK-07 | automatic (CC-internal) |
 | Adversarial-loop test failure (TK-09) | TK-07 | automatic (CC-internal) |
 | E2E / visual / performance failure (TK-10) | TK-07 | automatic (CC-internal) |
-| **Accessibility baseline critical or serious (TK-10)** | **TK-07 + Notification** | **SK-W + hook** |
+| **Accessibility baseline critical or serious (TK-10)** | **TK-07 + Notification** | **automatic (CC-internal)** |
 | Security critical (TK-10) | Notification | automatic notification (CC-internal) |
 | Compliance severe (TK-08, TK-11) | Notification | automatic notification (CC-internal) |
-| **Design System Governance compliance final violation (TK-11)** | **Notification** | **Notification hook** |
-| **App/domain placement violation (TK-08, TK-11)** | **Notification** | **Notification hook** |
+| **Design System Governance compliance final violation (TK-11)** | **Notification** | **automatic notification (CC-internal)** |
+| **App/domain placement violation (TK-08, TK-11)** | **Notification** | **automatic notification (CC-internal)** |
 | RCA: revise specs | TK-03 (or upstream, including TK-02 Step 2.3 when UX Design Spec instance needs revision) | Manual |
 | RCA: revise code | TK-04 | Manual |
 | **RCA: revise DS** | **DS change request per [RULE] Design System Governance §12** | **Manual** |
