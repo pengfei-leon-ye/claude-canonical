@@ -6,7 +6,7 @@
 - **Role**: Stable governance mechanism for canonical-source and Project Instructions (PI) quality assurance, defining the seven-dimensional self-audit applied to canonical sources and to PI upon creation or substantive revision, the three-tier trigger model that gates audit execution, the three-level severity grading with 2×2 judgment matrix, and the audit report and action plan output formats
 - **Source Category**: Meta
 - **Management-System Role**: Outside L1-L5 hierarchy; governance mechanism running quality oversight across the canonical source set; not itself an L2, L3, L4, or L5 artifact
-- **Relationship to [OS]**: Operationalizes [OS] §8.5 consistency-check rule by replacing ad-hoc per-conversation MECE / consistency / redundancy checks with a stable canonical mechanism. Extends [OS] §8.9 source-ready generation protocol by adding a post-generation audit pass that runs against the seven-dimensional checklist defined in §3 of this source. Produces signals that map onto [OS] §12 anti-drift correction dimensions per §7.2 of this source. Applies [OS] §10 canonical source header standard as the External Coherence reference point for D2.2 checks. Applies [OS] §0.1.4 AI-consumer-RAG-optimization premise as the basis for D7 AI Consumption Value dimension.
+- **Relationship to [OS]**: Operationalizes [OS] §8.5 (consistency-check rule), extends [OS] §8.9 (source-ready generation protocol), and produces signals onto [OS] §12 (anti-drift corrections) — detailed in §7. Consumes [OS] §10 (canonical source header standard) as the D2.2 External Coherence reference point, and applies [OS] §0.1.4 (AI-consumer-RAG-optimization premise) as the basis for the D7 dimension.
 - **Relationship to [PRIN]**: Applies [PRIN] HR Digital Decision Design Principles §5 (management mechanism over ad hoc control) and §14 (preserve ambiguity rather than fabricate resolution). Audit findings preserve ambiguity rather than invent confident answers when the canonical source itself is ambiguous.
 - **Relationship to [MECH] Sign-Off Cleanup Policy**: Adjacent governance mechanisms operating on different layers — this source at the Meta layer (canonical-source and PI quality oversight); Sign-Off Cleanup at the Cat 4 layer (in-place removal of process content from long-living spec artifacts at end-of-revision, preparing them for Development Track downstream consumption). The Audit-quiescence trigger in Sign-Off Cleanup §2 consumes this source's S1 / S2 severity definitions.
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [MECH] Canonical File Self-Audit` header fields per [OS] §8.5.1a)
@@ -18,6 +18,7 @@ Use this source as the operational baseline for:
 - Assigning severity to audit findings using the three-level scheme and 2×2 matrix in §4
 - Producing an audit report and action plan in the standard output format defined in §5
 - Resolving boundary questions about whether a particular quality concern falls under the seven dimensions or under another governance mechanism
+- Dispositioning audit findings after they are surfaced, per the §9 finding-type taxonomy and disposition framework
 
 Do not use this source as:
 - A general-purpose document quality checker for non-canonical files (the scope is bounded to canonical sources matching `hdc_*.md` in the project knowledge base per §1.4)
@@ -39,6 +40,7 @@ This source owns:
 - The 2×2 judgment matrix (Behavioral Impact × Centrality)
 - The audit report and action plan output format conventions
 - The dimension-execution sequencing rule
+- The audit-finding disposition framework and disposition-log entry schema (§9)
 
 ## 0.2 Does not own
 
@@ -58,10 +60,10 @@ This source does not own:
 | Adjacent source | This source's relationship |
 |---|---|
 | [OS] §0.1.4 AI-consumer-RAG-optimization premise | Applies as D7 audit dimension. The premise declares the canonical-layer design constraint; D7 operationalizes it as a per-revision quality check |
-| [OS] §8.5 consistency-check rule | Operationalizes. §8.5 says "verify consistency"; this source defines seven dimensions of consistency, gating conditions for the verification, severity grading for findings, and output structure |
-| [OS] §8.9 source-ready generation protocol | Extends. §8.9 produces a canonical source via pre-generation declarations + same-pass generation; this source defines an audit that runs after generation completes and before broad use |
+| [OS] §8.5 consistency-check rule | Operationalizes — detailed in §7.1 |
+| [OS] §8.9 source-ready generation protocol | Extends — detailed in §7.3 |
 | [OS] §10 canonical source header standard | Consumes as reference. D2 External Coherence checks the audited source's header against §10's required fields, controlled vocabulary, and field order |
-| [OS] §12 anti-drift corrections | Produces signals onto. Audit findings of certain shapes are also §12 anti-drift signals per §7.2 of this source |
+| [OS] §12 anti-drift corrections | Produces signals onto — detailed in §7.2 (incl. the finding-shape → §12-signal mapping) |
 | [OS] §8.5.4 pairing maintenance | Defers to. New couplings discovered during audit are escalated to §8.5.4 for pairing assignment via §8.5.1a Tier discrimination |
 | [PRIN] §5 management mechanism over ad hoc control | Embodies. This source is itself a management mechanism replacing ad-hoc audit invocation |
 | [PRIN] §14 preserve ambiguity rather than fabricate resolution | Implements at audit time. Findings record ambiguity as a finding rather than auto-resolving it |
@@ -92,7 +94,7 @@ Out of scope:
 - User Preferences (UP) — operator's account-level harness that crosses projects
 - Non-canonical operational artifacts (`MANUAL_*.md` and other patterns registered in [OS] §9.4)
 - Specification outputs (PRDs, TDDs, intents, acceptances, test plans) — these have their own template-level quality discipline
-- Claude Code skill and subagent definition files (`.claude/skills/*/SKILL.md`, `.claude/agents/*.md`) — governed by CC substantive Claude Code Architecture Rules canonical (subagent roster §5 + skill loading §Z)
+- Claude Code skill and subagent definition files (`.claude/skills/*/SKILL.md`, `.claude/agents/*.md`) — governed by the CC-side substantive Claude Code Architecture Rules canonical (subagent roster, skill loading)
 - Working artifacts in conversation that have not been promoted to canonical via [OS] §8.9 protocol
 
 ---
@@ -124,6 +126,7 @@ D2, D4, and D7 are the T2-active triplet: D2 (Coherence) catches terminology dri
 | Modification kind | Tier |
 |---|---|
 | Creating a new canonical source | T1 |
+| Retiring or removing an entire canonical source | T1 (T-X if the retirement cascades across multiple sources) |
 | Adding or removing a rule (any rule at any level) | T1 |
 | Modifying precedence, scope, or authority declarations | T1 |
 | Adding or removing a `#` or `##` section | T1 |
@@ -134,7 +137,8 @@ D2, D4, and D7 are the T2-active triplet: D2 (Coherence) catches terminology dri
 | Typo correction, formatting normalization, whitespace adjustment, pure wording polish without semantic change | T3 |
 | Operator declares PI has been substantively revised (any of: adding/removing a canonical-source pointer in PI's enumeration, changing precedence/conflict logic, modifying role definition, modifying boundaries, modifying automatic-activation list, modifying response-mode framing, modifying grounding rules), OR operator explicitly requests PI audit | T1 |
 | Operator declares PI typo correction, formatting normalization, or wording polish without semantic change | T3 |
-| Operator explicitly requests audit of one or more canonical sources without prior modification | T1 |
+| Operator explicitly requests audit of a single canonical source without prior modification | T1 |
+| Operator explicitly requests audit of multiple canonical sources, a source family, or the whole canonical set, without prior modification | T-X (operator-initiated cross-set audit per §2.5) |
 
 **PI trigger asymmetry note**: PI's trigger model differs from canonical sources in detection mechanism. Hub Claude cannot detect cross-session PI changes by inspecting file mtime or comparing against a prior version, because PI lives in the system prompt and is loaded fresh at session start with no diff history. The PI trigger therefore relies on operator declaration — operators should explicitly state "PI has been revised" or "audit PI" when invoking the audit.
 
@@ -147,7 +151,7 @@ When a T1 or T2 trigger condition is satisfied, Hub Claude executes the audit au
 
 ## 2.4 Blocker handling escalation
 
-When a T1 audit produces an S1 Blocker finding, Hub Claude pauses delivery of the canonical source and surfaces the Blocker to the operator before the source is considered usable. The pause is automatic.
+When an audit at any tier produces an S1 Blocker finding, Hub Claude pauses delivery of the canonical source and surfaces the Blocker to the operator before the source is considered usable. The pause is automatic. (A T2 lite audit can also surface an S1 — e.g. a D2 load-bearing cross-reference resolving to deleted content — so this escalation is not T1-exclusive.)
 
 Pause semantics:
 - The generated canonical source file may exist in `/mnt/user-data/outputs/` after generation completes, but Hub Claude flags it as "blocker-pending" in the audit report
@@ -164,13 +168,13 @@ A fourth trigger type — **T-X (operator-initiated cross-set audit)** — cover
 T-X does **not** require running the full seven-dimension audit on each member of the set. T-X dimensional behavior:
 
 - **Always run**: D2 (Coherence — cross-source consistency is T-X's core value) and D7 (AI Consumption Value — set-level scanning for derived-view content)
-- **Set-level D1**: check that family distribution and MECE hold at the set level (distinct from per-source D1)
+- **Set-level D1**: check that family distribution and MECE hold at the set level (distinct from per-source D1). Set-level ME: no two sources or families own the same concept. Set-level CE: every prefix family per [OS] §9.2 that the audited set should cover is represented, and no cross-source scope gap exists within the set's stated coverage
 - **On-demand**: D3 / D4 / D5 / D6 in cross-source scenarios are run when a specific suspected issue exists, not by default
 - **Scope-statement obligation**: T-X audit reports MUST explicitly state which dimensions ran Deep / Targeted / Cross-source / Not in this pass
 
 **Output adaptations**:
 
-- Findings table includes a `Target type` column (values: `canonical:{source-name}` / `PI` / `cross-source`), distinguishing per-source findings from cross-source findings
+- Findings table includes the `Target type` column per the §5.1 definition, distinguishing per-source findings from cross-source findings
 - Action plan grouping is not forced into Wave 1/2/3 ordering; T-X may group by "same-pattern batch modifications" (e.g., grouping all path-assumption fixes across multiple sources into one batch)
 
 **Blocker handling**: S1 Blocker handling per §2.4 still applies. Per-source Blockers still trigger per-source pause. Cross-source structural Blockers (e.g., family overlap across two sources, authority chain break across a set) pause the entire T-X output until resolved.
@@ -188,10 +192,8 @@ T-X does **not** require running the full seven-dimension audit on each member o
 | **D3** | Non-Redundancy | Are there duplicate rules, authority overlap, or concept-drift restatements? | D1 (D3 is about rule semantic duplication regardless of structural location); D7 (D3 catches rule-semantic duplication; D7 catches derived-view duplication) |
 | **D4** | Operationalizability | Can two readers apply each rule to the same scenario and reach the same answer? | D6 (D4 is about consistent application; D6 is about generalization to novel cases) |
 | **D5** | Soundness | Does each rule serve a justified purpose? Are side effects acknowledged? | D6 (D5 is whether the rule should exist; D6 is whether the file says why) |
-| **D6** | Rationale Transparency | Are load-bearing rules' rationales stated, not just implied? | D4, D5 (see independence notes) |
+| **D6** | Rationale Transparency | Are load-bearing rules' rationales stated, not just implied? | D2, D4, D5 (see independence notes) |
 | **D7** | AI Consumption Value | Does each content unit drive AI behavior at retrieval time, per [OS] §0.1.4? | D3 (D7 catches non-AI-consumed content; D3 catches semantic duplication) |
-
-The dimensions are independent in the sense that a source can fail any one while passing the other six.
 
 ## 3.2 D1 Structural Integrity (MECE)
 
@@ -419,12 +421,7 @@ When in doubt between S2 and S3 for D7 findings, prefer S2 (conservative upgrade
 
 ### 3.8.6 Distinction from D3
 
-See §3.4.4. Recapitulated:
-
-- **D3 catches rule-semantic duplication** — two rules saying the same rule semantics in different places (within or across sources)
-- **D7 catches derived-content non-AI-consumption** — content that is not a rule, is derivable from an authoritative source, and adds no AI behavioral signal beyond noise
-
-The same physical content rarely activates both D3 and D7 because D3 requires the content to be a rule and D7 typically catches non-rule content (derived views, motivation, boilerplate restatement). When boundary cases occur (e.g., a restated rule that is also derivable as boilerplate from the owning source), record under D7 and note the cross-activation in the finding location.
+See §3.4.4 for the D3-vs-D7 distinction. The same physical content rarely activates both D3 and D7 because D3 requires the content to be a rule and D7 typically catches non-rule content (derived views, motivation, boilerplate restatement). When boundary cases occur (e.g., a restated rule that is also derivable as boilerplate from the owning source), record under D7 and note the cross-activation in the finding location.
 
 ## 3.9 Dimension orthogonality and execution order
 
@@ -435,6 +432,8 @@ The dimensions are independent: a source can fail any one while passing the othe
 ### 3.9.2 Execution order
 
 D1 → D3 → D2 → D4 → D6 → D5 → D7
+
+Rationale for running D3 before D2: D3 (Non-Redundancy) may remove duplicate rules; running it before D2 (Coherence) means D2's cross-reference and precedence checks operate on the de-duplicated rule set rather than on rules D3 would have deleted anyway.
 
 Rationale for placing D7 last:
 - D7 is the most aggressive deletion judgment in the framework. Running it last means all other dimensions' findings are already populated; D7 then operates on the cleaned-up rule set rather than on a source still mid-cleanup.
@@ -489,8 +488,6 @@ For each [MECH] sub-section that describes a workflow step, gate, transition, ha
 4. Does this step treat an AI instance as a coworker with memory of prior interactions?
 
 Any "yes" without an accompanying explicit state-supply or escalation mechanism is a D5 finding under Premise 6.
-
-**Origin**: this adaptation codifies the audit lens that surfaced the early Development Track CI/CD mimicry failure (commercial CI/CD patterns assuming continuous-context coworker review transplanted into AI sub-agent contexts). The lens generalizes from that specific case to all [MECH] sources.
 
 ---
 
@@ -560,12 +557,14 @@ The audit report is produced in conversation as Markdown, with the following str
 **Audit trigger**: <T1 / T2 / which trigger condition fired>
 **Audited revision**: <description of revision under audit>
 **Audit scope**: <full file / specific sections / PI / combined>
+**Snapshot basis**: <conversation-open time relative to the most recent canonical commits; flag "snapshot-stale" per §6.1 if the snapshot predates recent commits>
+**Access channel**: <project_knowledge_search RAG layer / auxiliary filesystem view / local working copy>
 
 ### Findings Summary
 [Compact table: severity-level rows, finding counts in cells, dimension-column breakdown, target-type breakdown when scope is combined]
 
 ### Findings Detail
-[Numbered table: F-NN | Target type (canonical / PI) | Severity | Dimension | Location | Description | Impact reasoning | Centrality reasoning]
+[Numbered table: F-NN | Target type | Severity | Dimension | Location | Description | Impact reasoning | Centrality reasoning. `Target type` values: `canonical:{source-name}` (per-source finding, {source-name} identifying the file) / `PI` / `cross-source` (finding spanning multiple sources)]
 
 ### Framework Notes (optional)
 [Observations about audit framework effectiveness on this particular source; surfaced only when the audit pass revealed framework-side issues]
@@ -770,19 +769,7 @@ Audit findings dispositions are recorded as entries in this section. Each entry 
 
 ### 9.2.2 Disposition log entries
 
-#### Entry 1 — 2026-05-17 Path B2 canonical refactor verification audit disposition
-
-| Field | Content |
-|---|---|
-| Audit cycle | 2026-05-16 cross-source consistency audit, 33 sources (32 PK + PI) per `hdc-refactor-verification-rule-set.md` (operator-supplied, v1 dated 2026-05-15) |
-| Finding ID(s) | Findings #1 (mechanical), #2 / #3 / #4 (variance), #5 / #6 (mechanical — formal-split completion), #7 (mechanical — admissibility table gap), #8 (variance — Hook system), #9 (mechanical — passive voice), #10 / #12 (mechanical — completion), #11 / #13 (not applicable to project scope — retire), #14 (mechanical — clarifying note); 14 total |
-| Finding type | Mixed (see Finding ID column for per-finding type) |
-| Affected canonical | `hdc_tpl_test-plan-yaml-schema.md`, `hdc_ref_hub-cd-cc-architecture.md`, `hdc_os_project-operating-model.md`, `hdc_ref_cc-project-memory-bank-layout.md`, `hdc_mech_development-track-workflow.md`, `hdc_mech_canonical-file-self-audit.md` (this file) |
-| Disposition ruling | **For Findings #2 / #3 / #4 (variance)**: `accept current canonical (amend external)` — operator accepts current canonical TK-03 = Hub-only producer, CC memory bank 5-level structure, and TK-04 renumbered active task; verification rule set v1 amended to v2 (2026-05-17) updating §C-04 / §E-01 / §F-08 / §J-01 wording. **For Finding #8 / K-07**: `accept current canonical` — Hook system is embedded at verification-rule-application level; no canonical fragment needed; K-07 reworded in rule set v2. **For Findings #11 / F-11 and #13 / K-08**: `not applicable to project scope — retire` — HDC does not use Backlog.md; Pattern A/B not in HDC scope; both rules retired in rule set v2. **For Findings #1 / #5 / #6 / #7 / #9 / #10 / #12 / #14 (mechanical)**: `apply text fix` — affected canonical files revised under same-revision discipline. |
-| Rationale | Variance findings #2 / #3 / #4 acceptance rationale: cross-model review consensus loop is Hub-only operable per [MECH] DTW §4 line 383-388; 5-level CLAUDE.md aligns with CC substantive Claude Code Architecture Rules canonical (named context scopes §X) agent context scopes per-tier discipline; TK-04 renumbering preserves serial consistency per H-08 exception clause "unless serial consistency requires". Full alternatives comparison preserved in Options Paper (2026-05-16 chat zone archive). Hook system / Backlog.md / Pattern A-B disposition per operator confirmation 2026-05-17. Mechanical fix findings #1 / #5 / #6 / #7 / #9 / #10 / #12 / #14 each have clear textual corrections that align canonical with established design intent. |
-| Reversal conditions | Per-variance reversal triggers: (a) D2 reversal if cross-model review consensus loop moves out of Hub-only operability; (b) D3 reversal if CC substantive Claude Code Architecture Rules canonical (named context scopes §X) agent context scopes simplify; (c) D4 reversal if empirical legacy/new TK-04 collision surfaces in operator workflow. Mechanical fixes have no reversal — they correct established design, not establish new design. |
-| Operator authorization date | 2026-05-17 |
-| Produced artifacts | `hdc-refactor-verification-rule-set.md` v2 (operator-supplied artifact, 2026-05-17); revised canonical files listed in "Affected canonical" row above; Options Paper preserved in 2026-05-16 chat zone as archival rationale source |
+Disposition-log entries are operator-side process records of past audit cycles. They are not RAG-load-bearing canonical content (per [OS] §0.1.4) and are not maintained inline in this canonical source — keeping a growing per-cycle log inline would accrete superseded historical snapshots against the source's own §3.8.3 check. Each audit cycle's disposition is recorded in that audit's conversation and in the canonical repository's git commit history, following the §9.2.1 entry schema. The §9.4 anti-drift red flags govern disposition quality regardless of where the entry is stored.
 
 ## 9.3 Boundary with adjacent governance mechanisms
 

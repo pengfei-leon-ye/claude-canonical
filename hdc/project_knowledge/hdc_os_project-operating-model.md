@@ -104,10 +104,12 @@ Hub canonical sources serve two functionally distinct purposes:
 | Workspace | Owns | Does not own |
 |---|---|---|
 | Hub canonical (PK + PI) | All cross-workspace constitutional content; Hub-internal substantive content | CC-internal substantive content |
-| CC canonical (`.claude/canonical/` per [REF] CC Project Memory Bank Layout) | CC-internal substantive content; CC-side audit + maintenance mechanisms | Constitutional rules (CC consumes them by reference) |
+| CC canonical (CC's own canonical layer) | CC-internal substantive content; CC-side audit + maintenance mechanisms | Constitutional rules (CC consumes them by reference) |
 | CD | Design files as SOT for design system content (per [RULE] Design System Governance); no canonical layer of its own | Constitutional rules and substantive Hub/CC operational content |
 
 **Design test for source placement**: A rule belongs at Hub if and only if its change requires another workspace to respond (interface re-alignment, handoff contract adjustment, audit re-verification). Otherwise the rule belongs at the workspace that executes it.
+
+**Hub does not pair with or verify CC-side content**: The CC-side substantive canonical lives outside Hub governance. A Hub canonical source references it only by naming the constitutional rule and the existence of its CC-side substantive counterpart — it does not cite CC-side section numbers, does not register Hub↔CC pairings, and does not impose verification obligations on CC-side content. Whether CC honors Hub constitutional rules is assured operationally by the operator through Development Track delivery quality, not by a Hub-side pairing or audit mechanism.
 
 **Relationship to §0.1.4**: §0.1.4 governs canonical-layer RAG-optimization regardless of which workspace owns the canonical. Premise 5 governs which canonical content lives at which workspace. The two premises are orthogonal — both constraints apply to every canonical source independently.
 
@@ -165,8 +167,6 @@ The threshold is **≥3 of 5 dimensions passing** for upgrade to Premise; if few
 
 **Bias acknowledgement**: this checklist preferentially scores high-frequency rules over low-frequency-but-structurally-critical gates. When evaluating a proposed structural gate (e.g., a Premise about how new canonical sources are added), interpret the "decision gating" dimension as gating leverage × single-occurrence consequence, not as raw frequency. Likewise the checklist preferentially scores audit-layer extensions over Premise-layer additions because the former trivially satisfy dimensions 3 and 4; operators should match the principle to its true structural layer rather than route everything through audit dimensions to inflate the score.
 
-**Example application**: Premise 6 passes all 5 dimensions: it applies across all [MECH] sources (RAG hit), unifies wording previously scattered across DTW / CFSA / PI (cross-source disambiguation), gates new [MECH] design (decision gating), maps to CFSA §3.11 (audit triggering), and applies in every [MECH] revision conversation (cross-session consistency). A counter-example — a proposed Premise "Single authoritative source for cross-workspace content" — was evaluated under this checklist and **withdrawn** (0 of 5 passed) because the principle was already adequately implemented at [REF] Hub-CD-CC Architecture and at CFSA D3 implicit-mirroring failure mode. Premise 7 (conservative formalization) was evaluated and **added**: it passes 4 dimensions clearly — RAG hit (referenced by §5.5, §8.9, §8.10), decision gating (the §8.9 pre-generation new-source confirmation), audit triggering (CFSA D5 §3.6.2 source-existence justification check), and cross-session consistency (every canonical-set expansion decision invokes it) — with cross-source disambiguation passing only marginally (the principle had partial scattered coverage in CFSA D5 Necessity / Mechanism-fatigue checks and §8.5.7). Per the bias acknowledgement above, Premise 7 is a structural gate: its decision-gating dimension is scored as gating leverage × single-occurrence consequence (each new source is a permanent maintenance liability), not raw reference frequency.
-
 ---
 
 ## 0.2 Category-specific role anchors
@@ -217,7 +217,7 @@ Project Instructions and all canonical sources in Project Knowledge constitute t
 
 ### Out of scope of this audience model
 
-- Claude Code main-loop instances and the subagents executing in Development Track repositories — their harness is the CLAUDE.md hierarchy + `.claude/agents/` definitions + `.claude/skills/` SKILL.md, owned per [RULE] Claude Code Architecture Rules §4 / §5 and CC substantive CCAR canonical §Z
+- Claude Code main-loop instances and the subagents executing in Development Track repositories — their harness is the CLAUDE.md hierarchy + `.claude/agents/` definitions + `.claude/skills/` SKILL.md, owned per [RULE] Claude Code Architecture Rules §4 / §5 (constitutional skeleton) and the CC-side substantive Claude Code Architecture Rules canonical (substantive harness detail)
 - Claude Design instances generating visual artifacts for HDC project work — CD does not directly read Hub canonical (its inputs are operator-mediated free-form context per [REF] Hub-CD-CC Architecture §3.3 setup-time and use-time canonical input model)
 - Custom skills' runtime prompts — governed by [RULE] Design System Governance §13
 - AI instances outside this Project entirely (other Claude.ai Projects, standalone chats, external AI tools)
@@ -335,7 +335,6 @@ Both layers are admissible from any Cat 1 / Cat 2 / Cat 3 / Cat 4 canonical sour
 | `[POL]` + L2-L5 management-system artifacts | ✓ | ✗ | ✗ | ✗ |
 | `[PRIN] People Experience Design Principles` | ✗ | ✓ | ✗ | ✓ (UI scope) |
 | `[REF] People Journey and Moments Catalog` | ✗ | ✓ | ✗ | ✗ |
-| `[REF] CC Project Memory Bank Layout` | ✗ | ✗ | ✗ | ✓ |
 | Cat 2 specification templates (PRD / Prototype / MVP) | ✗ | ✓ | via PRD | via PRD |
 | Cat 4 specification templates (TDD, Intent / Acceptance, Conversion Spec, Test Plan, UX Design Spec, ADR Spec, Phase Test Plan) | ✗ | ✗ | ✗ | ✓ |
 | Development Track `[RULE]` family (Claude Code Architecture Rules, Workspace Topology, Design System Governance) | ✗ | ✗ | ✗ | ✓ |
@@ -504,7 +503,7 @@ When a new artifact's classification is ambiguous between working artifact, spec
 
 1. **Working artifact** — the default landing for chat-level analysis, option exploration, and iterative drafts.
 2. **Initiative-specific specification artifact** — the landing for PRDs, prototype briefs, handoff specs, memos, drafts, options papers, and execution-interface files scoped to one initiative.
-3. **Source candidate** — the landing only for content that is stable, reusable across topics, and serves a durable control purpose consistent with Section 8.
+3. **Source candidate** — the landing only for content that is stable, reusable across topics, and serves a durable control purpose consistent with §8.
 
 Reusable cross-topic control artifacts are source candidates. Initiative-specific PRDs, briefs, handoff specs, memos, drafts, options papers, and execution-interface files are not source candidates by default.
 
@@ -515,7 +514,7 @@ A specification artifact becomes a canonical source only upon explicit user prom
 | Artifact | Compliant default classification | Non-compliant misclassification | Why |
 |---|---|---|---|
 | A draft analysis of vendor SSO options for the current onboarding initiative | Initiative-specific specification artifact (level 2; promote to canonical Options Paper when reviewable) | Source candidate (level 3) | Initiative-scoped; not stable across topics; durable control purpose absent |
-| A reusable judgment rule "prefer capability-first sourcing over vendor-first sourcing across all HR digital decisions" | Source candidate (level 3; eligible for promotion into [PRIN] HRD) | Initiative-specific specification artifact (level 2) | Stable, cross-topic, durable control purpose — Section 8 criteria met |
+| A reusable judgment rule "prefer capability-first sourcing over vendor-first sourcing across all HR digital decisions" | Source candidate (level 3; eligible for promotion into [PRIN] HRD) | Initiative-specific specification artifact (level 2) | Stable, cross-topic, durable control purpose — §8 criteria met |
 | A chat-resident exploration of "what if we ran a global pulse survey quarterly" | Working artifact (level 1) | Source candidate (level 3) | Iterative draft; durability not demonstrated; promotion requires §8.3 abstract-before-storing |
 | A PRD for the time-off-request feature slice | Initiative-specific specification artifact (level 2) | Source candidate (level 3) | Feature-scoped; the durable rule is in [TPL] PRD template, not in this PRD instance |
 
@@ -756,13 +755,13 @@ When a coupling is identified during canonical authoring, revision, or audit:
 
 #### Examples
 
-Drawn from the current §8.5.2 set:
+Illustrative pairings (most drawn from the current §8.5.2 active set):
 
 | Pairing | Tier A condition satisfied | Reason |
 |---|---|---|
-| P-10 (WT §6.2 marker schema ↔ DTW §4.0 unit_type catalog) | 4 — Structural enumeration | Adding a new unit_type to DTW §4.0 must be reflected in WT §6.2 marker schema in the same revision, or marker schema validation fails |
+| P-10 (WT §4 marker schema ↔ DTW §4.0 unit_type catalog) | 4 — Structural enumeration | Adding a new unit_type to DTW §4.0 must be reflected in WT §4 marker schema in the same revision, or marker schema validation fails |
 | P-19 (DSG §13 ↔ skill SKILL.md files) | 1 — C2R | SKILL.md files are in Development Track repositories outside the canonical RAG layer |
-| P-49 (Tools Health §3 step 7 + §5.3 ↔ CI/CD §1.1 baseline) | 2 — Numeric value alignment | Claude Code baseline version number must match across the two references |
+| P-49 (retired — retained here only as an illustration of condition 2; Tools Health §3 ↔ CI/CD §1.1 baseline) | 2 — Numeric value alignment | Claude Code baseline version number must match across the two references |
 | P-08 (TDD §4.{feature-slug}.Slice-List ↔ Conversion Spec §2.4) | 3 — Field-level schema interlock | Per-slice entry fields in TDD slice-list must align with per-slice metadata fields that Conversion Spec requires; both schemas formally independent |
 | P-28 (Conversion Spec §2 + §3.8 ↔ TDD §4.{feature-slug}.Module-Decomposition + UX Design Spec §2) | 3 — Content-category extraction interlock | Conversion Spec's extraction logic depends on UX Design Spec's content-category structural taxonomy referenced by semantic name |
 
@@ -776,7 +775,8 @@ Each pairing carries two type tags:
 - **Subtype**:
   - **C2C**: canonical-to-canonical (both sides are canonical source files in this hub).
   - **C2R**: canonical-to-runtime-artifact (downstream is a runtime artifact in a Development Track repository, not itself canonical).
-  - **Hub↔CC**: cross-workspace canonical-to-canonical (the counterparty is a canonical source in CC's own canonical layer — itself canonical, but outside this hub's RAG layer; distinct from C2C, where both sides are canonical source files in this hub, and from C2R, where the counterparty is a non-canonical runtime artifact).
+
+The Hub canonical pairing system covers C2C and C2R couplings only. It does not pair Hub canonical sources with the CC-side substantive canonical: per §0.1.5, Hub does not register pairings against, or impose verification obligations on, CC-side content.
 
 Pairing IDs (`P-NN`) are durable identifiers — once assigned, they do not shift on retirement or insertion (per §8.5.4 ID-non-reuse rule). Retired pairings are removed from the §8.5.2 table and recorded as single-line entries in §8.5.5 catalog under their original `P-NN` ID; ID reuse is forbidden.
 
@@ -788,7 +788,6 @@ Similarly, pairings citing `§3`, `§3.Walking-Skeleton-Header`, or `§3.Outputs
 
 | ID | Pair | Update | Sub | Trigger condition (when paired-update obligation fires) |
 |---|---|:---:|:---:|---|
-| P-01 | CC substantive CCAR canonical §6 (contract testing seam) ↔ [MECH] CI/CD §2 | SR | C2C | test-type taxonomy or tier-test assignment changes (post-Phase-3: CCAR §6 contract testing seam migrated to CC substantive; CI/CD §2 milestone identity remains in residue) |
 | P-03 | [MECH] DTW §4 ↔ [MECH] CI/CD §2 | SR | C2C | tasks added, renumbered, or re-scoped (milestone mapping re-verified at constitutional residue level) |
 | P-06 | [TPL] PRD/Prototype/MVP ↔ [TPL] TDD (phase-level pairing) | SR | C2C | PRD phase ontology fields change (`Phase Number`, `App Slug`, Feature List, Phase 1 vs N≥2 framing) |
 | P-07 | [TPL] TDD ↔ [TPL] Test Plan Schema (three-tier pairing) | SR | C2C | TDD phase-level testing strategy structure or per-feature sub-section structure changes |
@@ -796,34 +795,11 @@ Similarly, pairings citing `§3`, `§3.Walking-Skeleton-Header`, or `§3.Outputs
 | P-09 | [MECH] DTW §4.0 ↔ [MECH] CI/CD §2.7 (per-unit-type milestone profile) | SR | C2C | new unit_type added, milestone path modified, or scope variation revised |
 | P-10 | [RULE] WT §4 marker schema ↔ [MECH] DTW §4.0 unit_type catalog | SR | C2C | catalog values change (new unit_type, value renamed, or unit_type retired) |
 | P-11 | [TPL] TDD §3.Walking-Skeleton-Header + §3.Outputs ↔ [RULE] WT §3 walking-skeleton-first ordering rule | SR | C2C | walking-skeleton output set semantics change or ordering rule's gate timing/applicability changes |
-| P-16 | [RULE] CCAR (constitutional residue) ↔ CC substantive CCAR | SR | Hub↔CC | post-split coupling: Hub residue's subagent topology declaration must align with CC's roster authoring; cross-references coordinated via decoupled-reference per [REF] Hub-CD-CC §5.4.4 |
 | P-19 | [RULE] DSG §13 ↔ `hdc-arco-enterprise-ui` + `hdc-wcag-accessibility-checker` SKILL.md | SR | C2R | DSG changes materially (new component, breaking token change, a11y stance, Arco major upgrade) |
 | P-28 | [TPL] Conversion Spec §2 + §3.8 ↔ [TPL] TDD §4.{feature-slug}.Module-Decomposition + [TPL] UX Design Spec §2 | SP | C2C | TDD per-feature structure changes (module decomposition restructured) or UX Design Spec content-category structure changes (§2 categories renamed, merged, or split) |
 | P-29 | [TPL] Intent-Acceptance §2.3 + §3.9 ↔ [TPL] UX Design Spec §2 | SP | C2C | UX Design Spec content-category structural organization changes (§2 categories renamed, merged, split, or rescoped) — this is the producer-side change that requires re-verifying the consumer-side Writing Standard fields |
 | P-31 | [MECH] DTW §3.3 + §3.4 ↔ [TPL] PRD §0.7 (phase ontology paragraphs starting from "Phase-level singleton + cross-phase additive evolution") + [TPL] TDD §0.7 | SP | C2C | phase ontology framing changes substantively (Phase 1 = 0→1; Phase N≥2 additive iteration; phase identity per-app) |
 | P-33 | [MECH] Application Lifecycle Handoff §5.2 ↔ [RULE] WT §3 walking-skeleton ordering + [TPL] TDD §3 | SP | C2C | WT walking-skeleton ordering rule changes or TDD §3 structure changes |
-
-**Pairings retired in Phase 3 (Hub-CC architecture refactor per [REF] Hub-CD-CC §5.4.4)** — retired because at least one counterparty source migrated fully to CC substantive canonical and the pairing no longer crosses the Hub canonical layer:
-
-- **P-12** (was: [MECH] CQ §3 ↔ [RULE] CCAR §1) — CQ fully migrated to CC; CCAR §1 constitutional tier identity in residue; CC-internal coupling now between CC substantive CQ and CC substantive CCAR
-- **P-13** (was: [MECH] Dev-Loopback §6 ↔ [MECH] CI/CD §2.6) — DLM fully migrated to CC; CI/CD §2.6 M5 identity in residue; CC-internal coupling
-- **P-14** (was: [MECH] Dev-Loopback `apps/{app-slug}/dev/` ↔ [RULE] WT §4.6.3) — DLM fully migrated; WT substantive walking-skeleton 6-output set at CC; CC-internal coupling
-- **P-15** (was: [MECH] Dev-Loopback `apps/{app-slug}/dev/` ↔ [RULE] CCAR §Y.1 + §Y.2) — DLM fully migrated; CCAR §Y repo layout at CC substantive; CC-internal coupling
-- **P-17** (was: CC substantive Claude Code Architecture Rules canonical (subagent roster §5) + §5.3 ↔ `.claude/agents/{agent-name}.md`) — CCAR §5 subagent roster fully migrated to CC substantive CCAR; coupling is now wholly CC-internal
-- **P-18** (was: [RULE] CCAR §Z ↔ `.claude/skills/{skill-name}/SKILL.md`) — CCAR §Z skill loading fully migrated to CC substantive CCAR; CC-internal
-- **P-20** (was: [MECH] CQ §1–§4 ↔ lint and quality config files) — CQ fully migrated to CC; CC-internal
-- **P-21** (was: [MECH] Dev-Loopback §2–§5 + §7 ↔ `apps/{app-slug}/dev/**` + `HANDOFF.md`) — DLM fully migrated to CC; CC-internal
-- **P-32** (was: [RULE] Codex §1.4 ↔ [MECH] DTW §4.0 + [MECH] CI/CD §2.0) — Codex fully migrated; DTW §4.0 and CI/CD constitutional residue do not anchor to Codex specifics
-- **P-34** (was: [MECH] CQ lint rules ↔ [RULE] DSG §4 + §5) — CQ fully migrated to CC; DSG stays at Hub; coupling now Hub↔CC (CC substantive CQ owns lint rule alignment with DSG)
-- **P-37** (was: [MECH] Dev-Loopback §7 ↔ [MECH] Application Lifecycle Handoff §3.1 + §4.3) — DLM fully migrated; ALH stays at Hub; coupling now Hub↔CC
-- **P-38** (was: [MECH] Dev-Loopback §4 + §6 ↔ [MECH] DTW §4.0.2 + TK-04 / TK-05 / TK-08 / TK-13) — DLM fully migrated; DTW TK-04+ at CC substantive; CC-internal
-- **P-49** (was: [MECH] Tools Health Cadence §3 step 7 + §5.3 ↔ [MECH] CI/CD §1.1 baseline) — THC fully migrated; CI/CD §1.1 tooling baseline at CC substantive; CC-internal
-- **P-50** (was: [MECH] Tools Health Cadence §5 P0 inventory + §3 step 6 ↔ [MECH] CQ §1 / §2 tool stack + §8.5 Renovate) — both sides fully migrated to CC; CC-internal
-- **P-51** (was: [MECH] Tools Health Cadence §3 step 8 + §5.4 ↔ [MECH] Dev-Loopback §6 + §2.3) — both sides fully migrated to CC; CC-internal
-- **P-52** (was: [MECH] Tools Health Cadence §5 P0 inventory ↔ [RULE] WT §3 tool stack per node) — THC fully migrated; WT §3 substantive tool stack at CC; CC-internal
-- **P-53** (was: [MECH] Dev-Loopback §4.4 secret loading ↔ [MECH] CQ §1.7 gitleaks + §1.2 + §4.6) — both sides fully migrated to CC; CC-internal
-
-The retired pairings are preserved as durable `P-NN` IDs per §8.5.5 rationale catalog; they are not re-issued for new pairings.
 
 **Pairings updated in Phase 3** (§ references in active pairings updated to match constitutional residue § numbers):
 
@@ -867,7 +843,6 @@ This catalog holds the design rationale for each active pairing in §8.5.2 — w
 
 #### Active pairings
 
-- **P-01** — When test-type taxonomy or tier-test assignment changes in CCAR §6, the milestone gating semantics in CI/CD §2 must be re-aligned in the same revision; otherwise M1 / M2 / M3 gates either reject valid work under new test categories or admit incomplete coverage of removed categories.
 - **P-03** — When DTW §4 task catalog adds, renumbers, or re-scopes a TK, the milestone mapping in CI/CD §2 must be re-verified; otherwise the TK-to-milestone mapping in operator-facing scheduling becomes inconsistent.
 - **P-06** — PRD and TDD pair 1:1 at the phase level (one PRD + one TDD per app per phase). When PRD's phase ontology fields change, TDD's matching header fields and §0.7 / §0.8 framing must be re-verified for symmetry; divergence creates a paired-artifact mismatch that breaks TK-02 production.
 - **P-07** — TDD's phase-level testing strategy drives the phase test plan (master, markdown); per-feature `§4.{feature-slug}` content drives the feature integration test plan; per-feature `§4.{feature-slug}.Module-Decomposition` plus slice acceptance drives the slice test plan. When TDD's phase-level testing strategy structure or per-feature sub-section structure changes, all three test plan tier schemas must be re-verified.
@@ -875,32 +850,16 @@ This catalog holds the design rationale for each active pairing in §8.5.2 — w
 - **P-09** — DTW §4.0 catalog and CI/CD §2.7 profile hold the same data viewed from two angles (per-unit-type task path vs per-unit-type milestone subset). When either side changes, the other must update in the same revision; divergence creates immediate operational ambiguity for Hub Claude scheduling and Claude Code execution.
 - **P-10** — The marker block is the GitHub-side canonical record of unit metadata for active execution; the Workflow §4.0 catalog is the canonical-side definition of allowed unit_type values. When catalog values change, the marker block schema's `unit_type` field allowed-values list must be re-verified; divergence breaks marker-block parsing in observability tooling and breaks the cross-reference path between TDD §3 Walking-Skeleton-Header and the GitHub Issue marker block authored at TK-04 entry per [MECH] Development Track Workflow §TK-04 role sequence step 2.
 - **P-11** — TDD §3 specifies the author-facing structure for documenting walking-skeleton metadata and outputs; WT §3 owns the ordering rule and the canonical 6-output enumeration. When the 6-output set or the ordering rule changes, TDD §3 reference text must update in the same revision; divergence creates a Phase 1 TDD that documents non-canonical walking-skeleton expectations, breaking the design freeze coherence of walking-skeleton scope at Hub TK-03 cross-model review.
-- **P-12** [RETIRED in Phase 3] — Original rationale: CQ §3 lint rules (TypeScript: dependency-cruiser + ESLint `no-restricted-imports`; Java: ArchUnit) encode the tier-boundary semantics declared in CCAR §1.1 / §1.2 / §1.3. When CCAR tier semantics change, the §3 lint rule encoding must update in the same revision; divergence creates immediate operational break — lint either rejects valid code or admits violations.
-- **P-13** [RETIRED in Phase 3] — Original rationale: Dev-Loopback §6 declares four acceptance assertions supplementing the CI/CD §2.6 M5 gate when the unit is `walking_skeleton`; acceptance failure on any §6 assertion blocks M5 completion. When CI/CD §2.6 acceptance criteria or scope change, the §6 assertions must be re-verified in the same revision; divergence creates immediate gate-logic ambiguity (over-gate or under-gate the walking_skeleton unit at M5).
-- **P-14** [RETIRED in Phase 3] — Original rationale: Dev-Loopback introduces a new `apps/{app-slug}/dev/` subdirectory as part of the walking_skeleton unit's Output #6; this directory is not yet enumerated in WT §4.6.3, and the cross-reference is the binding declaration of the directory's existence. When WT §4.6.3 changes Output #6 structure or enumerates `dev/`, the Dev-Loopback ownership claim must be re-verified in the same revision; divergence creates conflicting source-of-truth for what the walking_skeleton unit produces.
-- **P-15** [RETIRED in Phase 3] — Original rationale: Dev-Loopback extends the app-scoped tree declared in CCAR §Y.1 with a new `dev/` subdirectory; future enumeration of `dev/` in §Y.1 must follow the §Y.2 path-stability procedure. When CCAR §Y.1 app-scoped tree structure changes (path renaming or restructuring), Dev-Loopback directory references must be re-verified in the same revision; divergence creates path-resolution ambiguity for dev-loopback artifacts at TK-04 / TK-13.
-- **P-16** — Post-Phase-3 split coupling: the Hub [RULE] CCAR constitutional residue declares subagent-topology existence and boundary, while CC substantive CCAR authors the realizing roster (A1-A10), context scopes, and skill catalog. When either side changes, the other must be re-verified for alignment in the same revision; otherwise the Hub-side constitutional declaration and the CC-side substantive roster diverge, and the decoupled-reference cross-references coordinated per [REF] Hub-CD-CC §5.4.4 stop resolving coherently. The counterparty is canonical but resides at CC's own canonical layer (subtype Hub↔CC).
-- **P-17** [RETIRED in Phase 3] — Original rationale: Agent definition files in `.claude/agents/` are downstream deliverables, not canonical, but their content (purpose, frontmatter `tools` field, system prompt) must remain consistent with the §5.1 roster definition and §X context scope assignment. When the roster or scope assignment changes, affected agent files must update in the same revision; divergence breaks bias-firewall enforcement at runtime.
-- **P-18** [RETIRED in Phase 3] — Original rationale: Skill definition files in `.claude/skills/` are downstream deliverables, not canonical, but their content (load triggers, scope, override behavior) must remain consistent with the §Z.1 catalog and §Z.2 trigger conditions. When the catalog or trigger conditions change, affected SKILL.md files must update in the same revision; divergence breaks skill loading at runtime.
-- **P-19** — When DSG changes materially (new component, breaking token change, a11y stance change, Arco major version upgrade), skill prompts in `hdc-arco-enterprise-ui` and `hdc-wcag-accessibility-checker` may need adjustment. Governance is per DSG §12.
-- **P-20** [RETIRED in Phase 3] — Original rationale: Lint and quality configuration files (`<repo-root>/.prettierrc`, `eslint.config.js`, `tsconfig.base.json`, `dependency-cruiser.config.js`, `checkstyle.xml`, `pmd-ruleset.xml`, `archunit-rules/**`) are downstream mirrors carrying the canonical rule set's enforcement encoding. When the canonical adds, removes, or re-scopes a rule preset / architecture-lint pattern / severity policy / AI-era augmentation rule, affected configuration files must update in the same revision; divergence breaks deterministic quality enforcement at runtime.
-- **P-21** [RETIRED in Phase 3] — Original rationale: Runtime artifacts under `apps/{app-slug}/dev/**` plus `apps/{app-slug}/HANDOFF.md` migration document are downstream mirrors carrying the canonical dev-loopback contract. When the canonical revises startup ceiling, fixture role-coverage rules, placeholder pattern, ENV detection items, or migration documentation requirements, affected runtime artifacts must update in the same revision; divergence breaks dev-loopback acceptance assertions at TK-13 M5 gate.
+- **P-19** — When DSG changes materially (new component, breaking token change, a11y stance change, Arco major version upgrade), skill prompts in `hdc-arco-enterprise-ui` and `hdc-wcag-accessibility-checker` may need adjustment. Governance is per DSG §13.
 - **P-28** — Module-driven slicing (Conversion Spec §2) depends on TDD producing MECE per-feature module decomposition; UX brief extraction (§3.8) depends on a Hub-authored UX Design Spec instance (authored at TK-02 Step 2.3) being present when Tier 1 is involved. When TDD per-feature sub-section structure changes, the module-side extraction rules must be re-verified; when UX Design Spec content-category structure changes (§2 categories renamed, merged, or split), the UX-side extraction rules in Conversion Spec §3.8 must be re-verified.
 - **P-29** — The Intent-Acceptance Writing Standard references UX Design Spec instance content categories by semantic name (Affected Tier 1 scope, layout pattern selection, components referenced, new components or tokens, accessibility call-outs, internationalization call-outs) rather than by § number. When UX Design Spec content-category structural organization changes (§2 categories renamed, merged, split, or rescoped), the semantic references in Writing Standard §2.3 UX brief sub-section field rules and §3.9 accessibility_expectations source mapping must be re-verified.
 - **P-31** — When phase ontology framing (Phase 1 = 0→1; Phase N≥2 = additive iteration; phase identity is per-app) changes substantively in DTW §3.3 + §3.4, the PRD §0.7 phase ontology and TDD §0.7 phase ontology must be re-verified for continued symmetry.
-- **P-32** [RETIRED in Phase 3] — Original rationale: The Codex §1.4 fire conditions table is derived from the conjunction of (a) DTW §4.0 unit_type catalog, (b) CI/CD §2.0 milestone profile, and (c) Codex §3.1 / §3.2 command-to-milestone anchors. When any of (a) / (b) / (c) changes, §1.4 must be re-verified for continued correctness.
 - **P-33** — When WT §3 changes substantively (sub-section restructured, ordering rule modified, output set revised) or TDD §3 structure changes (Walking-Skeleton-Header field set modified, Scope-And-End-To-End-Coverage requirements revised), Handoff §5.2 walking-skeleton-first ordering note and source state pointer table must be re-verified.
-- **P-34** [RETIRED in Phase 3] — Original rationale: CQ encodes DSG token consumption (CSS-variable-only) and component import allow-list (Tier A Arco + Tier B HDC custom) as ESLint rules. When DSG adds a token, component, or changes consumption rules, the corresponding ESLint rule list must be re-verified within the same working period.
-- **P-37** [RETIRED in Phase 3] — Original rationale: Dev-Loopback §7 introduces `apps/{app-slug}/HANDOFF.md` (technical migration guide) extending Handoff §3.1 mandatory content; this artifact is distinct from the §4.3 `apps/{app-slug}/handoff-record.md` (governance acknowledgment record). When Handoff §3.1 mandatory content list or §4.3 record format changes, Dev-Loopback §7 documentation requirements must be re-verified within the same working period.
-- **P-38** [RETIRED in Phase 3] — Original rationale: Dev-Loopback artifacts are produced by TK-04 per DTW §4.0.2 as part of the walking_skeleton unit's output; consumed by TK-05 (M1 whitebox) and TK-08 (M2 contract / external integration); TK-13 (M5 staging deploy) gates on §6 acceptance assertions when the unit is `walking_skeleton`. When DTW §4.0.2 walking-skeleton output set or these TK semantics change, Dev-Loopback §4 / §6 references must be re-verified within the same working period.
-- **P-49** [RETIRED in Phase 3] — Original rationale: When CC substantive CI/CD Milestone Policy canonical (Claude Code tooling baseline) tooling baseline changes (Claude Code version pinning, upgrade verification procedure, or supported version range), the [MECH] Tools Health Cadence §3 step 7 reference and §5.3 AI-dev infrastructure inventory must be re-verified within the same revision; divergence creates immediate sequencing inconsistency where the Tools Health Cadence step 7 baseline check fires against a stale baseline definition.
-- **P-50** [RETIRED in Phase 3] — Original rationale: When [MECH] Code Quality Rule Set §1 / §2 tool stack changes or when §8.5 Renovate Governance config policy changes, the [MECH] Tools Health Cadence §5 P0 inventory and §3 step 6 expectations must be re-verified within the same revision; divergence creates immediate semantic drift where the Tools Health Cadence inventory does not match the actual quality tooling.
-- **P-51** [RETIRED in Phase 3] — Original rationale: When [MECH] Dev-Loopback Mode §6 walking-skeleton M5 acceptance assertions or §2.3 readiness ceiling changes, the [MECH] Tools Health Cadence §3 step 8 verification expectation must be re-verified within the same working period.
-- **P-52** [RETIRED in Phase 3] — Original rationale: When [RULE] Workspace Topology §3 tool stack per node changes (tool added, removed, substituted, or version-policy changed), the [MECH] Tools Health Cadence §5 P0 inventory must be re-verified within the same revision.
-- **P-53** [RETIRED in Phase 3] — Original rationale: When [MECH] Dev-Loopback Mode §4.4 secret loading contract changes or when [MECH] Code Quality Rule Set §1.7 gitleaks / §1.2 hdc/no-inline-secret-literal / §4.6 secret leakage detection rule changes, both sides must be re-verified within the same revision; divergence creates immediate inconsistency where the positive-side secret-loading contract does not match the negative-side enforcement.
 
 #### Retired pairings (durable `P-NN` ID resolution only)
 
+- **P-01**: RETIRED 2026-05-21 — Hub↔CC pairing eliminated; the Hub canonical layer does not pair with the CC-side substantive canonical (per §0.1.5).
+- **P-16**: RETIRED 2026-05-21 — Hub↔CC pairing eliminated; the Hub canonical layer does not pair with the CC-side substantive canonical (per §0.1.5).
 - **P-02**: RETIRED in Wave 2 Tier rationalization (Tier B per §8.5.1a).
 - **P-04**: RETIRED in Wave 2 Tier rationalization (Tier B per §8.5.1a).
 - **P-05**: RETIRED in single-M5 revision. AI-dev side no longer produces release tags; handoff tag namespace `handoff/{app-slug}/{YYYY-MM-DD}` is the sole canonical tag namespace.
@@ -927,25 +886,23 @@ This catalog holds the design rationale for each active pairing in §8.5.2 — w
 - **P-13**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Dev-Loopback Mode fully migrated to CC substantive canonical.
 - **P-14**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Dev-Loopback Mode fully migrated to CC substantive canonical.
 - **P-15**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Dev-Loopback Mode fully migrated to CC substantive canonical.
-- **P-17**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). CC substantive Claude Code Architecture Rules canonical (subagent roster §5) subagent roster fully migrated to CC substantive CCAR canonical; pairing now wholly CC-internal.
-- **P-18**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). [RULE] CCAR §Z skill loading fully migrated to CC substantive CCAR canonical; pairing now wholly CC-internal.
+- **P-17**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). The CC subagent roster fully migrated to the CC-side substantive canonical; pairing now wholly CC-internal.
+- **P-18**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). CC skill-loading content fully migrated to the CC-side substantive canonical; pairing now wholly CC-internal.
 - **P-20**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] CQ fully migrated to CC substantive canonical.
 - **P-21**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Dev-Loopback Mode fully migrated to CC substantive canonical.
 - **P-32**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [RULE] Codex Plugin Usage fully migrated to CC substantive canonical.
 - **P-34**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] CQ fully migrated; Hub↔CC coupling (CC substantive CQ owns lint rule alignment with DSG) is governed by CC substantive canonical.
 - **P-37**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Dev-Loopback Mode fully migrated; CC substantive DLM aligns with ALH §3.1 / §4.3 at CC's discretion.
 - **P-38**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Dev-Loopback Mode fully migrated; coupling between CC substantive DLM and DTW TK-04+ is CC-internal.
-- **P-49**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Tools Health Cadence fully migrated to CC substantive canonical; CI/CD §1.1 tooling baseline at CC substantive.
+- **P-49**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] Tools Health Cadence fully migrated to the CC-side substantive canonical; the CI/CD tooling baseline is owned by the CC-side substantive canonical.
 - **P-50**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Both counterparties ([MECH] THC + [MECH] CQ) fully migrated to CC substantive canonical.
 - **P-51**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Both counterparties ([MECH] THC + [MECH] DLM) fully migrated to CC substantive canonical.
 - **P-52**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Counterparty [MECH] THC fully migrated; WT §3 substantive tool stack at CC.
 - **P-53**: RETIRED in Phase 3 (per [REF] Hub-CD-CC §5.4.4). Both counterparties ([MECH] DLM + [MECH] CQ) fully migrated to CC substantive canonical.
 
-**Phase 3 retirement note**: Narrative rationale entries above (under §8.5.5 Pairing rationale catalog) for P-12, P-13, P-14, P-15, P-17, P-18, P-20, P-21, P-32, P-34, P-37, P-38 are retained as historical record. They describe couplings that previously existed at the Hub canonical layer; under Premise 5 these couplings now exist at CC's substantive canonical layer or as Hub↔CC decoupled-reference pointers, neither of which is tracked in this Hub-side pairing table.
-
 ### 8.5.6 Cat 4 source map
 
-This section is a read view across the eight cross-cutting Cat 4 sources from the `[RULE]` and `[MECH]` families that govern Claude Code execution architecture, infrastructure, orchestration, gating, cross-tool workflow, and spec-artifact terminal-state readiness at the Hub canonical layer (post-Phase-3 Hub-CC architecture refactor per [OS] §0.1.5 Premise 5). Each source's authoritative scope statement remains in its own §0 / §1 boundary chapter; this map exists so that readers can locate ownership across the family without grepping every source header.
+This section is a read view across the cross-cutting Cat 4 sources from the `[RULE]` and `[MECH]` families that govern Claude Code execution architecture, infrastructure, orchestration, gating, cross-tool workflow, and spec-artifact terminal-state readiness at the Hub canonical layer (post-Phase-3 Hub-CC architecture refactor per [OS] §0.1.5 Premise 5). Each source's authoritative scope statement remains in its own §0 / §1 boundary chapter; this map exists so that readers can locate ownership across the family without grepping every source header.
 
 `[TPL]` Cat 4 sources (specification-support templates such as TDD template, PRD template) are out of scope of this map; their ownership is template-level (which produced-artifact section each template authors), governed by the `Relationship to adjacent [TPL] sources` header field convention rather than by this map.
 
@@ -983,12 +940,12 @@ When any of the following thresholds is reached, surface as an anti-drift signal
 - §8.5.2 active pairings exceed **50**
 - Anti-drift red flag **chapter** count across canonical sources exceeds **20** (counted as h1 anti-drift chapters across any canonical source, with [OS] §12 anti-drift corrections catalog and its sub-sections counted as one)
 - Active canonical source files (Hub PK `hdc_*.md` files; PI not counted) exceed **30**
-- A single source's body exceeds **1500 lines**
+- A single source's body exceeds **1500 lines** (a line count — distinct from the §11.3 long-draft delivery threshold, which is a 1500-*word* count)
 - A single source's `Pairings I participate in` field lists more than **10 pairings**
 
 **Anti-drift threshold counting basis**: "Chapter count" means each h1 chapter in a canonical source whose primary topic is anti-drift enumeration, plus the [OS] §12 anti-drift corrections catalog counted as one. Sub-section-embedded anti-drift content (e.g., per-principle "Red flags" sub-sections in `[PRIN]` principle chapters; nested anti-drift sub-sections under non-anti-drift parent chapters) does NOT count as a separate dimension.
 
-**Hub-source pattern**: A subset of canonical sources has an inherently cross-cutting primary axis (lifecycle gating, task orchestration, or cross-source ownership mapping) that naturally accumulates high pairing fan-out as a consequence of their integration role. Hub-source designation is determined by §8.5.6 Cat 4 source map's `Primary axis` column (cross-cutting integration roles), not self-declared. For hub-pattern sources, the ">10 pairings" threshold remains binding but is interpreted as "expected breach justifying documentation of role, not structural change". For non-hub sources, crossing >10 pairings triggers full structured re-architecture evaluation.
+**Hub-source pattern**: A subset of canonical sources has an inherently cross-cutting primary axis (lifecycle gating, task orchestration, or cross-source ownership mapping) that naturally accumulates high pairing fan-out as a consequence of their integration role. The hub-sources are **[MECH] Development Track Workflow** (task orchestration) and **[MECH] CI/CD Milestone Policy** (lifecycle gating) — the two §8.5.6 Cat 4 sources whose primary axis is a cross-cutting integration role. Hub-source designation is not self-declared. For hub-pattern sources, the ">10 pairings" threshold remains binding but is interpreted as "expected breach justifying documentation of role, not structural change". For non-hub sources, crossing >10 pairings triggers full structured re-architecture evaluation.
 
 **Second-tier backstop**: if any single hub source crosses **12** pairings, OR if two or more hub sources simultaneously breach >10, re-architecture evaluation fires unconditionally regardless of hub-source designation. The 12-pairing ceiling reflects the empirical complexity ceiling above which paired-update obligations measurably exceed operator working-memory capacity.
 
@@ -1048,18 +1005,18 @@ The protocol activates when the user explicitly asks for a source-ready canonica
 
 Before generating the final source-ready Markdown, first confirm the proposed source clears the §0.1.7 Premise 7 conservative-formalization test: if an existing canonical source can absorb the content as a section, or the need has not genuinely recurred, do not generate a new source. Once the new-source decision is affirmed, state:
 - routing decision (which hub zone or file the source belongs to)
-- output family (management-system output, specification-support artifact, or canonical source outside L2-L5; see Section 5)
+- output family (management-system output, specification-support artifact, or canonical source outside L2-L5; see §5)
 - governing anchor, if the source extends or applies another canonical source
 - intended source prefix (see §9.2)
 - intended file name (see §9.1 and §9.3)
 - active consistency-check scope (which canonical sources the consistency check in §8.5 will run against)
 - active format authority, if format materially affects the source (e.g., when the source itself documents DingTalk Markdown syntax)
 - mechanism verification status, when the source declares how an external tool, system, or mechanism behaves (per the Mechanism verification rule below)
-- constitutional / substantive placement per §0.1.5 Premise 5: declare whether the source is (a) cross-workspace constitutional content owned by Hub canonical, (b) Hub-internal substantive content owned by Hub canonical, or (c) CC-internal substantive content that should not be generated at Hub. Option (c) blocks Hub generation and routes the source to CC's canonical layer per [REF] CC Project Memory Bank Layout. For [MECH] sources, additionally confirm §0.1.6 Premise 6 compliance (no implicit dependence on human-team primitives)
+- constitutional / substantive placement per §0.1.5 Premise 5: declare whether the source is (a) cross-workspace constitutional content owned by Hub canonical, (b) Hub-internal substantive content owned by Hub canonical, or (c) CC-internal substantive content that should not be generated at Hub. Option (c) blocks Hub generation and routes the source to CC's own canonical layer. For [MECH] sources, additionally confirm §0.1.6 Premise 6 compliance (no implicit dependence on human-team primitives)
 
 ### Generation
 
-After the pre-generation declarations are stated, generate the final source-ready Markdown in one pass, following the canonical source header standard in Section 10.
+After the pre-generation declarations are stated, generate the final source-ready Markdown in one pass, following the canonical source header standard in §10.
 
 ### Mechanism verification rule
 
@@ -1104,7 +1061,7 @@ When a slot is activated, the activating revision moves the entry from this regi
 
 A `rule` source MAY contain ancillary process/gate sub-sections (e.g., a workflow chapter, a gate-trigger chapter) when those sub-sections are operationally inseparable from the primary rule subject. Examples: `[RULE] Workspace Topology` constitutional residue §4 Node-assignment interface contract is an operational extension of the topology rule itself. The `rule`-vs-`mech` axis applies to the *primary subject* of a source, not to every sub-section.
 
-Claude Code skill definition files (`.claude/skills/{skill-name}/SKILL.md`) and subagent definition files (`.claude/agents/{agent-name}.md`) follow Anthropic-prescribed Claude Code path conventions. They are hub-authored deliverables (Hub Claude drafts the content); **the operator transfers the drafted files into the Development Track repository at the Anthropic-prescribed paths** via [MECH] Cross-Tool Workflow Handoff §3.1 (Hub → operator → CC direction). They are not canonical sources, and therefore do not take an `hdc_*.md` prefix. Their authoring rules and update discipline are governed canonically by CC substantive Claude Code Architecture Rules canonical (subagent roster at §5; skill catalog at §Z). See §9.4 for the broader pattern of hub-authored deliverable files.
+Claude Code skill definition files (`.claude/skills/{skill-name}/SKILL.md`) and subagent definition files (`.claude/agents/{agent-name}.md`) follow Anthropic-prescribed Claude Code path conventions. They are hub-authored deliverables (Hub Claude drafts the content); **the operator transfers the drafted files into the Development Track repository at the Anthropic-prescribed paths** via [MECH] Cross-Tool Workflow Handoff §3.1 (Hub → operator → CC direction). They are not canonical sources, and therefore do not take an `hdc_*.md` prefix. Their authoring rules and update discipline are governed canonically by CC substantive Claude Code Architecture Rules canonical (subagent roster; skill catalog). See §9.4 for the broader pattern of hub-authored deliverable files.
 
 ### Primary-axis judgment test (for new source classification)
 
@@ -1205,10 +1162,10 @@ If additional non-canonical patterns become useful (e.g., `DRAFT_*.md` for in-fl
 Claude Code skill definitions (`.claude/skills/{skill-name}/SKILL.md`) and subagent definitions (`.claude/agents/{agent-name}.md`) are hub-authored deliverables (Hub Claude drafts the content; **the operator transfers the drafted files into the Development Track monorepo** via [MECH] Cross-Tool Workflow Handoff §3.1) under Anthropic-prescribed Claude Code path conventions. They are not canonical sources at the hub.
 
 Properties:
-- **Authoring**: Hub-authored — Hub Claude drafts content based on CC substantive Claude Code Architecture Rules canonical (subagent roster at §5; skill catalog at §Z); operator reviews and transfers into Development Track via operator-mediated handoff per [MECH] Cross-Tool Workflow Handoff §3.1.
+- **Authoring**: Hub-authored — Hub Claude drafts content based on CC substantive Claude Code Architecture Rules canonical (subagent roster; skill catalog); operator reviews and transfers into Development Track via operator-mediated handoff per [MECH] Cross-Tool Workflow Handoff §3.1.
 - **Storage**: in the Development Track monorepo at the Anthropic-prescribed paths above. There is no parallel hub-canonical mirror copy.
 - **Naming**: follows Claude Code's required directory and file conventions (`{skill-name}/SKILL.md`, `{agent-name}.md`), not the canonical `hdc_<prefix>_<name>.md` convention. Skill names follow the project naming convention `hdc-<short-kebab-name>` (e.g., `hdc-arco-enterprise-ui`, `hdc-wcag-accessibility-checker`).
-- **Canonical governance**: authoring rules, roster definition, scope policy, load triggers, and update discipline are governed by CC substantive Claude Code Architecture Rules canonical (subagent roster at §5; skill catalog at §Z). When the governing CC substantive CCAR sections change materially, **Hub Claude drafts the updates to the deliverable files; the operator transfers the updated files** into the Development Track repository under that source's update discipline. This is a paired-update obligation per §8.5.2 (canonical-to-runtime-artifact pairings), not a paired-revision of two canonical sources.
+- **Canonical governance**: authoring rules, roster definition, scope policy, load triggers, and update discipline are governed by CC substantive Claude Code Architecture Rules canonical (subagent roster; skill catalog). When the governing CC substantive CCAR sections change materially, **Hub Claude drafts the updates to the deliverable files; the operator transfers the updated files** into the Development Track repository under that source's update discipline. This is a paired-update obligation per §8.5.2 (canonical-to-runtime-artifact pairings), not a paired-revision of two canonical sources.
 - **Versioning**: tracked through Development Track git history, not through hub canonical source revisions.
 
 When a future kind of hub-authored deliverable file emerges that does not fit canonical naming and is not an operator-personal artifact, register its convention in this sub-section following the same pattern: declare the storage path, **the operator-mediated transfer mechanism per [MECH] Cross-Tool Workflow Handoff**, the canonical [RULE] that governs it, and the paired-update relationship.
@@ -1336,20 +1293,9 @@ Per §8.5.1a Tier B convention, these `Relationship to ...` fields are also the 
 
 ### Chapter identifier convention
 
-Canonical sources by default number top-level chapters with sequential integers (`# 1.`, `# 2.`, …). Some sources additionally use single-letter identifiers (`# X.`, `# Y.`, `# Z.`) for chapters whose **stable identity matters across re-numbering**. [RULE] Claude Code Architecture Rules used `§X` (Agent context scopes), `§Y` (Repository layout), `§Z` (Skill loading rules) for this purpose; those chapters migrated to CC substantive CCAR canonical in the Phase 3 split, so no current Hub canonical source uses single-letter identifiers. The convention remains available for future Hub sources meeting the conditions below.
+Canonical sources number top-level chapters with sequential integers (`# 1.`, `# 2.`, …). Hub canonical sources do not use single-letter chapter identifiers.
 
-Use single-letter identifiers when **all** of the following hold:
-- the chapter is heavily cited by other canonical sources (high cross-reference fan-out)
-- the chapter's content is operationally load-bearing (its contents drive runtime artifacts under §8.5.2 canonical-to-runtime-artifact pairings)
-- the chapter is likely to gain or lose adjacent numbered chapters over time
-
-When using single-letter identifiers:
-- declare the rationale once in the source's "How to use this source" or §0 chapter
-- maintain alphabetical sequence (`X` → `Y` → `Z`); do not skip letters
-- subsections under a single-letter chapter use the same family (`§X.1`, `§Y.4.2`)
-- positional placement between numbered chapters (e.g., between §5 and §6) is acceptable; the integer sequence resumes after the letter chapters
-
-Default to integer chapters unless the three conditions above all apply. Single-letter identifiers are an exception, not a style preference.
+When a Hub canonical source notes that the substantive expansion of a constitutional rule lives in the CC-side substantive canonical, it names that relationship — the constitutional rule and the existence of its CC-side substantive counterpart — without citing CC-side section numbers. The Hub canonical layer does not track CC-side chapter structure; see §0.1.5 (Hub does not pair with or verify CC-side content).
 
 ## 10.5 Field order
 
@@ -1426,28 +1372,27 @@ When a topic clearly intends to produce or update canonical source material, Dee
 
 ## 12.3 Anti-drift red flag ownership map
 
-This section is a **navigation map**, not a rule source. It enumerates where each cross-cutting anti-drift red flag dimension is owned across the canonical set, so that a reader looking for "which source declares the canonical statement of red flag X" can locate the owner source without scanning every anti-drift section.
-
-The anti-drift sections in the canonical set are split by topic across multiple owner sources per §8.2 one-source-one-job rule. This map is a read view; the owner sources remain authoritative. When an owner source's § numbering changes, this map must be updated in the same revision per §8.5.3 navigation/index discipline.
+This map enumerates which canonical source owns the authoritative statement of each cross-cutting anti-drift red flag dimension. The owner sources remain authoritative; this is a read view. When an owner source's § numbering changes, this map must be updated in the same revision per §8.5.3 navigation/index discipline.
 
 | Red flag dimension | Owner source | Reference | Local variants in |
 |---|---|---|---|
 | Multi-node infrastructure (tool stack drift, logical role drift, parallelism violations including same-node multi-slice without worktree isolation, GitHub workflow drift, node assignment drift) | [RULE] Workspace Topology | §6 | DTW §8 (TK-step instances); CI/CD §5 (milestone-gate view of subagent-definition divergence) |
-| Cross-node Codex invocation anti-pattern | [RULE] WT constitutional residue + CC substantive Codex Plugin Usage canonical (co-owned post-Phase-3) | WT residue §6 + CC-side Codex §8 | DTW §8 (TK-04 / TK-13 trigger-time view) |
-| Tier-boundary red flags (Tier 1 / 2 / 3 ownership violations; CLAUDE.md hierarchy missing; Tier 2 entirely removed) | [RULE] CCAR | §7 | CQ §10 (lint-implementation projection) |
-| Bias firewall red flags (agent context scope violations; silent scope expansion; per-app context-scopes override) | [RULE] CCAR | §7 + §X.3 | DTW §8 (TK-11 test-plan.yaml patch flow); CI/CD §5 (milestone-gate view) |
+| Cross-node Codex invocation anti-pattern | [RULE] WT constitutional residue + CC substantive Codex Plugin Usage canonical (co-owned post-Phase-3) | WT residue §6 + CC-side Codex | DTW §8 (TK-04 / TK-13 trigger-time view) |
+| Tier-boundary red flags (Tier 1 / 2 / 3 ownership violations; CLAUDE.md hierarchy missing; Tier 2 entirely removed) | [RULE] CCAR | §7 | CQ (lint-implementation projection) |
+| Bias firewall red flags (agent context scope violations; silent scope expansion; per-app context-scopes override) | [RULE] CCAR | §7 | DTW §8 (TK-11 test-plan.yaml patch flow); CI/CD §5 (milestone-gate view) |
 | App / domain placement (DSG singleton path; custom skills location; cross-app domain duplication; domain-vs-app code placement; app-slug roster conflict) | [RULE] CCAR | §7 | DTW §8 (TK-step view) |
-| Contract testing convention (`{app-slug}-bff_{domain-name}` naming; producer-consumer contract drift; consumer/producer path violations) | [RULE] CCAR | §7 (with §Y.4 conventions) | (none — DTW §8 references this owner) |
-| Skill loading (SK-F not active for Tier 1; SK-W not active when applicable; skills outside Anthropic-native location) | CC substantive Claude Code Architecture Rules canonical (skill anti-drift §Z.5) | CC-side CCAR §Z.5 | DTW §8 (TK-03 / TK-06 trigger-time view); CI/CD §5 (milestone-gate view) |
+| Contract testing convention (`{app-slug}-bff_{domain-name}` naming; producer-consumer contract drift; consumer/producer path violations) | [RULE] CCAR | §7 | (none — DTW §8 references this owner) |
+| Skill loading (SK-F not active for Tier 1; SK-W not active when applicable; skills outside Anthropic-native location) | CC substantive Claude Code Architecture Rules canonical (skill anti-drift) | CC-side CCAR | DTW §8 (TK-03 / TK-06 trigger-time view); CI/CD §5 (milestone-gate view) |
 | Spec-to-implementation alignment (implementation diverging from TDD without change control; specs/design-system.md not enforced in Tier 1) | [RULE] CCAR | §7 | (none) |
-| Lint-level Tier 1 / Tier 2 / Tier 3 quality (suppression rate; eslint preset chain; tsconfig strict flags; architecture lint disablement; dependency allow-list; coverage threshold; custom HDC plugin; Tier 1 visual rules drift — `hdc/no-hardcoded-token-value`, `hdc/use-arco-component`) | CC substantive Code Quality Rule Set canonical (post-Phase-3; CQ fully migrated to CC) | CC-side CQ §10 | DTW §8 (UX/a11y category references this owner); CI/CD §5 (a11y inverse-drift references) |
-| DSG-policy-level governance (formal a11y CI gate without DSG §12 approval; DSG feature-branch updates outside merge path; new Tier 1 component without DSG update plan in TDD) | [RULE] Design System Governance | §16 | CI/CD §5 (milestone view); DTW §8 (TK-step view); CQ §10 (lint-rule projection) |
-| Code review tool specific (invocation pattern drift; path drift; M0 review on partial spec bundle; rescue used repeatedly for same problem; cross-app invocation) | CC substantive Codex Plugin Usage canonical (post-Phase-3; Codex fully migrated to CC) | CC-side Codex §8 | (none) |
+| Lint-level Tier 1 / Tier 2 / Tier 3 quality (suppression rate; eslint preset chain; tsconfig strict flags; architecture lint disablement; dependency allow-list; coverage threshold; custom HDC plugin; Tier 1 visual rules drift — `hdc/no-hardcoded-token-value`, `hdc/use-arco-component`) | CC substantive Code Quality Rule Set canonical (post-Phase-3; CQ fully migrated to CC) | CC-side CQ | DTW §8 (UX/a11y category references this owner); CI/CD §5 (a11y inverse-drift references) |
+| DSG-policy-level governance (formal a11y CI gate without DSG §12 approval; DSG feature-branch updates outside merge path; new Tier 1 component without DSG update plan in TDD) | [RULE] Design System Governance | §16 | CI/CD §5 (milestone view); DTW §8 (TK-step view); CQ (lint-rule projection) |
+| Code review tool specific (invocation pattern drift; path drift; M0 review on partial spec bundle; rescue used repeatedly for same problem; cross-app invocation) | CC substantive Codex Plugin Usage canonical (post-Phase-3; Codex fully migrated to CC) | CC-side Codex | (none) |
 | Source governance (source duplicated instead of updated; canonical without §10 header; pairing skipped; landing rule §5.4 skipped; classification §5.5 violated; Cat 2/3/4 citing [POL]; canonical name change without grep-verify; CC-targeted file with bare cross-reference) | [OS] | §12 (the catalog above) | (none — §12 is cross-cutting authority) |
 | TK-step execution (task silently skipped; hook chain incomplete; sign-off skipped; workspace-dimension violations; intervention budget exceeded; evidence cross-contamination) | [MECH] Development Track Workflow | §8 | (none — DTW-specific) |
 | Milestone-gate-specific (user review budget; execution loop hygiene including auto-repair > 3 and stuck recovery skipped; Claude Code tooling baseline; slice-size advisory; TER integrity; operator digest integrity; AI-dev / company-side boundary discipline) | [MECH] CI/CD Milestone Policy | §5 | (none — CI/CD-specific; note: Claude Code tooling baseline here is **distinct from** Node/Java/pnpm tool stack owned by WT §7) |
 | Handoff (maturity / readiness; content scope; mechanism including tag namespace collisions; re-entry including walking-skeleton-first ordering for new app's Phase 1; conversation discipline) | [MECH] Application Lifecycle Handoff | §7 | (none — Handoff-specific) |
-| Source-authoring neutrality | CC substantive Dev-Loopback Mode canonical (post-Phase-3; DLM fully migrated to CC) | CC-side DLM §8 | Different kind of "anti-drift" — concerns authoring the DLM source itself (brand neutrality, spec reference neutrality, milestone semantics neutrality, repository layout reference neutrality), not runtime operational red flags |
+| Cross-tool handoff (path-discipline; content-contract violations; DS two-way-distribution sync; scope-boundary; audit-failure handling; reminder-discipline) | [MECH] Cross-Tool Workflow Handoff | §8 | (none — CTWH-specific) |
+| Source-authoring neutrality | CC substantive Dev-Loopback Mode canonical (post-Phase-3; DLM fully migrated to CC) | CC-side DLM | Different kind of "anti-drift" — concerns authoring the DLM source itself (brand neutrality, spec reference neutrality, milestone semantics neutrality, repository layout reference neutrality), not runtime operational red flags |
 
 This map covers **cross-canonical anti-drift red flag ownership** — which canonical source owns the authoritative statement of each red flag dimension. It does not cover:
 

@@ -11,6 +11,7 @@
 - **Relationship to adjacent [TPL] sources**:
   - Use `[TPL] Problem Framing Memo` before this template when the business issue, decision, or boundary is still unclear
   - Use this template before `[TPL] PRD / Prototype / MVP Spec Template` when a solution path must be chosen before specification depth is justified
+  - Use `[TPL] ADR Spec` after this template when the decision reached here is an architecture decision whose rationale should survive as a standalone decision record; an ADR may follow an Options Paper and cite its conclusion
 - **Relationship to [RULE] DingTalk Markdown Format Control Specification**: When the final paper is uploaded to DingTalk Docs, apply that rule to normalize the Markdown before upload.
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [TPL] Options Paper` header fields per [OS] §8.5.1a)
 
@@ -255,20 +256,11 @@ Apply the following logic before making a recommendation:
 
 ## 6.1 Comparison matrix
 
-Add or remove option columns as needed.
+Use one row per criterion from the §5.1 criteria set (adapt the set only where §5.1 permits). Add or remove option columns as needed.
 
-| Criterion | Weight | Option A | Option B | Option C | Decision note |
+| Criterion (per §5.1) | Weight | Option A | Option B | Option C | Decision note |
 |---|---|---|---|---|---|
-| Business value |  |  |  |  |  |
-| Strategic fit |  |  |  |  |  |
-| Global deployability |  |  |  |  |  |
-| Governance fit |  |  |  |  |  |
-| Architecture implications |  |  |  |  |  |
-| Data and analytics implications |  |  |  |  |  |
-| Operation management implications |  |  |  |  |  |
-| Team / vendor / execution implications |  |  |  |  |  |
-| Cost effectiveness and ROI logic |  |  |  |  |  |
-| Risks and trade-offs |  |  |  |  |  |
+|  |  |  |  |  |  |
 
 ## 6.2 What really differentiates the options
 
@@ -345,7 +337,7 @@ State the exact approval, endorsement, or alignment required from the decision f
 
 Complete this section using the structure below, per [OS] §5.4.
 
-Note: Own and Watch are document-content expectations for this deliverable, not a response-layer reasoning protocol. Per [OS] §5.4, the Level-or-linkage declaration is the only dimension that requires explicit response-layer enforcement; Frame, Land, Own, and Watch are already covered by the default Evidence / Assumptions / Inference / Conclusions / Implications response structure.
+Note: Frame, Land, Own, and Watch are document-content requirements — they are written into this deliverable as §8.1.1 through §8.1.4 and are not satisfied by the response-layer reasoning structure. Per [OS] §5.4, the Level-or-linkage declaration (§8.1.2) is the only dimension that additionally requires explicit response-layer enforcement.
 
 ### 8.1.1 Decision restatement
 Restate the framed business decision in one line and name the recommended option.
@@ -390,6 +382,8 @@ State the next artifact explicitly. Typical next artifacts after this options pa
 |---|---|---|---|
 |  |  |  |  |
 
+Note on lifecycle after `Decided`: once the §1 Status reaches `Decided`, the paper is closed. A later decision that revisits the same question produces a new Options Paper (or, when only the decision and its rationale need recording, an `[TPL] ADR Spec` instance) rather than re-opening the Decided paper.
+
 # 9. Supporting Modules (Optional)
 
 Complete only the modules that materially improve decision quality.
@@ -407,18 +401,11 @@ Repeat this subsection only for options that need additional explanation.
 - **Likely stakeholder reactions**:
 - **Main uncertainties**:
 
-| Dimension | Assessment | Rating | Notes / uncertainty |
+Assess against the §5.1 criteria set — one row per criterion.
+
+| Dimension (per §5.1 criteria) | Assessment | Rating | Notes / uncertainty |
 |---|---|---|---|
-| Business value |  |  |  |
-| Strategic fit |  |  |  |
-| Global deployability |  |  |  |
-| Governance fit |  |  |  |
-| Architecture implications |  |  |  |
-| Data and analytics implications |  |  |  |
-| Operation management implications |  |  |  |
-| Team / vendor / execution implications |  |  |  |
-| Cost effectiveness and ROI logic |  |  |  |
-| Risks and trade-offs |  |  |  |
+|  |  |  |  |
 
 ## 9.2 Business value and ROI notes
 
@@ -487,7 +474,7 @@ Before circulating the paper for review or using it as the source for an executi
 - [ ] The recommendation is explicit.
 - [ ] The option set contains real and comparable options.
 - [ ] The current baseline, constraints, and non-negotiables are visible.
-- [ ] Business value, strategic fit, global deployability, governance fit, architecture implications, data and analytics implications, operation management implications, team / vendor / execution implications, cost effectiveness and ROI logic, and risks / trade-offs are all assessed at the right level.
+- [ ] All §5.1 criteria are assessed at the right level.
 - [ ] The core paper contains the logic needed for later executive compression.
 - [ ] Supporting modules are used only where they improve decision quality.
 - [ ] The paper is business-first and capability-first, not vendor-first.

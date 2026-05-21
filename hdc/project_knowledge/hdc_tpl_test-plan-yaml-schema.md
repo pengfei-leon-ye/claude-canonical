@@ -9,16 +9,16 @@
 - **Relationship to [OS]**: Supports the Specify loop by adding three test-design layers between phase PRD/TDD and test code execution. Grounded in [OS] §0.1 project-level operating premises and [OS] §0.2 Cat 4 role anchor.
 - **Relationship to [PRIN]**: Applies §5 management mechanism over ad hoc control to test design governance and §10 MECE decomposition to test type and tier partitioning
 - **Relationship to [MECH] Development Track Workflow**: Phase test plan (master) and feature integration test plans are produced in TK-02 alongside the phase TDD; per-slice test plans are produced in TK-03 by Hub Claude (Hub-only per [MECH] DTW §4 TK-03 + [TPL] Writing Standard §1.11) and referenced by TK-06, TK-09, TK-10, TK-11 (test-writer agents and adversarial loop). When Tier 1 is involved, the Hub-authored UX Design Spec instance is consumed by Hub Claude at TK-03 as the source for accessibility test case authoring; SK-F loads on the assigned_node CC at TK-04 onwards for code generation, not at TK-03 test-plan authoring time
-- **Relationship to [RULE] Claude Code Architecture Rules**: The `context_scope` field in the slice tier binds each test case to a specific subagent per the context-scope policy defined in CC substantive CCAR canonical §X; repository path layout (`apps/{app-slug}/specs/test-plan/`, `apps/{app-slug}/tests/`, `apps/{app-slug}/evidence/`) is owned by CC substantive CCAR canonical §Y.1; consumer-driven Pact pair convention `{app-slug}-bff_{domain-name}` is owned by CC substantive CCAR canonical §Y.4
+- **Relationship to [RULE] Claude Code Architecture Rules**: The `context_scope` field in the slice tier binds each test case to a specific subagent per the context-scope policy; repository path layout (`apps/{app-slug}/specs/test-plan/`, `apps/{app-slug}/tests/`, `apps/{app-slug}/evidence/`); and the consumer-driven Pact pair convention `{app-slug}-bff_{domain-name}` — the substantive detail for all three is owned by the CC-side substantive canonical
 - **Relationship to [MECH] CI/CD Milestone Policy**: Test types declared at the slice tier map onto milestones defined in that source (§2.2 M1 unit/internal-integration; §2.3 M2 contract/external-integration; §2.4 M3 e2e/visual/performance); phase exit criteria in the phase test plan map onto Milestone Policy §2.5–§2.6; Pact contract pairing semantics owned by Milestone Policy §2.3. **Accessibility is not a milestone-gated test type** per [RULE] DSG §6 (no formal a11y gate at any milestone)
 - **Relationship to CC substantive Codex Plugin Usage canonical (post-Phase-3 migration)**: Code review tool review at TK-12 (formerly governed by Hub `[RULE] Codex Plugin Usage`, now CC substantive) references slice test plans for context (e.g., confirming code matches the test cases declared); the code review tool does not author or adversarially review test plans. Adversarial review of test plan content is owned by the M0 operator review at TK-04 and by adversarial-tester subagent A3 at TK-10 (M2 adversarial loop).
-- **Relationship to [RULE] Design System Governance**: Accessibility test cases (`test_type: accessibility`) are **optional** at the slice tier per DS instance §2.6 (HDC has no formal WCAG conformance target). When present, such cases describe slice-specific a11y concerns in plain terms, not WCAG criteria. The `hdc-wcag-accessibility-checker` skill (SK-W) is an on-demand utility per DSG §6.3 and is not auto-invoked by these cases.
+- **Relationship to [RULE] Design System Governance**: Accessibility test cases (`test_type: accessibility`) are **optional** at the slice tier per [RULE] DSG §6 (HDC has no formal WCAG conformance target). When present, such cases describe slice-specific a11y concerns in plain terms, not WCAG criteria. The `hdc-wcag-accessibility-checker` skill (SK-W) is an on-demand utility per DSG §6.3 and is not auto-invoked by these cases.
 - **Relationship to adjacent [TPL] sources**:
   - `[TPL] Phase Test Plan` — companion. Owns the phase-level markdown master (`apps/{app-slug}/specs/test-plan/phase-{N}.md`). This source no longer authors the phase tier; phase test plans cross-reference the feature integration yaml plans owned here.
   - Downstream of `[TPL] Technical Design Document Template` — the phase TDD's §2 phase-level testing strategy drives the phase test plan (master, owned by [TPL] Phase Test Plan); per-feature §4.{feature-slug} content drives the feature integration test plan (owned here); per-feature §4.{feature-slug}.Module-Decomposition plus the slice's acceptance and (when Tier 1 involved) the feature's Hub-authored UX Design Spec instance per `[TPL] UX Design Spec` drive the slice test plan (owned here)
   - Downstream of `[TPL] Intent and Acceptance Interface Writing Standard` — slice acceptance.yaml provides scenarios to trace at the slice tier; `evidence_required` default set including `operator_digest` is owned there
   - Downstream of `[TPL] PRD + TDD to Intent and Acceptance Conversion Specification` — TK-03 conversion mechanics for the slice tier
-- **Pairings I participate in**: P-07 (with [TPL] TDD three-tier pairing)
+- **Pairings I participate in**: P-07 (with [TPL] Technical Design Document Template; the pairing covers all three test-plan tiers per [OS] §8.5.2)
 
 ## How to use this source
 
@@ -34,8 +34,8 @@ Do not use this source as:
 - A test execution framework specification
 - A test case content guide (that is domain-specific)
 - A substitute for slice acceptance.yaml
-- A repository-path-layout reference (CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1))
-- A Pact convention reference (CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4))
+- A repository-path-layout reference (CC substantive Claude Code Architecture Rules canonical (repository layout))
+- A Pact convention reference (CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention))
 
 ---
 
@@ -53,9 +53,7 @@ The three-tier test plan ontology partitions test design across distinct scopes:
 - **Feature integration test plan (yaml)**: cross-slice flow scenarios within a single feature scope. Captures the test cases that exercise multiple slices of the same feature in sequence or concert. Hub-produced or CC-produced; AI-consumed.
 - **Slice test plan (yaml)**: per-slice test design with bias firewall and context isolation. Each test case traces to a slice acceptance scenario or a non-regression constraint, declares its `context_scope`, `risk_tier`, and `adversarial_angle`. AI test-writer subagents consume this directly.
 
-The three tiers are not redundant. Phase scenarios that cannot be localized to a single feature (cross-feature integration, app-scale NFR) live only in the phase test plan. Cross-slice flows within one feature live only in the feature integration test plan. Per-slice unit / contract / E2E / a11y test cases live only in the slice test plan.
-
-**Operating premise**: The three-tier ontology exists because AI test-writer subagents (per CC substantive Claude Code Architecture Rules canonical (subagent roster §5)) consume the slice tier directly under bias firewall and context isolation constraints — each subagent must see only the slice scope it is testing to avoid context leakage that corrupts test independence. The phase and feature integration tiers exist as human-authored / human-reviewed reference points that AI subagents do not write but may reference for upstream coordination. This schema is therefore an AI-execution-interface contract, not a generic test pyramid (Mike Cohn / Martin Fowler) or enterprise QA test strategy framework (TMMi, ISO 29119) adoption. External test methodology vocabulary is a source of inspiration; the three-tier ontology is calibrated to AI subagent consumption discipline (per [OS] §0.1.2 quality and §0.2 Cat 4 role).
+**Operating premise**: The three-tier ontology exists because AI test-writer subagents (per CC substantive Claude Code Architecture Rules canonical (subagent roster)) consume the slice tier directly under bias firewall and context isolation constraints — each subagent must see only the slice scope it is testing to avoid context leakage that corrupts test independence. The phase and feature integration tiers exist as human-authored / human-reviewed reference points that AI subagents do not write but may reference for upstream coordination. This schema is therefore an AI-execution-interface contract, not a generic test pyramid (Mike Cohn / Martin Fowler) or enterprise QA test strategy framework (TMMi, ISO 29119) adoption. External test methodology vocabulary is a source of inspiration; the three-tier ontology is calibrated to AI subagent consumption discipline (per [OS] §0.1.2 quality and §0.2 Cat 4 role).
 
 ## 0.2 Readers
 
@@ -101,7 +99,7 @@ apps/{app-slug}/specs/prd/phase-{N}.md
   │       ├→ §3 walking skeleton scope (Phase 1 only)
   │       └→ §4.{feature-slug} per-feature engineering spec
   │
-  ├→ apps/{app-slug}/specs/test-plan/phase-{N}.md          (this schema §2 — phase test plan)
+  ├→ apps/{app-slug}/specs/test-plan/phase-{N}.md          (phase test plan — owned by [TPL] Phase Test Plan)
   │
   ├→ apps/{app-slug}/specs/test-plan/feature-{feature-slug}.yaml   (this schema §3 — feature integration test plan)
   │       (one per feature in the phase)
@@ -133,7 +131,7 @@ apps/{app-slug}/specs/prd/phase-{N}.md
 
 | Tier | Lives at | Established by | Schema in this source |
 |---|---|---|---|
-| 1 — phase test plan (master, markdown) | `apps/{app-slug}/specs/test-plan/phase-{N}.md` | TK-02, paired with phase TDD | §2 |
+| 1 — phase test plan (master, markdown) | `apps/{app-slug}/specs/test-plan/phase-{N}.md` | TK-02, paired with phase TDD | Not in this source — owned by [TPL] Phase Test Plan |
 | 2 — feature integration test plan (yaml) | `apps/{app-slug}/specs/test-plan/feature-{feature-slug}.yaml` | TK-02, paired with phase TDD `§4.{feature-slug}` | §3 |
 | 3 — slice test plan (yaml) | `apps/{app-slug}/specs/test-plan/{slice-id}.yaml` | TK-03, paired with slice acceptance.yaml | §4 onwards |
 
@@ -146,11 +144,6 @@ The three-tier ontology is authored against the `feature` unit production path (
 | Phase test plan (markdown) | Consumed as phase-level reference at TK-03 | Consumed as phase-level reference; the unit also surfaces its M2 acceptance contract through phase TDD `§3.Milestone-choreography-and-acceptance-criteria` rather than authoring new phase-level scenarios | **Primary authoring source** at TK-09 — the unit's deliverables (cross-feature integration tests + NFR harness) are authored against the cross-feature scenario classes catalogued here |
 | Feature integration test plan (yaml) | One file per feature in the phase, at `feature-{feature-slug}.yaml` (per §3 schema) | **Not produced** — single-slice unit has no cross-slice flow within itself; cross-slice flow validation is irrelevant for `walking_skeleton` | Consumed as input at TK-09 — the unit may exercise cross-feature variants of these flows that are not covered at any individual feature unit's M2 |
 | Slice test plan (yaml) | One file per slice, at `{slice-id}.yaml` (per §4 schema), produced at TK-03 | One file at `walking-skeleton.yaml` (slice-id = unit-id per §0.7 of [TPL] PRD + TDD to Intent and Acceptance Conversion Specification), produced at TK-03 | **Not produced** — the unit has zero customer-facing slices per §4.0.4 of [MECH] Development Track Workflow; integration test code is authored at TK-09 directly without a per-slice yaml peer |
-
-**Production matrix consequence**: a Phase 1 with W walking-skeleton (1) + F feature units (each with S_i slices, i=1..F) + A app_integration units produces:
-- 1 phase test plan markdown
-- F feature integration test plan yaml files (no entry for the walking_skeleton unit; no entry for app_integration units)
-- 1 + Σ S_i slice test plan yaml files (1 for walking_skeleton + S_i per feature unit; nothing for app_integration)
 
 **Cross-tier traceability** (per §0.3) applies symmetrically across unit types — phase exit criteria in the phase test plan must trace through to the test cases that actually fire, regardless of which unit type produced those test cases. For `app_integration`-authored cross-feature tests, the trace is direct from phase test plan scenarios to the unit's authored test code (skipping feature integration / slice test plan yaml peers since neither exists for this unit type).
 
@@ -172,18 +165,7 @@ Collapsing tiers (e.g., putting cross-feature scenarios inside slice test plans)
 
 ### 1.2.1 Phase test plan (master, markdown)
 
-In scope:
-- Phase-level testing strategy summary (cross-references phase TDD §2.Phase-Level-Testing-Strategy)
-- Cross-feature scenario classes — scenario families that exercise multiple features end-to-end
-- App-scale NFR scenario classes — performance scenarios at app scale, app-wide observability checks, security baseline checks
-- Regression policy from prior phase (Phase N ≥ 2 only) — what subset of prior-phase tests is re-executed at this phase exit, with rationale
-- Phase exit criteria — the conditions under which this phase is declared complete
-- Cross-tier traceability — a short table mapping each phase scenario class to the feature-level flows and slice-level cases that evidence it
-
-Out of scope:
-- Specific test cases (those are in the slice test plan)
-- Per-feature flow scenarios (those are in the feature integration test plan)
-- Test fixtures, technique selection, data variants (slice-level concerns)
+Phase test plan scope and content contract are owned by [TPL] Phase Test Plan §1.
 
 ### 1.2.2 Feature integration test plan (yaml)
 
@@ -216,7 +198,7 @@ Out of scope:
 
 In TK-02:
 1. Phase TDD draft is in progress
-2. Phase test plan is drafted alongside, derived from phase TDD §2.Phase-Level-Testing-Strategy
+2. Phase test plan is drafted alongside, derived from phase TDD §2.Phase-Level-Testing-Strategy (the phase test plan schema is owned by [TPL] Phase Test Plan, not this source)
 3. For each feature in `Features in this phase`, the feature integration test plan is drafted, derived from `§4.{feature-slug}` content + paired-PRD scenarios attributed to that feature
 4. Phase-level cross-tier traceability is finalized after feature-level scenarios are listed
 
@@ -229,7 +211,7 @@ A feature integration test plan cannot reference a slice that does not yet exist
 
 | Tier | Paired with | Update trigger | Update path |
 |---|---|---|---|
-| 1 phase markdown | phase TDD | Phase TDD §2 changes; phase exit criteria revised; regression policy revised | Edit in place; review at next phase milestone |
+| 1 phase markdown (schema owned by [TPL] Phase Test Plan) | phase TDD | Phase TDD §2 changes; phase exit criteria revised; regression policy revised | Edit in place; review at next phase milestone |
 | 2 feature yaml | phase TDD `§4.{feature-slug}` | `§4.{feature-slug}.Module-Decomposition` or `Slice-List` changes; cross-slice flow added/removed | Edit in place; verify phase-level traceability still holds |
 | 3 slice yaml | slice acceptance.yaml | Slice acceptance scenario added/changed; TK-10 patches | Edit in place per [TPL] Conversion Spec; TK-10 may append to `adversarial_cases` |
 
@@ -289,6 +271,7 @@ flow_scenarios:
     description:                 # string, one paragraph
     
     slices_traversed: []         # ordered list of slice_ids; the order reflects the flow's execution sequence
+                                 # constraint: must equal the ordered de-duplicated set of flow_steps[].slice_ref values
     
     preconditions: []            # list of precondition strings (state required before flow starts)
     
@@ -341,7 +324,7 @@ If a feature integration test plan does not have any cross_tier_uplinks, the fea
 - Per-slice acceptance scenarios (those are owned by slice acceptance.yaml)
 - Cross-feature flows (those go into Phase test plan (markdown) §2)
 - Test code, fixtures, mocks (those are slice-level concerns)
-- Phase exit criteria (those go into phase test plan §5)
+- Phase exit criteria (those go into the phase test plan — see [TPL] Phase Test Plan)
 
 ## 3.7 Anti-pattern
 
@@ -349,7 +332,7 @@ Splitting a single-slice acceptance scenario into a "flow scenario" by artificia
 
 ---
 
-# 4. Root YAML structure
+# 4. Slice test plan (yaml) — root YAML structure
 
 ```yaml
 # apps/{app-slug}/specs/test-plan/{slice-id}.yaml
@@ -380,7 +363,7 @@ coverage_summary:       # see §17
 schema_compliance:      # see §18
 ```
 
-**Path discipline**: app-scoped paths (`traces_to_acceptance`, `traces_to_tdd`, `traces_to_prd`, `traces_to_phase_test_plan`, `traces_to_feature_test_plan`, `traces_to_slice_list`) all use the `apps/{app-slug}/` prefix. The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix. This split mirrors the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
+**Path discipline**: app-scoped paths (`traces_to_acceptance`, `traces_to_tdd`, `traces_to_prd`, `traces_to_phase_test_plan`, `traces_to_feature_test_plan`, `traces_to_slice_list`) all use the `apps/{app-slug}/` prefix. The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix. This split mirrors the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout).
 
 **App slug + phase_number consistency**: `app_slug` must match phase PRD §1.1 `App Slug` (per [TPL] PRD §0.7.1), phase TDD §1 `app_slug` header (per [TPL] TDD §1), and acceptance.yaml `app_slug` top-level field (per [TPL] Writing Standard §3.2). `phase_number` must match the phase TDD's `phase_number` (per [TPL] TDD §1). A mismatch anywhere in the chain is a TK-03 conversion blocker, not a downstream cleanup item.
 
@@ -435,7 +418,7 @@ test_cases:
 |---|---|---|---|
 | `unit` | Smallest unit tested in isolation, internal mocks allowed | any | A1 (whitebox) |
 | `integration-internal` | Multiple components within a tier, real internal deps | any | A1 (whitebox) |
-| `contract` | Consumer-driven or schema-based contract between tiers; for BFF↔domain pairs uses Pact pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical §Y.4 | bff, domain-service | A2 (blackbox) |
+| `contract` | Consumer-driven or schema-based contract between tiers; for BFF↔domain pairs uses Pact pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical (Pact contract testing convention) | bff, domain-service | A2 (blackbox) |
 | `integration-external` | Cross-tier real integration or external system integration | bff, domain-service | A2 (blackbox) |
 | `e2e` | End-to-end through UI or full API surface | cross-tier | A2 (blackbox) |
 | `visual` | Visual regression | frontend | A2 (blackbox) |
@@ -503,7 +486,7 @@ a11y_tool:
                                 # manual is "operator-smoke-test"
 ```
 
-**Tool stance** (cross-reference CC substantive Code Quality Rule Set canonical §1.2 and DSG §6):
+**Tool stance** (cross-reference CC substantive Code Quality Rule Set canonical and DSG §6):
 - `eslint-plugin-jsx-a11y`: routine, automatic, runs at `warn` severity in normal lint; no separate gate
 - `axe-core` via SK-W: on-demand utility only; not auto-invoked by milestones or other skills
 - `manual`: operator's M4 smoke test; non-gating
@@ -516,10 +499,10 @@ When `test_type == contract` and the case crosses the BFF-to-domain boundary, de
 pact_pair: "{app-slug}-bff_{domain-name}"   # e.g., "hr-data-asset-mgmt-bff_data-asset"
 ```
 
-**Convention** (per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) + [MECH] CI/CD Milestone Policy §2.3):
+**Convention** (per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention) + [MECH] CI/CD Milestone Policy §2.3):
 
 - Consumer-driven Pact: the BFF authors the consumer contract; the domain authors verification
-- Consumer-side contract location: `apps/{app-slug}/tests/contract/{app-slug}-bff_{domain-name}/**` (A2 writes here per CC substantive CCAR canonical §X.4)
+- Consumer-side contract location: `apps/{app-slug}/tests/contract/{app-slug}-bff_{domain-name}/**` (A2 writes here per CC substantive CCAR canonical (Pact contract testing convention))
 - Producer-side verification location: `packages/domain/{domain-name}/tests/contract-verification/**` (A2 writes here when working in a domain slice)
 - The `pact_pair` name segment is the same string in both locations and in the test-plan field
 
@@ -794,7 +777,7 @@ For cases using `a11y_tool.invocation_mode: ci-automated` (eslint-plugin-jsx-a11
 
 ## 16.3 Capture location convention
 
-All probe `capture_location` paths sit under `apps/{app-slug}/evidence/{slice-id}/` per the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1). Examples:
+All probe `capture_location` paths sit under `apps/{app-slug}/evidence/{slice-id}/` per the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout). Examples:
 
 - Audit events: `apps/{app-slug}/evidence/{slice-id}/audit-{event-name}.log`
 - A11y findings: `apps/{app-slug}/evidence/{slice-id}/accessibility-audit.md`
@@ -805,6 +788,8 @@ Cross-app capture paths (writing to another app's evidence folder) are not sanct
 ---
 
 # 17. coverage_summary field
+
+> **Scope**: §17-§22 govern the slice test plan (yaml) only. The bare term "test-plan.yaml" in these sections refers to the slice tier; the §19 cross-file consistency checks and the §22 finalization self-check are slice-tier finalization gates and do not apply to a feature integration test plan.
 
 Summary aggregate used by compliance-checker (A9) to verify coverage.
 
@@ -846,7 +831,7 @@ Before finalizing test-plan.yaml, verify:
 5. Every `data_expectations` entry has at least one tracing test case with matching `assertions`.
 6. Every `observability_expectations` entry has at least one `observability_probes` entry somewhere in test_cases.
 7. risk_tier values across test cases are consistent with paired phase PRD §13.1 risk entries (or whichever PRD § houses the risk register in this phase's PRD).
-8. **When slice involves Tier 1 with slice-specific a11y considerations**: those considerations from the feature's Hub-authored UX Design Spec instance §2.5 (Accessibility call-outs, slice-specific only) have corresponding `test_type: accessibility` cases. (Per [RULE] DSG §6, slices without specific a11y considerations need no accessibility cases — this is normal, not a violation.)
+8. **When slice involves Tier 1 with slice-specific a11y considerations**: those considerations from the feature's Hub-authored UX Design Spec instance §2.5 (Accessibility call-outs, feature-specific only) have corresponding `test_type: accessibility` cases. (Per [RULE] DSG §6, slices without specific a11y considerations need no accessibility cases — this is normal, not a violation.)
 9. **When slice involves Tier 1**: Components referenced in intent.md UX brief map to cases in `test_type ∈ {e2e, visual}`; `accessibility` cases are mapped only when the slice has specific a11y concerns per DSG §6.
 10. **`app_slug` field is populated and matches PRD §1.1 / TDD §1 / acceptance.yaml `app_slug` exactly**; mismatch is a TK-03 conversion blocker.
 11. **All file-path references use the correct prefix**: app-scoped paths use `apps/{app-slug}/` and follow phase-aware naming (`phase-{N}.md` for PRD/TDD/phase test plan; `feature-{feature-slug}.yaml` for feature integration test plan; `{slice-id}` for per-slice files; `{feature-slug}.md` for slice-list); project-level singleton (`specs/design-system.md`) is the only `apps/`-prefix exception.
@@ -864,10 +849,10 @@ The test-plan.yaml is a design-level artifact, not an executable. The following 
 | File paths to `apps/*/src/**` or `apps/*/tests/**` or `packages/*/src/**` | Writer agents decide locations per CLAUDE.md hierarchy; paths in plan risk whitebox bias leakage |
 | Internal class names or method signatures | Same abstraction violation; plan should be behavior-oriented not structure-oriented |
 | Environment-specific values (API tokens, URLs for specific environments) | Those belong in fixtures and environment configuration, not test design |
-| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) owns layout |
+| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout) owns layout |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 | Code review tool command semantics | CC substantive Codex Plugin Usage canonical (post-Phase-3) |
-| Pact pair mechanics (consumer-driven setup, broker config) | CC substantive CCAR canonical §Y.4 + tooling docs |
+| Pact pair mechanics (consumer-driven setup, broker config) | CC substantive CCAR canonical (Pact contract testing convention) + tooling docs |
 
 Cross-source boundary (what belongs in adjacent sources instead) is covered by each field's scoping rules above: `traces_to_*` fields attach the plan to acceptance, TDD, and Design System Governance without duplicating their content.
 
@@ -1029,5 +1014,5 @@ Before considering test-plan.yaml ready for the TK-03 sign-off cross-model revie
 9. No framework-specific syntax leaked into the plan
 10. No `apps/*/src/**`, `packages/*/src/**`, or `apps/*/tests/**` paths leaked into the plan
 11. Cross-file consistency (§19) holds — including the new #10 (app_slug match), #11 (path prefix), #12 (Pact pair coverage when domain consumed)
-12. **When slice has slice-specific a11y considerations (per the feature's Hub-authored UX Design Spec instance §2.5 Accessibility call-outs, slice-specific only)**: each consideration has at least one corresponding `test_type: accessibility` case using the §5.6 `a11y_concerns` field. Slices without specific a11y considerations need no accessibility cases, per [RULE] DSG §6.
+12. **When slice has slice-specific a11y considerations (per the feature's Hub-authored UX Design Spec instance §2.5 Accessibility call-outs, feature-specific only)**: each consideration has at least one corresponding `test_type: accessibility` case using the §5.6 `a11y_concerns` field. Slices without specific a11y considerations need no accessibility cases, per [RULE] DSG §6.
 13. **When slice consumes a Tier 3 domain**: at least one `test_type: contract` case has `pact_pair: {app-slug}-bff_{domain-name}` populated per §5.8

@@ -38,6 +38,10 @@ The principles below function as the operator's self-check tools at decision mom
 
 Start with the business outcome, operating problem, decision need, and stakeholder impact. Use architecture to enable the right result, not to define the purpose.
 
+**Rationale**
+
+This prevents the failure where a technically capable solution is built that no stakeholder can connect to a business outcome, so effort is spent without value. When architecture defines the purpose, tool constraints quietly become the objective and the original business need is never tested.
+
 **Apply by**
 - stating the business change or decision first
 - naming the target user behavior, control outcome, or value outcome
@@ -54,6 +58,10 @@ Start with the business outcome, operating problem, decision need, and stakehold
 **Rule**
 
 Define the required capability before discussing the product expression of that capability.
+
+**Rationale**
+
+This prevents the failure where the current vendor's feature set silently becomes the definition of the need, so a genuine capability gap is never seen and build/buy/extend/replace options are foreclosed before they are weighed. Naming the capability first keeps the platform decision honest and reversible.
 
 **Apply by**
 - describing the capability in business and operating terms first
@@ -72,11 +80,26 @@ Define the required capability before discussing the product expression of that 
 
 Default toward global consistency, but allow local variance when the variance is justified, governed, and worth its complexity cost.
 
+**Rationale**
+
+This prevents the failure where local preference and historical habit accrete as unmanaged exceptions, so the global design fragments into many divergent variants that are individually defensible but collectively unmaintainable. A global default with a governed variance gate keeps divergence intentional and accountable.
+
 **Apply by**
 - defining the global invariant first
 - identifying whether the local difference is mandatory, economically justified, or only preference-based
 - making every approved variance explicit in terms of reason, owner, control, and review logic
 - designing for reuse before designing for exception
+
+**Variance-class decision rubric**
+
+Classify each proposed local difference into exactly one class; the class determines how the variance is governed:
+- **Mandatory** — a law, regulation, works-council agreement, or binding compliance requirement makes the global default unlawful or unusable locally. Test: name the specific legal or contractual instrument that compels the difference. If none can be named, it is not mandatory. Governance: approved on evidence of the instrument; reviewed when the instrument changes.
+- **Economically justified** — the global default is lawful locally but produces a quantifiable net loss (cost, adoption failure, value gap) that a local variant removes, and the saving exceeds the complexity cost of maintaining the variant. Test: state the quantified loss and the complexity cost side by side. If the loss cannot be quantified, treat the difference as preference-based. Governance: approved with a stated owner, the quantified case, and an expiry/review date.
+- **Preference-based** — the difference reflects local habit, taste, or "how we have always done it" with no legal compulsion and no quantified economic case. Governance: default-reject; conform to the global invariant.
+
+Example pair:
+- Compliant (mandatory): a country's labor law requires a specific statutory leave field on the employee record — the legal instrument is named, so a local variant of the record is approved and tied to that law's review.
+- Non-compliant (preference-based dressed as mandatory): a country team asks for a different approval-routing screen because "our managers are used to it" — no legal instrument and no quantified loss; this is preference-based and should conform to the global default, not be approved as variance.
 
 **Red flags**
 - local preference is presented as a requirement without justification
@@ -88,6 +111,10 @@ Default toward global consistency, but allow local variance when the variance is
 **Rule**
 
 Choose designs based on whole-lifecycle value, not just implementation speed or configuration convenience.
+
+**Rationale**
+
+This prevents the failure where the cheapest path to go-live is chosen and its cost reappears, larger, as years of operating burden, migration debt, and change friction. Implementation is a small fraction of a solution's life; optimizing only for it shifts cost to a horizon the project decision never priced.
 
 **Apply by**
 - evaluating introduction, growth, mature, and retirement implications
@@ -106,6 +133,10 @@ Choose designs based on whole-lifecycle value, not just implementation speed or 
 
 Where repeatability matters, design a mechanism rather than relying on reminders, heroics, or informal coordination.
 
+**Rationale**
+
+This prevents the failure where recurring work depends on one diligent person, so it silently degrades the moment that person is absent, reassigned, or overloaded. Informal coordination has no owner, no cadence, and no escalation path — it cannot be reviewed or improved, only relied upon until it fails.
+
 **Apply by**
 - defining ownership, review cadence, decision rights, and escalation logic
 - building lightweight but explicit governance into recurring work
@@ -122,6 +153,10 @@ Where repeatability matters, design a mechanism rather than relying on reminders
 **Rule**
 
 Do not design only for delivery. Design for how the solution will be governed, adopted, monitored, maintained, and value-reviewed after or beyond implementation.
+
+**Rationale**
+
+This prevents the failure where a solution ships successfully but has no owner, no review cadence, and no value-tracking, so adoption and value erode unobserved and no one can say six months later whether it worked. Operation management designed in after go-live is rarely designed at all — it defaults to ad hoc support.
 
 **Apply by**
 - including operating ownership and review logic from the start
@@ -148,6 +183,10 @@ Do not design only for delivery. Design for how the solution will be governed, a
 
 Use analytics to improve decision quality, adoption visibility, and value realization, not to create reporting for its own sake.
 
+**Rationale**
+
+This prevents the failure where reporting volume grows while decision quality does not, so dashboards accumulate as a cost with no management action attached to them. A metric with no decision use case cannot be acted on — it only consumes attention and creates a false sense of being data-driven.
+
 **Apply by**
 - starting with the decision that needs evidence
 - linking metrics to specific management actions or judgments
@@ -164,6 +203,10 @@ Use analytics to improve decision quality, adoption visibility, and value realiz
 **Rule**
 
 Treat these as different design objects with different purposes. Do not let ambiguity in one layer get hidden inside another.
+
+**Rationale**
+
+This prevents the failure where an unresolved question in one layer is silently settled by a decision in another — a policy gap closed by a system configuration, a data-design problem treated as a process problem — so the real issue is never owned or solved, only buried. Each layer answers a different question; collapsing them hides which question is actually unresolved.
 
 **Working definitions**
 - **Policy** = what must be true and why
@@ -190,6 +233,10 @@ Treat these as different design objects with different purposes. Do not let ambi
 
 Use prototypes to reduce uncertainty, not to smuggle in premature production design.
 
+**Rationale**
+
+This prevents the failure where a prototype quietly becomes the production build because "we are already building it", so production design decisions are made under prototype conditions — no governance, no requirements rigor, no architecture review. A prototype with no stated learning question cannot end; it only expands.
+
 **Apply by**
 - stating the learning question before building
 - limiting prototype scope to the uncertainty being tested
@@ -207,6 +254,10 @@ Use prototypes to reduce uncertainty, not to smuggle in premature production des
 
 For formal structures, use a clear decomposition axis and ensure the sibling buckets are mutually exclusive and collectively exhaustive at the chosen level.
 
+**Rationale**
+
+This prevents the failure where a structure looks orderly but its buckets overlap or leave gaps, so ownership and governance built on it are ambiguous — two parties claim the same concept, or a real concern has no home. Overlap and gaps are invisible until the structure is used to assign responsibility, by which point they are expensive to fix.
+
 **Apply by**
 - naming the decomposition axis first
 - defining what each sibling includes and excludes
@@ -221,11 +272,19 @@ For formal structures, use a clear decomposition axis and ensure the sibling buc
 - important parts of the parent scope have no home
 - the structure looks neat but cannot support clean ownership or governance
 
+**Boundary with §8 and §11**
+
+These three decomposition-discipline principles apply at different points and do not overlap: §8 names *which* design objects to keep separate (policy, process, system, data, analytics, governance — a fixed object set); §10 (this principle) governs *how* any formal structure is decomposed so its siblings are MECE on one axis; §11 governs *when* a structure's scope and boundary are stable enough to freeze the names. Use §8 to choose the layers, §10 to build a clean structure within a layer, and §11 to decide the structure is settled enough to name.
+
 # 11. Definition quality before naming quality
 
 **Rule**
 
 Stabilize scope, boundary, and logic before spending energy on labels.
+
+**Rationale**
+
+This prevents the failure where a polished name masks an unstable boundary, so teams believe they agree because they share a term while actually meaning different things. Naming debates feel like progress but resolve nothing until the underlying scope and interface logic are settled.
 
 **Apply by**
 - defining what a thing is before optimizing what it is called
@@ -243,6 +302,10 @@ Stabilize scope, boundary, and logic before spending energy on labels.
 **Rule**
 
 A sound idea is not complete until it can land as an artifact, mechanism, or governed next step.
+
+**Rationale**
+
+This prevents the failure where strong thinking dissipates because it never converts into a named artifact with an owner and a next decision, so the work is conceptually right but operationally inert. An idea with no defined landing and no watch logic cannot be acted on or held accountable for value.
 
 **Apply by**
 - stating the next artifact explicitly
@@ -311,19 +374,3 @@ The mechanism that prevents this is not stronger AI judgment — it is a discipl
 **Companion mechanism**
 
 When operating under UP-defined Clarification Gate, this principle's surface-rather-than-fabricate stance is the corresponding upstream judgment: Clarification Gate is the runtime mechanism that fires when fabrication would occur; this principle is the design lens that keeps unresolved ambiguity visible across the artifact chain so the gate fires at the right moments rather than arbitrarily.
-
-## Default review questions
-
-Use these questions to review important HR digital work:
-1. What business outcome or operating problem is this design addressing?
-2. Is the required capability defined independently of the current vendor?
-3. What is the intended global standard, and what local variance is truly justified?
-4. What lifecycle cost or value is being created beyond implementation?
-5. What mechanism will keep this working after the project ends?
-6. What evidence will show adoption, utilization, or value realization?
-7. Are policy, process, system, data, analytics, and governance clearly separated?
-8. If there is a formal structure, is the decomposition MECE at the chosen level?
-9. Are the definitions stable enough to justify the current names?
-10. What is the next artifact, and who owns the next decision?
-11. Where AI participates, is the human–AI interaction surface designed (autonomy boundary, checkpoint surfacing, trust calibration, fallback path)?
-12. Where business or design ambiguity remains material, has it been preserved as an open question with attributed source and candidate resolutions, rather than silently resolved into prose?

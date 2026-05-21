@@ -10,10 +10,10 @@
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §3 (global core with governed local variance — Arco Design as global core for HDC's Tier 1 visual layer, regional i18n and RTL as governed variance), §5 (management mechanism over ad hoc control — this governance is the mechanism preventing per-slice visual drift), §6 (operation management and value realization by design — accessibility hygiene and i18n are operation realities captured upfront), §10 (MECE — component inventory)
 - **Relationship to [PRIN] People Experience Design Principles**: This rule is the primary implementation carrier for People Experience principles when the topic lens is experience quality and consistency; the dual-platform (PC + mobile) coverage in §11 directly serves People Experience moments-of-truth that occur outside the desktop
 - **Relationship to [REF] Hub-CD-CC Architecture**: This rule's SOT-distribution declarations in §1.1 align to §5.2 two-way distribution model (CD = SOT / CC = code-time mirror). CD is the instance SOT; CC carries a read-only mirror at `specs/design-system.md` for code-time consumption. Hub holds no DS instance copy; at TK-02 step 2.3 Hub Claude consumes CD-authored design files (not a DS mirror) per §13.3. When the architecture's distribution model changes substantively, §1.1 of this rule is re-verified.
-- **Relationship to [RULE] Claude Code Architecture Rules**: Constrains Tier 1 (React) work exclusively; Tier 2 and Tier 3 are out of scope. The CC mirror of the DS instance is a project-level singleton at the monorepo root per CCAR §Y.1, not under any `apps/{app-slug}/` directory; downstream feature artifacts that reference it (per-feature UX Design Spec instances authored in Hub per `[TPL] UX Design Spec`, intent.md UX brief, test-plan.yaml accessibility cases) are app-scoped under `apps/{app-slug}/specs/...`. The CC mirror is included in CCAR §X.2.1 `business_rules_only` scope allow list as `specs/design-system.md`.
+- **Relationship to [RULE] Claude Code Architecture Rules**: Constrains Tier 1 (React) work exclusively; Tier 2 and Tier 3 are out of scope. The CC mirror of the DS instance is a project-level singleton at the monorepo root, not under any `apps/{app-slug}/` directory; downstream feature artifacts that reference it (per-feature UX Design Spec instances authored in Hub per `[TPL] UX Design Spec`, intent.md UX brief, test-plan.yaml accessibility cases) are app-scoped under `apps/{app-slug}/specs/...`. The repository-layout and code-scope substantive detail (the monorepo-root placement rule and the `business_rules_only` scope allow list that includes the CC mirror as `specs/design-system.md`) is owned by the CC-side substantive Claude Code Architecture Rules canonical.
 - **Relationship to [MECH] Development Track Workflow**: The DS instance and the CC mirror are established at workspace inception per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) via initial CD authoring + DS markdown export to the CC mirror location (after the §15 export review per §12). TK-02 step 2.3 consumes CD-authored design files — design file quality check (spec-readiness) + UX Design Spec authoring grounded in the design files — per §13.3. CC mirror is referenced by TK-04 (M0 entry, per-slice spec consumption) and TK-05+ (code writing, M3 visual review). Additive updates to the instance authored in CD propagate to the CC mirror via the §12 sync mechanism in this rule.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2 (Hub ↔ CD path) carries DS-related discussions, DSG governance text into CD as a read-only input for DS instance authoring (per §12.1), CD-authored design files transferred to Hub for TK-02 step 2.3 consumption, and the CD-generated DS markdown export transferred to Hub for the §15 export conformance review; §3 (Hub ↔ CC path) carries DSG governance text into CC and transfers the reviewed DS markdown export to the CC mirror; §4 (CD ↔ CC path, decoupled-by-default during research preview) is currently not directly used for DS sync (the CC mirror receives DS markdown via operator-mediated transfer from CD through the Hub review session). The export-review cadence and triggers are owned by §12 of this rule.
-- **Relationship to [MECH] Code Quality Rule Set**: **CQ migrated to CC substantive canonical (Phase 3)**. CC substantive Code Quality Rule Set canonical declares the runtime and build-time tool-level enforcement of Tier 1 visual rules; this rule declares the design-level rules that those tools enforce. Token-consumption rules in §4 and component-inventory rules in §5 are implemented as ESLint rules and dependency-cruiser rules per CC substantive CQ canonical §3. Hub↔CC coordination is governed by the decoupled-reference model in [REF] Hub-CD-CC Architecture §5.4.4.
+- **Relationship to [MECH] Code Quality Rule Set**: **CQ migrated to CC substantive canonical (Phase 3)**. CC substantive Code Quality Rule Set canonical declares the runtime and build-time tool-level enforcement of Tier 1 visual rules; this rule declares the design-level rules that those tools enforce. Token-consumption rules in §4 and component-inventory rules in §5 are implemented as ESLint rules and dependency-cruiser rules per CC substantive CQ canonical. Hub↔CC coordination is governed by the decoupled-reference model in [REF] Hub-CD-CC Architecture §5.4.4.
 - **Relationship to adjacent [TPL] sources**:
   - Upstream of `[TPL] UX Design Spec` — DSG governs the design rules; UX Design Spec instances declare per-feature UX coverage Hub-authored from CD design files per [TPL] UX Design Spec §0; the UX Design Spec's component selections and any new-component / new-token plans MUST respect DSG inventory and §12 change flow
   - Upstream of `[TPL] Intent and Acceptance Interface Writing Standard` (intent.md UX brief section authors components and a11y references that MUST respect DSG inventory + §6 stance)
@@ -21,7 +21,7 @@
 - **Relationship to custom skills**:
   - Consumed at Claude Code runtime by `hdc-arco-enterprise-ui` skill during Tier 1 code generation, by reading the CC mirror at `specs/design-system.md`
   - Consumed at Claude Code runtime by `hdc-wcag-accessibility-checker` skill **on operator demand only** (per §6.3); not auto-invoked
-  - Consumed at Hub Claude runtime in TK-02 step 2.3 — Hub Claude grounds in CD-authored design files (Hub holds no DS mirror); this is not a "skill" in the CC sense but a consumption discipline described in §13.3
+  - Consumed at Hub Claude runtime in TK-02 step 2.3 — Hub Claude grounds in CD-authored design files (Hub holds no DS mirror); the Hub-side consumption discipline is described in §13.3
 - **Relationship to [RULE] DingTalk Markdown Format Control Specification**: When DS instance content is uploaded to DingTalk Docs for stakeholder visibility, apply that rule (uploading happens from CD source or the CC mirror, not authored at Hub)
 - **Pairings I participate in**: P-19 (with `hdc-arco-enterprise-ui` + `hdc-wcag-accessibility-checker` SKILL.md). P-34 (was: with [MECH] Code Quality Rule Set lint rules) **RETIRED in Phase 3** per [REF] Hub-CD-CC §5.4.4 — counterparty CQ fully migrated to CC substantive canonical; alignment with DSG design-level rules now governed at CC's discretion.
 
@@ -61,15 +61,13 @@ Two-way distribution model (per [REF] Hub-CD-CC Architecture §5.2):
 | **CC monorepo** at `specs/design-system.md` | **Code-time mirror** — read-only derived from CD SOT via the reviewed CD-generated DS markdown export; consumed by `hdc-arco-enterprise-ui` skill at code generation time | Synced from the DS markdown export — after the §15 export conformance review per §12.3 — at every §12 change finalization (additive: at originating feature's M4 → merge-to-main; breaking: after CD-side breaking change is finalized at the separate review gate); operator-mediated transfer per [MECH] Cross-Tool Workflow Handoff |
 | **[RULE] DSG** at Hub PK (this source) | **Governance rules** — topic-level rules that govern DS evolution; not instance content. Hub holds DSG but no DS instance copy. DSG is transferred to CD as a read-only input for DS instance authoring (per §12.1) | Authored at Hub under [MECH] Canonical File Self-Audit governance |
 
-Hub holds no DS instance mirror. At spec-authoring time (TK-02 step 2.3) Hub Claude consumes CD-authored design files, not a DS instance copy; the export conformance review (§12.3) is the Hub-side touchpoint with DS instance content, performed transiently on the export rather than via a persisted mirror.
+At spec-authoring time (TK-02 step 2.3) Hub Claude consumes CD-authored design files, not a DS instance copy; the export conformance review (§12.3) is the Hub-side touchpoint with DS instance content, performed transiently on the export rather than via a persisted mirror.
 
 Update categories:
 - **Additive updates** (new component added, new token added, i18n scope expanded, new layout pattern added): authored in CD per a feature's UX needs (the additive plan is captured as the corresponding feature's UX Design Spec instance §2.4 New-Components-Or-Tokens entry, Hub-authored at TK-02 step 2.3). Once approved per §12, CD finalizes the change; CD regenerates the DS markdown export; the export is reviewed Hub-side against §15 per §12.3; on a passing review the **CC mirror** (`specs/design-system.md`) is re-synced, typically at the feature's merge-to-main milestone (see [MECH] Development Track Workflow TK-12 M4 gate).
 - **Breaking updates** (token value change, Arco major version upgrade, accessibility hygiene rule change, mobile-tier change): require explicit review gate per §12.2; back-propagate to all affected slices; the CC mirror is re-synced after the CD-side breaking change is finalized and the export passes the §15 review.
 
 There is one instance per project (HDC has exactly one DS instance covering all apps). The instance is shared across all apps, all phases, all features. There is one DS markdown export per instance version, transferred to the CC mirror after the §15 export conformance review.
-
-**Closed-loop rationale**: the DS instance has one SOT (CD) and one mirror (the CC code-time mirror, consumed by SK-F at code generation). Hub holds no DS instance copy — at spec-authoring time Hub consumes CD-authored design files, which carry the component / token / pattern callouts. DS-instance conformance to this governance rule is checked at the two workspaces that execute against the DS (CD at authoring time, holding DSG as a transferred input per §12.1; CC at code generation) plus a Hub-side review of the CD-generated DS markdown export before it reaches the CC mirror (per §12.3). The single mirror removes the lock-step synchronization burden that a multi-mirror model carries.
 
 ## 1.2 Boundary with feature-level artifacts
 
@@ -84,23 +82,11 @@ There is one instance per project (HDC has exactly one DS instance covering all 
 
 If content belongs in feature-level artifacts, do not duplicate it into the DS instance. The instance holds project-wide decisions only.
 
-**Path discipline note**: The CC DS mirror is a project-level singleton at the CC-monorepo root `specs/design-system.md` (not under any `apps/{app-slug}/` directory because the design system is shared across all apps). All feature-scoped artifacts referenced above use the `apps/{app-slug}/` prefix per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
+**Path discipline note**: The CC DS mirror is a project-level singleton at the CC-monorepo root `specs/design-system.md` (not under any `apps/{app-slug}/` directory because the design system is shared across all apps). All feature-scoped artifacts referenced above use the `apps/{app-slug}/` prefix; the authoritative repository-layout detail is owned by the CC-side substantive Claude Code Architecture Rules canonical.
 
 ## 1.3 Cross-canonical-source boundary
 
-The DS instance is bounded by adjacent canonical sources. Content that belongs in these sources should not appear in the instance.
-
-| Content type | Correct source |
-|---|---|
-| Business logic, workflow definitions, feature user value | PRD |
-| Feature-specific UX coverage (screens, components used, layout patterns, new-asset additive update plans, slice-specific a11y) | UX Design Spec instance per `[TPL] UX Design Spec` (Hub-authored markdown at TK-02 step 2.3 from CD design files) |
-| Per-feature visual artifacts (mockups, prototypes, interaction flows) | CD-authored design files (per [REF] Hub-CD-CC Architecture §3.4.1) — these are the source material from which UX Design Spec instances are Hub-authored |
-| Per-slice UX brief (screen list, interactions, slice-level a11y/i18n call-outs) | intent.md (cross-ref §1.2) |
-| Implementation-level React component code | Code |
-| Tool-level lint and architecture-rule enforcement | CC substantive Code Quality Rule Set canonical (post-Phase-3) |
-| Complete restatement of Arco Design official guidelines | Reference Arco docs, don't duplicate |
-
-The instance captures project-level design foundation and authoritative lists (tokens, components, layout-pattern mapping, a11y hygiene, i18n scope). Per-feature UX decisions live in UX Design Spec instances; per-slice UX briefs live in intent.md.
+The instance captures project-level design foundation and authoritative lists (tokens, components, layout-pattern mapping, a11y hygiene, i18n scope) and nothing that belongs in an adjacent canonical source: per-feature UX decisions live in UX Design Spec instances; per-slice UX briefs live in intent.md; business logic and feature user value live in the PRD; implementation-level React code lives in code; tool-level lint and architecture-rule enforcement is owned by the CC substantive Code Quality Rule Set canonical.
 
 ---
 
@@ -108,23 +94,24 @@ The instance captures project-level design foundation and authoritative lists (t
 
 The DS instance must contain coverage for the following section topics. The specific content of each section lives in the instance (in CD as SOT, mirrored to CC); this rule declares only **what topics must be covered**, not what the content must say.
 
-Required instance section topics:
-1. **Design language foundation** — base design system reference and rationale
-2. **Implementation path** — PC implementation, mobile implementation, cross-platform consistency
-3. **Design tokens** — color tokens (Arco semantic overrides + HDC custom accents + HR-specific semantic states), text/background tokens, typography tokens, corporate font stack, spacing tokens, border radius / elevation / other visual tokens, token consumption rules
-4. **Component inventory** — Tier A (Arco used directly), Tier B (HDC custom), Tier C (forbidden); cross-platform mapping
-5. **HDC layout patterns to HR scenario mapping** — PC patterns, mobile patterns, cross-platform pattern mapping
-6. **Accessibility stance** — recommended engineering practices, what is explicitly NOT required, on-demand sanity check, rationale
-7. **Internationalization and RTL** — locale coverage and RTL approach
-8. **Motion and animation** — motion principles, `prefers-reduced-motion` handling
-9. **Iconography** — primary icon source, custom icon policy, a11y for icons
-10. **Content style guide** — date / time formats, empty / error patterns, button verbs, terminology, capitalization, mobile copy compaction
-11. **Responsive behavior and platform tiers** — breakpoints, mobile-as-first-class declaration, T1/T2/T3 platform tier framework
-12. **Governance** — change process (this is partially redundant with this rule's §12, but the instance may include a brief summary or pointer)
-13. **Custom skill integration** — which skills consume the instance and how
-14. **Change log** — chronological log of approved instance changes
+Required instance section topics. Instance topics are labelled `IT1 … IT14` to keep them distinct from this rule's own chapter numbers (`§1 … §16`) — a bare `§N` always refers to a DSG chapter, never an instance topic.
 
-All sections §1 through §14 of the instance topic list are required in the instance. There is no leveled instance; this is per-project and single-level.
+- **IT1 — Design language foundation** — base design system reference and rationale
+- **IT2 — Implementation path** — PC implementation, mobile implementation, cross-platform consistency
+- **IT3 — Design tokens** — color tokens (Arco semantic overrides + HDC custom accents + HR-specific semantic states), text/background tokens, typography tokens, corporate font stack, spacing tokens, border radius / elevation / other visual tokens, token consumption rules
+- **IT4 — Component inventory** — Tier A (Arco used directly), Tier B (HDC custom), Tier C (forbidden); cross-platform mapping
+- **IT5 — HDC layout patterns to HR scenario mapping** — PC patterns, mobile patterns, cross-platform pattern mapping
+- **IT6 — Accessibility stance** — recommended engineering practices, what is explicitly NOT required, on-demand sanity check, rationale
+- **IT7 — Internationalization and RTL** — locale coverage and RTL approach
+- **IT8 — Motion and animation** — motion principles, `prefers-reduced-motion` handling
+- **IT9 — Iconography** — primary icon source, custom icon policy, a11y for icons
+- **IT10 — Content style guide** — date / time formats, empty / error patterns, button verbs, terminology, capitalization, mobile copy compaction
+- **IT11 — Responsive behavior and platform tiers** — breakpoints, mobile-as-first-class declaration, T1/T2/T3 platform tier framework
+- **IT12 — Governance** — change process; the instance carries a pointer to this rule's §12, not a restated summary
+- **IT13 — Custom skill integration** — which skills consume the instance and how
+- **IT14 — Change log** — chronological log of approved instance changes
+
+There is no leveled instance; this is per-project and single-level.
 
 **Required instance header fields**:
 - Schema version (matches this governance rule's revision)
@@ -133,8 +120,8 @@ All sections §1 through §14 of the instance topic list are required in the ins
 - Created date, last updated date
 - Owner
 - Design language foundation declaration
-- Accessibility stance declaration (must match §6 of this rule)
-- Change log location (in-file §14 or external reference)
+- Accessibility stance — a pointer to DSG §6; the instance references the §6 stance, it does not restate it
+- Change log location (in-file instance topic IT14 or external reference)
 - **DS markdown export reference** — declared path or commit reference for the current export that populated the CC mirror; ensures mirror version traceability per §12.7
 
 ---
@@ -147,7 +134,7 @@ Governance over the implementation path is twofold:
 
 **Rule 3.2 — Single monorepo theme source**: There MUST be exactly one theme source for the project at `packages/hdc-corporate-theme/`. Per-app theme duplication (separate `hdc-corporate-theme.css` or `theme.less` files inside `apps/{app-slug}/src/frontend/themes/`) is forbidden.
 
-**Rule 3.3 — No `@arco-themes/...` npm dependency**: The project deliberately avoids the `@arco-themes/...` npm package distribution mechanism in favor of monorepo-shared theme module per Rule 3.2.
+**Rule 3.3 — No `@arco-themes/...` npm dependency**: The project deliberately avoids the `@arco-themes/...` npm package distribution mechanism — an external package boundary adds version-pinning and supply-chain surface the project does not need for theme delivery.
 
 **Rule 3.4 — PC + mobile library version pinning**: The instance MUST pin both `@arco-design/web-react` (PC) and `@arco-design/mobile-react` (mobile) to declared versions. Cross-app version drift is forbidden.
 
@@ -182,7 +169,7 @@ The instance MUST organize tokens into the following taxonomies. The taxonomies 
 
 **Rule 4.2.4**: Token values that diverge from Arco defaults MUST be motivated by corporate VI or HR-specific design need; recorded in the instance with rationale.
 
-**Rule 4.2.5**: Enforcement is via ESLint rules and Tailwind config in CC substantive Code Quality Rule Set canonical §3.2; this rule declares the design-level rules, Code Quality Rule Set declares the tool-level enforcement.
+**Rule 4.2.5**: Enforcement is via ESLint rules and Tailwind config in CC substantive Code Quality Rule Set canonical; this rule declares the design-level rules, Code Quality Rule Set declares the tool-level enforcement.
 
 ---
 
@@ -200,7 +187,9 @@ Components imported from `@arco-design/web-react` (PC) or `@arco-design/mobile-r
 
 Components built on top of Arco primitives + tokens, specific to HDC's HR domain.
 
-**Rule 5.2.1**: A component qualifies for Tier B only when: (a) it composes Arco primitives + tokens (does NOT use non-Arco third-party UI libraries), AND (b) it encapsulates HR-specific behavior or visual pattern that would otherwise be duplicated across slices, AND (c) it is registered in the instance §4 inventory with documented composition + props + a11y notes.
+**Rule 5.2.1**: A component qualifies for Tier B only when: (a) it composes Arco primitives + tokens (does NOT use non-Arco third-party UI libraries), AND (b) it encapsulates an HR-specific behavior or visual pattern that recurs — used (or planned for use) in **≥2 slices**, or anticipated by a feature's UX Design Spec instance to recur, AND (c) it is registered in the instance §4 inventory with documented composition + props + a11y notes.
+
+Qualification (b) examples — compliant: an `ApprovalStatusTag` that renders the HR approval-status colors and label set is used by the leave-request, expense, and onboarding slices, so it recurs across ≥2 slices and qualifies. Non-compliant: a one-off banner styled for a single slice's empty state, used nowhere else and not anticipated to recur — it stays slice-local code, not a Tier B component.
 
 **Rule 5.2.2**: Each Tier B component MUST declare its PC + mobile variant policy (PC-only, mobile-only, or both with stated platform-specific differences if any).
 
@@ -231,7 +220,7 @@ Every Tier A and Tier B component listed in the instance §4 inventory MUST decl
 
 # 6. Accessibility stance
 
-HDC has **no formal WCAG conformance target**. The stance is engineering hygiene rules only, enforced via Arco component defaults and `eslint-plugin-jsx-a11y` at `warn` severity (per CC substantive Code Quality Rule Set canonical §1.2). On-demand validation via `hdc-wcag-accessibility-checker` skill is operator-triggered, not automated.
+HDC has **no formal WCAG conformance target**. The stance is engineering hygiene rules only, enforced via Arco component defaults and `eslint-plugin-jsx-a11y` at `warn` severity (per CC substantive Code Quality Rule Set canonical). On-demand validation via `hdc-wcag-accessibility-checker` skill is operator-triggered, not automated.
 
 ## 6.1 Recommended engineering practices
 
@@ -271,7 +260,7 @@ This is a deliberate design choice, not a deferral. If regulatory or contractual
 
 **Rule 7.2**: RTL capability MUST be declared in the instance regardless of whether any launch language is RTL, so that future RTL additions do not require breaking governance changes.
 
-**Rule 7.3**: All Tier 1 text MUST resolve via the i18n resource system; hardcoded user-facing strings in code are forbidden (lint-enforced per CC substantive Code Quality Rule Set canonical §3.5 if configured).
+**Rule 7.3**: All Tier 1 text MUST resolve via the i18n resource system; hardcoded user-facing strings in code are forbidden (lint-enforced per CC substantive Code Quality Rule Set canonical if configured).
 
 **Rule 7.4**: Text expansion budget — Tier 1 layouts MUST accommodate the longest declared launch language (typically German or French for European-language sets) with at least 30% width margin on dense labels (form field labels, table column headers, button text).
 
@@ -354,6 +343,8 @@ Every feature's UX Design Spec instance §2.1 MUST declare which of these tiers 
 
 ## 11.3 Mobile parity policy
 
+Rationale: mobile is a primary access mode — not a secondary fallback — for the employee and manager self-service flows that Tier 1 covers, so Tier 1 parity rules treat the mobile surface as first-class.
+
 For Tier 1 features:
 - All read paths MUST be available on mobile within the feature's first release scope
 - All write paths declared as mobile-relevant in UX Design Spec instance MUST be available on mobile within the feature's first release scope
@@ -394,7 +385,7 @@ Every Tier A and Tier B component in the instance §4 inventory MUST declare its
 4. Optional adversarial review via code review tool — operator transports the change to CC for the optional adversarial-review invocation if desired (specific code review tool governed by CC substantive Codex Plugin Usage canonical post-Phase-3). **Note**: this optional adversarial review for DS changes is independent from the M0 entry self-check at TK-04; the DS-change review here is a separate, optional governance-review pathway, distinct from any TK-sequence M0 / M4 review.
 5. Project owner approves or rejects
 6. If approved:
-   - **CD-side authoring**: CD finalizes the change in the DS instance content. CD authors against the current DSG (transferred to CD as a read-only input per [MECH] Cross-Tool Workflow Handoff §2.1) and self-checks the finalized change against §2-§11 of this rule before export. The change is recorded in instance §14 change log
+   - **CD-side authoring**: CD finalizes the change in the DS instance content. CD authors against the current DSG (transferred to CD as a read-only input per [MECH] Cross-Tool Workflow Handoff §2.1) and self-checks the finalized change against §2-§11 of this rule before export. The change is recorded in the instance change log (instance topic IT14)
    - **DS markdown export regeneration**: CD generates an updated DS markdown export reflecting the new instance state per §12.7 export specification
    - **Export conformance review (Hub-side)**: the operator brings the CD-generated DS markdown export into a Hub conversation; Hub Claude reviews the export against the §15 reviewer checklist to confirm the finalized instance conforms to §2-§11 of this rule. This review catches divergence between the approved change plan and what CD actually authored, including any out-of-band CD change. On a material finding, the export returns to CD for correction
    - **CC mirror sync**: on a passing export review, the operator commits the reviewed export to the CC monorepo (`specs/design-system.md`) at the next sync point (additive: at the originating feature's merge-to-main milestone per §12.5; breaking: after CD-side breaking change is finalized at the separate review gate)
@@ -404,11 +395,11 @@ Every Tier A and Tier B component in the instance §4 inventory MUST declare its
 A DS instance change (additive or breaking) MUST include:
 
 - **Change identity**: change-id (kebab-case, stable within the change's lifecycle), change type (`additive` or `breaking`), proposer, proposal date, target instance version
-- **Affected sections**: list the §x sub-sections of the instance this change touches
-- **Proposed change content**: the specific additions or modifications. For additive changes, provide the draft §x entries ready to be merged into the instance. For breaking changes, provide both the current value and the proposed value
+- **Affected sections**: list the instance topics (IT1-IT14) this change touches
+- **Proposed change content**: the specific additions or modifications. For additive changes, provide the draft instance-topic entries ready to be merged into the instance. For breaking changes, provide both the current value and the proposed value
 - **Rationale**: the business or design need motivating the change, traceable to the triggering feature's PRD or the Hub-authored UX Design Spec instance §2.4 when applicable
 - **Backward-compatibility analysis** (required for `breaking`; optional for `additive`): list every currently-merged feature slice that uses the affected sections; state for each whether it is unaffected, requires re-review, or requires code change; when re-review or code change is required, state the estimated scope
-- **Adversarial review reference** (optional): if a Codex adversarial review was invoked, link to or attach the resulting report
+- **Adversarial review reference** (optional): if the optional adversarial review described in §12.3 step 4 was invoked, link to or attach the resulting report
 - **Approval status**: one of `pending` / `approved` / `rejected` / `deferred`; when approved, record the merge event (slice-id + merge date) that applied this change
 
 For `additive` changes, the Hub-authored UX Design Spec instance §2.4 carries the change plan; CD authors the corresponding instance content change at merge time. For `breaking` changes, the proposer produces this content as a standalone change file (CD-internal location) and a separate review gate is convened before rollout per §12.2.
@@ -417,6 +408,8 @@ For `additive` changes, the Hub-authored UX Design Spec instance §2.4 carries t
 
 - **Additive merges**: at the originating feature's merge-to-main milestone (slice M4 → merge to `main`, per [MECH] Development Track Workflow TK-12 M4 gate). The DS instance content is finalized in CD; CD regenerates the DS markdown export; the export is reviewed Hub-side against §15 per §12.3; on a passing review the CC mirror (`specs/design-system.md`) is updated via operator-mediated transfer per [MECH] Cross-Tool Workflow Handoff.
 - **Breaking merges**: as scheduled by the separate review gate. Affected slices are re-reviewed before the merge; back-propagation work is completed before the breaking change is rolled out; the CC mirror is updated after the CD-side breaking change is finalized and the export passes the §15 review.
+
+Breaking-change rollback: if a finalized breaking change must be reverted, treat the rollback as itself a breaking change — it goes through the §12.2 separate review gate, regenerates the DS markdown export, and re-syncs the CC mirror, so SOT and mirror return to a consistent state together.
 
 ## 12.6 Forbidden patterns
 
@@ -430,14 +423,14 @@ For `additive` changes, the Hub-authored UX Design Spec instance §2.4 carries t
 
 The DS markdown export is the canonical artifact that propagates DS instance content from CD SOT to the CC mirror. It is produced by CD on operator prompt at every change finalization (additive merge or breaking-change finalization) and at workspace inception (initial DS setup).
 
-**Content requirement**: The DS markdown export MUST faithfully represent the DS instance content covering all §2 required section topics (§1 Design language foundation through §14 Change log). For each topic:
-- **§3 Design tokens**: List all tokens by taxonomy category with specific values (e.g., `primary: #1664FF`, `spacing-md: 16px`) and any per-token rationale.
-- **§4 Component inventory**: Full list of Tier A (Arco direct), Tier B (HDC custom), Tier C (forbidden) with canonical import paths, PC/mobile variant declarations, and any composition/a11y notes for Tier B components.
-- **§5 Layout patterns**: Full pattern catalog with names, applicable HR scenarios, PC/mobile mappings.
-- **§6 Accessibility stance**: Per §6 of this rule; restated in instance.
-- **§7-§10**: i18n locale list + RTL declaration, motion principles, iconography sources, content style rules.
-- **§11 Platform tier**: T1/T2/T3 framework restated.
-- **§12-§14**: Governance pointer to this rule, custom skill integration list, change log.
+**Content requirement**: The DS markdown export MUST faithfully represent the DS instance content covering all required instance topics declared in §2 (IT1 Design language foundation through IT14 Change log). For each topic:
+- **IT3 Design tokens**: List all tokens by taxonomy category with specific values (e.g., `primary: #1664FF`, `spacing-md: 16px`) and any per-token rationale.
+- **IT4 Component inventory**: Full list of Tier A (Arco direct), Tier B (HDC custom), Tier C (forbidden) with canonical import paths, PC/mobile variant declarations, and any composition/a11y notes for Tier B components.
+- **IT5 Layout patterns**: Full pattern catalog with names, applicable HR scenarios, PC/mobile mappings.
+- **IT6 Accessibility stance**: the instance references DSG §6, does not restate it.
+- **IT7-IT10**: i18n locale list + RTL declaration, motion principles, iconography sources, content style rules.
+- **IT11 Platform tier**: T1/T2/T3 framework restated.
+- **IT12-IT14**: Governance pointer to this rule, custom skill integration list, change log.
 
 **Format requirement**: Markdown with stable section anchors (`## §X.Y`) for AI-RAG consumption. Tables for token lists, component inventories, breakpoints. No proprietary CD-internal markup; the export is portable text.
 
@@ -447,11 +440,20 @@ The DS markdown export is the canonical artifact that propagates DS instance con
 
 **Transfer mechanism**: The operator brings the CD-generated markdown into a Hub conversation for the §12.3 export conformance review; on a passing review, the operator commits it to the CC monorepo per [MECH] Cross-Tool Workflow Handoff.
 
+## 12.8 Rejected and deferred changes
+
+A change whose §12.4 Approval status resolves to `rejected` or `deferred` does not reach CD-side authoring and produces no DS markdown export or CC mirror sync.
+
+- **Rejected**: the change is closed. The §2.4 New-Components-Or-Tokens entry in the originating feature's UX Design Spec instance is marked rejected (with the rejection reason) and not carried into the DS instance; the feature proceeds with the existing DS inventory.
+- **Deferred**: the change is held for a later instance version. The §2.4 entry is marked deferred; it is re-proposed through §12.3 when revisited, rather than tracked as an open in-flight change.
+
+In neither case is the DS instance, the DS markdown export, or the CC mirror modified.
+
 ---
 
 # 13. Custom skill integration and Hub consumption
 
-The DS instance is consumed at two Claude Code runtime surfaces (`hdc-arco-enterprise-ui` and `hdc-wcag-accessibility-checker` skills, both reading the CC mirror). Hub Claude does not consume the DS instance — at TK-02 step 2.3 it consumes CD-authored design files and reviews the DS markdown export. Their respective contracts with this rule:
+The DS instance is consumed at two Claude Code runtime surfaces (`hdc-arco-enterprise-ui` and `hdc-wcag-accessibility-checker` skills, both reading the CC mirror); the Hub-side consumption surface is covered separately in §13.3. Their respective contracts with this rule:
 
 ## 13.1 `hdc-arco-enterprise-ui`
 
@@ -467,7 +469,7 @@ When this rule changes, the skill MAY need prompt adjustment to track the change
 - An **on-demand sanity-check utility** (per §6.3). NOT auto-invoked at any milestone.
 - Operator manually invokes when a screen warrants a spot check or before a major release.
 - The skill wraps `axe-core` and produces a non-binding diagnostic report; findings are advisory.
-- ESLint `eslint-plugin-jsx-a11y` at `warn` severity (per CC substantive Code Quality Rule Set canonical §1.2) is the routine a11y check, not this skill.
+- ESLint `eslint-plugin-jsx-a11y` at `warn` severity (per CC substantive Code Quality Rule Set canonical) is the routine a11y check, not this skill.
 - Skill source: `.claude/skills/hdc-wcag-accessibility-checker/SKILL.md`
 - The skill name retains "wcag" for stable identifier; functionally it is an a11y diagnostic tool.
 
@@ -503,7 +505,7 @@ Each slice's intent.md MAY include a UX brief section listing screens and compon
 
 ## 14.4 Pairing with Tier 1 code
 
-All Tier 1 React code references design tokens (§4) and component inventory (§5). The `hdc-arco-enterprise-ui` skill enforces this at code generation time by reading the CC mirror; compliance-checker (A9) audits at M4. Lint-level enforcement of the same rules is owned by CC substantive Code Quality Rule Set canonical §3.
+All Tier 1 React code references design tokens (§4) and component inventory (§5). The `hdc-arco-enterprise-ui` skill enforces this at code generation time by reading the CC mirror; compliance-checker (A9) audits at M4. Lint-level enforcement of the same rules is owned by CC substantive Code Quality Rule Set canonical.
 
 ## 14.5 Pairing with custom skills
 
@@ -513,7 +515,7 @@ Skills §13.1 and §13.2 consume the CC mirror of the DS instance plus this rule
 
 **Pairing status note**: P-34 (was: DSG ↔ [MECH] Code Quality Rule Set lint rules) was **RETIRED in Phase 3** per [REF] Hub-CD-CC §5.4.4 — counterparty CQ fully migrated to CC substantive canonical. The substantive alignment between DSG design-level rules and CC-side lint enforcement is now governed at CC's discretion under the decoupled-reference model.
 
-CC substantive Code Quality Rule Set canonical declares the runtime and build-time tool-level enforcement of Tier 1 visual rules. Token-consumption rules in §4 and component-inventory rules in §5 of this Hub-side DSG canonical are implemented as ESLint rules and dependency-cruiser rules per CC substantive CQ canonical §3.2 and §3.3. The accessibility recommendations in §6.1 map to `eslint-plugin-jsx-a11y` rules in CC substantive CQ canonical §1.2 at `warn` severity (advisory only). When this rule changes the design-level rules, the operator notifies CC for CC-side substantive CQ to update under CC's own discipline; no Hub-side P-NN pairing tracks this Hub↔CC coordination.
+CC substantive Code Quality Rule Set canonical declares the runtime and build-time tool-level enforcement of Tier 1 visual rules. Token-consumption rules in §4 and component-inventory rules in §5 of this Hub-side DSG canonical are implemented as ESLint rules and dependency-cruiser rules per CC substantive CQ canonical. The accessibility recommendations in §6.1 map to `eslint-plugin-jsx-a11y` rules in CC substantive CQ canonical at `warn` severity (advisory only). When this rule changes the design-level rules, the operator notifies CC for CC-side substantive CQ to update under CC's own discipline; no Hub-side P-NN pairing tracks this Hub↔CC coordination.
 
 ---
 
@@ -535,7 +537,7 @@ Before signing off an instance update (additive merge at slice M4 / breaking rev
 12. The CC mirror (`specs/design-system.md`) has been re-synced from the reviewed DS markdown export after the update; mirror version metadata matches the CD-side declared instance version
 13. DS markdown export per §12.7 was generated for this update and is referenced in the instance header
 
-If 2+ items are materially weak, the instance update is not yet ready for sign-off.
+Each of items 1-13 is a binary pass/fail check: an item fails when the reviewer can name a specific instance section (or specific missing content) that does not satisfy it. If 2+ items fail by that test, the instance update is not yet ready for sign-off.
 
 ---
 
@@ -544,9 +546,9 @@ If 2+ items are materially weak, the instance update is not yet ready for sign-o
 Red flags that should trigger correction:
 
 - Tier 1 code using hardcoded colors, spacing, or typography values (outside Tailwind layout utilities)
-- VI overrides applied via runtime CSS files (e.g., `theme.css` imported at app entry) instead of build-time `less-loader` `modifyVars` per §3.1 — runtime CSS overrides defeat tree-shaking, complicate dark-mode extension, and break the single-source-of-truth at `packages/hdc-corporate-theme/`
-- An `@arco-themes/...` npm package introduced as a dependency — the project deliberately avoids this distribution mechanism in favor of monorepo-shared theme module per §3.3
-- Per-app theme duplication (separate `hdc-corporate-theme.css` or `theme.less` files inside `apps/{app-slug}/src/frontend/themes/`) instead of the single monorepo `packages/hdc-corporate-theme/` source per §3.2
+- VI overrides applied via runtime CSS files (e.g., `theme.css` imported at app entry) instead of build-time `less-loader` `modifyVars` — violates Rule 3.1 (see §3.1 for the rationale)
+- An `@arco-themes/...` npm package introduced as a dependency — violates Rule 3.3 (see §3.3 for the rationale)
+- Per-app theme duplication (separate `hdc-corporate-theme.css` or `theme.less` files inside `apps/{app-slug}/src/frontend/themes/`) instead of the single monorepo theme source — violates Rule 3.2 (see §3.2)
 - New components introduced in feature code without DS instance update via §12 flow
 - Non-Arco third-party UI libraries being imported in Tier 1 (Material-UI, Ant Design, shadcn/ui, Mantine, etc.)
 - `hdc-arco-enterprise-ui` skill not being invoked during Tier 1 code generation
@@ -559,7 +561,7 @@ Red flags that should trigger correction:
 - Mobile feature shipped using PC components (responsive workaround instead of mobile library)
 - PC feature shipped using mobile components
 - WeChat / DingTalk Mini Program component libraries imported in Tier 1
-- **The CC mirror edited directly without corresponding CD-side SOT update** — the CC mirror at `specs/design-system.md` is read-only and synced from CD via the reviewed DS markdown export; direct edits create drift between SOT and mirror that CC will operate against incoherently at code generation
+- **The CC mirror edited directly without corresponding CD-side SOT update** — a §12.6 forbidden pattern (see §12.6 for the rationale)
 - **A Hub-side DS instance mirror re-introduced** (a `hdc_ref_*` DS instance copy, or DS instance content inlined into a Hub canonical source or PI) — the two-way model in §1.1 deliberately holds no DS instance copy at Hub; re-introducing one is drift back toward the retired three-way model and re-incurs the lock-step synchronization burden §1.1 removed
 - **Hub Claude in TK-02 step 2.3 authoring the UX Design Spec instance without grounding in the CD-authored design files** — component / token / pattern claims must be transcribed from the design files' callouts per §13.3; ungrounded authoring produces UX Design Spec instances that may reference nonexistent or misnamed DS elements
 - **DS markdown export not regenerated at §12 change finalization** — instance content updated in CD SOT but no export produced, leaving the CC mirror stale relative to SOT

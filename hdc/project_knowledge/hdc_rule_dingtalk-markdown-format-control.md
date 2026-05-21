@@ -7,7 +7,7 @@
 - **Source Category**: Cross-category
 - **Management-System Role**: Delivery-interface rule; outside L1-L5 hierarchy; admissible across all four task categories per [OS] §2.3.2; this source is not itself an L2, L3, L4, or L5 artifact
 - **Relationship to [OS]**: Serves as the active canonical DingTalk format-control source referenced by the Project Operating Model
-- **Pairings I participate in**: None currently (per [OS] §8.5.2 as of this revision)
+- **Pairings I participate in**: None currently (per [OS] §8.5.2, which is always the live authority)
 
 ## How to use this source
 
@@ -50,6 +50,8 @@ Rules:
 - When a source file needs to show raw syntax literally, fence it or put it in inline code.
 - Avoid decorative use of DingTalk-only markers in source files when plain Markdown can carry the same meaning with less ambiguity.
 - This readability rule is a project constraint for Claude use. It is not a claim about DingTalk import behavior.
+
+Sub-case — a source file that itself documents DingTalk syntax (this file is one): such a file is a Context A project source for Claude reading, and its DingTalk syntax content is handled fully by the fencing rule above — raw DingTalk syntax shown literally is fenced or code-spanned, while DingTalk markers used as actual formatting are read as syntax. No separate context applies; the file does not become a Context B deliverable by virtue of its subject matter.
 
 ## 2.2 Context B — DingTalk-targeted deliverables
 
@@ -111,6 +113,8 @@ Approved inline styles:
 - highlight: `==text==`
 - inline code: `` `text` ``
 
+Note — delimiter collision: subscript (`~text~`) and strikethrough (`~~text~~`) both use the `~` character. When both forms could apply to the same span, consult the linked `Markdown 使用手册` (§3) for the authoritative parsing precedence; this file does not assert one. When a literal `~` is needed, place it inside inline code.
+
 Use inline code when text is functioning as a literal data field name or a similar machine-oriented identifier such as a schema field, property name, parameter name, or configuration key.
 
 Examples:
@@ -133,6 +137,8 @@ Approved list forms:
 - unordered list: `- Item`
 - task list: `[] Task`
 - task list: `[x] Task`
+
+Nested or indented lists are not part of this documented allowlist — §4.3 covers ordered, unordered, and task lists only, with no nesting depth specified. Treat nested lists as not approved unless verified against the linked `Markdown 使用手册` (§3); prefer a flatter list structure per the §5.2 guidance to avoid nesting when a flatter structure can preserve meaning more safely.
 
 ## 4.4 Blockquote
 
@@ -206,6 +212,8 @@ Use fenced Mermaid blocks only:
 
 - ```` ```mermaid ````
 
+A Mermaid fence is a §4.9 language-tagged fenced code block that DingTalk additionally renders as a diagram; this is a rendering note about §4.9, not a separate syntax form.
+
 ---
 
 # 5. Output profiles
@@ -256,7 +264,9 @@ If a structure cannot satisfy these restrictions, choose the closest safer Markd
 
 # 6. Excluded from this project profile
 
-The following are excluded from this project profile because they are not explicitly documented in the DingTalk materials consulted for this file, or because they create avoidable ambiguity for project use:
+The following are excluded from this project profile for one of the two reasons below. Each item is tagged with the reason that applies, because the reason determines whether the item could be re-included later (a `not documented` item could be re-included if DingTalk documentation is found for it; an `avoidable ambiguity` item is excluded as a project choice even where a form exists).
+
+Excluded because not explicitly documented in the DingTalk materials consulted for this file:
 
 - raw HTML blocks
 - inline HTML
@@ -267,11 +277,14 @@ The following are excluded from this project profile because they are not explic
 - footnotes
 - definition lists
 - reference-style links
-- Setext headings
-- indented code blocks
-- tilde-fenced code blocks
 - undocumented image title or metadata patterns
 - Markdown extensions not explicitly included in Section 4
+
+Excluded because they create avoidable ambiguity for project use — each has a documented approved counterpart in Section 4, so the alternative form is redundant and ambiguous:
+
+- Setext headings (ATX headings are the approved form per §4.1)
+- indented code blocks (backtick fenced code blocks are the approved form per §4.9)
+- tilde-fenced code blocks (backtick fenced code blocks are the approved form per §4.9)
 
 The following are also excluded from DingTalk-targeted source contracts in this project because official export guidance indicates DingTalk-only elements may be downgraded:
 
@@ -379,8 +392,7 @@ When referring to a field name, write `sla_policy_id` as inline code.
 | Status | Approved |
 ```
 
-Write field names such as `sla_policy_id`, `wf_inst_id`, and `warning_threshold_pct` as inline code in tables and in normal prose.
-Do not leave them as plain prose when they are being used as literal identifiers.
+Field names follow the §4.2 inline-code rule.
 
 ## 8.6 Code block
 

@@ -9,7 +9,7 @@
 - **Boundary note**: This source intentionally excludes `evidence.md` and `test-plan.yaml`. `evidence.md` is an execution-side approval pack standard for the AI virtual development team, not a project canonical source in this hub; `test-plan.yaml` is owned by `[TPL] Test Plan YAML Schema`. For the semantic description of `evidence.md` and its distinction from the milestone-level Test Evidence Report, see [MECH] CI/CD Milestone Policy §6.
 - **Relationship to [OS]**: Supports the Specify loop by creating lower-ambiguity execution interfaces without turning this hub into an engineering-design repository
 - **Relationship to [MECH] Development Track Workflow**: intent.md and acceptance.yaml are produced in TK-03 of the Development Track Workflow; consumed in TK-06, TK-10, TK-11, TK-12, TK-13
-- **Relationship to [RULE] Claude Code Architecture Rules**: Permissions declared in acceptance.yaml must respect tier boundaries defined in that source; UX brief in intent.md only appears when Tier 1 is involved; repository path layout (`apps/{app-slug}/specs/...`) is owned by CC substantive CCAR canonical §Y.1
+- **Relationship to [RULE] Claude Code Architecture Rules**: Permissions declared in acceptance.yaml must respect tier boundaries defined in that source; UX brief in intent.md only appears when Tier 1 is involved; the substantive repository path layout detail (`apps/{app-slug}/specs/...`) is owned by the CC-side substantive canonical
 - **Relationship to [MECH] CI/CD Milestone Policy**: §6 owns the semantic disambiguation between `evidence.md` and the milestone-level Test Evidence Report; §6.4 owns the `operator_digest` definition that appears in this source's evidence_required default set
 - **Relationship to [REF] Hub-CD-CC Architecture**: intent.md and acceptance.yaml main bodies are produced by Hub Claude at TK-03 per §5.1 content pillar; when Tier 1 is involved, the upstream UX Design Spec instance is Hub-authored at TK-02 Step 2.3 per [TPL] UX Design Spec (drawing from CD-produced design files per §5.2 presentation pillar concept-vs-realization split, per [RULE] DSG §13.3), and is consumed as input source for the intent.md UX brief field per §2.3 below. After TK-03 conclusion, both files are transferred to CC via [MECH] Cross-Tool Workflow Handoff §3.1 for the implementation pillar.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2.2 (CD → Hub) brings CD-produced design files into Hub as input to TK-02 Step 2.3 UX Design Spec instance authoring when Tier 1 is involved; §3.1 (Hub → CC) carries the finished interface pair plus the Hub-authored UX Design Spec instance markdown and CD design files (as visual reference) onward to CC.
@@ -48,7 +48,7 @@ This source defines the writing standard for two interface files per slice:
 1. `apps/{app-slug}/specs/intent/{slice-id}.md`
 2. `apps/{app-slug}/specs/acceptance/{slice-id}.yaml`
 
-Both files are under the active feature's app directory per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1). The path prefix `apps/{app-slug}/` is mandatory; no feature-level intent or acceptance lives at the repository root.
+Both files are under the active feature's app directory; the substantive repository layout detail is owned by the CC-side substantive canonical. The path prefix `apps/{app-slug}/` is mandatory; no feature-level intent or acceptance lives at the repository root.
 
 ## 0.2 Project-level singleton references and per-feature UX Design Spec instance path
 
@@ -161,7 +161,7 @@ When PRD or TDD is incomplete or ambiguous:
 ## 1.7 Stable terminology and IDs
 
 Across the interface pair:
-- use one stable `app_slug` from the active app's frozen-roster value (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster); must match phase PRD §1.1 `App Slug` and phase TDD §1 `app_slug`; the file's `phase_number` field must match phase PRD §1.1 `Phase Number` and phase TDD §1 `phase_number`
+- use one stable `app_slug` from the active app's frozen-roster value (the frozen app-slug roster is substantive detail owned by the CC-side substantive canonical); must match phase PRD §1.1 `App Slug` and phase TDD §1 `app_slug`; the file's `phase_number` field must match phase PRD §1.1 `Phase Number` and phase TDD §1 `phase_number`
 - use one stable `feature_slug` from the source PRD and TDD file naming under `apps/{app-slug}/specs/prd/` and `apps/{app-slug}/specs/tdd/`
 - use one stable `slice_id` consistent with `apps/{app-slug}/specs/slice-list/{feature-slug}.md`
 - keep actor names stable across PRD / TDD / intent / acceptance
@@ -171,7 +171,7 @@ Across the interface pair:
 
 ## 1.8 Approved-interface rule
 
-An approved execution interface must be strong enough for downstream design and build.
+An approved execution interface must be strong enough for downstream design and build — see §1.12 for the three-criteria operational test.
 
 Therefore:
 - assumptions are allowed only when they do not materially redefine business or architecture logic
@@ -257,7 +257,7 @@ It is not:
 
 ## 2.2 Required structure
 
-Use this structure unless a materially justified variation is needed:
+Use this structure. The only permitted omissions are: the `UX brief` section when the slice has no Tier 1 scope, and the `Slice tasks` section when the slice has no meaningful task decomposition (per §2.3 Slice tasks granularity). No other section may be dropped, and no section may be added without a structural change to this standard.
 
 ```markdown
 # <SLICE_ID> <SLICE_NAME>
@@ -309,7 +309,7 @@ State stable existing behaviors, contracts, controls, or data expectations that 
 
 **Source**: The Hub-authored UX Design Spec instance markdown for this feature, at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`. The instance is authored by Hub Claude at TK-02 Step 2.3 per [TPL] UX Design Spec, grounded in CD-produced design files (transferred from CD per [MECH] Cross-Tool Workflow Handoff §2.2) per [RULE] DSG §13.3, then committed to the CC monorepo before TK-03 begins. The UX brief here is a **slice-narrow extraction** from the feature-level UX Design Spec instance — it picks the screens, interactions, and call-outs that fall within this slice's modules.
 
-**Producer**: Hub Claude at TK-03, consuming the Hub-authored UX Design Spec instance markdown as input (per §1.11 producer-locations table). Hub Claude does not invent UX content at TK-03; if the UX Design Spec instance is silent on a UX point the slice needs, surface as a clarification trigger and route back — either to TK-02 Step 2.3 for instance re-authoring (when the gap is content the existing CD design files can support) or further upstream to CD for additional design file coverage (when the gap requires new visual design work) per [TPL] Conversion Spec §5.4.
+**Producer**: Hub Claude at TK-03, consuming the Hub-authored UX Design Spec instance markdown as input (per §1.11 producer-locations table). Hub Claude does not invent UX content at TK-03; if the UX Design Spec instance is silent on a UX point the slice needs, surface as a clarification trigger and route back — either to TK-02 Step 2.3 for instance re-authoring (when the gap is content the existing CD design files can support) or further upstream to CD for additional design file coverage (when the gap requires new visual design work) per `[TPL] PRD + TDD to Intent and Acceptance Conversion Specification` (hereafter Conversion Spec) §5.4.
 
 **Required sub-sections**:
 
@@ -326,7 +326,7 @@ State stable existing behaviors, contracts, controls, or data expectations that 
 - For each screen, note any specific empty / loading / error state requirements beyond DSG §10 content style defaults
 
 ### Accessibility call-outs
-- Any a11y considerations specific to this slice beyond DSG §6.1 baseline; reference the UX Design Spec instance §2.5 (Accessibility call-outs, slice-specific only) and lift only the items that apply to this slice's screens
+- Any a11y considerations specific to this slice beyond DSG §6.1 baseline; reference the UX Design Spec instance §2.5 (Accessibility call-outs, feature-specific only) and lift only the items that apply to this slice's screens
 
 ### Internationalization call-outs
 - Any i18n considerations specific to this slice beyond DSG §7 defaults; reference UX Design Spec instance §2.6; translation volume estimate if non-trivial
@@ -435,7 +435,7 @@ The following leakage patterns indicate intent.md is mixing levels. Each belongs
 | Test execution steps | test-plan.yaml |
 | Implementation options not yet approved as architecture direction | TDD |
 | Design tokens, component internal specs | Design System Governance |
-| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) |
+| Repository path layout structure | CC-side substantive canonical (repository layout) |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 
 ## 2.5 Minimal template
@@ -519,6 +519,7 @@ It must be:
 
 ```yaml
 app_slug:                    # string, matches active app from frozen roster (PRD §1.1, TDD §1)
+phase_number:                # string/number, matches phase PRD §1.1 Phase Number and phase TDD §1 phase_number
 slice_id:                    # string, matches intent.md filename
 feature_slug:                # string, matches feature-slug
 traces_to_prd:               # relative path, e.g., "apps/{app-slug}/specs/prd/phase-{N}.md"
@@ -538,7 +539,7 @@ out_of_scope: []                  # see §3.10
 evidence_required: []             # see §3.11
 ```
 
-**Path discipline**: app-scoped paths (`traces_to_prd`, `traces_to_tdd`, `traces_to_intent`) all use the `apps/{app-slug}/` prefix; PRD and TDD paths use phase-level naming (`phase-{N}.md`); intent paths use slice-level naming (`{slice-id}.md`). The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix; it points to the **CC mirror** at `specs/design-system.md` because downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read the CC mirror as their authoritative DS reference. Hub holds no DS instance copy; Hub Claude's spec-time grounding flows through the CD-authored design files and does not appear in CC-side traceability fields. This split follows the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1).
+**Path discipline**: app-scoped paths (`traces_to_prd`, `traces_to_tdd`, `traces_to_intent`) all use the `apps/{app-slug}/` prefix; PRD and TDD paths use phase-level naming (`phase-{N}.md`); intent paths use slice-level naming (`{slice-id}.md`). The `traces_to_design_system` path is a project-level singleton and does not get an `apps/` prefix; it points to the **CC mirror** at `specs/design-system.md` because downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read the CC mirror as their authoritative DS reference. Hub holds no DS instance copy; Hub Claude's spec-time grounding flows through the CD-authored design files and does not appear in CC-side traceability fields. This split follows the repository layout, which is substantive detail owned by the CC-side substantive canonical.
 
 **App slug + phase consistency**: `app_slug` must match the value populated in phase PRD §1.1 `App Slug` (per [TPL] PRD §0.7.1) and phase TDD §1 `app_slug` header field (per [TPL] TDD §1); `phase_number` must match phase PRD §1.1 `Phase Number` and phase TDD §1 `phase_number`. A mismatch is a conversion-time blocker, not a downstream cleanup item.
 
@@ -736,7 +737,7 @@ evidence_required:
 - `codex_review`: Codex plugin review output at `apps/{app-slug}/evidence/{slice-id}/codex/codex-review.md`
 - `domain_judge_questions`: A4 generated business and UX perspective questions
 - `accessibility_audit` (when Tier 1 is involved): SK-W accessibility audit output
-- `operator_digest`: the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4)
+- `operator_digest`: the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per CC substantive CI/CD Milestone Policy canonical (operator-digest path)
 
 **Slice-specific additions when materially needed**:
 - `ui_flow_recording`
@@ -754,10 +755,10 @@ evidence_required:
 | Database table or column names | TDD or code |
 | Design token values | Design System Governance |
 | UI component internal specifications | Design System Governance or code |
-| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) |
+| Repository path layout structure | CC-side substantive canonical (repository layout) |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 
-**Structural-integrity note — `ears_pattern` field**: per §1.5.1, `ears_pattern` is a required field on every acceptance.yaml entry that contains a behavior statement (must_pass_scenarios.then, non_regression_constraints.description, edge_cases.expected_behavior, permissions.rule, data_expectations.integrity_rule, accessibility_expectations.description, and observability_expectations.expected_content when it is a behavior statement). Entries that do not contain behavior statements (e.g., pure structural shape declarations) omit the field. The TK-04 entry self-check at CC verifies that every entry expected to carry `ears_pattern` does carry one and that the value is in the closed enum (per [MECH] CI/CD Milestone Policy §2.1 mechanical integrity check).
+**Structural-integrity note — `ears_pattern` field**: the fields that require `ears_pattern` (and those that omit it) are enumerated in §1.5.1. The TK-04 entry self-check at CC verifies that every entry expected to carry `ears_pattern` does carry one and that the value is in the closed enum (per [MECH] CI/CD Milestone Policy §2.1 mechanical integrity check).
 
 ---
 
@@ -777,7 +778,7 @@ evidence_required:
 - `permissions.owning_tier` must respect phase TDD `§1.Tier-Responsibility-Mapping`
 - `data_expectations` should respect phase TDD `§4.{feature-slug}.Data-Model`
 - intent.md `Slice tasks` must respect the TDD's module decomposition (tasks reference modules from `§4.{feature-slug}.Module-Decomposition`)
-- Contract-test references for BFF-to-domain APIs follow the Pact pair convention `{app-slug}-bff_{domain-name}` per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4)
+- Contract-test references for BFF-to-domain APIs follow the Pact pair convention `{app-slug}-bff_{domain-name}`; the substantive Pact contract testing convention is owned by the CC-side substantive canonical
 
 ## 4.3 Pairing with Design System Governance and UX Design Spec
 
@@ -827,5 +828,5 @@ Red flags that should trigger correction:
 - **Reference to `specs/design-system-changes/{change-id}.md` anywhere in intent.md or acceptance.yaml — this legacy path is no longer at CC; replace with reference to the Hub-authored UX Design Spec instance §2.4 entry**
 - **Reference to `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` anywhere in intent.md or acceptance.yaml — this legacy path is retired under the TK-02 Step 2.3 Hub-authoring flip; replace with the Hub-authored UX Design Spec instance markdown path `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`**
 - **`traces_to_design_system` field value pointing anywhere other than the CC mirror path `specs/design-system.md`** — the traces field must point to the CC-side path that downstream CC consumers (A1/A2/A3 test writers, SK-F at code time) read. Hub holds no DS instance copy; Hub Claude's spec-time grounding flows through the CD-authored design files and does not appear in CC-side traceability fields.
-- **`evidence_required` missing `operator_digest` (required default per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4))**
+- **`evidence_required` missing `operator_digest` (required default per CC substantive CI/CD Milestone Policy canonical (operator-digest path))**
 - Reference to phase TDD `§4.{feature-slug}.UX-Strategy` — this sub-section has been removed from TDD; replace with reference to the Hub-authored UX Design Spec instance for the feature

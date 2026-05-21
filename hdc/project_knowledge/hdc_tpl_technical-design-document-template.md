@@ -11,7 +11,7 @@
 - **Relationship to [PRIN] People Experience Design Principles**: Applied via UX Design Spec instances (Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`) when a feature touches Tier 1; the TDD does not embed UX strategy content
 - **Relationship to [REF] Hub-CD-CC Architecture**: TDD is Hub-authored (specification main body per §5.1 content pillar); when a feature's `Header.tier_1_involved: true`, the TDD's per-feature declaration triggers a UX Design Spec instance authoring cycle in Claude Design (presentation pillar) per §5.2; CC consumes the resulting bundle alongside this TDD when slice implementation begins (implementation pillar)
 - **Relationship to [RULE] Workspace Topology**: Node assignment for each feature in the phase is owned by Workspace Topology §6 (workflow) / §2.1 (logical node catalog); the per-feature §4.{feature-slug} sub-section records the assigned node for that feature. Phase-level TDD does not carry a single `assigned_node` header field because a phase may span multiple features executing on different nodes
-- **Relationship to [RULE] Claude Code Architecture Rules**: Module decomposition and tier mapping in per-feature §4.{feature-slug} must respect three-tier architecture defined there; per-feature module decomposition may reference `packages/domain/{domain-name}/` modules per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) Model B (independent domain lifecycle)
+- **Relationship to [RULE] Claude Code Architecture Rules**: Module decomposition and tier mapping in per-feature §4.{feature-slug} must respect three-tier architecture defined there; per-feature module decomposition may reference `packages/domain/{domain-name}/` modules per the Pact contract testing convention Model B (independent domain lifecycle), whose substantive detail is owned by the CC-side substantive canonical
 - **Relationship to [MECH] Development Track Workflow**: Template consumed in TK-02; TK-02 outputs the phase TDD plus paired phase test plan, per-feature slice-lists, app-scoped openapi additions, and per-feature node assignments
 - **Relationship to [MECH] CI/CD Milestone Policy**: Per-feature module decomposition slice-size advisory cross-references CI/CD Milestone Policy §2.7 soft upper limits; phase-level a11y testing strategy in §2.2.7 aligns with Milestone Policy thresholds (Milestone Policy §2.4.1 if a11y gate semantics apply in a future revision)
 - **Relationship to [RULE] Design System Governance**: TDD per-feature `§4.{feature-slug}.Header.tier_1_involved` declaration triggers the UX Design Spec instance authoring path governed by DSG. TDD itself does not author DS-coupled UX content; it declares scope and leaves authoring to CD per the two-way distribution model in DSG §1.1.
@@ -57,6 +57,8 @@ TDD level applies at the **phase level** as a whole, not per feature inside the 
 
 Declare level in document header. **Anti-pattern**: Lite for what is Feature/Full scope; Feature for a phase that introduces foundational architecture (which is Full by definition since Phase 1).
 
+**Lite-vs-Feature decision rubric**: choose Lite over Feature only when all three hold — (a) the phase introduces exactly one feature, not several; (b) the feature produces no §1 architecture delta and no §2 cross-feature delta (a "no delta" statement, not a delta section, is the truthful content for both); (c) the feature touches no NFR baseline (no SLA, concurrency, security, or compliance target is revised). If any of the three fails — two or more features, a real §1 or §2 delta, or any NFR-baseline revision — the phase is Feature, not Lite. Compliant Lite: a Phase 3 that adds a single CSV-export button to an existing list view, reusing established Tier 1/2/3 patterns, no new endpoint contract class, no latency or throughput target changed. Non-compliant Lite (is actually Feature): a Phase 3 that adds a single report-scheduling feature which introduces a new background-job execution path and raises the app's concurrency ceiling — one feature, but it carries a §1 delta and an NFR-baseline revision, so it is Feature.
+
 ## 0.4 Boundary with other artifacts
 
 - **Phase PRD owns**: business goals, user value, phase scope, scenarios, business rules, NFR expectations for the phase, feature list (with feature-slug per feature). **The PRD may additionally carry logical system architecture, logical data model, and business-entity relationship diagrams when the business solution materially requires them (e.g., metadata-as-product platforms where the data structure is itself the product specification); the TDD then elaborates engineering-architecture decisions from that framing rather than treating PRD-side architectural content as out-of-scope.**
@@ -71,25 +73,25 @@ Declare level in document header. **Anti-pattern**: Lite for what is Feature/Ful
 
 If content is misplaced, move it. In particular, do not let per-feature design questions inside §4.{feature-slug} smuggle in cross-feature decisions that belong in §2; do not let phase-level NFR drift into per-feature §4 sub-sections; do not embed UX strategy content inside `§4.{feature-slug}` — UX strategy is intentionally externalized to UX Design Spec instances.
 
-**Deferred ownership notes**: This template intentionally does not carry sections for Information Architecture (IA), Permission Model, or Visibility Matrix as standalone TDD sub-sections. These topics are touched at the phase level under §2 (Cross-feature concerns — security baseline, integration boundaries) and at the per-feature level under §4 sub-sections (Module-Decomposition, API-Contracts). Whether to promote any of these to independent `[TPL]` artifacts is deferred for later evaluation; when the operational need becomes concrete (e.g., a phase whose IA design merits a standalone artifact, or a Permission Model that cuts across multiple features in non-trivial ways), surface the need and consider creating a dedicated `[TPL]` per [OS] §8.1 durable-first rule + §8.3 abstract-before-storing rule.
+**Deferred ownership notes**: This template intentionally does not carry sections for Information Architecture (IA), Permission Model, or Visibility Matrix as standalone TDD sub-sections. Each topic is absorbed by a concrete existing sub-section: **Permission Model** — phase-level authorization roles and data classifications in §2.2.2 (Security baseline), per-feature permission-ownership tier in §4.{feature-slug}.Module-Decomposition; **Visibility Matrix** — phase-level visibility/authorization rules in §2.2.2 (Security baseline), per-feature visibility scoping in §4.{feature-slug}.Module-Decomposition and §4.{feature-slug}.API-Contracts; **Information Architecture (IA)** — phase-level cross-cutting navigation structure in §2.1.1 (§1 Architecture overview), per-feature structural decomposition in §4.{feature-slug}.Module-Decomposition. Whether to promote any of these to independent `[TPL]` artifacts is deferred for later evaluation; when the operational need becomes concrete (e.g., a phase whose IA design merits a standalone artifact, or a Permission Model that cuts across multiple features in non-trivial ways), surface the need and consider creating a dedicated `[TPL]` per [OS] §8.1 durable-first rule + §8.3 abstract-before-storing rule.
 
 ## 0.5 Y-chain upstream role
 
 The phase TDD, paired with the phase PRD, is the upstream of per-slice intent and acceptance artifacts (the Y-chain). Specifically, for each slice belonging to a feature in this phase, the TDD provides:
 
 - Module identity for slice decomposition — from the relevant `§4.{feature-slug}.Module-Decomposition`
-- API contracts and tier boundaries for `Must not break` items in intent — from `§4.{feature-slug}.API-Contracts` and from phase `§1.Architecture` and `§2.Integration-Boundaries`
+- API contracts and tier boundaries for `Must not break` items in intent — from `§4.{feature-slug}.API-Contracts` and from phase `§1` and `§2.2.5`
 - Data model invariants for `data_expectations` in acceptance — from `§4.{feature-slug}.Data-Model`
-- Permission ownership tier for `permissions` in acceptance — from `§4.{feature-slug}.Module-Decomposition` plus phase `§2.Security-Baseline`
+- Permission ownership tier for `permissions` in acceptance — from `§4.{feature-slug}.Module-Decomposition` plus phase `§2.2.2`
 - UX and accessibility scope for intent.md UX brief and acceptance a11y expectations — from the feature's UX Design Spec instance (Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`)
 
 The phase TDD must be stable before TK-03 per-slice artifact production begins for any feature in the phase. Per-feature spec sub-sections inside §4 may be elaborated in stages as long as the slice extraction for a given feature waits for that feature's §4 sub-section to be stable.
 
 ## 0.6 Multi-app monorepo positioning
 
-In the multi-app monorepo, every phase TDD belongs to exactly one app and one phase. The TDD's `app_slug` and `phase_number` header fields (§1) anchor the phase to its app and phase number; the canonical filesystem location is `apps/{app-slug}/specs/tdd/phase-{N}.md`. Cross-app phase scope is not sanctioned at the TDD level; if a capability genuinely spans multiple apps, it likely belongs in a `packages/domain/{domain-name}/` package consumed by both apps per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) Model B, and is referenced inside individual app phases that consume it.
+In the multi-app monorepo, every phase TDD belongs to exactly one app and one phase. The TDD's `app_slug` and `phase_number` header fields (§1) anchor the phase to its app and phase number; the canonical filesystem location is `apps/{app-slug}/specs/tdd/phase-{N}.md`. Cross-app phase scope is not sanctioned at the TDD level; if a capability genuinely spans multiple apps, it likely belongs in a `packages/domain/{domain-name}/` package consumed by both apps per the Pact contract testing convention Model B (whose substantive detail is owned by the CC-side substantive canonical), and is referenced inside individual app phases that consume it.
 
-Node assignment is per-feature, not per-phase: a phase may introduce multiple features that execute on different logical nodes. Each `§4.{feature-slug}` per-feature sub-section records its `assigned_node`. Node assignment workflow is owned by CC substantive Workspace Topology canonical (node-assignment 4-step procedure §6).
+Node assignment is per-feature, not per-phase: a phase may introduce multiple features that execute on different logical nodes. Each `§4.{feature-slug}` per-feature sub-section records its `assigned_node`. Node assignment workflow is owned by CC substantive Workspace Topology canonical (node-assignment 4-step procedure).
 
 ## 0.7 Phase ontology and per-feature structure
 
@@ -112,7 +114,7 @@ Phase 1 and Phase N ≥ 2 TDDs share the same outer structure but differ in body
 - **§1 Architecture in Phase N ≥ 2**: deltas only. State only what changes from the phase-1 baseline. If nothing changes, write "No architecture deltas; phase-1 baseline applies." Reference the phase-1 TDD by path.
 - **§2 Cross-feature concerns in Phase 1**: complete baselines for NFR, security, observability, deployment, integration boundaries (the externally-integrated systems known at phase 1), compliance, phase-level testing strategy, phase-level decision record.
 - **§2 Cross-feature concerns in Phase N ≥ 2**: deltas only. New external integrations, NFR baseline revisions, observability extensions, etc. If nothing changes, write "No cross-feature delta; phase-1 baseline applies."
-- **§3 Walking skeleton scope**: Phase 1 only. Phase N ≥ 2 TDDs do not contain §3 at all (the §3 number is intentionally skipped in Phase N ≥ 2 TDDs to preserve direct comparability of section numbers between phases).
+- **§3 Walking skeleton scope**: Phase 1 only. Phase N ≥ 2 TDDs do not contain §3 at all (the §3 number is intentionally skipped in Phase N ≥ 2 TDDs to preserve direct comparability of section numbers between phases). A Phase N ≥ 2 body retains this numeric gap: §4 follows directly after §2, and the body is not renumbered to close §3.
 - **§4 Per-feature engineering spec**: identical structure across Phase 1 and Phase N ≥ 2. Each phase covers only the features introduced or materially evolved in that phase.
 
 ## 0.9 Internal numbering convention for §4
@@ -130,7 +132,7 @@ This convention keeps cross-references stable across phases: the same feature re
 ```markdown
 # [TDD] <App Display Name> — Phase <N>
 
-- **app_slug**: <app-slug>                    [MANDATORY; from frozen app-slug roster per CC substantive CCAR canonical §Y]
+- **app_slug**: <app-slug>                    [MANDATORY; from the frozen app-slug roster, which is owned by the CC-side substantive canonical]
 - **phase_number**: <N>                       [MANDATORY; positive integer; matches paired PRD §1.1 Phase Number]
 - **TDD level**: Full | Feature | Lite        [per §0.3]
 - **Status**: Draft | Active | Superseded
@@ -147,13 +149,13 @@ This convention keeps cross-references stable across phases: the same feature re
 
 **Mandatory field notes**:
 
-- **`app_slug`**: must match the app's directory name under `apps/{app-slug}/` and the frozen app-slug roster maintained at workspace level (per CC substantive CCAR canonical §Y). Immutable for the life of the TDD; if the phase is conceptually re-targeted to a different app, a new TDD is authored under the new app, not the existing one mutated.
+- **`app_slug`**: must match the app's directory name under `apps/{app-slug}/` and the frozen app-slug roster maintained at workspace level (the roster is owned by the CC-side substantive canonical). Immutable for the life of the TDD; if the phase is conceptually re-targeted to a different app, a new TDD is authored under the new app, not the existing one mutated.
 - **`phase_number`**: monotonic positive integer starting at `1` per app. Phase 1 = 0→1; Phase N ≥ 2 = additive iteration. Must match the paired PRD's `Phase Number` field (per [TPL] PRD Template §0.7.1). Immutable for the life of the TDD.
 - **`Features in this phase`**: enumerates the feature-slugs covered by §4 sub-sections. Must be identical (by set membership and slug spelling) to the paired PRD §7.1 Feature List.
 
 **Discipline note**: `app_slug` and `phase_number` are not metadata. They are commitments that bind this technical design to a specific app and a specific phase of that app's lifecycle. Treat changes to these fields with the same discipline as architectural decisions in §1 and §2.
 
-**No phase-level `assigned_node`**: Unlike feature-level singleton TDDs (the prior ontology), a phase TDD does not declare `assigned_node` in the header. A phase may contain multiple features executing on different nodes; node assignment is recorded per-feature inside `§4.{feature-slug}.Header`. Node assignment workflow is owned by CC substantive Workspace Topology canonical (node-assignment 4-step procedure §6).
+**No phase-level `assigned_node`**: Unlike feature-level singleton TDDs (the prior ontology), a phase TDD does not declare `assigned_node` in the header. A phase may contain multiple features executing on different nodes; node assignment is recorded per-feature inside `§4.{feature-slug}.Header`. Node assignment workflow is owned by CC substantive Workspace Topology canonical (node-assignment 4-step procedure).
 
 ---
 
@@ -165,7 +167,7 @@ This convention keeps cross-references stable across phases: the same feature re
 
 **Purpose**: One-page technical approach synthesis for the phase as a whole.
 
-**Phase 1 content**: Restatement of the phase 1 problem in technical terms; high-level approach for the foundational architecture; the three tiers as instantiated for this app; key foundational architectural decisions (bulleted, details in `§2.Decision-Record`); high-level sequence or data flow diagram covering the canonical end-to-end across the phase 1 feature set.
+**Phase 1 content**: Restatement of the phase 1 problem in technical terms; high-level approach for the foundational architecture; the three tiers as instantiated for this app; key foundational architectural decisions (bulleted, details in `§2.2.8`); high-level sequence or data flow diagram covering the canonical end-to-end across the phase 1 feature set.
 
 **Phase N ≥ 2 content**: Architectural deltas relative to phase-1 baseline. State only what changes (e.g., new tier-3 domain consumed, new external integration introduced, BFF-to-domain Pact convention extended). Reference phase-1 by path. If no architecture delta, state "No architecture deltas; phase-1 architecture applies." in one sentence and proceed to §2.
 
@@ -243,7 +245,7 @@ The §2 sub-sections cover concerns that apply across all features in the phase 
 
 **Purpose**: Specify phase-level testing approach that drives the phase test plan (master, markdown) and feeds per-feature integration test plans and per-slice test plans.
 
-**Phase 1 content**: Per-tier dominant test types and approximate weight (consistent with CC substantive Claude Code Architecture Rules canonical (per-tier dominant test types §6)); contract testing approach using Pact convention `{app-slug}-bff_{domain-name}` per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) (consumer-driven Pact); integration test strategy (cross-feature scenarios — these populate the phase test plan and feature integration test plans); E2E approach across phase 1 features; visual regression scope baseline (cross-reference per-feature UX Design Spec instance §2.7 when applicable); accessibility testing baseline (cross-reference [RULE] Design System Governance §6 stance plus per-feature UX Design Spec instance §2.5 when slice-specific concerns are declared); performance testing approach (scenarios, SLI/SLO at app scale); security testing scope; test data strategy; determinism and isolation approach.
+**Phase 1 content**: Per-tier dominant test types and approximate weight (consistent with CC substantive Claude Code Architecture Rules canonical (per-tier dominant test types)); contract testing approach using Pact convention `{app-slug}-bff_{domain-name}` per the Pact contract testing convention (consumer-driven Pact), whose substantive detail is owned by the CC-side substantive canonical; integration test strategy (cross-feature scenarios — these populate the phase test plan and feature integration test plans); E2E approach across phase 1 features; visual regression scope baseline (cross-reference per-feature UX Design Spec instance §2.7 when applicable); accessibility testing baseline (cross-reference [RULE] Design System Governance §6 stance plus per-feature UX Design Spec instance §2.5 when slice-specific concerns are declared); performance testing approach (scenarios, SLI/SLO at app scale); security testing scope; test data strategy; determinism and isolation approach.
 
 **Phase N ≥ 2 content**: Testing strategy deltas only. New cross-feature scenario classes, new contract-test pairs, new performance-test scenarios. Plus an explicit regression policy from prior phase: how prior-phase test scenarios are re-executed (subset / full / risk-based) at phase N exit. Otherwise state "No testing strategy delta; phase-1 baseline applies; prior-phase regression: <subset / full / none>."
 
@@ -272,7 +274,7 @@ A short subsection (1-3 sentences) at the end of §2 that explicitly states the 
 
 **Phase 1 only.** Phase N ≥ 2 TDDs do not contain §3.
 
-**Purpose**: Define the thinnest end-to-end vertical slice that proves the foundational architecture (§1) and cross-feature baselines (§2) work together end-to-end through the CI/CD pipeline to production, before any customer-meaningful feature unit in Phase 1 begins execution. The walking skeleton is itself a node-level work unit (`unit_type: walking_skeleton`) per [RULE] Workspace Topology constitutional residue §4 (node-assignment interface contract) and [MECH] Development Track Workflow §4.0.2; the unit consists of exactly one slice that runs the full M0 → M5 milestone chain. Walking skeleton is **production code, not throwaway prototype** — anchored on Cockburn 2004 *Crystal Clear* and Freeman & Pryce 2009 *Growing Object-Oriented Software, Guided by Tests*, the walking skeleton is shipped to production via M5 in the first or second sprint of Phase 1.
+**Purpose**: Define the thinnest end-to-end vertical slice that proves the foundational architecture (§1) and cross-feature baselines (§2) work together end-to-end through the CI/CD pipeline to production, before any customer-meaningful feature unit in Phase 1 begins execution. The walking skeleton is itself a node-level work unit (`unit_type: walking_skeleton`) per [RULE] Workspace Topology constitutional residue §4 (node-assignment interface contract) and [MECH] Development Track Workflow §4.0.2; the unit consists of exactly one slice that runs the full M0 → M5 milestone chain. Walking skeleton is **production code, not throwaway prototype** — anchored on Cockburn 2004 *Crystal Clear* and Freeman & Pryce 2009 *Growing Object-Oriented Software, Guided by Tests*, the walking skeleton is shipped to production via M5 in the first or second sprint of Phase 1. The operational reason it must be production code is that it has to traverse the app's real M0 → M5 CI/CD pipeline — build, test gates, and staging deploy — so that a successful M5 pass empirically asserts the pipeline is established; a throwaway prototype that bypasses those gates would assert nothing.
 
 The author of a Phase 1 TDD writes §3 by filling in the six sub-sections below. Sub-sections §3.Purpose, §3.Outputs, §3.Walking-skeleton-first-ordering-rule, and §3.Milestone-choreography-and-acceptance-criteria are largely boilerplate referencing canonical sources; the load-bearing instance-specific authoring happens in §3.Walking-Skeleton-Header and §3.Scope-And-End-To-End-Coverage.
 
@@ -290,9 +292,9 @@ The Walking-Skeleton-Header records unit-level metadata for the Phase 1 walking_
 |---|---|---|
 | `unit_id` | `walking-skeleton` (recommended canonical value per [MECH] Development Track Workflow §3.4 glossary) | Author |
 | `unit_type` | `walking_skeleton` | Fixed by ontology |
-| `assigned_node` | One of `dev-node-portable`, `dev-node-stationary-1`, `dev-node-stationary-N` per [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention) | Author (operator pure-judgment per Workspace Topology §6.1 step 1) |
+| `assigned_node` | One of `dev-node-portable`, `dev-node-stationary-1`, `dev-node-stationary-N` per [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention) | Author (operator pure-judgment per the [RULE] Workspace Topology node-assignment procedure) |
 | `prerequisite_units` | `[]` (the walking_skeleton has no prerequisite units in Phase 1) | Fixed by ontology |
-| `feature_branch` | `feature/<app-slug>/walking-skeleton` per CC substantive Workspace Topology canonical (branch topology) + §6.2 | Fixed by branch namespace convention |
+| `feature_branch` | `feature/<app-slug>/walking-skeleton` per CC substantive Workspace Topology canonical (branch topology) | Fixed by branch namespace convention |
 | `phase_number` | `1` (walking_skeleton exists in Phase 1 only per §0.8 asymmetry) | Fixed |
 | `paired_prd_section` | Reference to the Phase 1 PRD section that the walking skeleton's slice operationalizes (typically: a representative feature's first scenario, or the first item in PRD §7.1 Feature List) | Author |
 
@@ -305,37 +307,21 @@ The author states explicitly which architectural elements the walking skeleton's
 Required content:
 
 - **Tier coverage**: Tier 1 (frontend) / Tier 2 (BFF) / Tier 3 (domain). State for each tier whether the walking skeleton touches it minimally (e.g., one route, one controller, one service call) or more substantively. Walking skeleton MUST touch all three tiers — a walking skeleton that skips a tier does not validate that tier's CI/CD path
-- **Persistence path**: state the one representative persistence path the walking skeleton exercises (e.g., a single read or write through the Tier 3 domain service to the chosen persistence backend per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4)). If the app's Phase 1 architecture (§1) declares no persistence backend, state "No persistence in Phase 1 walking skeleton" with the architectural reason
-- **External integration**: if any external integration is in Phase 1 architecture scope (per §2.Integration-Boundaries), state the one representative external integration the walking skeleton exercises; the integration's contract test (Pact pair where applicable per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4).4) is in walking skeleton scope. If no external integration is in Phase 1, state "No external integration in Phase 1 walking skeleton"
+- **Persistence path**: state the one representative persistence path the walking skeleton exercises (e.g., a single read or write through the Tier 3 domain service to the chosen persistence backend per the Pact contract testing convention, whose substantive detail is owned by the CC-side substantive canonical). If the app's Phase 1 architecture (§1) declares no persistence backend, state "No persistence in Phase 1 walking skeleton" with the architectural reason
+- **External integration**: if any external integration is in Phase 1 architecture scope (per §2.2.5), state the one representative external integration the walking skeleton exercises; the integration's contract test (Pact pair where applicable per the Pact contract testing convention, whose substantive detail is owned by the CC-side substantive canonical) is in walking skeleton scope. If no external integration is in Phase 1, state "No external integration in Phase 1 walking skeleton"
 - **CI/CD pipeline establishment**: the walking skeleton's M5 milestone pass empirically asserts the CI/CD pipeline is established for this app through to staging deploy on `main`. The author does not write per-step CI/CD content (CI/CD is owned by [MECH] CI/CD Milestone Policy); the assertion is implicit in the milestone choreography. The AI-dev environment does not produce production deploys — production deployment is the receiving company's CI/CD responsibility after handoff per [MECH] Application Lifecycle Handoff §0.2
 
 For each of the above, the author also states explicitly **what is deferred** to feature units in the same Phase 1 (e.g., "second-tier 2 endpoint coverage deferred to feature unit `time-off-request`"). This deferred-scope list is the boundary contract between walking_skeleton and Phase 1 feature units.
 
 ### 2.3.4 §3.Outputs
 
-The walking skeleton's single PR produces six outputs. The canonical enumeration is owned by CC substantive Workspace Topology canonical (walking-skeleton 6-output set); the Phase 1 TDD §3 references that section rather than duplicating the list.
+The walking skeleton's single PR produces six outputs. The canonical enumeration is the walking-skeleton 6-output set owned by the CC-side substantive Workspace Topology canonical; the Phase 1 TDD §3 references that set rather than reproducing the list.
 
-Fixed text the author copies into the Phase 1 TDD instance:
-
-> The walking skeleton produces the six outputs canonically enumerated in CC substantive Workspace Topology canonical (walking-skeleton 6-output set):
-> 1. `apps/{app-slug}/CLAUDE.md` (app-level Claude Code memory file, lazy-loaded when Claude reads files in this app's subtree)
-> 2. `apps/{app-slug}/package.json` (app's own package manifest; Java apps substitute `pom.xml` or `build.gradle` per their toolchain analogue)
-> 3. `apps/{app-slug}/{src,specs,tests}/` directory skeleton (with minimal placeholder files)
-> 4. `pnpm-workspace.yaml` registration coverage (typically zero-line edit if root yaml uses the recommended `apps/*` glob; one-line append if explicit listing is in use)
-> 5. App framework configuration files appropriate to the chosen stack (TypeScript+React: `tsconfig.json` + bundler config + test runner config; Java: `pom.xml` or `build.gradle`; etc. — output #5 is what makes `pnpm install && pnpm build && pnpm test` (or the framework-equivalent commands) succeed for this app inside the monorepo)
-> 6. The walking-skeleton end-to-end runnable proof code — the actual slice deliverable, traversing all three tiers per §3.Scope-And-End-To-End-Coverage above
->
-> Outputs 1–5 are app scaffolding committed alongside output 6. The single PR for the walking_skeleton unit must contain all six.
-
-The author does not customize this list; the canonical list in CC substantive Workspace Topology canonical (walking-skeleton 6-output set) is the single source of truth. Instance-specific elaboration of output #5 (which framework configs apply to this app) and output #6 (what the runnable proof actually exercises) is captured in §3.Scope-And-End-To-End-Coverage above.
+The author does not customize this list; the canonical 6-output set owned by the CC-side substantive Workspace Topology canonical is the single source of truth. Instance-specific elaboration of output #5 (which framework configs apply to this app) and output #6 (what the runnable proof actually exercises) is captured in §3.Scope-And-End-To-End-Coverage above.
 
 ### 2.3.5 §3.Walking-skeleton-first-ordering-rule
 
-The walking-skeleton-first ordering rule is owned by [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule).
-
-Fixed text the author copies into the Phase 1 TDD instance:
-
-> The walking skeleton MUST be PR-merged to `main` before any Phase 1 `feature` unit's TK-04 or any Phase 1 `app_integration` unit's TK-08 begins execution per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). Hub-side specification work (TK-01 phase PRD, TK-02 phase TDD + per-feature artifacts, TK-03 per-slice intent/acceptance/test-plan) MAY proceed in parallel with walking-skeleton execution. The gate releases at the moment the walking_skeleton's PR is merged to `main` and the M5 staging deploy completes per [MECH] CI/CD Milestone Policy §2.6.
+The walking-skeleton-first ordering rule is owned by [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). The Phase 1 TDD §3 references that section rather than restating the rule; the author does not copy the rule text into the instance.
 
 ### 2.3.6 §3.Milestone-choreography-and-acceptance-criteria
 
@@ -344,7 +330,7 @@ The walking_skeleton unit runs the full M0 → M1 → M2 → M3 → M4 → M5 mi
 The Phase 1 TDD §3 records only **instance-specific acceptance criteria** that augment the per-milestone defaults. Required content:
 
 - **M0 acceptance**: state any walking-skeleton-specific risks beyond the per-slice M0 entry self-check defaults (typically: risks specific to foundational architecture decisions in §1 and cross-feature baselines in §2). The M0 entry self-check is executed at TK-04 entry per [MECH] CI/CD Milestone Policy §2.1; the cross-model adversarial review function is fulfilled at TK-02 sign-off in Hub via the operator's cross-model review reminder per [MECH] Development Track Workflow brownfield reconstruct pre-step. Empty if no such walking-skeleton-specific risks.
-- **M2 acceptance**: state which contract test pairs (`{app-slug}-bff_{domain-name}` per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4).4) the walking skeleton's slice exercises, and which external integrations (per §3.Scope-And-End-To-End-Coverage above) have integration tests in walking skeleton scope
+- **M2 acceptance**: state which contract test pairs (`{app-slug}-bff_{domain-name}` per the Pact contract testing convention, whose substantive detail is owned by the CC-side substantive canonical) the walking skeleton's slice exercises, and which external integrations (per §3.Scope-And-End-To-End-Coverage above) have integration tests in walking skeleton scope
 - **M3 acceptance**: state any walking-skeleton-specific NFR thresholds beyond Phase 1 baselines in §2.2.1 (NFR baselines) (typically: smoke-level latency / availability targets for the end-to-end runnable proof). Empty if §2 baselines apply unmodified
 - **M5 acceptance**: state the staging environment in which the walking skeleton lands (the AI-dev side's CI/CD pipeline staging target, not the company-side production environment). The successful M5 staging deploy of the walking skeleton constitutes the empirical assertion that the CI/CD pipeline is established for this app through to staging on `main`
 
@@ -448,11 +434,11 @@ For each feature, capture the feature-level commitments that vary across feature
 
 **Purpose**: Define this feature's contribution to the app's API surface at stable-enough detail for contract testing and OpenAPI accumulation.
 
-**Content**: API list (endpoint, consumer tier, producer tier); request/response shapes; error model; authentication/authorization model (referencing phase §2.Security-Baseline); idempotency/retry expectations; pagination/streaming; versioning strategy.
+**Content**: API list (endpoint, consumer tier, producer tier); request/response shapes; error model; authentication/authorization model (referencing phase §2.2.2); idempotency/retry expectations; pagination/streaming; versioning strategy.
 
 **Note on OpenAPI**: TDD specifies API at semantic level; the app-scoped, cross-phase additive `apps/{app-slug}/specs/openapi.yaml` captures the syntactic spec accumulated across phases. New APIs introduced by this feature are added to that file; existing APIs evolved by this feature update their entries in that file. Both must stay consistent.
 
-**Note on contract testing**: API contracts here drive consumer-side Pact contract test pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical §Y.4 (consumer-driven Pact convention). Identify which APIs cross the BFF-to-domain boundary so the slice-list (§5.5) and downstream test plans correctly scope contract test cases.
+**Note on contract testing**: API contracts here drive consumer-side Pact contract test pair `{app-slug}-bff_{domain-name}` per the consumer-driven Pact convention, whose substantive detail is owned by the CC-side substantive canonical. Identify which APIs cross the BFF-to-domain boundary so the slice-list (§5.5) and downstream test plans correctly scope contract test cases.
 
 ## 5.4 §4.{feature-slug}.Module-Decomposition
 
@@ -460,15 +446,15 @@ For each feature, capture the feature-level commitments that vary across feature
 
 **Content**: Module list per tier. For each module: name (module-slug, kebab-case); responsibility (one sentence); public interface; internal boundary; inter-module dependencies. MECE check statement confirming modules are mutually exclusive and collectively exhaustive for the feature scope (within this phase — features evolving across phases have MECE checked per phase).
 
-**Domain module references** (Tier 3, per CC substantive CCAR canonical §Y.4 Model B):
+**Domain module references** (Tier 3, per the domain lifecycle Model B, whose substantive detail is owned by the CC-side substantive canonical):
 
 When this feature requires Tier 3 capability, reference the relevant `packages/domain/{domain-name}/` package(s). Three cases:
 
-1. **Existing domain consumed unchanged**: list the consumed domain and the specific Tier 3 module(s) within it that this feature uses. No domain extension required. The app's BFF (Tier 2) authors a Pact consumer contract per CC substantive CCAR canonical §Y.4.4.
-2. **Existing domain extended for this feature**: identify the existing domain and describe the additive extension. The extension is scheduled as a feature-driven domain change per CC substantive CCAR canonical §Y.4.3 — within the slice or as an independent slice, at operator discretion. Domain versioning per CC substantive CCAR canonical §Y.4.5 applies.
+1. **Existing domain consumed unchanged**: list the consumed domain and the specific Tier 3 module(s) within it that this feature uses. No domain extension required. The app's BFF (Tier 2) authors a Pact consumer contract per the convention owned by the CC-side substantive canonical.
+2. **Existing domain extended for this feature**: identify the existing domain and describe the additive extension. The extension is scheduled as a feature-driven domain change (the scheduling rule is owned by the CC-side substantive canonical) — within the slice or as an independent slice, at operator discretion. Domain versioning, also owned by the CC-side substantive canonical, applies.
 3. **New domain introduced**: a new `packages/domain/{domain-name}/` is created when the first consumer feature genuinely requires it (no speculative domain modeling). The TDD must justify why the capability does not fit an existing domain.
 
-Cross-app domain reuse: if a domain is already consumed by another app (per CC substantive CCAR canonical §Y.4.3), this feature evaluates and reuses the existing domain rather than creating a parallel one. Domain duplication for substantially the same business capability is an anti-drift signal per [RULE] Claude Code Architecture Rules §7.
+Cross-app domain reuse: if a domain is already consumed by another app (per the feature-driven domain change rule owned by the CC-side substantive canonical), this feature evaluates and reuses the existing domain rather than creating a parallel one. Domain duplication for substantially the same business capability is an anti-drift signal per [RULE] Claude Code Architecture Rules §7.
 
 **Slice-size advisory check**:
 
@@ -506,7 +492,7 @@ If a planned slice exceeds either limit, either (a) split the slice further with
 - `tdd_modules_covered` (list of module-slugs from `§4.{feature-slug}.Module-Decomposition`)
 - `tiers_covered` (subset of `{tier-1, tier-2, tier-3}`)
 - `tier_1_involved` (boolean; when true, the downstream slice's intent.md must include a UX brief and test-plan.yaml must include `test_type: accessibility` cases per [TPL] Writing Standard §2.3 and §3.9)
-- `domains_consumed` (list of `{domain-name}` from `packages/domain/` if any; supports Pact pair scoping per CC substantive CCAR canonical §Y.4)
+- `domains_consumed` (list of `{domain-name}` from `packages/domain/` if any; supports Pact pair scoping per the Pact contract testing convention, whose substantive detail is owned by the CC-side substantive canonical)
 - Paired PRD scenarios covered (by scenario ID from PRD §4.2)
 - Dependencies on other slices, if any (by slice_id); cross-feature slice dependencies must be flagged here
 - Production order rationale (if slices must be produced in a specific order to satisfy dependencies)
@@ -530,7 +516,7 @@ If a planned slice exceeds either limit, either (a) split the slice further with
 
 ## 5.7 §4.{feature-slug}.Open-Questions
 
-**Purpose**: Capture feature-specific questions that remain after TDD drafting but do not block current-phase implementation. Phase-level open questions (cross-feature) belong in `§2.Decision-Record` as proposed-status entries instead.
+**Purpose**: Capture feature-specific questions that remain after TDD drafting but do not block current-phase implementation. Phase-level open questions (cross-feature) belong in `§2.2.8` as proposed-status entries instead.
 
 **Content**: One entry per question: question statement; why open (information needed, expertise needed, time-bound dependency); when to be resolved (which slice, milestone, release); responsible party if known.
 
@@ -571,7 +557,7 @@ The phase TDD is bounded by adjacent canonical sources. Content that belongs in 
 | Branch topology, node assignment mechanics, phase boundary parallelism phrasing | [RULE] Workspace Topology |
 | TK-by-TK orchestration | [MECH] Development Track Workflow |
 | Milestone gate semantics | [MECH] CI/CD Milestone Policy |
-| Domain lifecycle and Pact convention | CC substantive CCAR canonical §Y.4 |
+| Domain lifecycle and Pact convention | CC-side substantive canonical |
 | Walking skeleton unit definition (full output set, ordering rule, milestone profile) | CC substantive Workspace Topology canonical (walking-skeleton 6-output set) + [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule) / [MECH] Development Track Workflow §4.0 (unit_type catalog) / [MECH] CI/CD Milestone Policy constitutional residue §2.7 (per-unit-type milestone profile interface) |
 
 The phase TDD captures phase-level architecture decisions, phase-level cross-feature concerns, and per-feature engineering design at a level above implementation and below business intent.
@@ -681,12 +667,12 @@ Before signing off a phase TDD, verify:
 3. **§4 feature set matches paired PRD §7.1**: identical feature-slug set; no orphan §4 sub-sections; no unaccounted-for PRD features
 4. **§3 presence rule honored**: §3 Walking skeleton scope present if Phase 1; §3 absent if Phase N ≥ 2
 5. **§3 content quality (Phase 1 only)**: Walking-Skeleton-Header populated with valid `unit_id`, `assigned_node` from [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention) catalog, `prerequisite_units: []`, `feature_branch: feature/<app-slug>/walking-skeleton`, `phase_number: 1`, `paired_prd_section`; Scope-And-End-To-End-Coverage explicitly states all three tiers + persistence path + external integration (or explicit "no external integration" / "no persistence" rationale) + deferred-scope list demarcating walking_skeleton vs Phase 1 feature unit boundaries; Outputs section is the canonical-reference text (does not duplicate the CC substantive Workspace Topology canonical (walking-skeleton 6-output set) list); Walking-skeleton-first-ordering-rule and Milestone-choreography-and-acceptance-criteria reference their canonical owners
-6. **Phase 1 vs Phase N ≥ 2 explicit framing present**: §2.9 (Phase 1 baseline vs Phase N ≥ 2 deltas — explicit framing) clearly states phase position
+6. **Phase 1 vs Phase N ≥ 2 explicit framing present**: §2.2.9 (Phase 1 baseline vs Phase N ≥ 2 deltas — explicit framing) clearly states phase position
 7. **§1 / §2 delta vs baseline coherence**: in Phase N ≥ 2, deltas are deltas, not full restatements; reference to phase-1 TDD path is present
 8. **Per-feature §4.{feature-slug} sub-section structure**: `Header` / `Module-Decomposition` / `Slice-List` always present; when `Header.tier_1_involved: true`, a corresponding UX Design Spec instance has been Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` and reviewed in Hub against that template's §3 reviewer checklist (the UX Design Spec instance is a separate artifact, not a sub-section of this TDD); sub-section ordering is consistent across features
 9. **Per-feature module decomposition MECE within feature scope**
 10. Tier responsibility mapping in §1 respects [RULE] Claude Code Architecture Rules §1
-11. **Domain references in `§4.{feature-slug}.Module-Decomposition` follow CC substantive CCAR canonical §Y.4 Model B**: existing-domain reuse evaluated before new-domain creation; cross-app domain duplication avoided
+11. **Domain references in `§4.{feature-slug}.Module-Decomposition` follow the domain lifecycle Model B owned by the CC-side substantive canonical**: existing-domain reuse evaluated before new-domain creation; cross-app domain duplication avoided
 12. **Slice-size advisory check completed in each `§4.{feature-slug}.Module-Decomposition`**: planned slices within CC substantive CI/CD Milestone Policy canonical (slice-size advisory) limits, or oversize justified
 13. API contracts in each `§4.{feature-slug}.API-Contracts` sufficient for OpenAPI accumulation and contract testing; Pact pair `{app-slug}-bff_{domain-name}` identified for each BFF-to-domain boundary
 14. **Phase-level testing strategy in §2 covers**: per-tier dominant test types; cross-feature scenarios that drive phase test plan; regression policy from prior phase (Phase N ≥ 2 only)
@@ -699,7 +685,7 @@ Before signing off a phase TDD, verify:
 21. Open questions do not hide blocking business ambiguities (escalate to phase PRD instead)
 22. No content belongs in phase PRD, intent, acceptance, slice test-plan, feature integration test-plan, phase test plan, Design System Governance, UX Design Spec instances, or code instead of TDD
 23. Phase TDD stable enough that TK-03 can proceed for any feature whose `§4.{feature-slug}` is finalized
-24. **For each feature with `Header.tier_1_involved: true`**: a UX Design Spec instance has been authored (CD-side) per `[TPL] UX Design Spec` and reviewed in Hub against that template's §3 reviewer checklist; instance is paired with this TDD's `§4.{feature-slug}` by feature-slug match
+24. **For each feature with `Header.tier_1_involved: true`**: a UX Design Spec instance has been Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` and reviewed in Hub against that template's §3 reviewer checklist; instance is paired with this TDD's `§4.{feature-slug}` by feature-slug match
 25. **For each feature declaring new components or tokens in its UX Design Spec instance §2.4**: additive-update plan is complete and defensible per [RULE] DSG §12 change content structure
 26. **For each feature declaring slice-specific a11y considerations in its UX Design Spec instance §2.5**: they are written as concrete concerns (not generic restatements of DSG §6.1 recommendations), with optional verification path noted (manual smoke test, on-demand SK-W audit, or eslint-plugin-jsx-a11y warning)
 27. **All file-path references use `apps/{app-slug}/` prefix or `phase-{N}` / `feature-{feature-slug}` / `{slice-id}` scoping per §4.8**, except project-level singletons (`specs/design-system.md` as CC mirror, `.claude/`)

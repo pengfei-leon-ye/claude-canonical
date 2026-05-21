@@ -8,7 +8,7 @@
 - **Management-System Role**: Workflow orchestration specification; outside L1-L5 hierarchy; not itself an L2-L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1; conversation discipline rules in [OS] §7.2 apply to the Hub Claude trigger behavior in §7. Cross-source ownership map for the Cat 4 [RULE] / [MECH] sources is owned by [OS] §8.5.6.
 - **Relationship to [PRIN]**: Applies HR Digital Decision Design Principles §5 (management mechanism over ad hoc control).
-- **Relationship to [REF] Hub-CD-CC Architecture**: Operationalizes. [REF] Hub-CD-CC Architecture §9 declares the three-path handoff topology and the decoupled-by-default discipline during CD research preview; §3.4.1 declares CD outputs design files (CD-native visual artifacts); §5.2 declares the two-way distribution model (CD = SOT / CC = code-time mirror). This source defines the concrete content contracts and operator actions that realize those paths.
+- **Relationship to [REF] Hub-CD-CC Architecture**: Operationalizes. [REF] Hub-CD-CC Architecture §9 declares the three-path handoff topology, and §9.4 declares the decoupled-by-default discipline during CD research preview; §3.4.1 declares CD outputs design files (CD-native visual artifacts); §5.2 declares the two-way distribution model (CD = SOT / CC = code-time mirror). This source defines the concrete content contracts and operator actions that realize those paths.
 - **Relationship to [MECH] Application Lifecycle Handoff**: Distinct lifecycle layer. [MECH] Application Lifecycle Handoff governs the application-level handoff event (AI-dev → human dev team, terminal). This source governs cross-tool content flows during AI-dev work (recurrent during the entire AI-dev period). Both reference operator-mediated discipline but at different boundaries.
 - **Relationship to [RULE] Design System Governance**: Anchored. DSG §1.1 owns the two-way distribution model — CD = SOT at the CD workspace, CC = code-time mirror at `specs/design-system.md`. This source operationalizes the cross-tool content flows that maintain that model:
   - CD-authored **design files** flow CD → Hub at TK-02 Step 2.3 entry (§2.2) carrying per-feature visual UX content for Hub-side UX Design Spec instance authoring
@@ -16,7 +16,7 @@
   - Hub-authored **UX Design Spec instance markdown** (Hub TK-02 Step 2.3 output) flows Hub → CC at TK-04 entry alongside other spec artifacts (§3.1)
   - The two-way distribution generates DS-related cross-tool flows in the Hub ↔ CD and Hub ↔ CC handoff paths; cross-tool flows that carry DS-related content apply DSG rules accordingly. DSG §12 additive update path drives DS instance changes at the originating feature's M4 → merge-to-main milestone, at which point the reviewed DS markdown export syncs to the CC mirror
 - **Relationship to [RULE] Codex Plugin Usage**: **Migrated to CC substantive canonical (Phase 3)**. The CC → operator → Hub direction in §3.2 includes code review tool output flow; the specific code review tool (historically Codex) is governed by CC substantive Codex Plugin Usage canonical at CC. This source declares only the cross-workspace content contract; the fire-condition and output-processing rules live at CC.
-- **Relationship to [RULE] Workspace Topology**: Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; specific Hub canonical access mechanism at CC is operator-personal infrastructure (not canonical-governed) per Phase 4 Finding A revision. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4).
+- **Relationship to [RULE] Workspace Topology**: Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; the specific Hub canonical access mechanism at CC is operator-personal infrastructure (declared substantively in §3.1.1). Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4).
 - **Relationship to [MECH] Development Track Workflow**: Cross-tool handoffs operate continuously during AI-dev work driven by DTW TK sequence. This source does not author TK orchestration but provides the content contracts that DTW TKs invoke when they touch cross-tool flows. Key TK-bound flows:
   - TK-02 Step 2.2 entry: Hub → CD drop files (§2.1)
   - TK-02 Step 2.2 → Step 2.3: CD → Hub design files transfer (§2.2)
@@ -28,22 +28,10 @@
 
 ## How to use this source
 
-Use this source when:
-- Initiating a cross-tool content transfer (Hub → CD, Hub → CC, CD → Hub, CC → Hub, CD → CC, CC → CD)
-- Auditing whether a cross-tool transfer carries the required content
-- Determining what operator actions are needed to complete a transfer
-- Determining what integration steps apply after content arrives at the destination
-- Resolving an audit failure on a cross-tool transfer
-- Reviewing whether a Hub Claude conversation has drifted across cross-tool handoff boundaries
-- Performing the DS markdown export §15 conformance review and CC-mirror sync at change finalization
-
-Do not use as:
-- An application-level handoff reference ([MECH] Application Lifecycle Handoff — covers AI-dev → human dev team event)
-- A three-workspace topology reference ([REF] Hub-CD-CC Architecture — owns workspace identity and boundaries)
-- A DS governance rule reference ([RULE] Design System Governance — owns DS governance discipline, including the two-way distribution model and DS markdown export specification)
-- A code review tool fire condition reference (CC substantive Codex Plugin Usage canonical owns this; Codex was migrated to CC in Phase 3)
-- A TK-by-TK orchestration reference ([MECH] Development Track Workflow)
-- An enforcement mechanism — this source declares reminder-form discipline (per §5) rather than mechanical enforcement
+Non-obvious routing cues (the primary cross-tool-transfer uses follow directly from §0.1):
+- This source also houses the review of whether a Hub Claude conversation has drifted across cross-tool handoff boundaries — reach for it for that drift review, not only for an active transfer.
+- The DS markdown export §15 conformance review and CC-mirror sync mechanics live here, not in [RULE] Design System Governance — consult this source for that review at change finalization.
+- This source is **not** an enforcement mechanism: it declares reminder-form discipline (per §5) rather than mechanical enforcement.
 
 ## Scope note
 
@@ -88,19 +76,6 @@ This source does not apply to:
 - Specification artifact content contracts (owned by their respective [TPL] family sources)
 - CD platform internal behaviors (Anthropic product domain)
 - CC platform internal behaviors (Anthropic product domain)
-
-## 0.3 Position relative to adjacent canonical sources
-
-| Adjacent source | Relationship |
-|---|---|
-| [REF] Hub-CD-CC Architecture | Operationalized. This source provides content contracts for the §9 handoff topology declared in Architecture; §3.4.1 CD outputs (design files) and §5.2 two-way DS distribution model anchor the DS-related flows here. |
-| [MECH] Application Lifecycle Handoff | Companion. Different lifecycle layer (cross-tool flows during AI-dev vs application-level terminal event). |
-| [RULE] Design System Governance | Anchored. Cross-tool flows carrying DS content apply DSG rules; the DSG §12.3 export conformance review + CC-mirror sync is realized by the DS markdown export mechanism declared here; DSG §12.7 owns the export specification this source consumes. |
-| [RULE] Codex Plugin Usage | **Migrated to CC substantive canonical (Phase 3)**. CC → operator → Hub direction includes code review tool output flow; the specific tool's contract lives at CC. |
-| [RULE] Workspace Topology | Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; specific Hub canonical access mechanism at CC is operator-personal infrastructure per Phase 4 Finding A revision. Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). |
-| [MECH] Development Track Workflow | Continuous. Cross-tool flows operate throughout DTW TK sequence; this source provides the contracts DTW TKs invoke. TK-02 Step 2.2 + Step 2.3 and TK-04 entry are key trigger points. |
-| [TPL] UX Design Spec | Cross-referenced. CD-authored design files transferred via §2.2 are the source material for the Hub-authored UX Design Spec instance per [TPL] UX Design Spec at TK-02 Step 2.3; the instance markdown is transferred via §3.1 to CC at TK-04 entry. |
-| [TPL] family | Referenced. Hub spec artifact content contracts referenced from [TPL] PRD, [TPL] TDD, [TPL] Intent and Acceptance Interface Writing Standard, etc. |
 
 ---
 
@@ -157,12 +132,7 @@ This direction carries Hub-produced content into a CD session as context for des
 - People Journey or People Experience principles excerpts when relevant to the design task
 - Output expectations stated by the operator
 
-**Sub-flow B — TK-02 Step 2.2 design file production (HDC-specific, structured)**: When a TK-02 Step 2.1 TDD declares `tier_1_involved=true` for one or more features, the operator initiates a CD session per such feature for design file production. The content transferred follows the **CD input strategy v1** declared in [MECH] DTW §4 TK-02 Step 2.2 mechanism note:
-- Full relevant PRD sections as drop files (the feature's PRD sub-sections covering user value, scenarios, user flows)
-- Full relevant TDD sections as drop files (the feature's `§4.{feature-slug}.Header` + `§4.{feature-slug}.Module-Decomposition` + `§4.{feature-slug}.API-Contracts` summary at UI-relevance level — enough for CD to ground component selection in the actual data and interaction surfaces)
-- DS grounding: CD grounds component selection in its own DS instance (CD is the DS SOT per [REF] Hub-CD-CC Architecture §5.2); no separate DS reference is transferred per cycle
-- **attention prompt** directing CD to UI-relevant sections of the drop files (Hub does not pre-extract a "UI summary" because what's "UI-relevant" depends on CD's design judgment; the attention prompt names the sections most likely to drive UI decisions)
-- Output expectations: per-feature design files covering hi-fi mockups for affected Tier 1 screens, prototypes / wireframes for interaction flows where static mockups are insufficient, component callouts identifying which DS components are used per screen, interaction flows with embedded textual annotations (state transitions, edge cases, empty/loading/error states), and any new-component / new-token proposals
+**Sub-flow B — TK-02 Step 2.2 design file production (HDC-specific, structured)**: When a TK-02 Step 2.1 TDD declares `tier_1_involved=true` for one or more features, the operator initiates a CD session per such feature for design file production. The content transferred follows the **CD input strategy v1** owned by [MECH] DTW §4 TK-02 Step 2.2 mechanism note — drop files, attention prompt, DS grounding, and output expectations as enumerated there; the per-feature design-file deliverable list is stated in §2.2.1.
 
 **Sub-flow C — DS instance authoring input (HDC-specific, when a DS change is needed)**: When a DS instance change has been approved per [RULE] DSG §12, the operator initiates a CD session for CD-side DS instance authoring. The content transferred:
 - The current `[RULE] Design System Governance` text — transferred to CD as a **read-only input** so CD authors the DS instance change in conformance with DSG §2-§11 and self-checks the change before generating the DS markdown export. DSG's SOT remains at Hub; CD receives it as a transferred input, not as owned content
@@ -171,7 +141,7 @@ This direction carries Hub-produced content into a CD session as context for des
 ### 2.1.2 Source format
 
 Hub content exists as:
-- Hub canonical sources (the `hdc_*.md` file set in the canonical repository / Hub PK); Hub Claude reads them via the RAG layer per [OS] §1.4; the specific access channel used to surface canonical content into a Hub conversation is operator-personal infrastructure and not canonical-governed
+- Hub canonical sources (the `hdc_*.md` file set in the canonical repository / Hub PK); Hub Claude reads them via the RAG layer per [OS] §1.4; the specific access channel that surfaces canonical content into a Hub conversation is operator-personal infrastructure (per §3.1.1)
 - Spec artifacts at `apps/{app-slug}/specs/**` or similar
 - Conversation-level content produced by Hub Claude
 
@@ -193,7 +163,7 @@ For Sub-flow B (TK-02 Step 2.2 design file production):
 2. Drop the full relevant PRD + TDD sections as files into CD
 3. Confirm the CD project's DS instance is linked (CD's own DS SOT per [REF] Hub-CD-CC Architecture §5.2; no per-cycle DS transfer needed)
 4. Paste the attention prompt directing CD to the UI-relevant sections of the drop files
-5. State the design file output expectations explicitly (per the per-feature design file output list in §2.1.1 Sub-flow B)
+5. State the design file output expectations explicitly (per the per-feature design-file deliverable list in §2.2.1)
 6. Initiate CD design file production
 
 For Sub-flow C (DS instance authoring):
@@ -340,14 +310,13 @@ Hub content exists as:
 
 **For Sub-flow A — Hub canonical access at CC**:
 
-1. Ensure CC has access to the current Hub canonical source via the operator's chosen mechanism (e.g., local clone of the canonical GitHub repository synced to the latest commit; or operator-mediated paste of relevant content into the CC session)
-2. The specific mechanism is operator-personal infrastructure; this canonical does not prescribe it
-3. When Hub canonical evolves (new commit lands at `claude-canonical/hdc/project_knowledge/`), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
-4. CC contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin
+1. Ensure CC has access to the current Hub canonical source via the operator's chosen mechanism (e.g., local clone of the canonical GitHub repository synced to the latest commit; or operator-mediated paste of relevant content into the CC session) — the mechanism is operator-personal infrastructure per the Sub-flow A declaration above
+2. When Hub canonical evolves (new commit lands at `claude-canonical/hdc/project_knowledge/`), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
+3. CC contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin
 
 **For Sub-flow B — spec artifact transfer at TK-03 → TK-04 entry**:
 
-1. Place all Hub-authored spec artifacts at the canonical paths in the monorepo per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) (e.g., `apps/{app-slug}/specs/prd/phase-{N}.md`, `apps/{app-slug}/specs/tdd/phase-{N}.md`, `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` when authored at TK-02 Step 2.3, `apps/{app-slug}/specs/intent/{slice-id}.md`, etc.)
+1. Place all Hub-authored spec artifacts at the canonical paths in the monorepo per the repository layout owned by the CC-side substantive Claude Code Architecture Rules canonical (e.g., `apps/{app-slug}/specs/prd/phase-{N}.md`, `apps/{app-slug}/specs/tdd/phase-{N}.md`, `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` when authored at TK-02 Step 2.3, `apps/{app-slug}/specs/intent/{slice-id}.md`, etc.)
 2. Commit on the appropriate branch per [RULE] Workspace Topology §5
 3. The spec is read by CC from the working directory when relevant TKs execute
 4. For CD-authored design files (operator-side reference at TK-04+): transfer to the assigned_node operator's working environment; commit only if the operator opts to make them available within the monorepo
@@ -369,13 +338,13 @@ Hub content exists as:
 Before transferring, the operator verifies:
 - Constitutional canonical files are at the current PK state (no stale snapshots)
 - Spec artifacts are at sign-off form per [MECH] Sign-Off Cleanup Policy when transferring to the monorepo
-- Spec artifact paths match the canonical layout per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1)
+- Spec artifact paths match the canonical layout per the repository layout owned by the CC-side substantive Claude Code Architecture Rules canonical
 - **For TK-04 entry (Sub-flow B)**: when Tier 1 features are present, the per-feature UX Design Spec instance markdown is present in the transfer set at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`; the M0 entry self-check at TK-04 will validate the markdown's grounding against CC DS mirror via SK-F
 - **For DS markdown export sync (Sub-flow C)**: the export has passed the DSG §15 conformance review (§2.2 Sub-flow B) before the CC mirror is committed
 
 ### 3.1.5 CC reception
 
-CC reads canonical via the inception-sync snapshot. CC reads spec via monorepo file paths. CC does not maintain a parallel Hub-canonical-mirror copy (per [OS] §9.4 and §1.4 visibility boundary).
+CC reads canonical via the inception-sync snapshot. CC reads spec via monorepo file paths. CC does not maintain a parallel Hub-canonical-mirror copy (per [OS] §1.4 visibility boundary).
 
 For the UX Design Spec instance markdown (when present), CC's TK-04 M0 entry self-check verifies the markdown's component / token / pattern references against the CC DS mirror via SK-F per [MECH] DTW §4 TK-04 mechanism. Design files (when accompanying as visual reference) are not parsed programmatically by CC; the operator may share specific design file images inline in the CC session when CC needs visual context for a specific implementation question.
 
@@ -410,17 +379,20 @@ CC content exists as:
 
 **For CC-internal canonical change notifications**:
 
-1. Note which CC-internal files changed
-2. Inform Hub Claude of the change in conversation
-3. Hub Claude updates the Hub-side canonical inventory tracking ([REF] CC Project Memory Bank Layout serves as the structural reference but does not mirror individual files)
+1. Detection trigger: the operator inspects the CC `.claude/**` git history at TK boundaries (CC does not carry cross-session awareness of its own canonical changes, and the operator drives detection from the durable git record rather than relying on CC to escalate)
+2. Note which CC-internal files changed
+3. Inform Hub Claude of the change in conversation
+4. Hub Claude updates the Hub-side canonical inventory tracking ([REF] Hub-CD-CC Architecture frames the CC canonical layer structurally; the inventory tracking does not mirror individual files)
 
 **For CC-side DS mirror drift detection notifications** (e.g., SK-F runtime flags a component reference not in the CC mirror, or M0 entry self-check finds the CC mirror stale relative to the latest DS instance version):
 
-1. Note the drift signal (which mirror is behind; which component / token / pattern is involved)
-2. Inform Hub Claude in conversation
-3. Hub Claude routes the drift through [RULE] DSG §12 update path:
+1. Durable capture: the CC-runtime drift signal (SK-F runtime, compliance-checker A9, or M0 entry self-check) is written to the slice evidence directory rather than left in the ephemeral CC invocation — a transient CC session output is not relayable on its own
+2. The operator reviews the slice evidence at the TK-04 / M4 checkpoint and relays the captured drift signal
+3. Note the drift signal (which mirror is behind; which component / token / pattern is involved)
+4. Inform Hub Claude in conversation
+5. Hub Claude routes the drift through [RULE] DSG §12 update path:
    - If the drift is rooted in a DS instance change that has not yet propagated to the CC mirror: trigger a DS markdown export resync via §2.2 Sub-flow B (DSG §15 review) + §3.1 Sub-flow C (CC-mirror commit)
-   - If the drift is rooted in a CC-observed need for a DS change (e.g., implementation reveals a missing token): route the change through DSG §12.3 additive update flow — captured in the originating feature's UX Design Spec instance §2.4 (or as a new UX Design Spec instance §2.4 entry if the originating feature is in-flight), merged into CD SOT at the originating feature's M4, with the CC mirror re-synced via the reviewed DS markdown export at that boundary
+   - If the drift is rooted in a CC-observed need for a DS change (e.g., implementation reveals a missing token): route the change through DSG §12 additive update flow — captured in the originating feature's UX Design Spec instance §2.4 (or as a new UX Design Spec instance §2.4 entry if the originating feature is in-flight), merged into CD SOT at the originating feature's M4, with the CC mirror re-synced via the reviewed DS markdown export at that boundary
 
 **For ADR-warranting architecture observations**:
 
@@ -450,7 +422,7 @@ Codex findings receive Hub judgment and archival. Hub-side canonical inventory t
 
 During CD research preview, this path operates under decoupled-by-default discipline per [REF] Hub-CD-CC Architecture §9.4. The operator-mediated transfer with explicit audit is the only sanctioned mode of CD ↔ CC content movement.
 
-Direct CD ↔ CC coupling (e.g., CD's native "Send to Claude Code" handoff path) is **not enabled** for HDC project use during this period. The conditions for re-enabling direct coupling are owned by [REF] Hub-CD-CC Architecture §10.
+Direct CD ↔ CC coupling — CD's native "Send to Claude Code" handoff path in its product surface — is **not enabled** for HDC project use during this period; the operator routes all CD → CC content through audited operator-mediated transfer per §4.2. The conditions for re-enabling direct coupling are owned by [REF] Hub-CD-CC Architecture §10; when those conditions are satisfied and an ADR records the re-enablement decision, this source is revised in the same revision to update §4.1.
 
 **DS markdown export flow note**: The DS markdown export generated by CD at change finalization (per DSG §12.7) is reviewed Hub-side and synced to the CC mirror. During research preview, this does NOT execute as direct CD → CC transfer; instead it executes as CD → operator → Hub (the DSG §15 export conformance review, per §2.2 Sub-flow B) and then → CC (per §3.1 Sub-flow C, the CC-mirror commit). The operator is the trust gate.
 
@@ -512,8 +484,6 @@ CC implementation observations exist in informal form:
 - Free-form natural-language description by the operator paraphrasing the CC-surfaced issue
 - Optional accompanying material: code excerpt, screenshot of running implementation, or reference to a specific test failure
 
-There is no structured schema — this direction's rarity and the free-form CD reception (§4.3.6) do not warrant one.
-
 ### 4.3.4 Operator actions
 
 1. Note the CC observation
@@ -532,17 +502,11 @@ Before transferring a CC observation to CD, the operator verifies:
 
 CD treats the operator-communicated CC observation as free-form context, same as any §2.1 Hub → CD transfer.
 
-## 4.4 Direct CD ↔ CC coupling: not enabled during research preview
-
-CD has a native "Send to Claude Code" handoff path in its product surface. During the current research preview operating period, this direct coupling is not enabled for HDC project use. The operator routes all CD → CC content through audited operator-mediated transfer per §4.2.
-
-The conditions for re-enabling direct CD ↔ CC coupling are owned by [REF] Hub-CD-CC Architecture §10. When those conditions are satisfied and an ADR records the re-enablement decision, this source is revised in the same revision to update §4.1 and §4.4.
-
 ---
 
 # 5. Reminder form constraints
 
-This source declares **[Enforcement·reminder-only]**: Hub Claude surfaces cross-tool handoff content contracts as reminders rather than mechanically enforcing them. The operator may transfer content that does not meet a contract; the destination's integration is then at the operator's risk.
+This source declares **[Enforcement·reminder-only]**: Hub Claude surfaces cross-tool handoff content contracts as reminders rather than mechanically enforcing them. The operator may transfer content that does not meet a contract; the destination's integration is then at the operator's risk. Enforcement is reminder-form because cross-tool transfers are operator-physical actions (copy / paste / attach / save-as-file) that Hub Claude cannot intercept or block; the operator therefore carries the residual risk.
 
 ## 5.1 Hub Claude reminder forms
 
@@ -572,7 +536,7 @@ If a reminder is missed and a transfer proceeds without the documented audit:
 |---|---|
 | Scope leakage | The transferred content includes non-HDC scope content (per [REF] Hub-CD-CC Architecture §6) |
 | Content contract violation | The transferred content lacks expected content (e.g., CD-authored design files missing component callouts when those were expected; UX Design Spec instance missing §2.x category coverage; DS markdown export missing DSG §2 section coverage) |
-| Quality below threshold | The transferred content meets contract but is judged insufficient for HDC use |
+| Quality below threshold | The transferred content meets contract but is judged insufficient for HDC use. This is the **residual category**: where a contract-specific quality rubric applies (CD design files → [TPL] UX Design Spec §3.1 design file quality check; spec artifacts at handoff → the Sign-Off form criteria; DS markdown export → DSG §15 reviewer checklist), judge against that rubric first; "quality below threshold" covers only quality shortfalls no contract-specific rubric already names |
 | Integration failure | The destination cannot accommodate the transferred content's structure |
 | **Export review skipped** | DS markdown export committed to the CC mirror without passing the DSG §15 export conformance review |
 
@@ -638,7 +602,7 @@ When a Hub Claude conversation contains any of the following phrases or their cl
 9. **"CC found a DS mirror inconsistency"** / **"M0 self-check flagged mirror drift"** / **"SK-F can't find this component in the mirror"** — CC DS mirror drift signal; surface §3.2.3 routing (either resync via §2.2 Sub-flow B + §3.1 Sub-flow C, or DSG §12 additive update)
 10. "**use the CD design files in CC**" / "**hand the design files to CC mid-implementation**" — CD → CC intent; surface §4.2 content contract and the §4.1 decoupled-by-default discipline (note: this is rare; the normal flow routes through Hub via §2.2 + §3.1)
 11. "**send CC's feedback to CD**" / "**update CD with the implementation finding**" — CC → CD intent; surface §4.3 content contract (and note that DS-implicating findings primarily route through §3.2 → DSG §12)
-12. "**enable direct CD-to-CC**" / "**skip operator audit**" — direct coupling activation intent; surface §4.4 non-enablement and [REF] Hub-CD-CC Architecture §10 re-enablement conditions
+12. "**enable direct CD-to-CC**" / "**skip operator audit**" — direct coupling activation intent; surface §4.1 non-enablement and [REF] Hub-CD-CC Architecture §10 re-enablement conditions
 13. **"hand-fix `specs/design-system.md`"** / **"patch the CC DS mirror locally"** — CC-mirror direct-edit intent; surface DSG §12.6 read-only mirror discipline
 
 ## 7.3 Action upon detection
@@ -691,7 +655,7 @@ This soft compliance is conversational, not blocking.
 - Operator and Hub Claude proceed past a §7.2 trigger without surfacing the relevant content contract (§7.3 step 2)
 
 **Direct coupling dimension**:
-- Direct CD ↔ CC coupling attempted while CD is in research preview (violates §4.4)
+- Direct CD ↔ CC coupling attempted while CD is in research preview (violates §4.1)
 - Direct coupling re-enabled without [REF] Hub-CD-CC Architecture §10 prerequisites all satisfied and recorded in an ADR
 
 **Path-flow misrouting dimension** (new with revised architecture):

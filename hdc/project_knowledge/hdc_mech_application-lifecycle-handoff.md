@@ -11,10 +11,10 @@
 - **Relationship to [REF] Hub-CD-CC Architecture**: This source covers application-level handoff (AI-dev → human dev team ownership transfer of a complete application). [REF] Hub-CD-CC Architecture covers tool-level topology (Hub/CD/CC three-workspace boundaries and operator-mediated flows within HDC project work). These are orthogonal handoff concerns at different lifecycle layers — the cross-tool flows operate continuously throughout AI-dev (governed by [MECH] Cross-Tool Workflow Handoff), while the application-level handoff is a one-time terminal event for an application's AI-dev period.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: Different lifecycle layer. This source governs the application-level handoff event (AI-dev → human dev team). [MECH] Cross-Tool Workflow Handoff governs the operator-mediated content flows between Hub / CD / CC during AI-dev work. Both apply during the same overall project lifecycle but to different content boundaries. Re-entry per §5 implicitly resumes [MECH] Cross-Tool Workflow Handoff flows for the new app-slug.
 - **Relationship to [RULE] Workspace Topology**: Imports WT §5.1 branch topology + §5.2 branch protection. Handoff tag namespace `handoff/{app-slug}/{YYYY-MM-DD}` is intentionally distinct from WT §5.1 working-branch namespace. The handoff tag is the only canonical-recognized tag namespace at the AI-dev side; company-side release tags are out of canonical scope per §0.2.
-- **Relationship to [RULE] Claude Code Architecture Rules**: Anchored. §3 content scope consumes CCAR §Y.1 paths + §5 / §X / §Z artifacts.
+- **Relationship to [RULE] Claude Code Architecture Rules**: Anchored. §3 content scope consumes the canonical repository-layout paths and the subagent / skill / hook artifact definitions, whose substantive detail is owned by the CC-side substantive canonical.
 - **Relationship to [MECH] Development Track Workflow**: Inter-unit. Handoff is an application-level operator action, not a TK in DTW §4 sequence; re-entry (§5) re-enters DTW §4.0 unit_type catalog by starting a new Phase 1 for the returning app.
 - **Relationship to [MECH] CI/CD Milestone Policy**: Application-level event after zero, one, or many M5 completions; independent of CI/CD §2.0 per-unit-type milestone semantics.
-- **Pairings I participate in**: P-33 (with [RULE] WT §4.6 + [TPL] TDD §3), P-37 (with [MECH] Dev-Loopback §7)
+- **Pairings I participate in**: P-33 (with [RULE] WT §3 + [TPL] TDD §3)
 
 ## How to use this source
 
@@ -25,14 +25,7 @@ Use this source when:
 - Bringing an application back into the AI-dev environment for further enhancement after a period of human-team stewardship
 - Reviewing whether a Hub Claude conversation has drifted across handoff or re-entry boundaries
 
-Do not use as:
-- A cross-tool workflow handoff reference ([MECH] Cross-Tool Workflow Handoff — covers Hub / CD / CC operator-mediated flows within AI-dev work)
-- A branch topology reference ([RULE] Workspace Topology §5)
-- A TK-by-TK orchestration reference ([MECH] Development Track Workflow §4)
-- A milestone gate semantics reference ([MECH] CI/CD Milestone Policy)
-- A deployment / release-stage specification (deployment to the operator's working environment is operator personal layer; release-stage CI/CD on the receiving company's infrastructure is out of canonical scope per §0.2)
-- A subagent definition reference (CC substantive Claude Code Architecture Rules canonical (subagent roster §5))
-- A versioning scheme specification
+Do not use as: a reference for any topic this source does not own — see §0.2 for the authoritative "does not own" list and the owning source for each excluded topic.
 
 ---
 
@@ -57,7 +50,7 @@ Do not use as:
 - M5 milestone trigger conditions, evidence paths, completion criteria ([MECH] CI/CD Milestone Policy)
 - Deployment to the operator's working environment (operator personal ops; not regulated by canonical)
 - Versioning scheme (project-level versioning convention is owned outside this source)
-- Subagent, skill, hook artifact definitions (CC substantive Claude Code Architecture Rules canonical (subagent roster §5), §X, §Z)
+- Subagent, skill, hook artifact definitions (the subagent roster and the skill / hook artifact definitions are owned by the CC-side substantive canonical)
 - Human dev team's internal practices, tooling, or process after handoff (out of scope; canonical ends at the handoff event)
 
 ## 0.3 Application lifecycle position
@@ -66,10 +59,10 @@ This source covers four named stages and one optional return path:
 
 | Stage | Owner | This source's role |
 |---|---|---|
-| AI-dev | Operator + AI Development Track | Out of scope (governed by [MECH] Development Track Workflow + sibling sources; cross-tool flows during this stage governed by [MECH] Cross-Tool Workflow Handoff) |
+| AI-dev | Operator + AI Development Track | Out of scope — see §0.2 for the topics this source does not own and their owning sources |
 | Maturity threshold | Operator judgment (§2) | **Owned**: criteria + readiness checklist |
 | Handoff event | Operator action (§3, §4) | **Owned**: content scope + mechanism + acknowledgment |
-| Human-dev | Human dev team | Out of scope (canonical ends at handoff event) |
+| Human-dev | Human dev team | Out of scope — canonical ends at the handoff event; see §0.2 |
 | Re-entry (optional) | Operator + AI Development Track (§5) | **Owned**: policy and mechanism |
 
 Note on "AI Development Track": throughout this source, the term refers to the full set of mechanisms under [RULE] Claude Code Architecture Rules and [MECH] Development Track Workflow — Hub Claude, the CC main loop (code-writer), the CC subagents, the Codex review plugin, the SK-F and SK-W skills, hooks, and the workflow that orchestrates them. Handoff covers the artifacts produced by all of these, not subagents alone.
@@ -129,10 +122,10 @@ The following must be true at the moment a handoff event is initiated. Failures 
 | # | Item | Verification |
 |---|---|---|
 | 1 | At least one feature has completed M5 | [MECH] CI/CD Milestone Policy M5 evidence present in `apps/{app-slug}/evidence/**` |
-| 2 | All in-flight features have either completed M5 or been explicitly canceled with a recorded decision | No feature branches under `feature/<app-slug>/**` are in M0 → M4 mid-state without an operator cancellation note |
-| 3 | All `apps/{app-slug}/specs/**` artifacts (phase PRD, phase TDD, openapi, slice-list, intent, acceptance, phase test plan, feature integration test plan, slice test plan) are committed to `main` | `main` head contains the artifact set per CC substantive CCAR canonical §Y.1 |
+| 2 | All in-flight features have either completed M5 or been explicitly canceled with a recorded decision | No feature branches under `feature/<app-slug>/**` are in M0 → M4 mid-state without an operator cancellation note. The cancellation note is recorded in one of two forms: a note in the closing commit that abandons the branch, or an entry in `apps/{app-slug}/handoff-record.md` |
+| 3 | All `apps/{app-slug}/specs/**` artifacts (phase PRD, phase TDD, openapi, slice-list, intent, acceptance, phase test plan, feature integration test plan, slice test plan) are committed to `main` | `main` head contains the artifact set defined by the canonical repository layout, which is owned by the CC-side substantive canonical |
 | 4 | Evidence chain is complete for every M4-merged feature | `apps/{app-slug}/evidence/{slice-id}/` contains the digest produced at the Codex code review TK per the digest-binding rule (cross-reference [TPL] Test Plan YAML Schema `evidence_required`) |
-| 5 | Domain dependencies are explicitly declared | App root `CLAUDE.md` (per Architecture Rules §4.2) lists every consumed `packages/domain/{domain-name}/` and pinned version per CC substantive CCAR canonical §Y.4.5 |
+| 5 | Domain dependencies are explicitly declared | App root `CLAUDE.md` (per Architecture Rules §4.2) lists every consumed `packages/domain/{domain-name}/` and pinned version per the domain-versioning rule owned by the CC-side substantive canonical |
 | 6 | No pending Design System change requests scoped to this app | No DS change request scoped to this app is still pending. Per [RULE] Design System Governance §12, such a request is either an additive update plan carried in a feature's UX Design Spec instance §2.4 New-Components-Or-Tokens (`apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`) or a CD-internal breaking-change file; every additive plan for this app's features carries an `approved` status with a recorded merge event per §12.4 (or `rejected`), and the operator confirms no breaking-change file affecting this app's slices is awaiting rollout (breaking-change files are CD-internal, not CC-visible) |
 | 7 | Long-living hub-produced spec artifacts (phase PRD, phase TDD) for the app have been brought to sign-off form per [MECH] Sign-Off Cleanup Policy | The active `apps/{app-slug}/specs/prd/phase-{N}.md` and `apps/{app-slug}/specs/tdd/phase-{N}.md` carry a `Sign-off: v1.0 ({date})` stamp (or a `v1.X.Y` patch version derived from a prior sign-off); no in-line revision annotations of the patterns documented in Sign-Off §4.1 / §4.2 remain; no governance bookkeeping sections remain |
 
@@ -156,12 +149,12 @@ The handoff content set must include all of the following, at the `main`-branch 
 | `apps/{app-slug}/CLAUDE.md` and tier-level `CLAUDE.md` files | Architecture context and tier boundaries — readable by humans even when not used as AI control files |
 | `packages/domain/{domain-name}/**` for every domain the app consumes | Domain logic, contracts, and tests on the producer side — the app cannot be maintained without its consumed domains |
 | Design System code at the monorepo-level path consumed by the app's Tier 1 | Required for visual consistency on enhancement; refer to [RULE] Design System Governance for the canonical DS code location (DS code is the CC-pillar artifact in the two-way distributed DS per [REF] Hub-CD-CC Architecture §5.2) |
-| `apps/{app-slug}/dev/**` | Dev-loopback orchestration (docker compose, fixtures, placeholder implementations) — required for regression rehearsal, emergency fallback, and onboarding per CC substantive Dev-Loopback Mode canonical (HANDOFF.md migration document section); P-37 retired in Phase 3 (counterparty fully migrated to CC) |
+| `apps/{app-slug}/dev/**` | Dev-loopback orchestration (docker compose, fixtures, placeholder implementations) — required for regression rehearsal, emergency fallback, and onboarding per CC substantive Dev-Loopback Mode canonical (HANDOFF.md migration document section) |
 | `apps/{app-slug}/HANDOFF.md` | Placeholder migration guide — required for production-target replacement of each dev-loopback placeholder per CC substantive Dev-Loopback Mode canonical |
 
 If a domain is consumed by the handed-off app **and** at least one other app that remains in AI-dev, the domain is included in the handoff content but a copy is also retained in the AI-dev monorepo. This source does not regulate the divergence-control mechanism between the two copies after handoff; that is a §5 re-entry concern.
 
-**Unit-type coverage note**: the path patterns above subsume all three unit_type deliverables produced by the AI-dev environment without per-unit-type enumeration, because the canonical repository layout (per CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1)) places every unit's deliverables under `apps/{app-slug}/`:
+**Unit-type coverage note**: the path patterns above subsume all three unit_type deliverables produced by the AI-dev environment without per-unit-type enumeration, because the canonical repository layout (owned by the CC-side substantive canonical) places every unit's deliverables under `apps/{app-slug}/`:
 
 - `walking_skeleton` unit (Phase 1 only) deliverables: the six outputs canonically enumerated in CC substantive Workspace Topology canonical (walking-skeleton 6-output set) (app-level CLAUDE.md, app `package.json`, app skeleton dirs, pnpm-workspace.yaml registration coverage, framework configs, and the walking-skeleton end-to-end runnable proof code) all land under `apps/{app-slug}/` and are subsumed by the patterns above
 - `feature` unit deliverables: per-slice production code, tests, evidence, and reports — all subsumed
@@ -235,7 +228,7 @@ The acknowledgment is recorded in one of two places, operator's choice:
 - The handoff tag's GitHub Release notes (when a GitHub Release is created for the handoff tag)
 - A dedicated `apps/{app-slug}/handoff-record.md` file committed to `main` after acknowledgment, referencing the handoff tag
 
-Until an acknowledgment is recorded, the application's state is "handoff initiated but not complete." This intermediate state is not a sustainable steady state; if acknowledgment is not received within an operator-defined window, either the handoff is reversed (per §4.1 deprecation flow) or the operator escalates to the receiving team.
+Until an acknowledgment is recorded, the application's state is "handoff initiated but not complete." This intermediate state is not a sustainable steady state; if acknowledgment is not received within an operator-defined window, either the handoff is reversed (per §4.1 deprecation flow) or the operator escalates to the receiving team. Tracking the elapse of the operator-defined window is out-of-band: this source defines no canonical mechanism that detects window expiry, and no AI actor monitors it — the operator is responsible for noticing that the window has elapsed and acting.
 
 ---
 
@@ -245,7 +238,7 @@ When an application that has been handed off to a human dev team needs further e
 
 ## 5.1 Selected approach: independent app
 
-The returning application is treated as a **new app in the monorepo**, with a distinct `{app-slug}` from the original. Naming convention: `{original-app-slug}-{period-marker}` where period-marker is descriptive (e.g., `hr-data-asset-mgmt-2026q3-enhance`, `hr-data-asset-mgmt-v2-redesign`). The frozen app-slug roster (per CC substantive CCAR canonical §Y) is updated to include the new slug.
+The returning application is treated as a **new app in the monorepo**, with a distinct `{app-slug}` from the original. Naming convention: `{original-app-slug}-{period-marker}` where period-marker is descriptive (e.g., `hr-data-asset-mgmt-2026q3-enhance`, `hr-data-asset-mgmt-v2-redesign`). The frozen app-slug roster (owned by the CC-side substantive canonical) is updated to include the new slug.
 
 The original app's directory remains in the monorepo as a historical reference. It is not deleted. It is not modified by AI-dev work after the handoff event.
 
@@ -253,8 +246,8 @@ The original app's directory remains in the monorepo as a historical reference. 
 
 The TK sequence for the returning application starts at TK-01 (phase 1 PRD authoring) for the new app-slug. Workspace inception (project-level scaffolding + singletons) is not re-run — it was completed once at the establishment of the monorepo per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) and the original state applies to the returning app. Re-entry begins a new Phase 1 lifecycle for the new app-slug, which carries the full unit-type partitioning per [MECH] Development Track Workflow §4.0:
 
-- **TK-01**: produces a new phase PRD for `apps/{new-app-slug}/specs/prd/phase-1.md`. The `{new-app-slug}` is decided here per operator pure judgment (immutable once committed) and added to the frozen app-slug roster per CC substantive CCAR canonical §Y. The phase PRD's "Existing PRDs" input pattern (per [MECH] Development Track Workflow §4 TK-01 inputs) naturally includes the original app's `apps/{original-app-slug}/specs/prd/**` (which contains the original app's phase PRDs) as historical reference. The new phase PRD also implicitly carries the architectural foundation that the new app's Phase 1 walking skeleton will validate. Conditional brownfield reconstruct pre-step applies per DTW TK-01 conditional pre-step when the operator judges the original app has behavior worth preserving.
-- **TK-02**: produces a new phase TDD at `apps/{new-app-slug}/specs/tdd/phase-1.md` (including §1 foundational architecture, §2 cross-feature concerns, §3 walking skeleton scope, and per-feature `§4.{feature-slug}` sub-sections) plus the paired phase test plan, per-feature integration test plans, per-feature slice-lists, and **per-unit `assigned_node` decisions for the new app's Phase 1 walking_skeleton unit, each feature unit, and any app_integration unit** per [MECH] Development Track Workflow TK-02 outputs. The new phase TDD may declare module reuse from the original app's domain dependencies. Domain consumption (per CC substantive CCAR canonical §Y.4) is independent of app identity, so the new app may consume the same `packages/domain/{domain-name}/` packages the original app consumed
+- **TK-01**: produces a new phase PRD for `apps/{new-app-slug}/specs/prd/phase-1.md`. The `{new-app-slug}` is decided here per operator pure judgment (immutable once committed) and added to the frozen app-slug roster owned by the CC-side substantive canonical. The phase PRD's "Existing PRDs" input pattern (per [MECH] Development Track Workflow §4 TK-01 inputs) naturally includes the original app's `apps/{original-app-slug}/specs/prd/**` (which contains the original app's phase PRDs) as historical reference. The new phase PRD also implicitly carries the architectural foundation that the new app's Phase 1 walking skeleton will validate. Conditional brownfield reconstruct pre-step applies per DTW TK-01 conditional pre-step when the operator judges the original app has behavior worth preserving.
+- **TK-02**: produces a new phase TDD at `apps/{new-app-slug}/specs/tdd/phase-1.md` (including §1 foundational architecture, §2 cross-feature concerns, §3 walking skeleton scope, and per-feature `§4.{feature-slug}` sub-sections) plus the paired phase test plan, per-feature integration test plans, per-feature slice-lists, and **per-unit `assigned_node` decisions for the new app's Phase 1 walking_skeleton unit, each feature unit, and any app_integration unit** per [MECH] Development Track Workflow TK-02 outputs. The new phase TDD may declare module reuse from the original app's domain dependencies. Domain consumption (governed by the domain lifecycle rules owned by the CC-side substantive canonical) is independent of app identity, so the new app may consume the same `packages/domain/{domain-name}/` packages the original app consumed
 - **Walking-skeleton-first ordering applies** for the new app's Phase 1: the walking_skeleton unit's PR must be merged to `main` (M5 staging deploy completion per [MECH] CI/CD Milestone Policy §2.6) before any feature unit's TK-03 or any app_integration unit's TK-08 begins, per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). The new app's physical skeleton (`apps/{new-app-slug}/CLAUDE.md` hierarchy, `apps/{new-app-slug}/package.json`, skeleton directories, `pnpm-workspace.yaml` registration) is produced as part of this walking_skeleton unit's output set per CC substantive Workspace Topology canonical (walking-skeleton 6-output set) — not as a hub-side pre-step. This applies even though the original app's architecture may be very similar — the returning application is a distinct app-slug and runs its own walking skeleton to establish its own CI/CD pipeline assertion
 - **TK-03 onwards**: proceed per the unit_type-specific task path defined in [MECH] Development Track Workflow §4.0 (for `feature` and `walking_skeleton` units, TK-03 → TK-11 Codex code review → TK-12 onwards per slice; for `app_integration` units, TK-08 onwards directly)
 
@@ -273,6 +266,13 @@ The human team's modifications during their stewardship period are **not merged 
 ## 5.3 Merge-back not sanctioned
 
 Merge-back is not a sanctioned re-entry approach under current canonical. The independent-app approach (§5.1) is the only re-entry mechanism. If empirical evidence from re-entry experiences justifies merge-back later, this section will be revised.
+
+## 5.4 Re-entry edge cases
+
+Two edge cases are not standard §5 re-entry and are routed explicitly:
+
+- **Handoff initiated but never acknowledged, and the operator wants the app back**: this is not a §5 re-entry (re-entry applies to an app whose handoff completed and was stewarded by a human team). An app still in the "handoff initiated but not complete" state (§4.3) that the operator decides to pull back is a **handoff reversal**: follow the §4.1 deprecation flow — the old handoff tag is deprecated via its message, no new app-slug is created, and the app simply continues in the AI-dev environment under its original `{app-slug}`.
+- **Re-entry when the original app directory was improperly removed**: §5.1 requires the original app's directory to remain in the monorepo as historical reference and not be deleted. If it was removed in violation of that rule, the recovery expectation before re-entry proceeds is to restore the original directory from git history — the handoff tag (§4.1) captures the original app's `main` state and is the authoritative restore point. Re-entry then proceeds normally per §5.1–§5.2 with the restored directory serving as the §5.2 historical-input source.
 
 ---
 
@@ -308,6 +308,8 @@ On detection, Hub Claude:
 
 This soft compliance is conversational, not blocking. The intent is to surface canonical boundaries during organic dialogue, not to gate every utterance.
 
+Each handoff conversation re-confirms readiness directly from the §2.2 evidence paths in the current session; it does not rely on a prior session's confirmation, because whether the §2.2 checklist passed is session-external state that a fresh Hub session cannot observe. When step 2 asks the operator to confirm §2 readiness, the confirmation is grounded in the §2.2 evidence checked anew, not in the operator's recollection of an earlier conversation.
+
 ---
 
 # 7. Anti-drift red flags
@@ -330,7 +332,7 @@ This soft compliance is conversational, not blocking. The intent is to surface c
 - Handoff source state created from a branch other than `main`
 - Handoff tag created as lightweight (not annotated)
 - Handoff tag created without the `handoff/{app-slug}/{YYYY-MM-DD}` prefix per §4.1
-- Acknowledgment record absent beyond an operator-defined window without resolution (§4.3)
+- Acknowledgment record absent beyond an operator-defined window without resolution (§4.3) — surfaced by the operator's own out-of-band tracking, not detected by any canonical mechanism
 - Existing handoff tag force-updated to point to a different commit (use a new dated tag instead per §4.1)
 
 **Re-entry dimension**:

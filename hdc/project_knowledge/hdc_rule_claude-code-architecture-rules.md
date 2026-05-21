@@ -3,18 +3,18 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Architecture Specification
 - **Status**: Active canonical
-- **Role**: Constitutional declaration of the three-tier code architecture for Claude Code projects, the Tier 2 thinning rule, permission decision placement principle, the existence of the CLAUDE.md hierarchy (defers to [REF] CC Project Memory Bank Layout constitutional residue), the existence of subagent topology and context scope mechanisms, and the high-level monorepo structure that hosts Cat 4 implementation. Substantive operational rules (specific tier-internal tool choices, specific subagent roster A1-A10 with permissions, specific repository path patterns and lint rules, specific skill catalog, agent context scope configurations) are owned by CC under its own substantive canonical.
+- **Role**: Stable declaration of the three-tier code architecture for Claude Code projects, the Tier 2 thinning rule, permission decision placement principle, the existence of the CLAUDE.md hierarchy (defers to [REF] Hub-CD-CC Architecture constitutional residue), the existence of subagent topology and context scope mechanisms, and the high-level monorepo structure that hosts Cat 4 implementation. Substantive operational rules (specific tier-internal tool choices, the specific subagent roster (membership, count, identifiers) with permissions, specific repository path patterns and lint rules, specific skill catalog, agent context scope configurations) are owned by CC under its own substantive canonical.
 - **Source Category**: Cat 4
 - **Management-System Role**: Architecture specification; outside L1-L5 hierarchy; not itself an L2-L5 artifact
 - **Relationship to [OS]**: Operates within [OS] §7.1 routing; subject to [OS] §8.5 paired-update consistency. The constitutional / substantive boundary in [OS] §0.1.5 (Premise 5) applies: Hub-side residue carries the constitutional skeleton declared here; CC-side substantive canonical owns the operational implementation details.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §5 (management mechanism over ad hoc control) to tier separation as a constitutional architectural mechanism rather than ad-hoc structural choice.
-- **Relationship to [REF] Hub-CD-CC Architecture**: Tier architecture operates inside the CC workspace. This Hub residue is the constitutional declaration that Hub-authored TDDs and handoff documentation consume.
-- **Relationship to [REF] CC Project Memory Bank Layout**: §4 below references CCMBL constitutional residue for CLAUDE.md hierarchy existence; CCMBL declares the existence and tier-alignment, this source declares the tier separation that CCMBL aligns to.
+- **Relationship to [REF] Hub-CD-CC Architecture**: Tier architecture operates inside the CC workspace. This Hub residue is the constitutional declaration that Hub-authored TDDs and handoff documentation consume. §4 below references this source for the existence of the CLAUDE.md hierarchy; the tier separation declared here is what that hierarchy aligns to.
 - **Relationship to [RULE] Workspace Topology**: Companion constitutional residue. Tier separation (this source) is orthogonal to multi-node deployment (WT). The two together define the CC workspace's architectural shape.
 - **Relationship to [RULE] Design System Governance**: Tier 1 design constraint references DSG; the constitutional invariant that Tier 1 adheres to the project DS is declared here. Specific DSG enforcement mechanics are at DSG itself.
 - **Relationship to [MECH] Development Track Workflow**: Companion. TK orchestration consumes the tier separation declared here to assign work scope per tier.
 - **Relationship to [MECH] CI/CD Milestone Policy**: M-gates execute against the tier architecture declared here. M2 contract testing leverages the Tier 2-Tier 3 seam.
-- **Pairings I participate in**: P-01 retired at this Hub residue level (substantive Tier-2-thinning-vs-CI-criteria pairing migrates to CC substantive CCAR canonical paired with CC substantive CI/CD canonical). Cross-workspace constitutional pairings: with [REF] CC Project Memory Bank Layout (tier alignment of CLAUDE.md hierarchy), with [RULE] Workspace Topology (tier × multi-node deployment topology).
+- **Relationship to [MECH] Application Lifecycle Handoff**: Handoff readiness includes tier-correct implementation completeness against the tier architecture declared here.
+- **Pairings I participate in**: None. This Hub-side residue participates in no static pairings; its couplings to the CC-side substantive canonical and to [RULE] Workspace Topology are Tier B couplings documented in the `Relationship to …` header fields above per [OS] §8.5.1a.
 
 ## How to use this source (Hub-side)
 
@@ -26,7 +26,7 @@ Use this source when:
 
 Do not use this source as:
 - A specific tier internal tooling reference (CC substantive)
-- A subagent roster catalog with A1-A10 names and permissions (CC substantive)
+- A subagent roster catalog with specific identifiers and permissions (CC substantive)
 - A repository layout reference for specific path patterns (CC substantive)
 - A skill catalog (CC substantive)
 - An agent context scope configuration reference (CC substantive)
@@ -41,7 +41,6 @@ Do not use this source as:
 - Three-tier code architecture: identity and role of Tier 1 (React Frontend), Tier 2 (Node/TS BFF), Tier 3 (Java Domain Services)
 - Tier 2 thinning rule (constitutional design rule for simple applications)
 - Permission decision placement principle (where in the tier stack permission logic resides)
-- The existence of the CLAUDE.md hierarchy (defers to [REF] CC Project Memory Bank Layout constitutional residue)
 - The existence of subagent topology and context scope mechanisms (cross-workspace handoff documentation references "the CC subagent layer" as a concept)
 - The existence of the monorepo structure with `apps/` and `packages/domain/` separation (the high-level structure Hub-authored TDDs reference by path)
 - The Tier 2 ↔ Tier 3 seam as Pact contract testing boundary (constitutional interface)
@@ -52,26 +51,13 @@ Do not use this source as:
 - Tier 1 internal: specific React framework version, specific UI library, specific routing approach (CC substantive)
 - Tier 2 internal: specific Node version, specific TypeScript configuration, specific BFF implementation patterns (CC substantive)
 - Tier 3 internal: specific Java version, specific Spring framework version, specific persistence approach (CC substantive)
-- Subagent roster: A1-A10 names, individual subagent definitions, permission sets (CC substantive)
+- Subagent roster: individual subagent definitions, permission sets (CC substantive)
 - Named context scopes: `business_rules_only`, `api_contracts`, `code_whitebox` etc. and their configuration schemas (CC substantive)
 - Context scope enforcement mechanics (CC substantive)
 - Repository layout: path patterns within the tier-anchoring directories, frozen-name rules, what-must-not-be-in-the-repository details (CC substantive). The tier-anchoring paths themselves (`apps/{app-slug}/src/frontend|bff/`, `packages/domain/{domain-name}/`) are constitutional location references — see §1, §6
 - Domain rules: identity naming, boundary specifics, lifecycle model B specifics, contract testing Pact convention specifics, versioning rules (CC substantive)
 - Skill catalog: SK-F, SK-W, and per-skill load triggers (CC substantive)
 - Anti-drift signals at the operational level (CC substantive)
-
-## 0.3 Position relative to adjacent canonical sources
-
-| Adjacent source | Relationship |
-|---|---|
-| [OS] | Operates within [OS] §7.1 routing. [OS] §0.1.5 Premise 5 governs the constitutional / substantive split. |
-| [REF] Hub-CD-CC Architecture | Tier architecture exists within the CC workspace; this Hub residue is the constitutional declaration that other workspaces consume. |
-| [REF] CC Project Memory Bank Layout | CLAUDE.md hierarchy tier-alignment declared here is the basis for CCMBL's tier-aligned structure. |
-| [RULE] Workspace Topology | Multi-node × tier architecture are orthogonal constitutional dimensions of the CC workspace. |
-| [RULE] Design System Governance | Tier 1 design constraint references DSG; constitutional adherence requirement declared here. |
-| [MECH] Development Track Workflow | TK assignments consume tier identity to scope work. |
-| [MECH] CI/CD Milestone Policy | M-gates execute against tier architecture; M2 contract testing leverages Tier 2-Tier 3 seam. |
-| [MECH] Application Lifecycle Handoff | Handoff readiness includes tier-correct implementation completeness. |
 
 ---
 
@@ -113,7 +99,18 @@ The CC workspace's code is organized into three tiers. Each tier has constitutio
 
 Simple applications may thin the Tier 2 layer when full orchestration logic is not justified, **but the three-tier structure must be preserved**.
 
+**Thinning rubric** — thinning is permitted only when all of the following hold:
+- the slice's Tier 2 work is exhausted by DTO mapping and API gateway pass-through — no cross-domain aggregation, no scene-specific business orchestration, no session-derived decision logic
+- each frontend call maps to a single domain-service call (one-to-one), so Tier 2 adds no composition
+- no frontend-specific validation or transformation beyond shape mapping is required
+
+If any item fails, Tier 2 carries its normal orchestration responsibilities and must not be thinned.
+
 **Approved pattern**: Tier 2 retained as a thin BFF layer that performs only DTO mapping and API gateway duties, while Tier 1 and Tier 3 carry their normal responsibilities.
+
+**Example pair**:
+- *Compliant thinning*: a single-domain reference-data lookup feature where each Tier 1 request maps one-to-one to one Tier 3 read and Tier 2 only reshapes the DTO — Tier 2 is retained as a thin pass-through BFF.
+- *Non-compliant thinning*: a dashboard feature that aggregates data from three domain services and applies role-derived display rules — collapsing this into a pass-through Tier 2 (or into Tier 1) violates the rule, because real cross-domain orchestration exists and belongs at Tier 2.
 
 **Constitutional invariant**: Do not remove Tier 2 entirely. Even in simple applications, retain Tier 2 as a thin BFF to preserve architectural evolution space and prevent DTO leakage into Tier 1.
 
@@ -132,7 +129,7 @@ CC substantive canonical owns the operational guidance for implementing a thin B
 Permission decisions must be separated by type. The constitutional principle:
 
 - **Data permissions** (who can read/write what business state) reside at Tier 3 (Java Domain Services Layer). Tier 3 enforces data-access permissions because Tier 3 owns the business state.
-- **Functional permissions** (who can invoke what app feature) reside at Tier 2 (Node BFF) for the app-specific portion, with the authoritative source of permission identity at Tier 3.
+- **Functional permissions** (who can invoke what app feature) split by ownership: the **app-specific portion** — whether a given user may invoke a given app feature in the context of one app's feature surface — resides at Tier 2 (Node BFF), because Tier 2 is the app-orchestration layer that owns the app's feature surface; the **authoritative source of permission identity** (role and grant definitions) resides at Tier 3, because Tier 3 owns the business state those grants are bound to. The boundary: Tier 2 decides app-feature invocability against identity it does not itself author; Tier 3 authors and owns the identity.
 
 This separation prevents Tier 1 from holding permission decision logic (a Tier 1 that "knows what user can do" leaks domain authority into presentation). Hub-authored TDDs must respect this placement at the specification level.
 
@@ -142,16 +139,11 @@ Specific permission tooling, enforcement libraries, and audit mechanisms are CC 
 
 # 4. CLAUDE.md file hierarchy
 
-The CC workspace uses a tier-aligned CLAUDE.md hierarchy. The hierarchy's existence and tier-alignment is declared in [REF] CC Project Memory Bank Layout constitutional residue; the specific paths, "must reference" lists, and authoring authority per level are CC substantive content under CC's own canonical layer for memory-bank layout.
+The CC workspace uses a tier-aligned CLAUDE.md hierarchy. The hierarchy's existence and tier-alignment is declared in [REF] Hub-CD-CC Architecture constitutional residue; the specific paths, "must reference" lists, and authoring authority per level are substantive detail owned by the CC-side substantive canonical.
 
-This source declares only that the CLAUDE.md hierarchy is **tier-aligned to the three-tier architecture in §1**:
-- Project-root CLAUDE.md exists (loaded at every session)
-- App-root CLAUDE.md exists at `apps/{app-slug}/` (loaded when entering app)
-- App-frontend CLAUDE.md exists at `apps/{app-slug}/src/frontend/` (Tier 1 scope)
-- App-BFF CLAUDE.md exists at `apps/{app-slug}/src/bff/` (Tier 2 scope)
-- Domain-root CLAUDE.md exists at `packages/domain/{domain-name}/` (Tier 3 scope)
+This source declares only the constitutional claim: a project-root CLAUDE.md and per-tier CLAUDE.md files exist, tier-aligned to the three-tier architecture in §1; the specific path set is owned by the CC-side substantive canonical.
 
-Substantive content (must-reference lists, authoring authority, cross-level navigation discipline) is owned by [REF] CC Project Memory Bank Layout's CC-side substantive canonical and by CC substantive CCAR.
+Substantive content (must-reference lists, authoring authority, cross-level navigation discipline) is owned by the CC-side substantive canonical.
 
 ---
 
@@ -162,7 +154,7 @@ The CC workspace operates a **subagent topology**: parts of the TK chain are exe
 **Constitutional invariants**:
 - A subagent roster exists at CC (CC substantive canonical owns the specific roster — its membership, count, and per-subagent definitions)
 - Each subagent has a defined context scope (CC substantive canonical owns the scope catalog and configurations)
-- Subagent invocations are recorded at handoff (the Test Evidence Report schema in [MECH] CI/CD Milestone Policy Hub residue §3.2 references specific subagent output sections)
+- Subagent invocations are recorded at handoff
 - Subagent bias firewall principle: subagents do not share context with each other unless their roles authorize the cross-flow (CC substantive canonical implements the firewall)
 
 **What this source does not declare**: specific subagent identifiers and names, the roster size, subagent definition file paths, context scope configurations, permission grant mechanisms — all CC substantive.
@@ -171,15 +163,13 @@ The CC workspace operates a **subagent topology**: parts of the TK chain are exe
 
 # 6. High-level monorepo structure (constitutional)
 
-The CC workspace organizes code in a **monorepo with apps/ and packages/domain/ separation**:
-- `apps/{app-slug}/**` — per-app implementation (Tier 1 frontend + Tier 2 BFF + app-scoped specs and tests)
-- `packages/domain/{domain-name}/**` — per-domain implementation (Tier 3 domain services)
+The CC workspace organizes code in a **monorepo with apps/ and packages/domain/ separation**. The per-tier path anchors (`apps/{app-slug}/src/frontend|bff/`, `packages/domain/{domain-name}/`) are stated in §1; this section declares only the monorepo-level separation: per-app implementation lives under `apps/{app-slug}/**` and per-domain implementation under `packages/domain/{domain-name}/**`.
 
 The high-level structure is constitutional — Hub-authored TDDs reference paths like `apps/{app-slug}/specs/` for spec location and `packages/domain/{domain-name}/` for domain implementation location.
 
 **Constitutional invariants**:
 - App slug and domain name are kebab-case identifiers
-- Apps and domains have decoupled identities (a domain serves N apps; an app consumes M domains)
+- Apps and domains have decoupled identities — domain identity is decoupled from app identity per §1.3
 - Tier-tier seam between Tier 2 (app BFF) and Tier 3 (domain services) is the contract testing boundary (Pact consumer-driven convention; specifics CC substantive)
 
 Specific path patterns within `apps/**` or `packages/domain/**`, frozen-name rules, what-must-not-be-in-the-repository discipline, domain lifecycle and versioning rules, and contract testing operational details are all CC substantive.
@@ -188,14 +178,4 @@ Specific path patterns within `apps/**` or `packages/domain/**`, frozen-name rul
 
 # 7. Cross-workspace anti-drift signals
 
-Anti-drift signals at the cross-workspace level, surfaced here because they involve Hub-authored content or cross-workspace handoff:
-
-- A Hub-authored TDD that places business rules in Tier 1 (violating §3 permission placement and §1 role identity)
-- A Hub-authored TDD that removes Tier 2 entirely (violating §2 Tier 2 thinning rule constitutional invariant)
-- A Hub-authored handoff document that references a tier name outside the three (`Tier 4`, `Tier 0` — does not exist)
-- A Hub-authored handoff document that confuses Tier 1/2/3 with the L1-L5 management-system lens
-- A Hub-authored specification that ties a domain to a specific app identity (violating domain identity decoupling)
-- A cross-workspace artifact that references a subagent identifier without that subagent existing in CC's roster (substantive lookup needed at CC; Hub anti-drift signal at constitutional level when no subagent existence at all is referenced)
-- A Hub-authored TDD that bypasses the Pact contract testing seam between Tier 2 and Tier 3 (violating §6 contract testing boundary)
-
-In-CC operational anti-drift signals (specific subagent permission leaks, context scope violations, lint rule drift, repository layout drift, domain naming conflicts, skill loading drift) are governed by CC substantive CCAR canonical.
+Violations of §1-§6 are cross-workspace anti-drift signals per [OS] §12. In-CC operational anti-drift signals (specific subagent permission leaks, context scope violations, lint rule drift, repository layout drift, domain naming conflicts, skill loading drift) are governed by the CC-side substantive canonical.

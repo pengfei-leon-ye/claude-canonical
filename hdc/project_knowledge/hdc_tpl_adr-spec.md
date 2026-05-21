@@ -2,13 +2,14 @@
 
 - **Project**: HR Digital Cockpit
 - **Document Type**: Template
-- **Status**: Active canonical
+- **Status**: Active canonical template
 - **Role**: Reusable content contract for Architecture Decision Records (ADRs) — structural decisions about the HDC project, its applications, or the cross-tool workspace architecture, recorded so the rationale survives the conversation that produced it
 - **Source Category**: Cat 4
 - **Management-System Role**: Template; outside L1-L5 hierarchy; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1; ADR landing paths follow [OS] §9 naming convention.
 - **Relationship to [PRIN]**: Applies HR Digital Decision Design Principles §14 (preserve ambiguity rather than fabricate resolution) — ADRs record decisions with explicit context, alternatives, and reversibility, rather than presenting decisions as inevitable.
 - **Relationship to [REF] Hub-CD-CC Architecture**: Referenced by §10.2 — ADRs are used to record decisions about re-enabling direct CD ↔ CC coupling. This secondary use case demonstrates ADR applicability to Meta-layer decisions as well as Cat 4 architecture decisions.
+- **Relationship to [TPL] Technical Design Document Template**: A TDD's ADR index may point to ADR Spec instances; the TDD↔ADR coupling is semantic-search-discoverable via this field rather than via a static pairing registration.
 - **Relationship to [MECH] Development Track Workflow**: ADRs may be produced during any TK where the operator makes a non-trivial architecture decision; DTW §3.4 glossary may eventually reference ADRs as a standard decision-recording artifact.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §3.2.3 references this source — CC observations warranting an ADR are transferred to Hub via the CC → Hub direction, and Hub Claude assists ADR authoring per this template.
 - **Relationship to [TPL] Problem Framing Memo, [TPL] Options Paper**: Adjacent decision-vehicle templates. Problem Framing Memo frames a problem; Options Paper compares options; ADR records the decision and rationale. The three are sequential in many decision flows, but each is independently usable. ADR may follow an Options Paper or stand alone.
@@ -83,6 +84,8 @@ An ADR is **not** warranted when:
 - The decision is a value judgment without structural implications (e.g., choosing between two equivalent naming options for a feature-slug)
 - The decision is fully reversible at zero cost (e.g., changing a non-binding code style preference)
 
+Boundary example on the contested "structural / non-trivial" axis — **warranted**: choosing to split a monolithic app module into two deployable services, because it changes the monorepo's deployment topology and the alternatives (keep monolithic, split three ways) carry materially different long-term consequences. **Not warranted**: choosing the internal folder name for that new service, because the choice has no structural consequence and is reversible at near-zero cost — a value judgment, not an architecture decision.
+
 When in doubt, the operator's judgment per [PRIN] §14 governs — ADRs are tools for preserving important reasoning, not bureaucratic instruments. Over-authoring ADRs dilutes the signal.
 
 ---
@@ -97,7 +100,7 @@ An ADR has the following content sections, in order. Required fields are marked;
 |---|---|---|
 | Title | Required | A short noun phrase naming the decision (e.g., "Re-enable direct CD ↔ CC coupling"). Not a question; not a description; not a status. |
 | ADR ID | Required | `ADR-{NNNN}` where `NNNN` is a 4-digit zero-padded sequence number unique within the ADR catalog scope (project-scoped, app-scoped, or Meta — see §3). |
-| Status | Required | One of: `Proposed`, `Accepted`, `Superseded by ADR-{NNNN}`, `Deprecated`. See §4 lifecycle. |
+| Status | Required | One of: `Proposed`, `Accepted`, `Superseded by ADR-{NNNN}`, `Deprecated`. The value `Withdrawn` is also permitted but is informal and optional — used only when a kept-for-the-record Proposed ADR is withdrawn (see §4.1, §4.4). See §4 lifecycle. |
 | Date | Required | Date of the most recent status transition (YYYY-MM-DD). |
 | Scope | Required | One of: `Project`, `App: {app-slug}`, `Meta`. Determines the landing path per §3. |
 | Decision makers | Optional | Names or roles of operator and any consultative parties (Hub Claude advisory does not need to be listed). |
@@ -169,7 +172,7 @@ States how the decision can be reversed if it proves wrong. Specifically:
 - The reversal cost (low / medium / high — operator's judgment)
 - The reversal mechanism (e.g., "supersede this ADR with a new one; revert §X.Y of [REF] Source Z")
 - Any irreversible side effects (e.g., "data already migrated under this decision cannot be unmigrated trivially")
-- The trigger conditions that would prompt reversal (e.g., "if the verification exercise per §10 produces audit failures")
+- The trigger conditions that would prompt reversal (e.g., "if the ADR's own Verification section §2.7 produces audit failures")
 
 Decisions with no reversibility section should be very rare and should explicitly call out the irreversibility.
 
@@ -222,10 +225,11 @@ When an ADR references another ADR in a different scope (e.g., a project-scoped 
 
 | Status | Meaning | Allowed next states |
 |---|---|---|
-| `Proposed` | Decision is drafted but not yet committed; operator review pending | `Accepted`, `Withdrawn` (rare; not formally tracked) |
+| `Proposed` | Decision is drafted but not yet committed; operator review pending | `Accepted`, `Withdrawn` |
 | `Accepted` | Decision is committed; the ADR is canonical-record | `Superseded by ADR-{NNNN}`, `Deprecated` |
 | `Superseded by ADR-{NNNN}` | A later ADR replaces this one; the superseding ADR's ID is recorded | Terminal (cannot be further transitioned; if re-instated, a new ADR is created) |
 | `Deprecated` | The decision no longer applies, but no superseding ADR was authored | Terminal |
+| `Withdrawn` | Informal, optional. A Proposed ADR that was not progressed to Accepted and is kept for the record rather than deleted (see §4.4); rare, not formally tracked | Terminal |
 
 ## 4.2 Status transition discipline
 
@@ -241,7 +245,7 @@ The old ADR's content (Context, Alternatives, Decision, Consequences, Reversibil
 
 ## 4.3 Content immutability after Accepted
 
-Once an ADR reaches `Accepted` status, its content (sections §2.2 through §2.6 / §2.7) is immutable. Subsequent decisions on the same topic produce a new ADR that supersedes the old one.
+Once an ADR reaches `Accepted` status, its content (sections §2.2 through §2.6 / §2.7) is immutable. Subsequent decisions on the same topic produce a new ADR that supersedes the old one. Immutability exists so the ADR remains a faithful record of the decision as it was made: a superseding ADR must be able to reason against an unchanged baseline, which is impossible if the original's content can drift after Acceptance.
 
 Exception: typo corrections and formatting fixes that do not alter substantive content may be applied to Accepted ADRs without superseding. Such corrections are recorded in git history.
 

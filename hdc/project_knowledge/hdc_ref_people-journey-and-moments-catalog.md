@@ -38,18 +38,9 @@ A new stage or moment should be added only when it is:
 - clear enough to improve shared language and design quality
 - not better handled as a persona overlay, local variance, or extension note
 
-## Overview
-
-| Stage | Employee-view stage description | Number of moments |
-| --- | --- | ---: |
-| Attract & Awareness | I notice you, become curious, and start to imagine myself working here. | 4 |
-| Apply & Select | I apply, feel respected and informed, and believe the process is fair and human. | 6 |
-| Join (Offer Acceptance to Day One) | I feel excited, informed and looked after between offer and first day. | 5 |
-| Onboard & Integrate (First 3-6 Months) | I feel welcomed, equipped, safe, and clear about my role and how to succeed. | 7 |
-| Work, Perform & Belong (Day-to-Day Experience) | I feel able to do my job, heard, appreciated, and part of something. | 11 |
-| Develop & Grow (Skills & Career) | I see a future here and feel the company invests in my growth. | 7 |
-| Move & Evolve (Internal Mobility, Promotion, Role Change) | I can grow through new roles and transitions that feel supported and fair. | 8 |
-| Exit & Alumni | I leave feeling respected, with my contributions recognized, and the door open. | 8 |
+Examples of applying the add-to-core test:
+- Compliant: "Skills reassessment after a major role change" — lifecycle-stable, recurs across personas and topics, and improves shared language; belongs in the core catalog.
+- Non-compliant: "Completing the new GMP e-learning module rollout" — initiative-specific and tied to one program; belongs in an extension note, not the core catalog.
 
 # 1. Attract & Awareness
 
@@ -86,6 +77,7 @@ A new stage or moment should be added only when it is:
 | Digital pre-boarding | When I can easily complete paperwork (contracts, background checks, personal data, bank details, tax, right-to-work, etc.) online. |
 | Pre-start engagement with manager & team | When my future manager reaches out, maybe introduces the team, shares a rough plan for my first week. |
 | Logistics confirmation | When I get practical details: where to go, what to bring / wear, parking / shuttle info, security / access arrangements. |
+| Boomerang re-entry as a returning hire | When I rejoin as a former employee and the experience recognizes my prior history—reactivating rather than recreating my record, calibrating onboarding to what I already know, and not treating me as a first-time joiner. |
 
 # 4. Onboard & Integrate (First 3-6 Months)
 
@@ -113,11 +105,11 @@ A new stage or moment should be added only when it is:
 | Recognition & appreciation | When I receive thanks, public recognition, awards or simply a genuine “well done,” and when others see great work celebrated. |
 | Reward moments (pay review, bonus) | When I see if pay and bonuses feel fair relative to my contribution and the market, and whether rationale is transparent. |
 | Day-to-day support & problem resolution | When I hit an issue (HR query, payroll error, system glitch, lab / plant issue) and see how quickly and helpfully it’s resolved. |
-| Life events & wellbeing support | When I experience things like parental leave, illness, burnout, bereavement, or personal crises and feel (or don’t feel) that the company genuinely supports me. |
+| Life events & wellbeing support | When I experience things like parental leave, illness, burnout, bereavement, or personal crises and feel (or don’t feel) that the company genuinely supports me. Scope: the emotional and wellbeing-support experience of the life event itself — distinct from the benefits-decision experience and the return-to-work experience below. |
 | Manager or team changes / reorganizations | When my manager changes or my team is restructured, and communication and transition support shape my sense of security and trust. |
 | Ethics, safety or quality incident | When something goes wrong (near miss, deviation, complaint) and I see whether the culture is blame-oriented or learning-oriented. |
-| Benefits enrollment / life-event benefits change | When I need to choose, change, or understand benefits because of annual enrollment or a life event, and the experience helps me make clear, confident decisions. |
-| Return from leave / post-parental leave / return to work | When I come back after an extended leave and need clarity, support, and a structured re-entry into work, not just administrative reinstatement. |
+| Benefits enrollment / life-event benefits change | When I need to choose, change, or understand benefits because of annual enrollment or a life event, and the experience helps me make clear, confident decisions. Scope: the benefits-decision and enrollment transaction — distinct from the wellbeing support around the life event and the return-to-work re-entry. |
+| Return from leave / post-parental leave / return to work | When I come back after an extended leave and need clarity, support, and a structured re-entry into work, not just administrative reinstatement. Scope: the re-entry and ramp-back-into-work experience — distinct from the wellbeing support during the leave and the benefits-change transaction. |
 
 # 6. Develop & Grow (Skills & Career)
 

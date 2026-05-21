@@ -3,17 +3,17 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Infrastructure Specification
 - **Status**: Active canonical
-- **Role**: Constitutional declaration of the multi-node development workspace infrastructure: that multiple production-peer nodes exist, the parity discipline that binds them, the walking-skeleton-first ordering rule that governs cross-workspace handoff sequencing, the node-assignment interface contract that anchors TDD `assigned_node` fields and GitHub Issue marker blocks, and workspace inception governance. Substantive operational details (specific tool stack and versions, specific GitHub workflow configuration, specific node-assignment step sequences, anti-drift signals at the operational level, inception checklist contents) are owned by CC under its own substantive canonical.
+- **Role**: Stable declaration of the multi-node development workspace infrastructure: that multiple production-peer nodes exist, the parity discipline that binds them, the walking-skeleton-first ordering rule that governs cross-workspace handoff sequencing, the node-assignment interface contract that anchors TDD `assigned_node` fields and GitHub Issue marker blocks, and workspace inception governance. Substantive operational details (specific tool stack and versions, specific GitHub workflow configuration, specific node-assignment step sequences, anti-drift signals at the operational level, inception checklist contents) are owned by CC under its own substantive canonical.
 - **Source Category**: Cat 4
 - **Management-System Role**: Infrastructure specification; outside L1-L5 hierarchy
 - **Relationship to [OS]**: Serves the Development Track infrastructure layer referenced by [OS] §7.1 routing; subject to [OS] §8.5 paired-update consistency. The constitutional / substantive boundary in [OS] §0.1.5 (Premise 5) applies: Hub-side residue carries the constitutional skeleton declared here; CC-side substantive canonical owns the operational details.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §3 (global core with governed local variance) to node definitions — every node is an equal production peer with no client/server asymmetry, governed by a single shared canonical configuration.
-- **Relationship to [REF] Hub-CD-CC Architecture**: Operates inside the CC workspace boundary. The multi-node infrastructure is internal to CC; this Hub residue declares the constitutional shape that Hub-authored TDDs and handoff documentation must respect.
+- **Relationship to [REF] Hub-CD-CC Architecture**: Operates inside the CC workspace boundary. The multi-node infrastructure is internal to CC; this Hub residue declares the constitutional shape that Hub-authored TDDs and handoff documentation must respect. The CC `.claude/` canonical layer is part of that CC workspace architecture; its multi-node distribution is governed by the parity discipline in §2 below.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Companion. WT constitutional residue declares multi-node existence; CCAR constitutional residue declares tier separation. The two are orthogonal constitutional dimensions of the CC workspace.
 - **Relationship to [MECH] Development Track Workflow**: Companion. The node-assignment workflow declared in §4 below is the infrastructure layer that DTW's TK orchestration runs on. DTW constitutional residue declares TK existence and Hub/CC ownership boundaries; this source declares the multi-node substrate.
 - **Relationship to [MECH] CI/CD Milestone Policy**: M-state evidence is acceptable from any node defined here; the originating node is recorded in evidence files but does not affect gate validation logic. This is constitutional — Hub-side handoff documentation can rely on node-neutrality of evidence.
 - **Relationship to [MECH] Application Lifecycle Handoff**: Release artifacts originate from any node; release-channel node neutrality is preserved as constitutional invariant.
-- **Pairings I participate in**: P-33 (with [MECH] Application Lifecycle Handoff §5.2 + [TPL] TDD §3 — TDD `assigned_node` field references logical names from this source's constitutional residue). Pairings P-10 / P-11 / P-14 / P-52 from the pre-split version are retired at this Hub residue level; their substantive obligations migrate to CC under CC substantive WT canonical.
+- **Pairings I participate in**: P-10 (this source's §4 ↔ [MECH] Development Track Workflow §4.0); P-11 ([TPL] TDD §3 ↔ this source's §3); P-33 (with [MECH] Application Lifecycle Handoff §5.2 + [TPL] TDD §3 — TDD `assigned_node` field references logical names from this source's constitutional residue). Pairings P-14 / P-52 from the pre-split version are retired at this Hub residue level; their substantive obligations migrate to CC under the CC-side substantive Workspace Topology canonical.
 
 ## How to use this source (Hub-side)
 
@@ -52,18 +52,6 @@ Do not use this source as:
 - Workspace inception checklist contents (CC substantive)
 - macOS-level personal configuration (operator personal layer; not regulated by canonical)
 - Operational `MANUAL_*.md` artifacts (operator personal, per [OS] §9.4)
-
-## 0.3 Position relative to adjacent canonical sources
-
-| Adjacent source | Relationship |
-|---|---|
-| [OS] | Operates within [OS] §7.1 routing. [OS] §0.1.5 Premise 5 governs the constitutional / substantive split. |
-| [REF] Hub-CD-CC Architecture | Multi-node infrastructure exists within the CC workspace; this Hub residue is the constitutional declaration that other workspaces consume by name. |
-| [RULE] Claude Code Architecture Rules | Companion constitutional residue. Multi-node existence is orthogonal to tier separation. |
-| [REF] CC Project Memory Bank Layout | Companion constitutional residue. CC canonical layer existence declared in CCMBL; multi-node distribution of that layer governed by parity discipline here. |
-| [MECH] Development Track Workflow | TK orchestration consumes node assignment via TDD `assigned_node` field per §4 interface contract. |
-| [MECH] CI/CD Milestone Policy | M-state evidence is node-neutral per §1.4 constitutional invariant below. |
-| [MECH] Application Lifecycle Handoff | Release artifacts originate from any node; node-neutrality preserved. |
 
 ---
 
@@ -108,7 +96,7 @@ Parity is achieved through three mechanisms (existence-declared here; substantiv
 
 1. **Committed declaration files**: toolchain versions are pinned in repository-committed files (e.g., `.tool-versions`, `package.json` engines/packageManager, lockfiles); nodes verify their installed versions match the committed declaration. The specific declaration-file inventory and version-specifier strategy is CC substantive content.
 
-2. **Shared `.claude/` canonical content**: subagents, skills, hooks, and rules in `.claude/` are not duplicated per node — they live in the monorepo and each node pulls the same content. (Cross-reference [REF] CC Project Memory Bank Layout constitutional residue for the existence of the `.claude/` directory; this source declares the parity requirement.)
+2. **Shared `.claude/` canonical content**: subagents, skills, hooks, and rules in `.claude/` are not duplicated per node — they live in the monorepo and each node pulls the same content. (The CC `.claude/` canonical layer is part of the CC workspace architecture per [REF] Hub-CD-CC Architecture; this source declares the parity requirement.)
 
 3. **Upgrade discipline**: toolchain upgrades flow through an automated dependency-upgrade PR cadence (specific tool selection and the PR creation, review, and merge protocol are CC substantive content).
 
@@ -161,6 +149,10 @@ The constitutional invariant: the four fields above appear in every Issue marker
 
 Mid-execution node reassignment is permitted under CC substantive canonical's reassignment protocol. The constitutional invariant: a reassigned unit's evidence files reflect the final executing node, not the original assignment.
 
+## 4.4 Node retirement
+
+A logical node may be retired (decommissioned) under CC substantive canonical's retirement protocol. The constitutional invariant: a retired logical name is **not reused** for a future node, and historical evidence files that recorded the retired node retain its logical name unchanged. The specific retirement procedure (physical decommission steps, mapping-table update) is CC substantive content.
+
 ---
 
 # 5. Workspace inception governance (constitutional)
@@ -193,7 +185,7 @@ In-CC operational anti-drift signals (tool version drift detection, GitHub workf
 
 # 7. Hub Claude soft compliance — trigger phrases (Hub-internal substantive)
 
-> **Scope note**: §7 and §8 are **Hub-internal substantive** content per [OS] §0.1.5 Premise 5 — they govern Hub Claude's own conversational behavior in node-related discussions, not cross-workspace interface. They remain at this Hub-side source rather than migrating to CC. Cross-references in this section to "CC substantive WT §X" indicate the substantive WT canonical at CC where the referenced procedural detail lives under the decoupled-reference model.
+> **Scope note**: §7 and §8 are **Hub-internal substantive** content per [OS] §0.1.5 Premise 5 — they govern Hub Claude's own conversational behavior in node-related discussions, not cross-workspace interface. They remain at this Hub-side source rather than migrating to CC. Cross-references in this section name the CC substantive WT canonical and the relevant topic in parentheses — they identify where the referenced procedural detail lives at CC under the decoupled-reference model, without citing CC-side section numbers.
 
 When user phrasing in a Hub Claude conversation matches any of the following, Hub Claude SHOULD remind the user of the relevant section of CC substantive WT before proceeding. Hub Claude MUST NOT auto-execute the action; surface as confirmation prompt only.
 
@@ -247,9 +239,11 @@ Hub Claude response logic for phase-boundary phrasing requires the operator to d
 | (B) Architecture impact | Phase N+1 contains architecture deltas (TDD §1 deltas) that may trigger refactoring of Phase N work-in-flight or already-merged feature units | Soft warning: "Phase N+1 contains architecture deltas; Phase N work-in-flight may need re-verification once Phase N+1 TDD §1 lands. Continue?" — operator explicit acknowledgment recorded before proceeding |
 | (C) Phase 1 walking-skeleton not yet merged | Phase N is Phase 1 and the Phase 1 `walking-skeleton` unit has not yet reached `status: merged` (per §3 constitutional walking-skeleton-first ordering rule) | Stronger soft warning: "Phase 1 walking-skeleton not yet merged to main. Phase N+1 PRD work may proceed but no unit can start node-side execution in either phase until Phase 1 walking-skeleton merges per the constitutional ordering rule. Continue?" — operator explicit acknowledgment recorded before proceeding |
 
-Hub Claude does not auto-classify the scenario; the operator declares which scenario applies in the same conversational turn that triggered the phrase, or Hub Claude asks. The operator's declaration plus Hub Claude's transcribed acknowledgment form the traceable record for later retrospective review.
+**Operational test for "architecture delta"** (the A/B discriminator): a Phase N+1 change counts as an architecture delta if it is any change to TDD §1 module decomposition, tier boundaries, or the shared data model that a Phase N feature depends on. Example pair — adding a new self-contained Phase N+1 feature module that consumes existing APIs is *not* an architecture delta (scenario A); splitting a Phase N shared module in two, or altering a shared data-model entity a Phase N feature reads, *is* an architecture delta (scenario B).
 
-Hub Claude reminders are conversational. The operator may override with explicit acknowledgment, but the override itself must be stated in the conversation, preserving traceability for later retrospective review.
+Hub Claude does not auto-classify the scenario; the operator declares which scenario applies in the same conversational turn that triggered the phrase, or Hub Claude asks. The operator's declaration plus Hub Claude's transcribed acknowledgment are conversation-local — they persist only within the current conversation and are not a durable record any later session can read.
+
+Hub Claude reminders are conversational. The operator may override with explicit acknowledgment, but the override itself must be stated in the conversation; this acknowledgment is conversation-local and does not persist beyond the current conversation.
 
 ---
 

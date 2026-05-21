@@ -2,14 +2,14 @@
 
 - **Project**: HR Digital Cockpit
 - **Document Type**: Template
-- **Status**: Active canonical
+- **Status**: Active canonical template
 - **Role**: Reusable content contract for the phase-level test plan (master, markdown) authored at TK-02 — covering file location, document header, required sections (phase scope summary, cross-feature scenario classes, app-scale NFR scenario classes, regression policy, phase exit criteria, cross-tier traceability), and the boundary against per-feature and per-slice test plans
 - **Source Category**: Cat 4
 - **Management-System Role**: Template; outside L1-L5 hierarchy; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1.
 - **Relationship to [PRIN]**: Applies HR Digital Decision Design Principles §5 (management mechanism over ad hoc control) and §10 (MECE) to test-plan layering.
 - **Relationship to [TPL] Test Plan YAML Schema**: Companion. This template owns the phase-level markdown master; [TPL] Test Plan YAML Schema owns the per-feature integration yaml and per-slice yaml. The two are paired by app and phase: one phase test plan + N feature integration test plans + M slice test plans per phase.
-- **Relationship to [TPL] TDD Template**: Anchored. Phase test plan §1 (Phase scope summary) cross-references paired phase TDD §1 (Architecture) and §2 (Cross-feature concerns); §3 NFR scenarios reference phase TDD §2.NFR-Baselines.
+- **Relationship to [TPL] TDD Template**: Anchored. Phase test plan §1 (Phase scope summary) cross-references paired phase TDD §1 (Architecture) and §2 (Cross-feature concerns); §3 NFR scenarios reference phase TDD §2.2.1 (NFR baselines).
 - **Relationship to [TPL] PRD Prototype MVP Template**: Anchored. Phase test plan §1 cross-references paired phase PRD scope; §2 risk attribution cross-references PRD §13.1 Key Risks.
 - **Relationship to [MECH] Development Track Workflow**: TK-02 produces this artifact alongside phase TDD per DTW §4 task definition.
 - **Relationship to [MECH] Sign-Off Cleanup Policy**: Applies to phase test plans at sign-off — the phase test plan is a long-living spec artifact subject to Sign-Off Cleanup discipline at handoff prep time.
@@ -42,11 +42,9 @@ The phase test plan is human-authored and human-reviewed. AI agents reference it
 
 - File location and naming for phase test plans
 - Document header structure
-- Required sections (§3.1 through §3.7 of this template)
+- Required sections (§1 through §7 of the produced plan)
 - "What must not appear" boundary
-- Anti-pattern declaration
 - Phase test plan update discipline
-- Anti-drift red flags specific to phase test plan authoring
 
 ## 0.2 What this template does not own
 
@@ -98,11 +96,11 @@ The phase test plan must start with a header section listing:
 
 The phase test plan must contain the following sections, in order:
 
-## 3.1 §1 Phase scope summary
+## §1 Phase scope summary
 
 A short prose section (1–2 paragraphs) summarizing the phase scope from a testing perspective. Cross-reference the paired phase PRD §scope and phase TDD §1 architecture. Do not restate; reference.
 
-## 3.2 §2 Cross-feature scenario classes
+## §2 Cross-feature scenario classes
 
 A list of scenario classes that exercise multiple features end-to-end. For each class:
 
@@ -116,18 +114,18 @@ A list of scenario classes that exercise multiple features end-to-end. For each 
 - Owner subagent or human owner
 - Risk attribution (cross-reference paired PRD §13.1 Key Risks if applicable)
 
-## 3.3 §3 App-scale NFR scenario classes
+## §3 App-scale NFR scenario classes
 
 Scenarios that cannot be localized to a single feature because they exercise app-scale concerns. Examples: load test against the BFF aggregating multiple features; observability dashboard verification across all features; security scanner on the whole app. For each scenario class:
 
 - Class id (e.g., `NFR-01`)
 - Class name
 - NFR aspect (performance / availability / scalability / observability / security / accessibility)
-- Targets and SLI/SLO (cross-reference phase TDD §2.NFR-Baselines)
+- Targets and SLI/SLO (cross-reference phase TDD §2.2.1 (NFR baselines))
 - Test approach
 - Owner
 
-## 3.4 §4 Regression policy from prior phase (Phase N ≥ 2 only)
+## §4 Regression policy from prior phase (Phase N ≥ 2 only)
 
 For Phase N ≥ 2, declare the regression policy:
 
@@ -136,9 +134,15 @@ For Phase N ≥ 2, declare the regression policy:
 - Re-execution responsibility: which agents or human owners
 - Frequency: at phase entry / at phase exit / at each milestone
 
+Approach selection rationale:
+- **full regression** — choose when this phase changes shared infrastructure, cross-cutting modules, or APIs that prior-phase features depend on, so prior-phase behavior is broadly at risk.
+- **risk-based subset** — choose when the phase's changes are localized to specific features or tiers; re-run only the prior-phase scenarios whose risk_tier or touched modules intersect this phase's change surface.
+- **smoke only** — choose when the phase is additive and well-isolated, so a thin pass over prior-phase critical paths is enough to catch gross breakage.
+- **none-with-rationale** — choose only when the phase shares no code or data path with prior-phase features; the rationale must state that isolation explicitly.
+
 For Phase 1, this section is omitted entirely (there is no prior phase).
 
-## 3.5 §5 Phase exit criteria
+## §5 Phase exit criteria
 
 The conditions under which this phase is declared complete. For each criterion:
 
@@ -148,7 +152,9 @@ The conditions under which this phase is declared complete. For each criterion:
 - Verification owner
 - Threshold (if quantitative; e.g., "100% of CFS-* scenarios pass")
 
-## 3.6 §6 Cross-tier traceability table
+A criterion statement is a **testable condition** when its satisfaction can be decided from a named evidence source by anyone, without a judgment call. Compliant: "All `CFS-*` cross-feature scenario classes pass, with results recorded in the feature-integration test plan run logs." Non-compliant: "Phase is complete when feature X is good enough" — "good enough" names no evidence source and resolves only by opinion.
+
+## §6 Cross-tier traceability table
 
 A table mapping each phase scenario class to the feature-level flows and slice-level cases that evidence it. Format:
 
@@ -158,9 +164,9 @@ A table mapping each phase scenario class to the feature-level flows and slice-l
 
 Cells may be left as `(deferred to TK-03)` for slice-level cases that have not yet been produced; the cell must be filled in before phase milestone exit.
 
-## 3.7 §7 Open questions (optional)
+## §7 Open questions (optional)
 
-Phase-level testing questions that remain open at TK-02 sign-off but do not block immediate work. One entry per question with:
+Phase-level testing questions that remain open at TK-02 sign-off but do not block immediate work. A question **does not block immediate work** when TK-03 slice extraction and the first slices can proceed without its answer — the answer is needed only at a later slice, milestone, or phase exit. A question whose answer is required before the next slice can be extracted is not an open question: it blocks and must be resolved upstream before TK-02 sign-off. One entry per question with:
 - Statement (the question)
 - Why open (what input is missing or what decision is pending)
 - Resolution target (slice / milestone / phase exit)
@@ -177,25 +183,9 @@ Phase-level testing questions that remain open at TK-02 sign-off but do not bloc
 
 ---
 
-# 5. Anti-pattern
+# 5. Update discipline
 
-Treating the phase test plan as a comprehensive enumeration of every test case across the phase. The phase test plan is **strategic, not exhaustive**; specific cases live in the feature integration test plan and slice test plan.
-
-The phase test plan answers questions like:
-- What cross-feature scenarios must we test?
-- What app-scale NFR concerns matter?
-- What's the regression policy from prior phase?
-- What are the phase exit criteria?
-
-The phase test plan does NOT answer:
-- What specific test cases for slice X cover acceptance criterion Y? (slice test plan)
-- What sequence of operations does feature A's integration test execute? (feature integration test plan)
-
----
-
-# 6. Update discipline
-
-## 6.1 Phase test plan as a long-living spec artifact
+## 5.1 Phase test plan as a long-living spec artifact
 
 Phase test plans (along with phase PRDs and phase TDDs) are long-living spec artifacts subject to [MECH] Sign-Off Cleanup Policy at handoff prep time. During the active phase, the plan may receive multiple revisions reflecting:
 - New cross-feature scenarios discovered during implementation
@@ -205,50 +195,15 @@ Phase test plans (along with phase PRDs and phase TDDs) are long-living spec art
 
 At sign-off (per [MECH] Sign-Off Cleanup Policy §2 Handoff-prep trigger), the phase test plan is brought to clean form: in-line revision annotations removed, governance bookkeeping sections removed, content semantically clean.
 
-## 6.2 Cross-document update discipline
+## 5.2 Cross-document update discipline
 
 When phase TDD or phase PRD changes in a way that affects testing:
 - New cross-feature flow introduced in phase TDD §2 → add CFS-* entry in phase test plan §2
 - NFR baseline changed in phase TDD §2.NFR-Baselines → update NFR-* entry in phase test plan §3
-- New feature added in phase PRD §7.1 Feature List → update phase test plan header (Features in this phase) + verify cross-feature scenario classes still cover the new feature
+- New feature added in phase PRD §7.1 Feature List → the update propagates in a fixed chain: phase PRD §7.1 change → paired phase TDD updated first (so its `Features in this phase` reflects the new feature) → phase test plan synced to the phase TDD. The phase test plan header `Features in this phase` is kept in sync with the phase TDD (its authority per §2), not lifted directly from the PRD; verify cross-feature scenario classes still cover the new feature
 
 These updates apply in the same revision per [OS] §8.5.2 paired-update discipline.
 
-## 6.3 Cross-tier traceability table maintenance
+## 5.3 Cross-tier traceability table maintenance
 
-§3.6 cross-tier traceability table cells marked `(deferred to TK-03)` must be filled in before phase milestone exit. This is the operational hook between phase-level strategy and slice-level execution evidence.
-
----
-
-# 7. Anti-drift red flags
-
-> **Scope**: this section enumerates **phase-test-plan-specific** anti-drift red flags. Cross-cutting test-plan red flags are owned by [TPL] Test Plan YAML Schema; cross-cutting canonical-source red flags by [OS] §12.3.
-
-**Content category dimension**:
-- Phase test plan containing specific test case definitions (should be in slice test plan)
-- Phase test plan containing test code or fixtures (those are runtime artifacts, not specifications)
-- Phase test plan containing phase architecture decisions (those belong in phase TDD)
-
-**Layering dimension**:
-- Cross-feature scenario class missing in phase test plan §2 when phase PRD identifies cross-feature business flow
-- NFR scenario class missing in phase test plan §3 when phase TDD §2 sets NFR baselines
-- Phase exit criteria not testable (e.g., "Phase is complete when feature X is good enough" — not testable)
-- §3.6 cross-tier traceability table cells left at `(deferred to TK-03)` past phase milestone exit
-
-**Versioning dimension**:
-- Phase test plan paired references (`Paired phase TDD reference`, `Paired phase PRD reference`) pointing to an outdated TDD or PRD version when the latest sign-off is newer (per [MECH] Canonical File Self-Audit version-pairing discipline)
-- `Features in this phase` header field not matching phase TDD's `Features in this phase`
-
-**Update discipline dimension**:
-- Phase test plan not updated when phase TDD's NFR baselines change in a way that affects §3 NFR scenarios (per §6.2 paired-update)
-- New feature added in phase PRD without corresponding update to phase test plan header (`Features in this phase`)
-- Phase test plan at sign-off retaining in-line revision annotations from active phase (per [MECH] Sign-Off Cleanup Policy)
-
-**Risk attribution dimension**:
-- Cross-feature scenario class §2 Risk attribution field empty when paired PRD §13.1 has applicable Key Risks
-- Risk-based regression subset (§4 Approach: `risk-based subset`) without explicit risk_tier criteria
-
-**Boundary leakage dimension**:
-- Slice test plan content (specific test cases) leaking into phase test plan
-- Feature integration test plan content (per-feature cross-slice flows) leaking into phase test plan
-- Phase test plan attempting to override slice or feature test plan ownership (the phase plan frames, it does not override)
+§6 cross-tier traceability table cells marked `(deferred to TK-03)` must be filled in before phase milestone exit. This is the operational hook between phase-level strategy and slice-level execution evidence.

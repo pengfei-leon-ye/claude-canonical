@@ -3,20 +3,20 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Governance Mechanism Specification
 - **Status**: Active canonical
-- **Role**: Constitutional declaration of the M0–M5 milestone ladder used in Claude Code development: the existence and identity of each gate, the per-unit-type milestone profile (which `unit_type` runs which gate subset), the Test Evidence Report interface contract (the handoff artifact schema consumed by the operator at M4), the required artifact outputs that constitute the cross-workspace interface, and the multi-node evidence parity invariant. Substantive gate criteria (specific tools, thresholds, tooling baselines, accessibility thresholds, performance scopes, anti-drift signals at the operational level) are owned by CC under its own substantive canonical.
+- **Role**: Stable declaration of the M0–M5 milestone ladder used in Claude Code development: the existence and identity of each gate, the per-unit-type milestone profile (which `unit_type` runs which gate subset), the Test Evidence Report interface contract (the handoff artifact schema consumed by the operator at M4), the required artifact outputs that constitute the cross-workspace interface, and the multi-node evidence parity invariant. Substantive gate criteria (specific tools, thresholds, tooling baselines, accessibility thresholds, performance scopes, anti-drift signals at the operational level) are owned by CC under its own substantive canonical.
 - **Source Category**: Cat 4
 - **Management-System Role**: Governance mechanism specification; outside L1-L5 hierarchy; not itself an L2-L5 artifact
 - **Relationship to [OS]**: Supports the Orchestrate loop by codifying the review-gating mechanism. Subject to [OS] §8.5 paired-update consistency. The constitutional / substantive boundary in [OS] §0.1.5 (Premise 5) applies: Hub-side residue carries the constitutional skeleton declared here; CC-side substantive canonical owns the gate criteria and operational details.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §5 (management mechanism over ad hoc control) to milestone gating design; §6 (operation management and value realization by design) to the M0–M5 sequence as a managed sequence rather than ad-hoc checkpoints.
 - **Relationship to [REF] Hub-CD-CC Architecture**: Operates inside the CC workspace boundary. CI/CD milestone gating is a CC-side mechanism; this Hub residue declares the cross-workspace interface that handoff documentation consumes.
-- **Relationship to [RULE] Workspace Topology**: Co-governing. §3 multi-node evidence parity in this residue anchors WT's parity discipline. WT's walking-skeleton-first ordering rule defers downstream-unit milestone entry per §2 below.
+- **Relationship to [RULE] Workspace Topology**: Co-governing. §1.2 multi-node evidence parity in this residue anchors WT's parity discipline. WT's walking-skeleton-first ordering rule defers downstream-unit milestone entry per §2 below.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Companion. The contract testing convention referenced at M2 (gate criteria substantive at CC) anchors CCAR's Pact contract testing rules at CC substantive layer.
 - **Relationship to [MECH] Development Track Workflow**: Companion. The M-gates are the milestone semantics that DTW's TK chain triggers and consumes; M0–M5 identity declared here is referenced by DTW's TK chain for hub/CC boundary purposes.
 - **Relationship to [MECH] Application Lifecycle Handoff**: The AI-dev CI/CD pipeline produces no release tags; release tag namespaces belong to the receiving company's CI/CD scope. The handoff tag namespace (Handoff §4.1) is the only canonical-recognized tag namespace in the AI-dev monorepo. This is a constitutional invariant.
 - **Relationship to [RULE] Design System Governance**: M3 visual review references DSG consistency at the substantive layer (specific check criteria at CC substantive). No accessibility gate at any milestone (per DSG §6 stance) is a constitutional invariant. DS instance two-way distribution per DSG §1.1 governs DS consumption — at TK-02 Step 2.3 Hub Claude grounds UX Design Spec authoring in the CD-authored design files; the CC mirror is consulted at TK-04+ via skill enforcement.
 - **Relationship to [TPL] Intent and Acceptance Interface Writing Standard** + **[TPL] PRD + TDD to Intent and Acceptance Conversion Specification**: §3 below owns the disambiguation between milestone-level Test Evidence Report (constitutional schema declared here) and feature-slice-scoped `evidence.md` (substantive content at CC).
 - **Relationship to [TPL] Test Plan YAML Schema**: The evidence digest contract for the operator one-pager schema in §3.3 binds to that template's `evidence_required` field as a constitutional interface.
-- **Pairings I participate in**: P-03 (with [MECH] DTW §4 TK chain — milestone-to-task anchoring at constitutional interface), P-13 (with [MECH] Dev-Loopback — M-state evidence consumed at handoff; the substantive M-state binding is at CC). Pre-split pairings P-01 / P-09 / P-32 / P-49 are retired at this Hub residue level; their substantive obligations migrate to CC under CC substantive CI/CD canonical.
+- **Pairings I participate in**: P-03 (with [MECH] DTW §4 TK chain — milestone-to-task anchoring at constitutional interface). Pre-split pairings P-01 / P-09 / P-13 / P-32 / P-49 are retired at this Hub residue level; their substantive obligations migrate to CC under CC substantive CI/CD canonical.
 
 ## How to use this source (Hub-side)
 
@@ -84,6 +84,8 @@ The milestone ladder is the **review-gating mechanism**: it defines where operat
 ## 1.2 Multi-node evidence parity
 
 M-state evidence is **node-neutral**: any node defined in [RULE] Workspace Topology (constitutional residue §1) may produce M-evidence; the originating node is recorded for traceability but does not affect gate validation logic. This is a constitutional invariant — Hub-side handoff documentation relies on this property when consuming evidence from any node.
+
+Per-milestone evidence durably persists at a declared repository path (`apps/{app-slug}/evidence/{slice-id}/**`) so that a fresh downstream actor at a later gate can read every upstream gate's output without relying on cross-session state. This is a constitutional invariant; the per-gate file layout under that path is owned by the CC substantive CI/CD canonical.
 
 ---
 
@@ -200,7 +202,7 @@ The Test Evidence Report's complementary one-page digest is also constitutional 
 
 **Required structure** (constitutional, in this order):
 
-1. **Top-3 risk flags**: severity (`critical` / `high` / `medium`), risk statement (≤30 words), pointer to the Test Evidence Report section
+1. **Top-3 risk flags**: severity (`critical` / `high` / `medium`), risk statement (≤30 words), pointer to the Test Evidence Report section. When more than three risks reach `critical` or `high`, the digest lists the three highest-severity risks here and adds a one-line pointer to the Test Evidence Report section that enumerates the remainder — the digest is not expanded beyond three flags
 2. **Deviations from spec**: any place where implementation diverges from PRD / TDD / intent / acceptance contracts, regardless of whether the deviation passed tests
 3. **Test-plan coverage gaps**: cases where the test plan acknowledges a non-covered area
 4. **No-significant-issues affirmation**: explicit affirmation when none of the above sections has entries; mandatory when applicable
@@ -237,13 +239,6 @@ Certain artifact outputs are constitutional **handoff interface** — produced a
 
 # 5. Anti-drift for milestone policy (cross-workspace)
 
-Anti-drift signals at the cross-workspace level, surfaced here because they involve Hub-authored content or cross-workspace handoff:
-
-- A Hub-authored TDD or test plan that references a non-canonical M-gate name (e.g., "M2.5") — constitutional invariant violation: only M0–M5 exist
-- A handoff artifact that uses release tag namespace overlapping with CI/CD AI-dev tag namespace — constitutional invariant violation per relationship to [MECH] Application Lifecycle Handoff
-- A Hub-authored Test Evidence Report reference that adds or removes sections from the §3.2 required schema — constitutional interface violation
-- A Hub-authored unit_type designation that doesn't match the three constitutional types (`walking_skeleton`, `feature`, `app_integration`) — interface violation
-- A Hub-authored TDD `assigned_node` that bypasses the multi-node evidence parity invariant by binding evidence to a specific node — constitutional invariant violation
-- A Hub-side handoff documentation that introduces an accessibility-gate-at-milestone — constitutional invariant violation per [RULE] DSG §6
+Violations of the §2–§4 constitutional invariants are cross-workspace anti-drift signals per [OS] §12.
 
 In-CC operational anti-drift signals (gate criterion drift, threshold drift, tooling drift, slice-size violations, performance test scope drift, code review timing drift) are governed by CC substantive CI/CD canonical.

@@ -25,15 +25,13 @@ Use this template when:
 This is a pre-artifact framing template.
 Use it to clarify the problem and the next artifact, not to replace the next artifact.
 
-Use it in three passes rather than trying to clarify everything at once.
+Use it in three passes rather than trying to clarify everything at once. Section numbers 1-11 reflect the final memo's reading order; the three passes complete those sections in a different order, so each pass below lists the section numbers it covers rather than a contiguous range.
 
 **What this template is not**
 
-This is a strategic thinking aid for the operator's own pre-artifact decision work in the Cat 1 strategic thinker / policy architect role (per [OS] §0.2), not a PM portfolio piece, a design-thinking workshop deliverable, or a consulting Discovery framework instantiation (Lean Six Sigma DMAIC Define, IDEO design-thinking Discover, McKinsey Issue Tree, etc.). The Memo's purpose is to clarify the operator's framing before deeper work, not to be presented externally or scored against framework conventions. External frameworks may be sources of inspiration; they are not targets to replicate.
+This is a strategic thinking aid for the operator's own pre-artifact decision work, not a PM portfolio piece, a design-thinking workshop deliverable, or a consulting Discovery framework instantiation (Lean Six Sigma DMAIC Define, IDEO design-thinking Discover, McKinsey Issue Tree, etc.). The Memo's purpose is to clarify the operator's framing before deeper work, not to be presented externally or scored against framework conventions. External frameworks may be sources of inspiration; they are not targets to replicate.
 
 ### Pass 1 — Frame
-
-**Scope: First of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`).**
 
 Complete:
 - 1. Basic Context
@@ -47,8 +45,6 @@ Goal:
 
 ### Pass 2 — Tension and value
 
-**Scope: Second of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`), after Pass 1 has framed the business issue.**
-
 Complete:
 - 4. Signals, Evidence, and Unknowns
 - 6. Stakeholder Context and Tensions
@@ -59,8 +55,6 @@ Goal:
 - surface tensions, evidence quality, variance logic, and value logic
 
 ### Pass 3 — Land
-
-**Scope: Third of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`), after Pass 1 framed the issue and Pass 2 surfaced tensions and value.**
 
 Complete:
 - 9. Likely Management-System Landing or Linkage and Recommended Next Artifact
@@ -92,17 +86,7 @@ Do not use this template as:
 
 ## Completion standard
 
-The memo is good enough to move forward when:
-- the business issue and decision are explicit
-- the primary problem type is named
-- major stakeholder tensions are visible
-- global core versus local variance implications are addressed or deliberately parked
-- the value hypothesis is visible
-- the next artifact is named
-- the likely management-system landing level is stated when the next artifact is a management-system output and the level is clear enough to help the next step
-- the likely management-system linkage is stated when the next artifact is a specification output and linkage materially affects direction, review, or downstream design
-- material unknowns are visible
-- another person can pick up the next step without requiring verbal backfill
+The memo is good enough to move forward when it satisfies the end-of-document "Completion Check" below, which is the single authoritative readiness checklist.
 
 # 1. Basic Context
 
@@ -209,7 +193,7 @@ The memo is good enough to move forward when:
 
 Complete this section per [OS] §5.4.
 
-Note: Own and Watch below are document-content expectations for this memo, not a response-layer reasoning protocol. Per [OS] §5.4, the Level-or-linkage declaration is the only dimension that requires explicit response-layer enforcement; Frame, Land, Own, and Watch are already covered by the default Evidence / Assumptions / Inference / Conclusions / Implications response structure.
+Note: the fields below are document-content expectations for this memo, not a response-layer reasoning protocol.
 
 - **Business decision restatement**: Restate the framed business decision (reference §2) in one line.
 - **Recommended next artifact**: Name the next artifact (reference §9).

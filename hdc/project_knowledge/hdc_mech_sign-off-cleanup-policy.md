@@ -56,15 +56,7 @@ The cleanup is in-place; **no separate archived snapshot is produced and no `sig
 
 ## 1.2 Why Anchor (WA)
 
-Sign-off PRD / TDD / spec artifacts are consumed by AI consumers downstream:
-
-- **Hub Claude session** at TK-01 / TK-02 spec authoring or amendment
-- **Claude Code session** at TK-03 deterministic conversion (per [TPL] PRD+TDD-to-Intent Conversion Spec) and beyond
-- **Hub Claude / Claude Code sessions** at later TK-04 ~ TK-13 as reference
-
-These AI consumers read the spec to ground their generation. **Process content occupies their context budget and may cause attention drift**: a consumer reading `vX.Y 曾叫 approval_category` may mistakenly believe both names co-exist in the current canonical, generating fragmented or inconsistent downstream artifacts. Process content provides zero positive grounding for any TK-03+ deterministic conversion task — the consumption paths defined by [MECH] DTW TK-03 inputs and [TPL] Conversion Spec do not reference revision history, governance bookkeeping tables, or process-tracking indices.
-
-**The root purpose of cleanup is therefore**: produce a sign-off version that contains only content with direct value for downstream tasks, in place at the canonical path, with no parallel artifact accumulation.
+Sign-off PRD / TDD / spec artifacts are consumed by AI consumers downstream — Hub Claude at TK-01 / TK-02 spec authoring or amendment, Claude Code at TK-03 deterministic conversion (per [TPL] PRD + TDD to Intent and Acceptance Conversion Specification) and beyond, and both at later TK-04 ~ TK-13 as reference. Process content gives those consumers zero positive grounding, occupies their context budget, and can cause attention drift (a consumer reading `vX.Y 曾叫 approval_category` may wrongly believe both names co-exist in current canonical); the root purpose of cleanup is therefore to produce a sign-off version containing only content with direct downstream value, in place at the canonical path, with no parallel artifact accumulation.
 
 Any keep-vs-delete uncertainty defaults to: **would keeping this line risk misleading an AI consumer about current canonical, or waste their attention budget?** Yes → delete; No → keep.
 
@@ -87,6 +79,9 @@ When the cleanup operator (or the dialog executing cleanup) encounters an uncert
 4. **Would deleting this line risk causing a downstream AI consumer to misinterpret current canonical or be confused about scope?**
     - Yes → **keep** (this is the WA override case; rare in practice)
     - No → **delete**
+    - Uncertain → this Q3-true + uncertain-Q4 combination is itself an escalation trigger: do not default-delete; escalate the line to the operator for explicit judgment.
+
+   Rubric for Q4: a deletion creates misinterpretation risk only when the line carries disambiguating information that no forward canonical section restates — for example, a schema column note reading `field renamed from approval_category; the prior name still appears in legacy integration payloads` disambiguates current-vs-legacy naming and is **kept** (Q4-Yes); a bare inline marker reading `vX.Y 锁定` carries no information a downstream consumer could misread and is **deleted** (Q4-No). When the line falls between these two patterns and the disambiguating value cannot be confidently judged, treat Q4 as uncertain and escalate.
 
 The decision tree ensures every cleanup deletion is traceable to either: (a) Q1 false + Q2 true (redundant with canonical), or (b) Q3 true + Q4 false (historical and harmless to remove). Every kept line traces to: Q1 true (operationally needed), or Q4 true (WA override, rare). If no question yields a decisive answer, the line is escalated to the operator for explicit judgment rather than silently kept or deleted.
 
@@ -98,7 +93,7 @@ This MECH is invoked only when **one** of the following is satisfied:
 
 | Trigger | Condition |
 | --- | --- |
-| **Audit quiescence** | Two consecutive audit rounds against the artifact yield zero S1 Blocker and zero S2 Major findings (per [MECH] Canonical File Self-Audit §4 severity scheme) |
+| **Audit quiescence** | Two consecutive audit rounds against the artifact yield zero S1 Blocker and zero S2 Major findings (per [MECH] Canonical File Self-Audit §4 severity scheme). Two rounds rather than one confirms the zero-finding result is stable and not an artifact of a single audit pass missing issues. |
 | **Operator judgment** | Operator declares no new issues are expected against the artifact and freeze is desired |
 | **Handoff prep** | [MECH] Application Lifecycle Handoff §2.2 readiness checklist requires sign-off versions for application-level handoff to human team |
 
@@ -116,7 +111,7 @@ The session opens with:
 
 - Target artifact path (e.g., `apps/{app-slug}/specs/prd/phase-{N}.md`)
 - Explicit declaration of trigger condition (per §2)
-- Confirmation that the working copy is the latest fully-revised version of the artifact (not a stale snapshot)
+- Operator declaration that the working copy is the latest fully-revised version of the artifact (not a stale snapshot). A stateless session cannot itself verify currency — it cannot diff the working copy against an external head — so currency is an operator-supplied input. The session reads the artifact fresh at session open and disclaims any guarantee of currency for changes made externally mid-session.
 
 ## 3.2 Cleanup pass
 
@@ -136,14 +131,14 @@ After cleanup, the session verifies:
 
 The session outputs:
 
-- The cleaned spec at its original canonical path, with version stamp bumped to `v1.0` (no filename change, no `signoff-` prefix). Subsequent post-sign-off revisions use patch versioning (`v1.0.1`, `v1.0.2`).
+- The cleaned spec at its original canonical path, with version stamp bumped to `v1.0` on the first sign-off (no filename change, no `signoff-` prefix). Subsequent post-sign-off revisions use patch versioning (`v1.0.1`, `v1.0.2`). When this MECH is re-entered for a substantively new revision cycle that warrants a fresh sign-off pass (per §1.1), the version stamp bumps the major version instead (`v2.0`, then `v3.0`, etc.).
 - A short cleanup digest (one paragraph in the session response) reporting the count of deleted blocks per pattern and the trigger reason for this cleanup cycle. The digest is conversation-level only; it does not persist as a separate artifact. Operator reviews the digest in chat for sanity check.
 
 ---
 
 # 4. Per-artifact specifics
 
-The per-artifact specifics below describe **content categories** and **example patterns**, not hard-coded section numbers. Actual section numbers vary by artifact instance — the [TPL] PRD/Prototype/MVP Spec Template and [TPL] Technical Design Document Template define framework structure, but instance section numbering depends on application context and operator's section discipline during revision. The cleanup session reads the active artifact, identifies which section holds which category, and applies the cleanup rule by function rather than by literal section-number match.
+The per-artifact specifics below describe **content categories** and **example patterns**, not hard-coded section numbers. Actual section numbers vary by artifact instance — the [TPL] PRD / Prototype / MVP Spec Template and [TPL] Technical Design Document Template define framework structure, but instance section numbering depends on application context and operator's section discipline during revision. The cleanup session reads the active artifact, identifies which section holds which category, and applies the cleanup rule by function rather than by literal section-number match.
 
 ## 4.1 A1 — phase PRD (`apps/{app-slug}/specs/prd/phase-{N}.md`)
 
@@ -152,7 +147,7 @@ The per-artifact specifics below describe **content categories** and **example p
 - **Business-design sections** — background, scope, scenarios, user roles, end-to-end process flow, business rules, functional requirements, schemas (logical + physical), permissions and governance, value lists, integration and technical constraints, NFRs, acceptance criteria and traceability
 - **Forward-looking risk and design surfaces** — design risks not yet resolved, open questions still outstanding, deferred design points, future enhancement candidates
 
-The PRD template ([TPL] PRD/Prototype/MVP Spec Template) defines which sections house which category at the framework level; the cleanup session retains content matching these categories regardless of the active instance's section number.
+The PRD template ([TPL] PRD / Prototype / MVP Spec Template) defines which sections house which category at the framework level; the cleanup session retains content matching these categories regardless of the active instance's section number.
 
 **Removed** — all process content. Patterns observed in practice:
 

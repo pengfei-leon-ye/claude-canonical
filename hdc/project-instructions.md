@@ -24,12 +24,10 @@ For **CC-internal substantive content** (CC-internal operational details: specif
 
 ## Conflict handling — hard rules (PI owned)
 
-- **UP-vs-PI conflict on behavioral rule** → UP wins (account-level highest precedence)
 - **PI-vs-Hub PK conflict on project-internal rule** → PI wins (more specific); surface the conflict to operator
-- **CC `.claude/` substantive vs Hub PK constitutional conflict** → **Hub PK constitutional wins** (governance authority direction is structurally superior to domain authority direction; constitutional rules govern cross-workspace coordination including the rules that bind CC)
+- **CC `.claude/` substantive vs Hub PK constitutional conflict** → **Hub PK constitutional wins** (rationale: [OS] §0.1.5 Premise 5)
 - **Hub PK substantive vs CC substantive conflict** → should not occur post-Finding B (Hub PK has no CC-domain substantive residue). If it occurs, treat as Finding-B-incomplete transitional state: CC substantive takes priority + flag Hub PK residue for migration
 - **CD workspace not in priority chain** — CD has no independent canonical layer; CD's SoT is the design files themselves, which Hub consumes to author the UX Design Spec instance per [RULE] DSG §1.1 two-way distribution model
-- **Historical chat context or non-canonical material vs active canonical** → follow active canonical unless I direct otherwise
 
 PI does not restate behavioral rules already specified in UP, and does not duplicate content already specified in PK. PI defers to UP on behavioral overlap and to PK by reference for domain detail.
 
@@ -38,7 +36,6 @@ The canonical sources listed below are the detailed source of truth for their re
 - [OS] Project Operating Model — routing, source governance, naming, anti-drift, management-system lens, hub-to-Development-Track relationship, output architecture, conversation discipline, default artifact classification ladder, level or linkage declaration, source-ready generation protocol, language defaults, format stance, long-draft delivery rule, audience and consumption model, three-layer audience-surface matrix (§0.1.4) defining canonical layer as AI-RAG-optimized, **constitutional / substantive boundary (§0.1.5 Premise 5)**
 - [RULE] DingTalk Markdown Format Control Specification — DingTalk-targeted output format
 - [REF] Hub-CD-CC Architecture — three-workspace architecture (Hub / Claude Design / Claude Code), advisor-actor topology, three-pillar content distribution (content / presentation / implementation), handoff topology, two-way DS distribution model framing, the decoupled-by-default CD ↔ CC posture during research preview, the post-Phase-3 split/migration inventory at §5.4.4 + §8 canonical inventory tables, and the read-from-authoritative-source contract for Hub canonical access at CC (Phase 4 Finding A)
-- [REF] CC Project Memory Bank Layout (**constitutional residue post-split**) — constitutional declaration that CC has its own canonical layer for CC-internal canonical content, tier-aligned CLAUDE.md hierarchy structure, `.claude/` configuration directory existence, visibility boundary with Hub, cross-workspace notification protocol. Specific paths, naming conventions, indexing rules at CC substantive Memory Bank Layout canonical.
 - [RULE] Workspace Topology (**constitutional residue + Hub-internal substantive post-split**) — multi-node existence and naming convention, parity discipline (read-from-authoritative-source model for Hub canonical per Phase 4 Finding A), walking-skeleton-first ordering rule, node-assignment interface contract, workspace inception governance; Hub Claude soft compliance trigger phrases (Hub-internal substantive §7) + Hub Claude observability boundary (Hub-internal substantive §8). Specific tool stack, GitHub workflow configuration, node-assignment procedure, workspace inception checklist at CC substantive WT canonical.
 - [RULE] Claude Code Architecture Rules (**constitutional residue post-split**) — three-tier code architecture identity (Tier 1 React / Tier 2 Node BFF / Tier 3 Java Domain), Tier 2 thinning rule, permission decision placement principle, CLAUDE.md hierarchy pointer, subagent topology existence, high-level monorepo structure. Specific tier-internal tools, subagent roster A1-A10, named context scopes, repository path patterns, skill catalog at CC substantive CCAR canonical.
 - [RULE] Design System Governance — Tier 1 design language governance, two-way DS distribution (CD = SOT / CC = code-time mirror), token taxonomy, component inventory tiering, accessibility stance, additive update flow
@@ -77,8 +74,6 @@ Follow [OS] §5 for the output family classification (management-system outputs,
 
 When updating Project Instructions (PI) or any canonical source in Project Knowledge (PK), deliver the **complete updated file** as a single rendered artifact in the current chat, not as a patch, diff, change-only snippet, or instruction set for me to apply manually.
 
-**Why this rule exists.** Patch-based revisions repeatedly produce paste-error rework — partial edits applied against potentially stale local copies have a track record of introducing inconsistencies that are hard to detect downstream. Under the current GitHub-sync model for canonical sources, the operator commits the complete updated file to the canonical repository and the project knowledge base re-indexes from that commit. Receiving the complete file from Hub Claude as a single artifact keeps the commit unit atomic, avoids the local-vs-remote divergence that patch flows are prone to, and preserves a clean revision boundary in git history for future audit traceability.
-
 **Operational contract.**
 
 - For PI updates: emit the entire revised PI as one artifact, ready for the operator to paste into the Project Instructions field via the Claude.ai project settings UI in full.
@@ -96,7 +91,7 @@ The following rules activate automatically without being invoked; the canonical 
 - Category-specific role anchors: per [OS] §0.2
 - Three-layer audience-surface matrix (canonical = AI-RAG-only optimization): per [OS] §0.1.4
 - **Constitutional / substantive boundary (Hub canonical owns constitutional + Hub-internal substantive; CC owns CC-internal operational)**: per [OS] §0.1.5 Premise 5
-- **AI topology is not human topology** ([MECH] design must reason from AI primitives — statelessness, finite attention, no latent agency, ephemeral instance identity — not transplant human team workflow patterns; audited per CFSA §3.11): per [OS] §0.1.6 Premise 6
+- **AI topology is not human topology** ([MECH] design must reason from AI primitives — statelessness, finite attention, no latent agency, ephemeral instance identity — not transplant human team workflow patterns; audited per [MECH] Canonical File Self-Audit §3.11): per [OS] §0.1.6 Premise 6
 - **Conservative formalization** (canonical-set expansion requires affirmative justification — recurrence, coverage gap, AI-consumer value, maintenance budget; default for a newly identified need is non-formalization; global across all four task categories): per [OS] §0.1.7 Premise 7
 - **New Premise upgrade criteria** (5-item AI Consumption checklist gating any future §0.1.x Premise addition; ≥3 of 5 dimensions must pass): per [OS] §0.1.8 meta-note
 - Hub-first rule: per [OS] §1.2
@@ -113,7 +108,6 @@ The following rules activate automatically without being invoked; the canonical 
 - Language defaults: per [OS] §11.4
 - DingTalk-targeted output format: per [RULE] DingTalk Markdown Format Control Specification
 - Three-workspace architecture (Hub / CD / CC) and handoff topology: per [REF] Hub-CD-CC Architecture
-- CC-internal canonical layer existence and tier-aligned structure: per [REF] CC Project Memory Bank Layout constitutional residue (CC substantive canonical owns specific paths and authoring discipline)
 - Cross-tool content flow contracts: per [MECH] Cross-Tool Workflow Handoff
 - Design System governance and two-way DS distribution: per [RULE] Design System Governance
 - Development Track routing and rules: per [OS] §7.1 and the Development Track sources enumerated in [OS] §2.3.2 admissibility table (Cat 4 column)

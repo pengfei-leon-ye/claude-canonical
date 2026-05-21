@@ -10,7 +10,7 @@
 - **Relationship to [OS]**: Supports the Specify loop by converting product thinking and solution intent into handoff-ready specification artifacts. Grounded in [OS] §0.1 project-level operating premises and [OS] §0.2 Cat 2 role anchor.
 - **Relationship to [PRIN]**: Applies [PRIN] HR Digital Decision Design Principles §1 (business-first, architecture-enabled), §2 (capability-first, not vendor-first), §4 (lifecycle value over implementation convenience), §6 (operation management and value realization by design), §7 (analytics-informed digital decision making).
 - **Relationship to [RULE] Workspace Topology**: Not directly consumed; the `App Slug` header field declared in §1.1 / §0.7.1 anchors handoff-ready PRDs to a target app whose downstream node assignment is owned by Workspace Topology
-- **Relationship to [RULE] Claude Code Architecture Rules**: The `App Slug` value must come from the frozen app-slug roster defined in CC substantive CCAR canonical §Y; cross-reference for handoff-ready PRDs only
+- **Relationship to [RULE] Claude Code Architecture Rules**: The `App Slug` value must come from the frozen app-slug roster; the roster's substantive definition is owned by the CC-side substantive Claude Code Architecture Rules canonical, not by this Hub source. Cross-reference for handoff-ready PRDs only
 - **Relationship to [MECH] Development Track Workflow**: Handoff-ready PRDs (PRD + Full) are dev-track **inputs** (not dev-track artifacts) consumed at TK-01; one PRD = one phase = one feature set introduced in that phase; this template's `App Slug` and `Phase Number` field requirements at PRD + Full satisfy TK-01 input-readiness criteria
 - **Relationship to adjacent [TPL] sources**: Consumes framing from `[TPL] Problem Framing Memo` and decisions from `[TPL] Options Paper`; feeds `[TPL] PRD + TDD to Intent and Acceptance Conversion Specification` and `[TPL] Intent and Acceptance Interface Writing Standard` downstream; pairs 1:1 at phase level with `[TPL] Technical Design Document Template` (one PRD-TDD pair per phase per app)
 - **Relationship to [RULE] DingTalk Markdown Format Control Specification**: When the final document is uploaded to DingTalk Docs, apply that rule to normalize the Markdown before upload.
@@ -24,9 +24,7 @@ Default workspace rule:
 - draft initiative-specific PRDs, prototype briefs, and MVP briefs in hub chats first
 - move the work into a separate project only when contextual isolation, execution density, file volume, sensitivity, or collaboration needs justify it
 
-Downstream execution-interface rule:
-- when a PRD produced from this template enters development handoff (i.e., Approved PRD at Full execution depth), it serves as a dev-track input for that phase; downstream `intent.md` and `acceptance.yaml` pairs are extracted at slice level by `[TPL] PRD + TDD to Intent and Acceptance Conversion Specification`, following `[TPL] Intent and Acceptance Interface Writing Standard` for the target-file structure
-- the PRD is the upstream canonical source of truth for the phase's feature set; the paired phase TDD covers engineering specification; extracted slice-level interface pairs are downstream execution-layer compressions, not replacements
+Downstream execution-interface behavior: see §0.2 and §0.7.
 
 This source defines stable template logic. Initiative-specific content belongs in the generated document, not in this source.
 
@@ -143,14 +141,14 @@ Default interpretation rules:
 - `Prototype Brief + Standard` is allowed when prototype learning needs clearer rule, flow, or data definition
 - `Prototype Brief + Full` should not be used; if the document is explicit enough for direct execution, reclassify it as `PRD`
 - `MVP Brief + Standard` is the normal MVP document
-- `MVP Brief + Full` is allowed only when the MVP brief is also the implementation handoff basis
+- `MVP Brief + Full` is allowed only when the MVP brief is also the **implementation handoff basis** — meaning it is the document that goes directly into development handoff in place of a PRD, and therefore must meet the same handoff-readiness bar as a `PRD + Full` (committed `App Slug` and `Phase Number`, dev-track input consumed at TK-01 per §0.7.1 and §0.11). An MVP brief that does not clear that bar stays at `MVP Brief + Standard`
 - `PRD + Standard` is the normal working PRD; once an `App Slug` and `Phase Number` are committed, the PRD lives at the phase-level path defined in §0.11 even while in Draft
 - `PRD + Full` is the **phase-level handoff-ready PRD**: one PRD = one phase = one feature set introduced in that phase; it is the **dev-track input** (not a dev-track artifact) consumed at TK-01
 
 **PRD as dev-track input (not artifact)**: Per the Phase ontology established in [RULE] Workspace Topology, PRD + Full sits **upstream** of the Development Track. The dev-track produces TDD, slice-list, intent, acceptance, test plans, and deployable code; the PRD is the input feed, not a dev-track output. This boundary is structural, not stylistic — a PRD must remain readable to non-engineering stakeholders (product, business, vendor, junior PM) and **must not** include dev-track-internal mechanics such as walking-skeleton scope, slice decomposition, per-unit node assignments, cross-phase engineering refactoring deltas, or CI/CD milestone choreography. Those concerns belong in the paired phase TDD. **Logical system architecture, logical data model, and business-entity relationship diagrams remain valid PRD content when the business solution requires them — the PRD is the upstream of the TDD, not a peer artifact, and may carry the architectural framing the TDD elaborates from. Engineering-architecture decisions (technology choice, deployment topology, persistence backend selection, tier-internal module decomposition) are TDD's domain.**
 
 **Phase-level singleton + cross-phase additive evolution**:
-- An app's lifecycle proceeds through monotonic phases: **Phase 1** = 0→1 (the feature set introduced when the app is first runnable); **Phase N (N ≥ 2)** = 1→N (an additive iteration introducing new features and/or evolving prior ones)
+- An app's lifecycle proceeds through monotonic phases; the Phase 1 = 0→1 / Phase N = additive-iteration ontology and the Phase Number immutability rule are defined in §0.7.1 (Phase Number value rules)
 - One PRD per phase per app — `apps/{app-slug}/specs/prd/phase-{N}.md`
 - Phase 2+ PRDs are **standalone documents** (not deltas): each phase PRD reads as a self-contained feature-set specification for that phase, and may explicitly reference prior phases as context or dependency in §3 (Scope and Assumptions) when materially relevant
 - A single PRD covers **multiple features** introduced in that phase; the feature list is captured in §7 (Functional Requirements) with feature-slug grouping (per §7 guidance)
@@ -164,14 +162,14 @@ Note on "Lite" disambiguation: Execution Depth "Lite" refers to **document depth
 
 ## 0.7.1 App Slug and Phase Number field semantics
 
-The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to its target app and phase in the multi-app monorepo (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster). They are conditional-mandatory based on the artifact type and execution depth combination established in §0.7.
+The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to its target app and phase in the multi-app monorepo; the frozen app-slug roster's substantive definition is owned by the CC-side substantive Claude Code Architecture Rules canonical, not by this Hub source. They are conditional-mandatory based on the artifact type and execution depth combination established in §0.7.
 
 **Conditional applicability**:
 
 | Combination | App Slug | Phase Number | Rationale |
 |---|---|---|---|
 | **PRD + Full** | **Mandatory** | **Mandatory** | Phase-level handoff-ready PRD lands at `apps/{app-slug}/specs/prd/phase-{N}.md` per [MECH] Development Track Workflow TK-01; both app and phase must be committed before handoff |
-| **PRD + Standard** | **Mandatory** | **Mandatory once an app is committed** | Standard PRD is the upstream of the paired phase TDD; the paired TDD has both `app_slug` and `phase_number` as mandatory header fields per `[TPL] Technical Design Document Template`; PRD-TDD paired fields must be aligned at the upstream side, not back-filled by the TDD author |
+| **PRD + Standard** | **Mandatory once a target app is committed** | **Mandatory once an app is committed** | Standard PRD is the upstream of the paired phase TDD; the paired TDD has both `app_slug` and `phase_number` as mandatory header fields per `[TPL] Technical Design Document Template`; PRD-TDD paired fields must be aligned at the upstream side, not back-filled by the TDD author. A PRD + Standard may be drafted before a target app is committed (per §0.7); once an app is committed, `App Slug` becomes mandatory |
 | MVP Brief (any depth) | Recommended when target app is known | Optional (use `1` if treated as a Phase 1 candidate) | An MVP Brief that names a target app benefits from the same path-anchoring discipline as a PRD; Phase Number applies only when the MVP brief is intended to evolve into a Phase 1 PRD |
 | Prototype Brief (any depth) | Optional | Optional | Early-stage prototypes may pre-date both app and phase commitment; leave blank when not yet decided |
 
@@ -183,7 +181,7 @@ The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to 
 - Phase Number is **immutable for the life of the PRD** once committed — re-targeting a feature to a different phase is a new PRD authored under that phase, not a renumbering of the existing one
 
 **App Slug value rules**:
-- Must come from the frozen app-slug roster maintained at workspace level (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster). Free-form values, abbreviations, or display names are not valid `App Slug` values
+- Must come from the frozen app-slug roster maintained at workspace level; the roster's substantive definition is owned by the CC-side substantive Claude Code Architecture Rules canonical, not by this Hub source. Free-form values, abbreviations, or display names are not valid `App Slug` values
 - Once a PRD is signed off at PRD + Full with a populated `App Slug`, the value is immutable for the life of that PRD. If the feature is conceptually re-targeted to a different app after handoff, a new PRD is authored under the new app, not the existing one mutated
 
 **Coordination with paired and downstream artifacts**:
@@ -230,7 +228,9 @@ In this workspace, initiative-specific drafting should normally follow this path
 
 ## 0.10 Compliance and regulatory anchors rule for this template
 
-This template does **not** require a single `Target Management-System Landing Level` field. PRDs under this template are Cat 2 specification outputs per [OS] §2.3.1 and do not land in the L1-L5 management-system hierarchy.
+This template does **not** require a single `Target Management-System Landing Level` field. PRDs under this template are Cat 2 specification outputs (the Cat 2 category is defined in [OS] §2.3.1); per [OS] §2.3.4 a Cat 2 specification output expects no L2 / L3 policy linkage and does not land in the L1-L5 management-system hierarchy.
+
+(Note: this section relies on three distinct [OS] §2.3.x subsections — §2.3.1 *defines* the four task categories; §2.3.4 sets the *governing-linkage* rule that keeps Cat 2 outputs out of L1-L5; §2.3.3 sets the *hard boundary* forbidding any Cat 1 / `[POL]` citation. They are not interchangeable.)
 
 However, a PRD may need to declare compliance and regulatory constraints that materially affect design, implementation, or review:
 - applicable external regulations (e.g., GDPR, PIPL, SOC2, industry-specific rules)
@@ -265,8 +265,8 @@ For PRDs that have not (yet) entered handoff (Prototype Brief, MVP Brief, PRD + 
 |---|---|
 | Artifact Type | Prototype Brief / MVP Brief / PRD |
 | Execution Depth | Lite / Standard / Full (derive from 0.7; do not choose freely) |
-| App Slug | (conditional-mandatory per §0.7.1; mandatory for PRD at any execution depth; recommended for MVP Brief when target app is known; optional for Prototype Brief) |
-| Phase Number | (conditional-mandatory per §0.7.1; mandatory for PRD + Full; mandatory for PRD + Standard once `App Slug` is committed; positive integer starting at `1`; Phase 1 = 0→1, Phase N (N≥2) = additive iteration) |
+| App Slug | (conditional-mandatory per §0.7.1; mandatory for PRD + Full; mandatory for PRD + Standard once a target app is committed; recommended for MVP Brief when target app is known; optional for Prototype Brief) |
+| Phase Number | (conditional-mandatory per §0.7.1; mandatory for PRD + Full; mandatory for PRD + Standard once `App Slug` is committed; positive integer starting at `1`; phase ontology per §0.7.1) |
 | Language Mode | English / Chinese / Bilingual |
 | Product / Solution Name |  |
 | Version | `v1` / `v2` / `v3` ... (see 1.2 rules) |
@@ -456,7 +456,7 @@ Use the following structure for each major function. For phase-level PRDs, organ
 Use when relevant.
 Reference mockups, click paths, or prototype intentions that materially affect understanding.
 Do not use this subsection for purely aesthetic commentary.
-Component selection, token usage, accessibility commitments, and Tier 1 implementation details belong in a separate Hub-authored UX Design Spec instance (authored at TK-02 Step 2.3) per `[TPL] UX Design Spec` (consumed at TK-03 per-slice intent.md UX brief; the legacy TDD §5.8 / `§4.{feature-slug}.UX-Strategy` sub-section has been retired) and downstream slice-level intent.md UX brief, not here.
+Component selection, token usage, accessibility commitments, and Tier 1 implementation details belong in a separate Hub-authored UX Design Spec instance (authored at TK-02 Step 2.3) per `[TPL] UX Design Spec` (consumed at TK-03 per-slice intent.md UX brief) and downstream slice-level intent.md UX brief, not here.
 
 ---
 

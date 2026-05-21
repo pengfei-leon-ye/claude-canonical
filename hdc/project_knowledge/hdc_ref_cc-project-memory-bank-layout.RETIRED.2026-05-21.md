@@ -1,8 +1,10 @@
 # [REF] CC Project Memory Bank Layout
 
+> **RETIRED 2026-05-21** (per [OS] §8.8a source retirement procedure). This canonical source has been retired. Its load-bearing content — the constitutional declaration that CC maintains its own canonical layer, and the Hub↔CC visibility boundary — is framed by **[REF] Hub-CD-CC Architecture**, which absorbs it. Per the 2026-05-21 governance decision: the Hub canonical layer does not maintain a source describing the CC-side canonical layout; how CC structures its own architecture is owned by CC, and CC's adherence to Hub constitutional rules is assured operationally by the operator through Development Track delivery quality (see [OS] §0.1.5). No [OS] §8.10 reserved-empty registry entry is created — the slot is not reserved for re-activation. The file is retained per [OS] §8.8a for historical resolution of past references; the body below is the pre-retirement content and is no longer active canonical.
+
 - **Project**: HR Digital Cockpit
 - **Document Type**: Reference Catalog
-- **Status**: Active canonical
+- **Status**: Retired 2026-05-21 (was: Active canonical)
 - **Role**: Constitutional declaration that CC has its own canonical layer for CC-internal canonical content, the high-level structural pattern of that layer, and the visibility boundary between Hub-side and CC-side canonical authority. Substantive layout details (specific paths, naming conventions, indexing rules, update discipline, anti-drift red flags) are owned by CC under its own canonical layer.
 - **Source Category**: Cat 4
 - **Management-System Role**: Reference catalog source; outside L1-L5 hierarchy; not itself an L2-L5 artifact

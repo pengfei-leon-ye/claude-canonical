@@ -6,7 +6,7 @@
 - **Role**: Stable policy architecture source for the Digital Solution team
 - **Source Category**: Cat 1
 - **Management-System Role**: Policy architecture map; outside L1-L5 hierarchy (this source is a control source above L2-L5 artifacts, not itself an L2, L3, L4, or L5 artifact); governs how L2-L5 artifacts for the Digital Solution team are designed
-- **Relationship to [OS]**: Extends the active policy architecture anchors in the Project Operating Model into a reusable Digital Solution policy map.
+- **Relationship to [OS]**: Extends [OS] §6 / §6.2 policy-architecture anchors into a reusable Digital Solution policy map.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies [PRIN] HR Digital Decision Design Principles §1 (business-first, architecture-enabled), §3 (global core with governed local variance), §6 (operation management and value realization by design), §10 (apply MECE to important decomposition structures) to policy architecture decisions
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [POL] Digital Solution Policy Architecture Map` header fields per [OS] §8.5.1a)
 
@@ -45,7 +45,7 @@ The L1-L5 management-system lens is defined by `[OS] Project Operating Model` §
 | Level / status | Digital Solution interpretation |
 |---|---|
 | L2 | the landing level for the three major Digital Solution policy anchors defined in §3 |
-| L3 | used as a default architecture layer for Operation Management and Data Asset Management; not used as a default layer for Project Management Policy in this source |
+| L3 | used as a default architecture layer for Operation Management and Data Asset Management; not used as a default layer for Project Management Policy in this source (§4.2 is the authority) |
 | L4 | the normal landing for project lifecycle flows, live-solution operating flows, and data-management workflows |
 | L5 | work instructions for recurring operational steps, reviews, approvals, migrations, release handling, or data tasks |
 | Outside L2-L5 | specification outputs should state governing linkage when materially relevant, but should not be force-fit into L2-L5 |
@@ -58,7 +58,7 @@ The current stable minimum L2 policy architecture for the Digital Solution team 
 
 | L2 policy domain | Definition | Intended role | Normal downstream landing |
 |---|---|---|---|
-| Project Management Policy | The policy domain that governs formal delivery governance for time-bounded Digital Solution work | connect strategic intent to project or program execution pathways and control formal delivery from entry to closure | L2 directly to L4 |
+| Project Management Policy | The policy domain that governs formal delivery governance for time-bounded Digital Solution work | connect strategic intent to project or program execution pathways and control formal delivery from entry to closure | L2 directly to L4 (no default L3 — see §4.2) |
 | Operation Management Policy | The policy domain that governs how a live or post-implementation solution is controlled after or beyond implementation | govern steady-state access, usage, maintenance, lightweight change, and controlled operating artifacts | L2 to minimum stable L3, then to L4 |
 | Data Asset Management Policy | The policy domain that governs how solution data is managed as an asset across the lifecycle | govern definition, structure, lifecycle, metadata, quality, and security of data assets | L2 to minimum stable L3, then to L4 |
 
@@ -66,14 +66,7 @@ This is a controlled minimum architecture. It does not claim that every enterpri
 
 # 4. Policy domain logic and decomposition
 
-## 4.1 Common decomposition rule
-
-Use L3 only when one of the following is true:
-- a stable sub-policy domain is required to keep the parent policy governable
-- governed local variance needs a durable policy layer
-- the parent scope cannot remain MECE without a lower policy layer
-
-For what L3 (and any policy-architecture decomposition) must not represent — lifecycle stages, workflow phases, project gates, review forums, tools, modules, or vendors — see §5 decomposition and boundary rules (specifically rule 5 lifecycle-stages and rule 6 tool/vendor/module/team labels), which owns the general red-line statement that the L3-specific gating here defers to.
+The decomposition rules that govern when and how L3 architecture is created — including the authoritative L3-creation gate — are consolidated in §5. This chapter applies those rules to each L2 policy domain.
 
 ## 4.2 Project Management Policy
 
@@ -131,13 +124,6 @@ Operation Management Policy uses **minimum stable L3 domains** before detailed L
 
 **MECE boundary note**
 
-The sibling logic is:
-- access control
-- usage and value control
-- baseline sustainment control
-- lightweight enhancement control
-- controlled operating knowledge control
-
 No additional default L3 sibling is required in this source.
 
 **Boundary rules**
@@ -149,6 +135,20 @@ No additional default L3 sibling is required in this source.
 - Vendor team day-to-day run coordination can sit inside normal operating domains.
 - Commercial vendor performance management and renewal judgment remain interfaces to broader procurement or vendor-management policy, not separate L3 domains in this map.
 - Every material item must be triaged either to Maintenance Management, Change Request Management, or formal Project Management.
+
+**Triage rubric — break-fix vs lightweight enhancement vs project-scale**
+
+The boundary between Maintenance Management and Change Request Management turns on whether an item is break-fix or a lightweight enhancement; the boundary between Change Request Management and formal Project Management turns on whether an item is lightweight or project-scale. Triage each material item against these three categories:
+
+- **Break-fix** — work that restores or sustains the *current* baseline without changing intended behavior: incident resolution, service requests, recurring defect handling, configuration maintenance, release response. Routes to Maintenance Management.
+- **Lightweight enhancement** — a *change to intended behavior* that is small in scope, does not require formal project governance, and can be decided and prioritized through BAU triage rather than a project: a contained capability tweak, a configuration-level improvement, a minor workflow adjustment. Routes to Change Request Management.
+- **Project-scale** — a change whose scope, risk, cross-domain impact, or governance need exceeds BAU triage and requires formal delivery governance (entry, planning, controlled execution, closure). Escalates from Change Request Management to formal Project Management.
+
+The decisive test for lightweight vs project-scale: an item is lightweight only when its scope is contained to one solution's operating surface, carries no material cross-domain or architectural impact, and can be approved and prioritized without a project governance entry; if any of those fail, it is project-scale.
+
+*Example pair*:
+- *Lightweight enhancement (Change Request Management)*: adding an optional filter to an existing report view in a live solution — contained scope, no architectural change, BAU-triageable.
+- *Not lightweight — project-scale (escalates to Project Management)*: replacing the live solution's authentication model — cross-cutting impact, architectural change, requires formal delivery governance; it is not a Change Request Management item even though it begins as a request.
 
 ## 4.4 Data Asset Management Policy
 
@@ -181,7 +181,20 @@ In this source, they are treated as mandatory cross-cutting checks, not default 
 
 # 5. Decomposition and boundary rules
 
-The decomposition logic below applies `[PRIN] HR Digital Decision Design Principles` §10 (Apply MECE to important decomposition structures) to policy architecture specifically. The upstream principle is the authoritative source for MECE judgment; the rules below translate it into policy-architecture-specific working rules.
+The decomposition logic below applies `[PRIN] HR Digital Decision Design Principles` §10 (Apply MECE to important decomposition structures) to policy architecture specifically. The upstream principle is the authoritative source for MECE judgment; the rules below translate it into policy-architecture-specific working rules. This chapter is the single decomposition-rules chapter for this source.
+
+**L3-creation gate (authoritative)**
+
+This is the authoritative L3-creation gate for this source. Use L3 only when one of the following is true:
+- a stable sub-policy domain is required to keep the parent policy governable
+- governed local variance needs a durable policy layer
+- the parent scope cannot remain MECE without a lower policy layer
+
+Anchor for "stable" and "durable": a sub-policy domain is *stable* when its control scope is not expected to be reorganized by the next foreseeable change cycle, and *durable* when it must persist as a standing policy layer rather than being absorbed once a one-off need passes. A layer that would exist only to handle a transient or single-instance need does not clear this gate.
+
+L3 (and any policy-architecture decomposition) must not represent lifecycle stages, workflow phases, project gates, review forums, tools, modules, or vendors — see rule 5 (lifecycle stages) and rule 6 (tool/vendor/module/team labels) below.
+
+**Decomposition and boundary rules**
 
 Use the following rules before creating or changing L3 architecture:
 
@@ -192,7 +205,7 @@ Use the following rules before creating or changing L3 architecture:
 5. Do not use lifecycle stages as policy siblings.
 6. Do not use tool, vendor, module, or team labels as the primary policy taxonomy.
 7. Treat cross-cutting checks as cross-cutting unless a later architecture decision explicitly elevates them.
-8. Expand the structure only when coverage gaps or material overlap cannot be solved by clearer boundary definitions.
+8. Expand the structure only when coverage gaps or material overlap cannot be solved by clearer boundary definitions — this expansion check is subject to the authoritative L3-creation gate above.
 
 **Fast MECE test**
 - Does each sibling own one primary control object?
@@ -212,15 +225,7 @@ Lifecycle is an operating lens, not an additional management-system level.
 
 ## 6.2 Governance linkage
 
-Policy architecture must link to governance mechanisms.  
-Governance mechanisms define:
-- cadence
-- review forums
-- decision rights
-- escalation paths
-- watch logic
-
-These mechanisms may be expressed in linked governance sources rather than inside the policy architecture map itself.
+Policy architecture must link to governance mechanisms. These mechanisms may be expressed in linked governance sources rather than inside the policy architecture map itself.
 
 ## 6.3 Execution linkage
 
@@ -264,8 +269,8 @@ Specification outputs in this domain should state governing linkage to the relev
 
 Use the following rules before changing this architecture:
 
-- Add a new L2 policy domain only when a durable control domain cannot be cleanly housed under the current L2 anchors.
-- Add a new L3 domain only when the parent scope cannot remain governable and MECE without it.
-- Do not create a separate L3 domain for vendor commercial performance management within Operation Management.
 - Do not rename the minimum stable L3 domains without first revisiting their definitions and boundaries.
-- Update this source before detailed downstream policy drafting materially changes the architecture.
+- Adding a new L2 policy domain is governed by the controlled-minimum L2 architecture rule — see §3.
+- Adding a new L3 domain is governed by the authoritative L3-creation gate — see §5.
+- The prohibition on a separate L3 domain for vendor commercial performance management is owned by §4.3.
+- Update this source before detailed downstream policy drafting begins, per the §1 scope intent.

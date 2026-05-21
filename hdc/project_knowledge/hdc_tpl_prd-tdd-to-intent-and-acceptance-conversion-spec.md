@@ -14,7 +14,7 @@
 - **Relationship to [OS]**: Supports the Specify loop by converting dual-upstream product+architecture specification into lower-ambiguity execution inputs. Grounded in [OS] §0.1 project-level operating premises and [OS] §0.2 Cat 4 role anchor.
 - **Relationship to [RULE] Workspace Topology**: Conversion executes in Hub Claude (per [REF] Hub-CD-CC Architecture §5.1 content pillar — spec artifact main body produced in Hub). The slice's `assigned_node` Claude Code is the downstream consumer of the conversion outputs starting at TK-04; the executing-workspace constraint for node-side TKs is owned by Workspace Topology §3.5 + §4.2 (feature-level node affinity)
 - **Relationship to [MECH] Development Track Workflow**: This conversion is operationalized in TK-03 of the Development Track Workflow; the slicing rules in §2 presuppose the slice list produced in TK-02; the UX Design Spec instance consumed in §3.8 is Hub-authored at TK-02 Step 2.3 per [MECH] DTW TK-02 internal step decomposition; SK-F engagement is owned by [MECH] DTW TK-04 (CC-side, code-generation time)
-- **Relationship to [RULE] Claude Code Architecture Rules**: Module-driven slicing in §2 anchors to TDD module decomposition, which must respect the three-tier architecture defined in that source; repository path layout (`apps/{app-slug}/specs/...`) is owned by CC substantive CCAR canonical §Y.1
+- **Relationship to [RULE] Claude Code Architecture Rules**: Module-driven slicing in §2 anchors to TDD module decomposition, which must respect the three-tier architecture defined in that source; repository path layout (`apps/{app-slug}/specs/...`) is owned by CC substantive CCAR canonical (repository layout)
 - **Relationship to [MECH] CI/CD Milestone Policy**: §6 owns `evidence.md` vs Test Evidence Report disambiguation
 - **Relationship to [REF] Hub-CD-CC Architecture**: TK-03 (this conversion's operationalization) runs in Hub per §5.1 content pillar — the intent.md / acceptance.yaml main body is a "spec artifact main body" produced by Hub Claude. When Tier 1 is involved, the upstream UX Design Spec instance is Hub-authored at TK-02 Step 2.3 per §5.2 presentation pillar by Hub Claude reading CD-authored design files (transferred from CD per [MECH] Cross-Tool Workflow Handoff §2.2) per [RULE] DSG §1.1 two-way distribution; the converter consumes the Hub-authored UX Design Spec instance markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` as the source for UX brief extraction.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2.2 (CD → operator → Hub) carries CD-authored design files into Hub as visual reference for TK-02 Step 2.3 UX Design Spec instance authoring when Tier 1 is involved; the Hub-authored instance markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` is the conversion's TK-03 UX brief source. §3.1 (Hub → operator → CC) carries the conversion outputs (intent.md / acceptance.yaml / test-plan.yaml) plus the Hub-authored UX Design Spec instance markdown and the CD design files (forwarded as visual reference) onward to CC at TK-04 entry per [MECH] DTW.
@@ -57,9 +57,7 @@ The extracted `intent.md` and `acceptance.yaml` are:
 
 ## 0.2 Why Y-chain conversion exists
 
-**PRD** is intentionally rich in business content: problem framing, scope and release cut, roles and scenarios, business rules, functional requirements, data and governance expectations, risks, decisions.
-
-**TDD** is intentionally rich in engineering-architecture content: module decomposition, API contracts, data model implementation, tier mapping, testing strategy, NFR realization, decision record (as ADR index per [TPL] TDD §2.2.8). UX strategy is intentionally NOT carried in TDD; when a feature touches Tier 1, the per-feature UX coverage lives in a UX Design Spec instance Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` from CD-authored design files.
+The PRD carries business truth and the TDD carries engineering-architecture truth — for the full content structure of each, see the respective templates ([TPL] PRD Template, [TPL] TDD Template). UX strategy is intentionally NOT carried in TDD; when a feature touches Tier 1, the per-feature UX coverage lives in a UX Design Spec instance Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` from CD-authored design files.
 
 Together they provide **business truth × engineering-architecture truth** (with logical-architecture framing optionally upstream-resident in the PRD per [TPL] PRD Template §0.7). That makes them strong as upstream handoff artifacts, but too broad as the sole direct input for one implementation slice.
 
@@ -85,31 +83,7 @@ In TK-03 these two are produced alongside `apps/{app-slug}/specs/test-plan/{slic
 
 ## 0.4 Default operating chain
 
-```
-canonical PRD + canonical TDD                 [Hub-produced in TK-01 / TK-02; landed at apps/{app-slug}/specs/...]
-         |
-         |  [if Tier 1 involved] Hub-authored UX Design Spec instance per [TPL] UX Design Spec
-         |  is committed at apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md
-         |  at TK-02 Step 2.3 (Hub Claude authoring from CD-authored
-         |  design files per [RULE] DSG §1.1) before TK-03 begins
-         |
-         v  (slice list produced in TK-02)
-feature-slice selection
-         |
-         v  (TK-03: this conversion spec — runs in Hub; UX Design Spec instance markdown consumed when Tier 1 involved)
-intent.md + acceptance.yaml (+ test-plan.yaml in parallel)
-         |
-         v  Hub-side cross-model review (operator's GPT-Claude consensus loop) — this serves as the de facto design freeze gate per [REF] Hub-CD-CC Architecture §5
-         |
-         v  artifacts transferred to CC via [MECH] Cross-Tool Workflow Handoff §3.1; CC enters at TK-04 (M0 entry self-check + first-commit)
-frozen specs committed to feature branch on assigned_node
-         |
-         v  (TK-05..TK-12)
-engineering design and implementation, evidence production
-         |
-         v  (TK-12: M4 gate)
-human approval or reject
-```
+The TK-01 → TK-12 task sequence this conversion sits inside is owned by [MECH] Development Track Workflow — that source is authoritative for the chain. This conversion is operationalized at TK-03 (Hub-side); §0.6 below describes the TK-03 execution context, and §0.5 the boundary with the writing-standard source.
 
 ## 0.5 Boundary with the writing-standard source
 
@@ -178,7 +152,7 @@ Before conversion begins, all of the following must be explicit:
 - whether any unresolved TDD ambiguity blocks safe conversion
 - whether PRD and TDD are mutually consistent (no contradictions)
 
-**Feature anchor readiness within the phase** (per [TPL] PRD §0.7.1 + [TPL] TDD §1):
+**Feature anchor readiness within the phase** (per [TPL] PRD Template §0.7.1 + [TPL] TDD §1):
 - `app_slug` populated and identical in phase PRD §1.1 and phase TDD §1 header; `phase_number` populated and identical in phase PRD §1.1 and phase TDD §1 header
 - `assigned_node` populated in the unit-scope-correct location of the phase TDD: for `feature` units, `§4.{feature-slug}.Header.assigned_node`; for the `walking_skeleton` unit, `§3.Walking-Skeleton-Header.assigned_node`. The phase TDD itself is application/phase-scoped and does **not** carry a top-level `assigned_node` field — node assignment is per work unit, not per phase (per [TPL] TDD Template §0.6 and [RULE] Workspace Topology §6). Value comes from [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention) logical node catalog
 - Conversion is being executed in Hub Claude (the `assigned_node` is the downstream CC consumer starting at TK-04, not the executor of this conversion)
@@ -254,7 +228,7 @@ Each extracted slice must record the following metadata. The field set is paired
 - `tdd_modules_covered`: list of modules from phase TDD `§4.{feature-slug}.Module-Decomposition`
 - `tiers_covered`: subset of {tier-1, tier-2, tier-3}
 - `tier_1_involved`: boolean; triggers UX brief and accessibility expectations
-- `domains_consumed`: list of `{domain-name}` from `packages/domain/` if any; supports Pact pair `{app-slug}-bff_{domain-name}` scoping per CC substantive CCAR canonical §Y.4
+- `domains_consumed`: list of `{domain-name}` from `packages/domain/` if any; supports Pact pair `{app-slug}-bff_{domain-name}` scoping per CC substantive CCAR canonical (Pact contract testing convention)
 - `estimated_scope`: file count + net LOC estimate per slice-size advisory (CC substantive CI/CD Milestone Policy canonical (slice-size advisory)); flag oversize if applicable
 
 ---
@@ -320,7 +294,7 @@ Source: Hub-authored UX Design Spec instance per `[TPL] UX Design Spec` (committ
 - **Screens**: Pick the subset of the UX Design Spec instance §2.1 (Affected Tier 1 scope) screens that fall within this slice's modules. One sentence purpose per screen. Layout pattern assignment from UX Design Spec instance §2.2 (HDC layout pattern selection).
 - **Key interactions**: Pick the interactions specific to this slice's scenarios. Components from UX Design Spec instance §2.3 (Tier A or Tier B as already declared in the instance, grounded in the CD-authored design files at authoring time). Do not restate Design System Governance component specs — reference only.
 - **Empty / loading / error states**: Only note deviations from DS instance defaults (per [RULE] DSG §10 content style governance). If DSG defaults suffice, write "Per Design System Governance defaults."
-- **Accessibility call-outs**: Lift from UX Design Spec instance §2.5 (Accessibility call-outs, slice-specific only). Do not restate [RULE] DSG §6.1 baseline content.
+- **Accessibility call-outs**: Lift from UX Design Spec instance §2.5 (Accessibility call-outs, feature-specific only). Do not restate [RULE] DSG §6.1 baseline content.
 - **Internationalization call-outs**: Only when the slice has specific i18n load beyond DSG §7 defaults. Lift from UX Design Spec instance §2.6 (Internationalization and RTL call-outs). Translation volume estimate if non-trivial.
 - **New components or tokens (slice-local use only)**: Only if UX Design Spec instance §2.4 (New components or tokens) declared a new asset that this slice uses. Reference the additive update plan in §2.4; do not embed the plan content in intent.md. The plan itself flows to the DS instance via [RULE] DSG §12 at the originating feature's M4 → merge-to-main milestone (TK-12). Otherwise write "None."
 
@@ -330,7 +304,7 @@ Source: Hub-authored UX Design Spec instance per `[TPL] UX Design Spec` (committ
 
 Source: PRD and TDD approved working assumptions.
 
-Rule: §1.8 of Writing Standard applies. An assumption may be lifted into intent.md only when it does not alter current-slice business behavior, non-regression boundary, or done definition.
+Rule: §1.9 of Writing Standard applies. An assumption may be lifted into intent.md only when it does not alter current-slice business behavior, non-regression boundary, or done definition.
 
 ## 3.10 Open questions extraction
 
@@ -338,7 +312,7 @@ Source: downstream validation-method or implementation-detail questions.
 
 Rule: Do not lift PRD `Open questions` or TDD `Open questions` of business-rule or architecture type into intent.md. Such questions block conversion and must be resolved upstream.
 
-The only open questions that may remain in intent.md are tagged `[evidence-method]` or `[implementation-detail]` per Writing Standard §1.9.
+The only open questions that may remain in intent.md are tagged `[evidence-method]` or `[implementation-detail]` per Writing Standard §1.10.
 
 ## 3.11 References extraction
 
@@ -372,7 +346,7 @@ Rule:
 
 Source: PRD non-regression expectations + TDD stability rules.
 
-Rule: Every constraint has an `evidence_how` pointing to the test technique (contract test, e2e scenario, permission test, etc.) that will verify it. For BFF-to-domain stability, the contract test references the Pact pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical §Y.4.
+Rule: Every constraint has an `evidence_how` pointing to the test technique (contract test, e2e scenario, permission test, etc.) that will verify it. For BFF-to-domain stability, the contract test references the Pact pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical (Pact contract testing convention).
 
 ## 4.3 edge_cases
 
@@ -403,12 +377,12 @@ Rule: Each expectation must trace to a must_pass_scenario that triggers the sign
 
 ## 4.7 accessibility_expectations (when Tier 1 involved)
 
-Source: UX Design Spec instance §2.5 (Accessibility call-outs, slice-specific only) + [RULE] DSG §6 stance.
+Source: UX Design Spec instance §2.5 (Accessibility call-outs, feature-specific only) + [RULE] DSG §6 stance.
 
 Rule:
 - Per [RULE] DSG §6, HDC has no formal WCAG conformance target; this section is **optional** and used only when the slice has specific a11y considerations beyond Arco component defaults
 - When the UX Design Spec instance §2.5 declares feature-specific a11y call-outs, convert each into an `accessibility_expectations` entry; otherwise omit the section entirely
-- Each entry includes `verification: automated | manual | both`; "automated" maps to either `eslint-plugin-jsx-a11y` (warn-level lint, per CC substantive Code Quality Rule Set canonical §1.2) or to an on-demand SK-W audit; "manual" means an operator spot-check at M4
+- Each entry includes `verification: automated | manual | both`; "automated" maps to either `eslint-plugin-jsx-a11y` (warn-level lint, per CC substantive Code Quality Rule Set canonical) or to an on-demand SK-W audit; "manual" means an operator spot-check at M4
 - No entry creates a milestone gate; the project a11y stance is "no formal gate"
 
 ## 4.8 out_of_scope
@@ -421,7 +395,7 @@ Rule: One entry per excluded item with rationale.
 
 Source: default set from Writing Standard §3.11 plus slice-specific additions.
 
-Rule: `accessibility_audit` must be in the list when Tier 1 is involved (produced by SK-W in TK-10 per [MECH] CI/CD Milestone Policy constitutional residue §2.4 (M3 Pre-Release Validation) evidence table). The default set includes `operator_digest` (the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4)).
+Rule: `accessibility_audit` must be in the list when Tier 1 is involved (produced by SK-W in TK-10 per [MECH] CI/CD Milestone Policy constitutional residue §2.4 (M3 Pre-Release Validation) evidence table). The default set includes `operator_digest` (the M4 one-page operator-readable digest at `apps/{app-slug}/reports/m4/{slice-id}/operator-digest.md` per CC substantive CI/CD Milestone Policy canonical (operator-digest path)).
 
 ---
 
@@ -532,17 +506,11 @@ Because the reviewer primarily approves through evidence rather than code readin
 
 - `traceability_summary`
 - `accessibility_audit` (when Tier 1 involved)
-- `operator_digest` (the M4 one-page digest per CC substantive CI/CD Milestone Policy canonical (operator-digest path §6.4))
+- `operator_digest` (the M4 one-page digest per CC substantive CI/CD Milestone Policy canonical (operator-digest path))
 
 ## 7.3 Slice-specific additions when materially needed
 
-Add when applicable:
-
-- `ui_flow_recording` — when the slice involves a novel user flow not previously validated
-- `state_transition_examples` — when the slice has stateful entities with non-trivial transitions
-- `error_case_examples` — when the slice has complex error handling
-- `permission_matrix_result` — when the slice has multi-role permission rules
-- `audit_log_examples` — when the slice emits multi-type audit events
+The slice-specific `evidence_required` additions (and the conditions under which each applies) are owned by `[TPL] Intent and Acceptance Interface Writing Standard` §3.11. That source is authoritative for the list; do not maintain a duplicate copy here (per §7.1). When a slice's characteristics call for an addition, apply the §3.11 slice-specific list against the slice.
 
 ---
 
@@ -556,7 +524,7 @@ Before finalizing the extracted `intent.md` and `acceptance.yaml`, verify all of
 4. Do `permissions.owning_tier` entries respect phase TDD `§1.Tier-Responsibility-Mapping` tier mapping and [RULE] Claude Code Architecture Rules §3?
 5. If Tier 1 involved: is the UX brief present in intent.md?
 6. If Tier 1 involved: are accessibility_expectations present in acceptance.yaml?
-7. If Tier 1 involved: are referenced components named in the UX brief covered by the Hub-authored UX Design Spec instance §2.3 inventory entries (which Hub grounded in the CD-authored design files at TK-02 Step 2.3)? Component-existence is verified at CC code time via SK-F against the CC mirror; at TK-03, the converter trusts TK-02 Step 2.3's Hub-side authoring discipline. Because CD authors both the design files and the DS instance, the UX Design Spec's design-file-grounded references and the CC mirror are consistent by common authorship; the DSG §15 export conformance review is the cross-workspace cross-check.
+7. If Tier 1 involved: are referenced components named in the UX brief covered by the Hub-authored UX Design Spec instance §2.3 inventory entries (which Hub grounded in the CD-authored design files at TK-02 Step 2.3)? This is the TK-03-actionable check the extractor performs. (Informational, not a TK-03 action: component-existence is separately verified at CC code time via SK-F against the CC mirror — at TK-03 the converter trusts TK-02 Step 2.3's Hub-side authoring discipline; because CD authors both the design files and the DS instance, the UX Design Spec's design-file-grounded references and the CC mirror are consistent by common authorship, and the DSG §15 export conformance review is the cross-workspace cross-check the extractor cannot itself execute.)
 8. Are all must_pass_scenarios traceable to at least one PRD FR or user value statement?
 9. Are all non_regression_constraints traceable to PRD non-regression expectations or TDD stability rules?
 10. Are any unresolved business-rule or architecture open questions present in intent.md? (Should be none — resolve upstream.)
@@ -583,6 +551,6 @@ The following leakage patterns indicate the conversion has pulled in content tha
 | Implementation options not yet approved | TDD |
 | Sprint planning, estimation, runtime config | Not a specification concern |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
-| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) |
+| Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout) |
 | Code review tool command semantics | CC substantive Codex Plugin Usage canonical (post-Phase-3) |
 | Skill internal prompts | `.claude/skills/{name}/SKILL.md` |
