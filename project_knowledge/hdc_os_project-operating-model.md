@@ -132,7 +132,26 @@ Mechanism design for [MECH] sources must reason from these AI primitives rather 
 
 **Origin**: this premise codifies a costly lesson from the early Development Track CI/CD design, where commercial CI/CD patterns assuming continuous-context coworker review were transplanted into AI-sub-agent contexts and produced repeated execution stalls. The pattern of "AI mimicry of human workflow primitives" is the failure mode this premise prevents.
 
-### 0.1.7 How new Premises are added (meta-note)
+### 0.1.7 Premise 7 — Conservative formalization (canonical-set expansion requires affirmative justification)
+
+Not every recurring need warrants its own canonical source. The **default for a newly identified rule, protocol, or pattern is non-formalization** — handled by operator judgment, by an existing mechanism, or ad hoc in chat — until an affirmative case for a dedicated canonical source is made. Each new canonical source is a permanent maintenance liability: it accrues pairings, audit obligations, and re-verification cost on every adjacent revision. The cost is paid continuously; the benefit must be demonstrated, not assumed.
+
+Promoting content to a new canonical source — or a new §-block, `[RULE]`, `[MECH]`, or `[TPL]` member — should clear four judgment questions. These are reasoning anchors, not a mechanical gate; a proposal that is weak on one but decisively strong on the others may still be justified, with the trade-off made explicit.
+
+1. **Recurrence** — has the need actually recurred, or is it a one-off? One-off needs do not formalize.
+2. **Coverage gap** — do existing canonical sources genuinely fail to cover it? If an existing source can absorb the content as a section, that is preferred over a new file.
+3. **AI-consumer value** — will the formalized content drive Hub Claude / Claude Code behavior at RAG retrieval time (per §0.1.4), or is it operator-facing memory better held outside the canonical layer?
+4. **Maintenance budget** — is the resulting pairing fan-out and audit surface proportionate to the operational return, given the §8.5.7 thresholds?
+
+**Relationship to §8.5.7**: this premise is the *preventive* layer — it gates expansion before it happens. §8.5.7 harness re-architecture trigger is the *corrective* layer — it remediates after thresholds are already crossed. A healthy canonical set relies on the preventive layer so the corrective layer rarely fires.
+
+**Application scope**: applies to **all four task categories**. Unlike Premise 5 (multi-workspace trigger) and Premise 6 ([MECH]-design trigger), conservative formalization is a global discipline — every canonical-set expansion decision, in any category, is subject to it.
+
+**Audit operationalization**: CFSA D5 Soundness §3.6.2 operationalizes this premise as a source-existence justification check fired at the T1 creation trigger. §8.9 makes the four-question test a required pre-generation confirmation; §8.10 reserved-empty registry is the operational record of needs evaluated and deliberately *not* formalized.
+
+**Origin**: this premise codifies a discipline validated in practice — Library Project Protocol and Expert Consultation Trigger were both scoped as prospective canonical sources and then deliberately not formalized (2026-05-17) because existing mechanisms already covered them. The failure mode this premise prevents is canonical-set sprawl: formalizing every identified need into a dedicated source until pairing fan-out and audit overhead exceed operator working-memory capacity.
+
+### 0.1.8 How new Premises are added (meta-note)
 
 Adding a new §0.1.x Premise expands the project's constitutional layer and must clear a higher bar than adding a [RULE] or [MECH] rule. A new Premise proposal must pass at least three of the following five AI Consumption dimensions before being added to §0.1:
 
@@ -146,7 +165,7 @@ The threshold is **≥3 of 5 dimensions passing** for upgrade to Premise; if few
 
 **Bias acknowledgement**: this checklist preferentially scores high-frequency rules over low-frequency-but-structurally-critical gates. When evaluating a proposed structural gate (e.g., a Premise about how new canonical sources are added), interpret the "decision gating" dimension as gating leverage × single-occurrence consequence, not as raw frequency. Likewise the checklist preferentially scores audit-layer extensions over Premise-layer additions because the former trivially satisfy dimensions 3 and 4; operators should match the principle to its true structural layer rather than route everything through audit dimensions to inflate the score.
 
-**Example application**: Premise 6 (this revision) passes all 5 dimensions: it applies across all [MECH] sources (RAG hit), unifies wording previously scattered across DTW / CFSA / PI (cross-source disambiguation), gates new [MECH] design (decision gating), maps to CFSA §3.11 (audit triggering), and applies in every [MECH] revision conversation (cross-session consistency). A counter-example — a proposed Premise "Single authoritative source for cross-workspace content" — was evaluated under this checklist and **withdrawn** (0 of 5 passed) because the principle was already adequately implemented at [REF] Hub-CD-CC Architecture and at CFSA D3 implicit-mirroring failure mode.
+**Example application**: Premise 6 passes all 5 dimensions: it applies across all [MECH] sources (RAG hit), unifies wording previously scattered across DTW / CFSA / PI (cross-source disambiguation), gates new [MECH] design (decision gating), maps to CFSA §3.11 (audit triggering), and applies in every [MECH] revision conversation (cross-session consistency). A counter-example — a proposed Premise "Single authoritative source for cross-workspace content" — was evaluated under this checklist and **withdrawn** (0 of 5 passed) because the principle was already adequately implemented at [REF] Hub-CD-CC Architecture and at CFSA D3 implicit-mirroring failure mode. Premise 7 (conservative formalization) was evaluated and **added**: it passes 4 dimensions clearly — RAG hit (referenced by §5.5, §8.9, §8.10), decision gating (the §8.9 pre-generation new-source confirmation), audit triggering (CFSA D5 §3.6.2 source-existence justification check), and cross-session consistency (every canonical-set expansion decision invokes it) — with cross-source disambiguation passing only marginally (the principle had partial scattered coverage in CFSA D5 Necessity / Mechanism-fatigue checks and §8.5.7). Per the bias acknowledgement above, Premise 7 is a structural gate: its decision-gating dimension is scored as gating leverage × single-occurrence consequence (each new source is a permanent maintenance liability), not raw reference frequency.
 
 ---
 
@@ -490,7 +509,7 @@ When a new artifact's classification is ambiguous between working artifact, spec
 
 Reusable cross-topic control artifacts are source candidates. Initiative-specific PRDs, briefs, handoff specs, memos, drafts, options papers, and execution-interface files are not source candidates by default.
 
-A specification artifact becomes a canonical source only upon explicit user promotion and only after passing the durable-first rule in §8.1 and the one-source-one-job rule in §8.2.
+A specification artifact becomes a canonical source only upon explicit user promotion and only after clearing the §0.1.7 Premise 7 conservative-formalization test (recurrence, coverage gap, AI-consumer value, maintenance budget), the durable-first rule in §8.1, and the one-source-one-job rule in §8.2.
 
 ### Classification examples
 
@@ -1029,7 +1048,7 @@ The protocol activates when the user explicitly asks for a source-ready canonica
 
 ### Required pre-generation declarations
 
-Before generating the final source-ready Markdown, state:
+Before generating the final source-ready Markdown, first confirm the proposed source clears the §0.1.7 Premise 7 conservative-formalization test: if an existing canonical source can absorb the content as a section, or the need has not genuinely recurred, do not generate a new source. Once the new-source decision is affirmed, state:
 - routing decision (which hub zone or file the source belongs to)
 - output family (management-system output, specification-support artifact, or canonical source outside L2-L5; see Section 5)
 - governing anchor, if the source extends or applies another canonical source
@@ -1058,7 +1077,7 @@ Do not apply this protocol to normal chat-level working artifacts or initiative-
 
 ## 8.10 Reserved-empty registry
 
-The following slots are deliberately empty in the current canonical set, with documented activation criteria.
+The following slots are deliberately empty in the current canonical set, with documented activation criteria. This registry is the operational expression of §0.1.7 Premise 7 (conservative formalization): a recognized need is recorded as a reserved slot with explicit activation criteria rather than authored speculatively into a canonical source before its affirmative case is made.
 
 - **Cat 3 (Configuration workbook production)** — see §2.3.5. Activation when the first configuration-workbook production workflow for a specific vendor product or product family matures to a reusable [TPL] family member.
 - **Cat 1 detailed-template family** — Cat 1 governs L1 management-system anchors (per §2.3.1). Detailed templates under Cat 1 are not authored at hub canonical level, since L1 anchor authoring belongs to enterprise policy implementation outside hub scope. Activation: not anticipated in current project scope.

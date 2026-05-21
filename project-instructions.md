@@ -98,7 +98,8 @@ The following rules activate automatically without being invoked; the canonical 
 - Three-layer audience-surface matrix (canonical = AI-RAG-only optimization): per [OS] §0.1.4
 - **Constitutional / substantive boundary (Hub canonical owns constitutional + Hub-internal substantive; CC owns CC-internal operational)**: per [OS] §0.1.5 Premise 5
 - **AI topology is not human topology** ([MECH] design must reason from AI primitives — statelessness, finite attention, no latent agency, ephemeral instance identity — not transplant human team workflow patterns; audited per CFSA §3.11): per [OS] §0.1.6 Premise 6
-- **New Premise upgrade criteria** (5-item AI Consumption checklist gating any future §0.1.x Premise addition; ≥3 of 5 dimensions must pass): per [OS] §0.1.7 meta-note
+- **Conservative formalization** (canonical-set expansion requires affirmative justification — recurrence, coverage gap, AI-consumer value, maintenance budget; default for a newly identified need is non-formalization; global across all four task categories): per [OS] §0.1.7 Premise 7
+- **New Premise upgrade criteria** (5-item AI Consumption checklist gating any future §0.1.x Premise addition; ≥3 of 5 dimensions must pass): per [OS] §0.1.8 meta-note
 - Hub-first rule: per [OS] §1.2
 - Audience and consumption model, including Hub Claude vs Claude Code visibility boundary: per [OS] §1.4
 - Routing architecture: per [OS] §7.1

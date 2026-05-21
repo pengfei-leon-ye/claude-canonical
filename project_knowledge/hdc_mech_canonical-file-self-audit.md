@@ -320,12 +320,13 @@ Each rule can be applied to a concrete scenario, and two independent readers app
 
 ### 3.6.1 Definition
 
-Each rule serves a justified purpose traceable to a User Preferences (UP) or Project Instructions (PI) objective. Side effects are acknowledged. The rule's existence is necessary, not ornamental.
+Each rule serves a justified purpose traceable to a User Preferences (UP) or Project Instructions (PI) objective. Side effects are acknowledged. The rule's existence is necessary, not ornamental. At the T1 creation trigger, this extends to the **source itself**: the canonical source's existence as a separate file must be justified, not only the rules inside it.
 
 ### 3.6.2 Check clauses
 
 - **Purpose traceability**: for each rule, can its purpose be traced back to a UP or PI objective?
 - **Necessity test**: would the absence of this rule cause an observable downstream failure — an enforced gate going un-enforced, a cross-reference becoming unresolvable, paired sources drifting apart, or Hub Claude producing inconsistent behavior across similar conversations — or is the rule prescribing behavior that would happen anyway?
+- **Source-existence justification** (T1 creation trigger only): does the new canonical source clear the [OS] §0.1.7 Premise 7 conservative-formalization test — recurrence (the need has actually recurred), coverage gap (no existing source can absorb the content as a section), AI-consumer value (the content drives Hub Claude / Claude Code behavior at RAG retrieval time), and maintenance budget (pairing fan-out and audit surface are proportionate to operational return)? A new source that an existing source could have absorbed is a D5 finding.
 - **Side-effect disclosure**: where a rule plausibly has known side effects (e.g., raising friction, slowing iteration, creating dependencies), does the source acknowledge them?
 - **Mechanism-fatigue check**: is this rule's addition to the canonical set likely to interact with existing mechanisms in a way that produces audit-fatigue, governance overhead, or rule density beyond the [OS] §8.5.7 thresholds?
 
@@ -335,6 +336,7 @@ Each rule serves a justified purpose traceable to a User Preferences (UP) or Pro
 - A rule that would be true by default — it prescribes behavior Hub Claude would do without the rule
 - A rule whose known side effects are not acknowledged in the source
 - A new rule that pushes the canonical set toward §8.5.7 re-architecture thresholds without commensurate operational return
+- A new canonical source (T1 creation trigger) authored when an existing source could have absorbed the content as a section, or for a need that has not genuinely recurred — a [OS] §0.1.7 Premise 7 violation
 
 ## 3.7 D6 Rationale Transparency
 
