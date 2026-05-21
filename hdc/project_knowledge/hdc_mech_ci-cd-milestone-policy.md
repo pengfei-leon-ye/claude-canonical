@@ -15,7 +15,7 @@
 - **Relationship to [MECH] Application Lifecycle Handoff**: The AI-dev CI/CD pipeline produces no release tags; release tag namespaces belong to the receiving company's CI/CD scope. The handoff tag namespace (Handoff §4.1) is the only canonical-recognized tag namespace in the AI-dev monorepo. This is a constitutional invariant.
 - **Relationship to [RULE] Design System Governance**: M3 visual review references DSG consistency at the substantive layer (specific check criteria at CC substantive). No accessibility gate at any milestone (per DSG §6 stance) is a constitutional invariant. DS instance three-way distribution per DSG §1.1 governs which mirror is consulted at which milestone — Hub mirror consulted at TK-02 Step 2.3 UX Design Spec authoring; CC mirror consulted at TK-04+ via skill enforcement.
 - **Relationship to [TPL] Intent and Acceptance Interface Writing Standard** + **[TPL] PRD + TDD to Intent and Acceptance Conversion Specification**: §3 below owns the disambiguation between milestone-level Test Evidence Report (constitutional schema declared here) and feature-slice-scoped `evidence.md` (substantive content at CC).
-- **Relationship to [TPL] Test Plan YAML Schema**: The A10 evidence digest contract for the operator one-pager schema in §3.3 binds to that template's `evidence_required` field as a constitutional interface.
+- **Relationship to [TPL] Test Plan YAML Schema**: The evidence digest contract for the operator one-pager schema in §3.3 binds to that template's `evidence_required` field as a constitutional interface.
 - **Pairings I participate in**: P-03 (with [MECH] DTW §4 TK chain — milestone-to-task anchoring at constitutional interface), P-13 (with [MECH] Dev-Loopback — M-state evidence consumed at handoff; the substantive M-state binding is at CC). Pre-split pairings P-01 / P-09 / P-32 / P-49 are retired at this Hub residue level; their substantive obligations migrate to CC under CC substantive CI/CD canonical.
 
 ## How to use this source (Hub-side)
@@ -155,7 +155,7 @@ Walking-skeleton-first ordering (per [RULE] Workspace Topology constitutional re
 
 # 3. Test Evidence Report (handoff interface contract)
 
-The Test Evidence Report is the constitutional **handoff interface artifact** consumed by the operator at the M4 gate. Its schema is constitutional; its content authoring (by CC subagent A10 per CC substantive canonical) is substantive.
+The Test Evidence Report is the constitutional **handoff interface artifact** consumed by the operator at the M4 gate. Its schema is constitutional; its content authoring (by the CC Test Evidence Report producer subagent, per CC substantive canonical) is substantive.
 
 **Terminology note**: The Test Evidence Report is a **milestone-level aggregate artifact** assembled before M4 for operator review. It is distinct from `evidence.md` referenced in [TPL] Intent and Acceptance Interface Writing Standard and [TPL] PRD + TDD to Intent and Acceptance Conversion Specification — `evidence.md` is a **feature-slice-scoped execution-side approval pack** for the AI virtual development team. The two artifacts operate at different granularity, serve different audiences, and should not be confused or conflated.
 
@@ -164,7 +164,7 @@ The Test Evidence Report is the constitutional **handoff interface artifact** co
 - **Path**: `apps/{app-slug}/reports/m4/{slice-id}/test-evidence-report.md`
 - **Consumer**: Human operator at M4 gate; input to merge go/no-go decision
 
-The producer identity (CC subagent A10) is CC substantive content; the path and consumer role are constitutional interface.
+The producer identity (the specific CC subagent) is CC substantive content; the path and consumer role are constitutional interface.
 
 ## 3.2 Required sections (constitutional schema)
 

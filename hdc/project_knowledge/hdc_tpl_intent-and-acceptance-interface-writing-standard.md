@@ -9,7 +9,7 @@
 - **Boundary note**: This source intentionally excludes `evidence.md` and `test-plan.yaml`. `evidence.md` is an execution-side approval pack standard for the AI virtual development team, not a project canonical source in this hub; `test-plan.yaml` is owned by `[TPL] Test Plan YAML Schema`. For the semantic description of `evidence.md` and its distinction from the milestone-level Test Evidence Report, see [MECH] CI/CD Milestone Policy §6.
 - **Relationship to [OS]**: Supports the Specify loop by creating lower-ambiguity execution interfaces without turning this hub into an engineering-design repository
 - **Relationship to [MECH] Development Track Workflow**: intent.md and acceptance.yaml are produced in TK-03 of the Development Track Workflow; consumed in TK-06, TK-10, TK-11, TK-12, TK-13
-- **Relationship to [RULE] Claude Code Architecture Rules**: Permissions declared in acceptance.yaml must respect tier boundaries defined in that source; UX brief in intent.md only appears when Tier 1 is involved; repository path layout (`apps/{app-slug}/specs/...`) is owned by Architecture Rules §Y.1
+- **Relationship to [RULE] Claude Code Architecture Rules**: Permissions declared in acceptance.yaml must respect tier boundaries defined in that source; UX brief in intent.md only appears when Tier 1 is involved; repository path layout (`apps/{app-slug}/specs/...`) is owned by CC substantive CCAR canonical §Y.1
 - **Relationship to [MECH] CI/CD Milestone Policy**: §6 owns the semantic disambiguation between `evidence.md` and the milestone-level Test Evidence Report; §6.4 owns the `operator_digest` definition that appears in this source's evidence_required default set
 - **Relationship to [REF] Hub-CD-CC Architecture**: intent.md and acceptance.yaml main bodies are produced by Hub Claude at TK-03 per §5.1 content pillar; when Tier 1 is involved, the upstream UX Design Spec instance is Hub-authored at TK-02 Step 2.3 per [TPL] UX Design Spec (drawing from CD-produced design files per §5.2 presentation pillar concept-vs-realization split, plus the Hub DS mirror per [RULE] DSG §13.3), and is consumed as input source for the intent.md UX brief field per §2.3 below. After TK-03 conclusion, both files are transferred to CC via [MECH] Cross-Tool Workflow Handoff §3.1 for the implementation pillar.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2.2 (CD → Hub) brings CD-produced design files into Hub as input to TK-02 Step 2.3 UX Design Spec instance authoring when Tier 1 is involved; §3.1 (Hub → CC) carries the finished interface pair plus the Hub-authored UX Design Spec instance markdown and CD design files (as visual reference) onward to CC.
@@ -382,7 +382,7 @@ Example:
 - Not sprint planning or estimation
 - Not a milestone gating mechanism
 
-**Trigger to promote slice tasks to an independent `[TPL]` artifact** (per F-04 of the verification rule set): when slice complexity grows such that the task list exceeds ~1 week of work for one CC node, or when 8+ tasks routinely appear for slices in a phase, surface the trigger to the operator. The operator may then evaluate whether a standalone `[TPL] Slice Tasks Spec` is warranted (independent template, separate landing path, paired-update with TDD module decomposition). Until that trigger fires empirically, slice tasks remain embedded in intent.md per F-03.
+**Trigger to promote slice tasks to an independent `[TPL]` artifact**: when slice complexity grows such that the task list exceeds ~1 week of work for one CC node, or when 8+ tasks routinely appear for slices in a phase, surface the trigger to the operator. The operator may then evaluate whether a standalone `[TPL] Slice Tasks Spec` is warranted (independent template, separate landing path, paired-update with TDD module decomposition). Until that trigger fires empirically, slice tasks remain embedded in intent.md.
 
 ### Assumptions
 Use only for temporary working assumptions that do not materially redesign business or architecture logic.
@@ -533,7 +533,7 @@ edge_cases: []                    # see §3.5
 permissions: []                   # see §3.6
 data_expectations: []             # see §3.7
 observability_expectations: []    # see §3.8
-accessibility_expectations: []    # see §3.9 (required when Tier 1 is involved)
+accessibility_expectations: []    # see §3.9 (optional; only when slice-specific a11y considerations exist)
 out_of_scope: []                  # see §3.10
 evidence_required: []             # see §3.11
 ```
@@ -688,7 +688,7 @@ observability_expectations:
 - When `expected_content` is a pure structural shape declaration (e.g., a list of JSON fields the audit event must carry), it is plain prose and `ears_pattern` is omitted
 - The default is to express observability requirements as behavior statements with EARS form; the structural-shape variant is only for cases where the signal's content shape is the primary spec, not its emission behavior
 
-## 3.9 accessibility_expectations field (required when Tier 1 is involved)
+## 3.9 accessibility_expectations field (optional; only when the slice has specific a11y considerations)
 
 Applicable only when the slice has specific accessibility considerations beyond Arco component defaults; otherwise **omit entirely**. Per [RULE] DSG §6, HDC has no formal WCAG conformance target and no automated a11y gate; declaring `accessibility_expectations` is optional.
 
@@ -813,12 +813,12 @@ Red flags that should trigger correction:
 - Intent.md UX brief restates DSG / DS instance content — reference, don't duplicate
 - Intent.md UX brief invents content not present in the upstream Hub-authored UX Design Spec instance — surface as clarification; route back to TK-02 Step 2.3 for instance re-authoring or further upstream to CD for additional design file coverage per [TPL] Conversion Spec §5.4
 - Intent.md `Slice tasks` section omitted entirely when the slice has non-trivial implementation decomposition — add the section
-- Intent.md `Slice tasks` exceeds 8 items routinely across multiple slices — surface the trigger to operator per §2.3 promotion criterion (F-04)
+- Intent.md `Slice tasks` exceeds 8 items routinely across multiple slices — surface the trigger to operator per §2.3 promotion criterion
 - Acceptance.yaml `must_pass_scenarios.then` written in pure prose without EARS form when an EARS pattern would fit — rewrite per §3.3 EARS application rule
 - Acceptance.yaml `must_pass_scenarios` references database columns — rewrite business-observable
 - Acceptance.yaml `permissions.owning_tier` violates TDD tier mapping — correct or surface conflict
 - Intent.md `Assumptions` section contains unresolved business-rule questions — resolve upstream
-- Accessibility expectations missing when slice has Tier 1 scope
+- Accessibility expectations omitted despite the feature's UX Design Spec instance §2.5 declaring slice-specific a11y concerns (a11y_expectations is optional per [RULE] DSG §6; carried only when §2.5 flags specific concerns)
 - UX brief missing when slice has Tier 1 scope
 - Slice produced without reading TDD (visible in `traces_to_tdd` being absent or stale)
 - `traces_to_design_system` absent when Tier 1 scope present

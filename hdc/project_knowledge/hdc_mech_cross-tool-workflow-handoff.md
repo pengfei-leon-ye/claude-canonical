@@ -160,8 +160,8 @@ This direction carries Hub-produced content into a CD session as context for des
 **Sub-flow B — TK-02 Step 2.2 design file production (HDC-specific, structured)**: When a TK-02 Step 2.1 TDD declares `tier_1_involved=true` for one or more features, the operator initiates a CD session per such feature for design file production. The content transferred follows the **CD input strategy v1** declared in [MECH] DTW §4 TK-02 Step 2.2 mechanism note:
 - Full relevant PRD sections as drop files (the feature's PRD sub-sections covering user value, scenarios, user flows)
 - Full relevant TDD sections as drop files (the feature's `§4.{feature-slug}.Header` + `§4.{feature-slug}.Module-Decomposition` + `§4.{feature-slug}.API-Contracts` summary at UI-relevance level — enough for CD to ground component selection in the actual data and interaction surfaces)
-- Hub DS mirror reference (CD reads the Hub mirror at `hdc_ref_design-system.md` via drop file, or via direct access if CD-side DS mirror exists; this grounds CD's component selection in the actual DS inventory)
-- **Hub-attention prompt** directing CD to UI-relevant sections of the drop files (Hub does not pre-extract a "UI summary" because what's "UI-relevant" depends on CD's design judgment; the Hub-attention prompt names the sections most likely to drive UI decisions)
+- DS grounding: CD grounds component selection in its own DS instance (CD is the DS SOT per [REF] Hub-CD-CC Architecture §5.2); no separate DS reference is transferred per cycle
+- **attention prompt** directing CD to UI-relevant sections of the drop files (Hub does not pre-extract a "UI summary" because what's "UI-relevant" depends on CD's design judgment; the attention prompt names the sections most likely to drive UI decisions)
 - Output expectations: per-feature design files covering hi-fi mockups for affected Tier 1 screens, prototypes / wireframes for interaction flows where static mockups are insufficient, component callouts identifying which DS components are used per screen, interaction flows with embedded textual annotations (state transitions, edge cases, empty/loading/error states), and any new-component / new-token proposals
 
 ### 2.1.2 Source format
@@ -187,8 +187,8 @@ For Sub-flow B (TK-02 Step 2.2 design file production):
 
 1. Open a CD project (one per feature with `tier_1_involved=true`)
 2. Drop the full relevant PRD + TDD sections as files into CD
-3. Drop or paste the Hub DS mirror content (or relevant excerpts) as a reference file
-4. Paste the Hub-attention prompt directing CD to the UI-relevant sections of the drop files
+3. Confirm the CD project's DS instance is linked (CD's own DS SOT per [REF] Hub-CD-CC Architecture §5.2; no per-cycle DS transfer needed)
+4. Paste the attention prompt directing CD to the UI-relevant sections of the drop files
 5. State the design file output expectations explicitly (per the per-feature design file output list in §2.1.1 Sub-flow B)
 6. Initiate CD design file production
 
@@ -199,11 +199,11 @@ Before transferring, the operator verifies:
 - Content excerpts are coherent without their original document context (CD does not have access to the surrounding spec)
 - No accidental inclusion of non-HDC content
 - Output expectations are stated explicitly (CD does not infer from spec structure)
-- **For Sub-flow B**: the Hub-attention prompt names specific UI-relevant sections; the Hub DS mirror reference is included; the TDD `tier_1_involved=true` flag is confirmed for the target feature
+- **For Sub-flow B**: the attention prompt names specific UI-relevant sections; the CD project's DS instance is linked; the TDD `tier_1_involved=true` flag is confirmed for the target feature
 
 ### 2.1.5 CD reception
 
-CD receives all Hub content as **free-form context**, not structured spec. CD does not parse PRD sections, TDD chapters, or IA structures programmatically. The operator's responsibility is to extract and frame the content so CD can use it. For Sub-flow B, the Hub-attention prompt acts as CD's reading guide; the design files CD produces are CD-native visual artifacts per [REF] Hub-CD-CC Architecture §3.4.1.
+CD receives all Hub content as **free-form context**, not structured spec. CD does not parse PRD sections, TDD chapters, or IA structures programmatically. The operator's responsibility is to extract and frame the content so CD can use it. For Sub-flow B, the attention prompt acts as CD's reading guide; the design files CD produces are CD-native visual artifacts per [REF] Hub-CD-CC Architecture §3.4.1.
 
 ---
 
@@ -619,7 +619,7 @@ Note on disambiguation from application-level handoff: trigger phrases in [MECH]
 When a Hub Claude conversation contains any of the following phrases or their close paraphrases (English or Mandarin), Hub Claude pauses and surfaces the relevant content contract:
 
 1. "**take this PRD / TDD / spec to CD**" / "**send to CD**" / "**ask CD to design**" — Hub → CD intent; surface §2.1 content contract (note whether it's Sub-flow A general or Sub-flow B TK-02 Step 2.2)
-2. **"start the TK-02 Step 2.2 design files for this feature"** / **"open a CD session for the Tier 1 feature"** — explicit Hub → CD Sub-flow B intent; surface §2.1 Sub-flow B content contract specifically (drop file structure + Hub-attention prompt + Hub DS mirror reference)
+2. **"start the TK-02 Step 2.2 design files for this feature"** / **"open a CD session for the Tier 1 feature"** — explicit Hub → CD Sub-flow B intent; surface §2.1 Sub-flow B content contract specifically (drop file structure + attention prompt; CD grounds DS in its own instance per [REF] Hub-CD-CC Architecture §5.2)
 3. "**bring back from CD**" / "**integrate the prototype / design files**" / "**use the CD output**" — CD → Hub intent; surface §2.2 content contract (note which sub-flow: A design files for Step 2.3, B DS markdown export for mirror sync, or C personal stakeholder material)
 4. **"transfer the design files back to Hub"** / **"start Step 2.3 with these design files"** — explicit CD → Hub Sub-flow A intent; surface §2.2 Sub-flow A content contract + [TPL] UX Design Spec §3.1 design file quality check
 5. **"sync the DS markdown export"** / **"update both mirrors"** / **"the DS instance changed, propagate"** — DS markdown export sync intent; surface §2.2 Sub-flow B + §3.1 Sub-flow C lock-step requirement per DSG §12.5
@@ -675,7 +675,7 @@ This soft compliance is conversational, not blocking.
 **Audit failure dimension**:
 - Failed transfers not handled per §6 fallback procedures (e.g., partial canonical updates left in place after integration failure)
 - Quality-failure transfers repeated without root-cause analysis (recurring quality failure may indicate the content contract or origin workspace process needs revision)
-- **CD design file quality check `Reject` disposition recurring for the same feature** — likely indicates the Hub-attention prompt at §2.1 Sub-flow B was insufficient, or the PRD/TDD drop-file content lacked enough context for CD; investigate Step 2.2 entry mechanics
+- **CD design file quality check `Reject` disposition recurring for the same feature** — likely indicates the attention prompt at §2.1 Sub-flow B was insufficient, or the PRD/TDD drop-file content lacked enough context for CD; investigate Step 2.2 entry mechanics
 
 **Reminder discipline dimension**:
 - Hub Claude advises on a cross-tool transfer without invoking §7.2 trigger phrase check

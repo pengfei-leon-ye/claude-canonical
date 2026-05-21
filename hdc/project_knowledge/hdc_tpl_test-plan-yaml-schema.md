@@ -8,14 +8,14 @@
 - **Management-System Role**: Specification-support template; outside L1-L5 hierarchy; this source is not itself an L2, L3, L4, or L5 artifact
 - **Relationship to [OS]**: Supports the Specify loop by adding three test-design layers between phase PRD/TDD and test code execution. Grounded in [OS] §0.1 project-level operating premises and [OS] §0.2 Cat 4 role anchor.
 - **Relationship to [PRIN]**: Applies §5 management mechanism over ad hoc control to test design governance and §10 MECE decomposition to test type and tier partitioning
-- **Relationship to [MECH] Development Track Workflow**: Phase test plan (master) and feature integration test plans are produced in TK-02 alongside the phase TDD; per-slice test plans are produced in TK-03 by Hub Claude (Hub-only per [MECH] DTW §4 TK-03 + [TPL] Writing Standard §1.11) and referenced by TK-06, TK-09, TK-10, TK-11 (test-writer agents and adversarial loop). When Tier 1 is involved, the CD-authored UX Design Spec bundle is consumed by Hub Claude at TK-03 as the source for accessibility test case authoring; SK-F loads on the assigned_node CC at TK-04 onwards for code generation, not at TK-03 test-plan authoring time
-- **Relationship to [RULE] Claude Code Architecture Rules**: The `context_scope` field in the slice tier binds each test case to a specific subagent per the context-scope policy defined in that source (§X); repository path layout (`apps/{app-slug}/specs/test-plan/`, `apps/{app-slug}/tests/`, `apps/{app-slug}/evidence/`) is owned by Architecture Rules §Y.1; consumer-driven Pact pair convention `{app-slug}-bff_{domain-name}` is owned by Architecture Rules §Y.4
+- **Relationship to [MECH] Development Track Workflow**: Phase test plan (master) and feature integration test plans are produced in TK-02 alongside the phase TDD; per-slice test plans are produced in TK-03 by Hub Claude (Hub-only per [MECH] DTW §4 TK-03 + [TPL] Writing Standard §1.11) and referenced by TK-06, TK-09, TK-10, TK-11 (test-writer agents and adversarial loop). When Tier 1 is involved, the Hub-authored UX Design Spec instance is consumed by Hub Claude at TK-03 as the source for accessibility test case authoring; SK-F loads on the assigned_node CC at TK-04 onwards for code generation, not at TK-03 test-plan authoring time
+- **Relationship to [RULE] Claude Code Architecture Rules**: The `context_scope` field in the slice tier binds each test case to a specific subagent per the context-scope policy defined in CC substantive CCAR canonical §X; repository path layout (`apps/{app-slug}/specs/test-plan/`, `apps/{app-slug}/tests/`, `apps/{app-slug}/evidence/`) is owned by CC substantive CCAR canonical §Y.1; consumer-driven Pact pair convention `{app-slug}-bff_{domain-name}` is owned by CC substantive CCAR canonical §Y.4
 - **Relationship to [MECH] CI/CD Milestone Policy**: Test types declared at the slice tier map onto milestones defined in that source (§2.2 M1 unit/internal-integration; §2.3 M2 contract/external-integration; §2.4 M3 e2e/visual/performance); phase exit criteria in the phase test plan map onto Milestone Policy §2.5–§2.6; Pact contract pairing semantics owned by Milestone Policy §2.3. **Accessibility is not a milestone-gated test type** per [RULE] DSG §6 (no formal a11y gate at any milestone)
 - **Relationship to CC substantive Codex Plugin Usage canonical (post-Phase-3 migration)**: Code review tool review at TK-12 (formerly governed by Hub `[RULE] Codex Plugin Usage`, now CC substantive) references slice test plans for context (e.g., confirming code matches the test cases declared); the code review tool does not author or adversarially review test plans. Adversarial review of test plan content is owned by the M0 operator review at TK-04 and by adversarial-tester subagent A3 at TK-10 (M2 adversarial loop).
 - **Relationship to [RULE] Design System Governance**: Accessibility test cases (`test_type: accessibility`) are **optional** at the slice tier per DS instance §2.6 (HDC has no formal WCAG conformance target). When present, such cases describe slice-specific a11y concerns in plain terms, not WCAG criteria. The `hdc-wcag-accessibility-checker` skill (SK-W) is an on-demand utility per DSG §6.3 and is not auto-invoked by these cases.
 - **Relationship to adjacent [TPL] sources**:
   - `[TPL] Phase Test Plan` — companion. Owns the phase-level markdown master (`apps/{app-slug}/specs/test-plan/phase-{N}.md`). This source no longer authors the phase tier; phase test plans cross-reference the feature integration yaml plans owned here.
-  - Downstream of `[TPL] Technical Design Document Template` — the phase TDD's §2 phase-level testing strategy drives the phase test plan (master, owned by [TPL] Phase Test Plan); per-feature §4.{feature-slug} content drives the feature integration test plan (owned here); per-feature §4.{feature-slug}.Module-Decomposition plus the slice's acceptance and (when Tier 1 involved) the feature's CD-authored UX Design Spec instance per `[TPL] UX Design Spec` drive the slice test plan (owned here)
+  - Downstream of `[TPL] Technical Design Document Template` — the phase TDD's §2 phase-level testing strategy drives the phase test plan (master, owned by [TPL] Phase Test Plan); per-feature §4.{feature-slug} content drives the feature integration test plan (owned here); per-feature §4.{feature-slug}.Module-Decomposition plus the slice's acceptance and (when Tier 1 involved) the feature's Hub-authored UX Design Spec instance per `[TPL] UX Design Spec` drive the slice test plan (owned here)
   - Downstream of `[TPL] Intent and Acceptance Interface Writing Standard` — slice acceptance.yaml provides scenarios to trace at the slice tier; `evidence_required` default set including `operator_digest` is owned there
   - Downstream of `[TPL] PRD + TDD to Intent and Acceptance Conversion Specification` — TK-03 conversion mechanics for the slice tier
 - **Pairings I participate in**: P-07 (with [TPL] TDD three-tier pairing)
@@ -221,7 +221,7 @@ In TK-02:
 4. Phase-level cross-tier traceability is finalized after feature-level scenarios are listed
 
 In TK-03 (per slice):
-5. Slice test plan is drafted by Hub Claude at TK-03, derived from slice acceptance.yaml + relevant per-feature `§4.{feature-slug}.Module-Decomposition` + phase TDD §2.Phase-Level-Testing-Strategy + (when Tier 1 involved) the CD-authored UX Design Spec bundle for accessibility test case authoring
+5. Slice test plan is drafted by Hub Claude at TK-03, derived from slice acceptance.yaml + relevant per-feature `§4.{feature-slug}.Module-Decomposition` + phase TDD §2.Phase-Level-Testing-Strategy + (when Tier 1 involved) the Hub-authored UX Design Spec instance for accessibility test case authoring
 
 A feature integration test plan cannot reference a slice that does not yet exist in the slice-list. Slice test plans are produced as their slices come up in TK-03; the feature integration test plan is updated only if a feature-level scenario is invalidated by slice-level discoveries.
 
@@ -435,7 +435,7 @@ test_cases:
 |---|---|---|---|
 | `unit` | Smallest unit tested in isolation, internal mocks allowed | any | A1 (whitebox) |
 | `integration-internal` | Multiple components within a tier, real internal deps | any | A1 (whitebox) |
-| `contract` | Consumer-driven or schema-based contract between tiers; for BFF↔domain pairs uses Pact pair `{app-slug}-bff_{domain-name}` per [RULE] Architecture Rules §Y.4 | bff, domain-service | A2 (blackbox) |
+| `contract` | Consumer-driven or schema-based contract between tiers; for BFF↔domain pairs uses Pact pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical §Y.4 | bff, domain-service | A2 (blackbox) |
 | `integration-external` | Cross-tier real integration or external system integration | bff, domain-service | A2 (blackbox) |
 | `e2e` | End-to-end through UI or full API surface | cross-tier | A2 (blackbox) |
 | `visual` | Visual regression | frontend | A2 (blackbox) |
@@ -519,7 +519,7 @@ pact_pair: "{app-slug}-bff_{domain-name}"   # e.g., "hr-data-asset-mgmt-bff_data
 **Convention** (per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) + [MECH] CI/CD Milestone Policy §2.3):
 
 - Consumer-driven Pact: the BFF authors the consumer contract; the domain authors verification
-- Consumer-side contract location: `apps/{app-slug}/tests/contract/{app-slug}-bff_{domain-name}/**` (A2 writes here per Architecture Rules §X.4)
+- Consumer-side contract location: `apps/{app-slug}/tests/contract/{app-slug}-bff_{domain-name}/**` (A2 writes here per CC substantive CCAR canonical §X.4)
 - Producer-side verification location: `packages/domain/{domain-name}/tests/contract-verification/**` (A2 writes here when working in a domain slice)
 - The `pact_pair` name segment is the same string in both locations and in the test-plan field
 
@@ -641,7 +641,7 @@ Captures the derivation lineage of each case, for audit and bias detection.
 | Value | Writer agent or skill | Read allowed | Read denied |
 |---|---|---|---|
 | `business_rules_only` | Hub Claude adversarial preview or A3 adversarial-tester | acceptance.yaml, PRD, test-plan.yaml | `apps/*/src/**`, `packages/*/src/**`, `apps/*/tests/**` |
-| `api_contracts` | A2 test-writer-blackbox (+ SK-W for a11y cases) | test-plan.yaml, TDD (API contracts + §2.13), openapi.yaml, intent.md, acceptance.yaml, design-system.md, design refs | `apps/*/src/**`, `packages/*/src/**` |
+| `api_contracts` | A2 test-writer-blackbox (+ SK-W for a11y cases) | test-plan.yaml, TDD (`§4.{feature-slug}.API-Contracts`), openapi.yaml, intent.md, acceptance.yaml, design-system.md, design refs | `apps/*/src/**`, `packages/*/src/**` |
 | `code_whitebox` | A1 test-writer-whitebox | test-plan.yaml, TDD, intent, acceptance, `apps/{app-slug}/src/**`, `packages/{domain-name}/src/**` for the active slice's app and consumed domains | — |
 
 ## 10.2 Selection rules
@@ -846,7 +846,7 @@ Before finalizing test-plan.yaml, verify:
 5. Every `data_expectations` entry has at least one tracing test case with matching `assertions`.
 6. Every `observability_expectations` entry has at least one `observability_probes` entry somewhere in test_cases.
 7. risk_tier values across test cases are consistent with paired phase PRD §13.1 risk entries (or whichever PRD § houses the risk register in this phase's PRD).
-8. **When slice involves Tier 1 with slice-specific a11y considerations**: those considerations from the feature's CD-authored UX Design Spec instance §2.5 (Accessibility call-outs, slice-specific only) have corresponding `test_type: accessibility` cases. (Per [RULE] DSG §6, slices without specific a11y considerations need no accessibility cases — this is normal, not a violation.)
+8. **When slice involves Tier 1 with slice-specific a11y considerations**: those considerations from the feature's Hub-authored UX Design Spec instance §2.5 (Accessibility call-outs, slice-specific only) have corresponding `test_type: accessibility` cases. (Per [RULE] DSG §6, slices without specific a11y considerations need no accessibility cases — this is normal, not a violation.)
 9. **When slice involves Tier 1**: Components referenced in intent.md UX brief map to cases in `test_type ∈ {e2e, visual}`; `accessibility` cases are mapped only when the slice has specific a11y concerns per DSG §6.
 10. **`app_slug` field is populated and matches PRD §1.1 / TDD §1 / acceptance.yaml `app_slug` exactly**; mismatch is a TK-03 conversion blocker.
 11. **All file-path references use the correct prefix**: app-scoped paths use `apps/{app-slug}/` and follow phase-aware naming (`phase-{N}.md` for PRD/TDD/phase test plan; `feature-{feature-slug}.yaml` for feature integration test plan; `{slice-id}` for per-slice files; `{feature-slug}.md` for slice-list); project-level singleton (`specs/design-system.md`) is the only `apps/`-prefix exception.
@@ -867,7 +867,7 @@ The test-plan.yaml is a design-level artifact, not an executable. The following 
 | Repository path layout structure | CC substantive Claude Code Architecture Rules canonical (repository layout §Y.1) owns layout |
 | Branch topology, node assignment mechanics | [RULE] Workspace Topology |
 | Code review tool command semantics | CC substantive Codex Plugin Usage canonical (post-Phase-3) |
-| Pact pair mechanics (consumer-driven setup, broker config) | [RULE] Architecture Rules §Y.4 + tooling docs |
+| Pact pair mechanics (consumer-driven setup, broker config) | CC substantive CCAR canonical §Y.4 + tooling docs |
 
 Cross-source boundary (what belongs in adjacent sources instead) is covered by each field's scoping rules above: `traces_to_*` fields attach the plan to acceptance, TDD, and Design System Governance without duplicating their content.
 
@@ -1029,5 +1029,5 @@ Before considering test-plan.yaml ready for the TK-03 sign-off cross-model revie
 9. No framework-specific syntax leaked into the plan
 10. No `apps/*/src/**`, `packages/*/src/**`, or `apps/*/tests/**` paths leaked into the plan
 11. Cross-file consistency (§19) holds — including the new #10 (app_slug match), #11 (path prefix), #12 (Pact pair coverage when domain consumed)
-12. **When slice has slice-specific a11y considerations (per the feature's CD-authored UX Design Spec instance §2.5 Accessibility call-outs, slice-specific only)**: each consideration has at least one corresponding `test_type: accessibility` case using the §5.6 `a11y_concerns` field. Slices without specific a11y considerations need no accessibility cases, per [RULE] DSG §6.
+12. **When slice has slice-specific a11y considerations (per the feature's Hub-authored UX Design Spec instance §2.5 Accessibility call-outs, slice-specific only)**: each consideration has at least one corresponding `test_type: accessibility` case using the §5.6 `a11y_concerns` field. Slices without specific a11y considerations need no accessibility cases, per [RULE] DSG §6.
 13. **When slice consumes a Tier 3 domain**: at least one `test_type: contract` case has `pact_pair: {app-slug}-bff_{domain-name}` populated per §5.8

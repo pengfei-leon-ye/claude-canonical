@@ -3,7 +3,7 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Template
 - **Status**: Active canonical
-- **Role**: Content contract for Architecture Decision Records (ADRs) — structural decisions about the HDC project, its applications, or the cross-tool workspace architecture, recorded so the rationale survives the conversation that produced it
+- **Role**: Reusable content contract for Architecture Decision Records (ADRs) — structural decisions about the HDC project, its applications, or the cross-tool workspace architecture, recorded so the rationale survives the conversation that produced it
 - **Source Category**: Cat 4
 - **Management-System Role**: Template; outside L1-L5 hierarchy; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1; ADR landing paths follow [OS] §9 naming convention.

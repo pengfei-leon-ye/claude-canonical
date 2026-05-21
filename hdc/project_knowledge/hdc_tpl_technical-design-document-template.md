@@ -3,12 +3,12 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Template
 - **Status**: Active canonical template
-- **Role**: Reusable template for producing a phase-level Technical Design Document (TDD) that captures, per phase per app, foundational architecture (Phase 1) or architecture deltas (Phase N ≥ 2), cross-feature concerns (NFR baselines, security, observability, deployment), walking skeleton scope (Phase 1 only — full canonical specification at §3 referencing CC substantive Workspace Topology canonical (walking-skeleton 6-output set) + [RULE] WT residue §3 (ordering rule) and [MECH] CI/CD Milestone Policy constitutional residue §2.7 (per-unit-type milestone profile interface)), and per-feature engineering spec for every feature introduced in that phase. UX strategy content is intentionally NOT part of the per-feature engineering spec; it lives in feature-level UX Design Spec instances authored in Claude Design (per `[TPL] UX Design Spec`) when the feature touches Tier 1.
+- **Role**: Reusable template for producing a phase-level Technical Design Document (TDD) that captures, per phase per app, foundational architecture (Phase 1) or architecture deltas (Phase N ≥ 2), cross-feature concerns (NFR baselines, security, observability, deployment), walking skeleton scope (Phase 1 only — full canonical specification at §3 referencing CC substantive Workspace Topology canonical (walking-skeleton 6-output set) + [RULE] WT residue §3 (ordering rule) and [MECH] CI/CD Milestone Policy constitutional residue §2.7 (per-unit-type milestone profile interface)), and per-feature engineering spec for every feature introduced in that phase. UX strategy content is intentionally NOT part of the per-feature engineering spec; it lives in feature-level UX Design Spec instances Hub-authored at TK-02 Step 2.3 (per `[TPL] UX Design Spec`) when the feature touches Tier 1.
 - **Source Category**: Cat 4
 - **Management-System Role**: Specification-support template; outside L1-L5 hierarchy; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Supports the Specify loop by formalizing the technical architecture layer between phase-level PRD and slice-level execution interfaces
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §3 global core with governed local variance, §5 management mechanism over ad hoc control, §6 operation management and value realization by design, §7 analytics-informed decisions, §10 MECE decomposition, §12 make important work executable
-- **Relationship to [PRIN] People Experience Design Principles**: Applied via UX Design Spec instances (CD-authored per `[TPL] UX Design Spec`) when a feature touches Tier 1; the TDD does not embed UX strategy content
+- **Relationship to [PRIN] People Experience Design Principles**: Applied via UX Design Spec instances (Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`) when a feature touches Tier 1; the TDD does not embed UX strategy content
 - **Relationship to [REF] Hub-CD-CC Architecture**: TDD is Hub-authored (specification main body per §5.1 content pillar); when a feature's `Header.tier_1_involved: true`, the TDD's per-feature declaration triggers a UX Design Spec instance authoring cycle in Claude Design (presentation pillar) per §5.2; CC consumes the resulting bundle alongside this TDD when slice implementation begins (implementation pillar)
 - **Relationship to [RULE] Workspace Topology**: Node assignment for each feature in the phase is owned by Workspace Topology §6 (workflow) / §2.1 (logical node catalog); the per-feature §4.{feature-slug} sub-section records the assigned node for that feature. Phase-level TDD does not carry a single `assigned_node` header field because a phase may span multiple features executing on different nodes
 - **Relationship to [RULE] Claude Code Architecture Rules**: Module decomposition and tier mapping in per-feature §4.{feature-slug} must respect three-tier architecture defined there; per-feature module decomposition may reference `packages/domain/{domain-name}/` modules per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) Model B (independent domain lifecycle)
@@ -60,18 +60,18 @@ Declare level in document header. **Anti-pattern**: Lite for what is Feature/Ful
 ## 0.4 Boundary with other artifacts
 
 - **Phase PRD owns**: business goals, user value, phase scope, scenarios, business rules, NFR expectations for the phase, feature list (with feature-slug per feature). **The PRD may additionally carry logical system architecture, logical data model, and business-entity relationship diagrams when the business solution materially requires them (e.g., metadata-as-product platforms where the data structure is itself the product specification); the TDD then elaborates engineering-architecture decisions from that framing rather than treating PRD-side architectural content as out-of-scope.**
-- **Phase TDD owns**: phase-level **engineering** architecture (technology choices, deployment topology, persistence backend, tier-internal module decomposition, integration patterns), cross-feature concerns (NFR baselines, security, observability, deployment), walking skeleton scope (Phase 1), per-feature engineering spec (data model implementation, API contracts, module decomposition, slice list, domain class hierarchy, open questions) for each feature in the phase. **UX strategy is intentionally not owned here**; it lives in feature-level UX Design Spec instances authored in CD per `[TPL] UX Design Spec` when a feature touches Tier 1.
+- **Phase TDD owns**: phase-level **engineering** architecture (technology choices, deployment topology, persistence backend, tier-internal module decomposition, integration patterns), cross-feature concerns (NFR baselines, security, observability, deployment), walking skeleton scope (Phase 1), per-feature engineering spec (data model implementation, API contracts, module decomposition, slice list, domain class hierarchy, open questions) for each feature in the phase. **UX strategy is intentionally not owned here**; it lives in feature-level UX Design Spec instances Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` when a feature touches Tier 1.
 - **Phase test plan (master, markdown) owns**: phase-level test strategy, cross-feature integration scenarios, app-scale NFR targets, regression policy from prior phase (Phase N ≥ 2), phase exit criteria
 - **Feature integration test plan (yaml) owns**: per-feature cross-slice flow tests within a single feature scope
-- **Design System Governance owns**: project-level UX foundation (design language, tokens, component inventory, a11y target). The DS instance content itself lives in CD as SOT, with CC mirror at `specs/design-system.md` per DSG §1.1; Hub does not carry a DS instance copy.
-- **UX Design Spec owns**: per-feature UX coverage (affected Tier 1 scope, components from DS instance, new-component additive update plans, layout patterns, accessibility call-outs, i18n/RTL call-outs, visual regression anchors, responsive/motion expectations) — authored in CD per `[TPL] UX Design Spec`; reviewed in Hub against the reviewer checklist; consumed in CC during slice authoring
+- **Design System Governance owns**: project-level UX foundation (design language, tokens, component inventory, a11y target). The DS instance content itself lives in CD as SOT, with a CC code-time mirror at `specs/design-system.md` and a Hub spec-time mirror at `hdc_ref_design-system.md` per DSG §1.1 revised three-way distribution.
+- **UX Design Spec owns**: per-feature UX coverage (affected Tier 1 scope, components from DS instance, new-component additive update plans, layout patterns, accessibility call-outs, i18n/RTL call-outs, visual regression anchors, responsive/motion expectations) — Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`; reviewed in Hub against the reviewer checklist; consumed in CC during slice authoring
 - **Intent owns**: per-slice execution boundary in business-facing language
 - **Acceptance owns**: per-slice validation contract
 - **Slice test plan (yaml) owns**: per-slice test case design
 
 If content is misplaced, move it. In particular, do not let per-feature design questions inside §4.{feature-slug} smuggle in cross-feature decisions that belong in §2; do not let phase-level NFR drift into per-feature §4 sub-sections; do not embed UX strategy content inside `§4.{feature-slug}` — UX strategy is intentionally externalized to UX Design Spec instances.
 
-**Deferred ownership notes (post-B方案 evaluation)**: This template intentionally does not carry sections for Information Architecture (IA), Permission Model, or Visibility Matrix as standalone TDD sub-sections. These topics are touched at the phase level under §2 (Cross-feature concerns — security baseline, integration boundaries) and at the per-feature level under §4 sub-sections (Module-Decomposition, API-Contracts). Whether to promote any of these to independent `[TPL]` artifacts is deferred for post-B方案 evaluation; when the operational need becomes concrete (e.g., a phase whose IA design merits a standalone artifact, or a Permission Model that cuts across multiple features in non-trivial ways), surface the need and consider creating a dedicated `[TPL]` per [OS] §8.1 durable-first rule + §8.3 abstract-before-storing rule.
+**Deferred ownership notes**: This template intentionally does not carry sections for Information Architecture (IA), Permission Model, or Visibility Matrix as standalone TDD sub-sections. These topics are touched at the phase level under §2 (Cross-feature concerns — security baseline, integration boundaries) and at the per-feature level under §4 sub-sections (Module-Decomposition, API-Contracts). Whether to promote any of these to independent `[TPL]` artifacts is deferred for later evaluation; when the operational need becomes concrete (e.g., a phase whose IA design merits a standalone artifact, or a Permission Model that cuts across multiple features in non-trivial ways), surface the need and consider creating a dedicated `[TPL]` per [OS] §8.1 durable-first rule + §8.3 abstract-before-storing rule.
 
 ## 0.5 Y-chain upstream role
 
@@ -81,13 +81,13 @@ The phase TDD, paired with the phase PRD, is the upstream of per-slice intent an
 - API contracts and tier boundaries for `Must not break` items in intent — from `§4.{feature-slug}.API-Contracts` and from phase `§1.Architecture` and `§2.Integration-Boundaries`
 - Data model invariants for `data_expectations` in acceptance — from `§4.{feature-slug}.Data-Model`
 - Permission ownership tier for `permissions` in acceptance — from `§4.{feature-slug}.Module-Decomposition` plus phase `§2.Security-Baseline`
-- UX and accessibility scope for intent.md UX brief and acceptance a11y expectations — from the feature's UX Design Spec instance (CD-authored per `[TPL] UX Design Spec`)
+- UX and accessibility scope for intent.md UX brief and acceptance a11y expectations — from the feature's UX Design Spec instance (Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`)
 
 The phase TDD must be stable before TK-03 per-slice artifact production begins for any feature in the phase. Per-feature spec sub-sections inside §4 may be elaborated in stages as long as the slice extraction for a given feature waits for that feature's §4 sub-section to be stable.
 
 ## 0.6 Multi-app monorepo positioning
 
-In the Path B2 multi-app monorepo, every phase TDD belongs to exactly one app and one phase. The TDD's `app_slug` and `phase_number` header fields (§1) anchor the phase to its app and phase number; the canonical filesystem location is `apps/{app-slug}/specs/tdd/phase-{N}.md`. Cross-app phase scope is not sanctioned at the TDD level; if a capability genuinely spans multiple apps, it likely belongs in a `packages/domain/{domain-name}/` package consumed by both apps per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) Model B, and is referenced inside individual app phases that consume it.
+In the multi-app monorepo, every phase TDD belongs to exactly one app and one phase. The TDD's `app_slug` and `phase_number` header fields (§1) anchor the phase to its app and phase number; the canonical filesystem location is `apps/{app-slug}/specs/tdd/phase-{N}.md`. Cross-app phase scope is not sanctioned at the TDD level; if a capability genuinely spans multiple apps, it likely belongs in a `packages/domain/{domain-name}/` package consumed by both apps per CC substantive Claude Code Architecture Rules canonical (Pact contract testing convention §Y.4) Model B, and is referenced inside individual app phases that consume it.
 
 Node assignment is per-feature, not per-phase: a phase may introduce multiple features that execute on different logical nodes. Each `§4.{feature-slug}` per-feature sub-section records its `assigned_node`. Node assignment workflow is owned by CC substantive Workspace Topology canonical (node-assignment 4-step procedure §6).
 
@@ -119,7 +119,7 @@ Phase 1 and Phase N ≥ 2 TDDs share the same outer structure but differ in body
 
 Per-feature sub-sections are numbered by feature-slug, not by sequential integer:
 - `§4.{feature-slug}` (e.g., `§4.time-off-request`, `§4.approval-routing`)
-- Inside each `§4.{feature-slug}`, fixed sub-sections labeled by purpose: `Header`, `Data-Model`, `API-Contracts`, `Module-Decomposition`, `Slice-List`, `Domain-Class-Hierarchy`, `Open-Questions` (per §5 of this template). The `UX-Strategy` sub-section that existed in earlier versions of this template has been removed; UX strategy content lives in feature-level UX Design Spec instances authored in CD per `[TPL] UX Design Spec`.
+- Inside each `§4.{feature-slug}`, fixed sub-sections labeled by purpose: `Header`, `Data-Model`, `API-Contracts`, `Module-Decomposition`, `Slice-List`, `Domain-Class-Hierarchy`, `Open-Questions` (per §5 of this template). The `UX-Strategy` sub-section that existed in earlier versions of this template has been removed; UX strategy content lives in feature-level UX Design Spec instances Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`.
 
 This convention keeps cross-references stable across phases: the same feature retains the same slug across phases, so a Phase 3 reference to "phase-1 §4.time-off-request.API-Contracts" remains valid as long as that feature exists in Phase 1's TDD.
 
@@ -130,13 +130,13 @@ This convention keeps cross-references stable across phases: the same feature re
 ```markdown
 # [TDD] <App Display Name> — Phase <N>
 
-- **app_slug**: <app-slug>                    [MANDATORY; from frozen app-slug roster per [RULE] Architecture Rules §Y]
+- **app_slug**: <app-slug>                    [MANDATORY; from frozen app-slug roster per CC substantive CCAR canonical §Y]
 - **phase_number**: <N>                       [MANDATORY; positive integer; matches paired PRD §1.1 Phase Number]
 - **TDD level**: Full | Feature | Lite        [per §0.3]
 - **Status**: Draft | Active | Superseded
 - **Paired PRD reference**: apps/<app-slug>/specs/prd/phase-<N>.md (version or commit)
 - **Prior phase TDD reference** (Phase N ≥ 2 only): apps/<app-slug>/specs/tdd/phase-<N-1>.md (or earlier phase referenced for baseline)
-- **Design System Governance instance reference**: instance version referenced (the DS instance content lives in CD as SOT with CC mirror at `specs/design-system.md` per [RULE] DSG §1.1; Hub does not carry the instance — this header field records the version in play, not a Hub-side file path) [only if any feature in this phase touches Tier 1]
+- **Design System Governance instance reference**: instance version referenced (the DS instance content lives in CD as SOT with a CC code-time mirror at `specs/design-system.md` and a Hub spec-time mirror at `hdc_ref_design-system.md` per [RULE] DSG §1.1; this header field records the DS instance version in play) [only if any feature in this phase touches Tier 1]
 - **Author**: <you>
 - **Hub Claude session**: <session reference if applicable>
 - **Review history**:
@@ -147,7 +147,7 @@ This convention keeps cross-references stable across phases: the same feature re
 
 **Mandatory field notes**:
 
-- **`app_slug`**: must match the app's directory name under `apps/{app-slug}/` and the frozen app-slug roster maintained at workspace level (per [RULE] Architecture Rules §Y). Immutable for the life of the TDD; if the phase is conceptually re-targeted to a different app, a new TDD is authored under the new app, not the existing one mutated.
+- **`app_slug`**: must match the app's directory name under `apps/{app-slug}/` and the frozen app-slug roster maintained at workspace level (per CC substantive CCAR canonical §Y). Immutable for the life of the TDD; if the phase is conceptually re-targeted to a different app, a new TDD is authored under the new app, not the existing one mutated.
 - **`phase_number`**: monotonic positive integer starting at `1` per app. Phase 1 = 0→1; Phase N ≥ 2 = additive iteration. Must match the paired PRD's `Phase Number` field (per [TPL] PRD Template §0.7.1). Immutable for the life of the TDD.
 - **`Features in this phase`**: enumerates the feature-slugs covered by §4 sub-sections. Must be identical (by set membership and slug spelling) to the paired PRD §7.1 Feature List.
 
@@ -433,7 +433,7 @@ For each feature, capture the feature-level commitments that vary across feature
 - `feature-slug` (must match paired PRD §7.1 Feature List entry)
 - `feature_phase_role` — one of: `New` (introduced first in this phase) | `Evolves prior-phase feature` (the same feature-slug appeared in a prior phase; this entry covers deltas only) | `Carries-over` (the feature exists from a prior phase but is unchanged in this phase — typically not present in §4, since unchanged features need no entry)
 - `assigned_node` — the logical node from [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention) catalog where this feature's work units execute. Per-feature node affinity (per Workspace Topology §4.2). Recorded once per feature; reassignment follows Workspace Topology §6.3 four-step protocol.
-- `tier_1_involved` — boolean. When true, a UX Design Spec instance for this feature is required (authored in CD per `[TPL] UX Design Spec`); the slice's downstream intent.md must include a UX brief plus accessibility test cases per [TPL] Intent and Acceptance Interface Writing Standard §2.3 / §3.9. The TDD itself does not embed UX strategy content; the per-feature UX coverage lives in the UX Design Spec instance.
+- `tier_1_involved` — boolean. When true, a UX Design Spec instance for this feature is required (Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`); the slice's downstream intent.md must include a UX brief plus accessibility test cases per [TPL] Intent and Acceptance Interface Writing Standard §2.3 / §3.9. The TDD itself does not embed UX strategy content; the per-feature UX coverage lives in the UX Design Spec instance.
 - Prior-phase feature cross-reference (when `feature_phase_role: Evolves prior-phase feature`): path to the prior phase TDD's `§4.{feature-slug}` sub-section.
 
 ## 5.2 §4.{feature-slug}.Data-Model
@@ -452,7 +452,7 @@ For each feature, capture the feature-level commitments that vary across feature
 
 **Note on OpenAPI**: TDD specifies API at semantic level; the app-scoped, cross-phase additive `apps/{app-slug}/specs/openapi.yaml` captures the syntactic spec accumulated across phases. New APIs introduced by this feature are added to that file; existing APIs evolved by this feature update their entries in that file. Both must stay consistent.
 
-**Note on contract testing**: API contracts here drive consumer-side Pact contract test pair `{app-slug}-bff_{domain-name}` per [RULE] Architecture Rules §Y.4 (consumer-driven Pact convention). Identify which APIs cross the BFF-to-domain boundary so the slice-list (§5.5) and downstream test plans correctly scope contract test cases.
+**Note on contract testing**: API contracts here drive consumer-side Pact contract test pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical §Y.4 (consumer-driven Pact convention). Identify which APIs cross the BFF-to-domain boundary so the slice-list (§5.5) and downstream test plans correctly scope contract test cases.
 
 ## 5.4 §4.{feature-slug}.Module-Decomposition
 
@@ -460,15 +460,15 @@ For each feature, capture the feature-level commitments that vary across feature
 
 **Content**: Module list per tier. For each module: name (module-slug, kebab-case); responsibility (one sentence); public interface; internal boundary; inter-module dependencies. MECE check statement confirming modules are mutually exclusive and collectively exhaustive for the feature scope (within this phase — features evolving across phases have MECE checked per phase).
 
-**Domain module references** (Tier 3, per [RULE] Architecture Rules §Y.4 Model B):
+**Domain module references** (Tier 3, per CC substantive CCAR canonical §Y.4 Model B):
 
 When this feature requires Tier 3 capability, reference the relevant `packages/domain/{domain-name}/` package(s). Three cases:
 
-1. **Existing domain consumed unchanged**: list the consumed domain and the specific Tier 3 module(s) within it that this feature uses. No domain extension required. The app's BFF (Tier 2) authors a Pact consumer contract per Architecture Rules §Y.4.4.
-2. **Existing domain extended for this feature**: identify the existing domain and describe the additive extension. The extension is scheduled as a feature-driven domain change per Architecture Rules §Y.4.3 — within the slice or as an independent slice, at operator discretion. Domain versioning per Architecture Rules §Y.4.5 applies.
+1. **Existing domain consumed unchanged**: list the consumed domain and the specific Tier 3 module(s) within it that this feature uses. No domain extension required. The app's BFF (Tier 2) authors a Pact consumer contract per CC substantive CCAR canonical §Y.4.4.
+2. **Existing domain extended for this feature**: identify the existing domain and describe the additive extension. The extension is scheduled as a feature-driven domain change per CC substantive CCAR canonical §Y.4.3 — within the slice or as an independent slice, at operator discretion. Domain versioning per CC substantive CCAR canonical §Y.4.5 applies.
 3. **New domain introduced**: a new `packages/domain/{domain-name}/` is created when the first consumer feature genuinely requires it (no speculative domain modeling). The TDD must justify why the capability does not fit an existing domain.
 
-Cross-app domain reuse: if a domain is already consumed by another app (per Architecture Rules §Y.4.3), this feature evaluates and reuses the existing domain rather than creating a parallel one. Domain duplication for substantially the same business capability is an anti-drift signal per Architecture Rules §8.
+Cross-app domain reuse: if a domain is already consumed by another app (per CC substantive CCAR canonical §Y.4.3), this feature evaluates and reuses the existing domain rather than creating a parallel one. Domain duplication for substantially the same business capability is an anti-drift signal per [RULE] Claude Code Architecture Rules §7.
 
 **Slice-size advisory check**:
 
@@ -506,7 +506,7 @@ If a planned slice exceeds either limit, either (a) split the slice further with
 - `tdd_modules_covered` (list of module-slugs from `§4.{feature-slug}.Module-Decomposition`)
 - `tiers_covered` (subset of `{tier-1, tier-2, tier-3}`)
 - `tier_1_involved` (boolean; when true, the downstream slice's intent.md must include a UX brief and test-plan.yaml must include `test_type: accessibility` cases per [TPL] Writing Standard §2.3 and §3.9)
-- `domains_consumed` (list of `{domain-name}` from `packages/domain/` if any; supports Pact pair scoping per Architecture Rules §Y.4)
+- `domains_consumed` (list of `{domain-name}` from `packages/domain/` if any; supports Pact pair scoping per CC substantive CCAR canonical §Y.4)
 - Paired PRD scenarios covered (by scenario ID from PRD §4.2)
 - Dependencies on other slices, if any (by slice_id); cross-feature slice dependencies must be flagged here
 - Production order rationale (if slices must be produced in a specific order to satisfy dependencies)
@@ -548,7 +548,7 @@ If a planned slice exceeds either limit, either (a) split the slice further with
 | `Domain-Class-Hierarchy` | When the feature's Tier 3 module(s) carry non-trivial business rule logic |
 | `Open-Questions` | Optional — present only when there are open feature-specific questions |
 
-A `UX-Strategy` sub-section is intentionally **not** part of the per-feature TDD content. When `Header.tier_1_involved` is true, the feature's UX coverage lives in a separate UX Design Spec instance authored in CD per `[TPL] UX Design Spec` — outside the TDD body. See §0.4 boundary for ownership clarity.
+A `UX-Strategy` sub-section is intentionally **not** part of the per-feature TDD content. When `Header.tier_1_involved` is true, the feature's UX coverage lives in a separate UX Design Spec instance Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` — outside the TDD body. See §0.4 boundary for ownership clarity.
 
 A feature with `feature_phase_role: Evolves prior-phase feature` records only the deltas in each sub-section; sub-sections with no deltas may state "No delta from prior phase; see apps/<slug>/specs/tdd/phase-<M>.md §4.<feature-slug>.<Sub-section>." and proceed.
 
@@ -566,12 +566,12 @@ The phase TDD is bounded by adjacent canonical sources. Content that belongs in 
 | Per-feature cross-slice flow tests | feature integration test-plan.yaml |
 | Phase-level cross-feature test scenarios; phase exit criteria; app-scale NFR targets; regression policy from prior phase | phase test plan (master, markdown) |
 | Project-level design system foundation (not phase- or feature-specific) | Design System Governance — governance rules in this hub; DS instance content (tokens, components, layout patterns) lives in CD as SOT with CC mirror at `specs/design-system.md` per DSG §1.1 |
-| Per-feature UX coverage (affected Tier 1 scope, components from DS instance, new-asset additive update plans, layout patterns, slice-specific a11y, i18n/RTL call-outs, visual regression anchors, responsive/motion expectations) | UX Design Spec instance (CD-authored per `[TPL] UX Design Spec`); reviewed in Hub against reviewer checklist; consumed in CC at slice authoring |
+| Per-feature UX coverage (affected Tier 1 scope, components from DS instance, new-asset additive update plans, layout patterns, slice-specific a11y, i18n/RTL call-outs, visual regression anchors, responsive/motion expectations) | UX Design Spec instance (Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`); reviewed in Hub against reviewer checklist; consumed in CC at slice authoring |
 | Implementation-level detail (private methods, framework annotations, file organization inside a module) | Code, with module-level doc if needed |
 | Branch topology, node assignment mechanics, phase boundary parallelism phrasing | [RULE] Workspace Topology |
 | TK-by-TK orchestration | [MECH] Development Track Workflow |
 | Milestone gate semantics | [MECH] CI/CD Milestone Policy |
-| Domain lifecycle and Pact convention | [RULE] Architecture Rules §Y.4 |
+| Domain lifecycle and Pact convention | CC substantive CCAR canonical §Y.4 |
 | Walking skeleton unit definition (full output set, ordering rule, milestone profile) | CC substantive Workspace Topology canonical (walking-skeleton 6-output set) + [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule) / [MECH] Development Track Workflow §4.0 (unit_type catalog) / [MECH] CI/CD Milestone Policy constitutional residue §2.7 (per-unit-type milestone profile interface) |
 
 The phase TDD captures phase-level architecture decisions, phase-level cross-feature concerns, and per-feature engineering design at a level above implementation and below business intent.
@@ -590,7 +590,7 @@ Phase TDD and phase PRD are paired 1:1 (one PRD ↔ one TDD per phase per app). 
 
 ## 7.2 Pairing with Design System Governance and UX Design Spec
 
-The TDD per-feature `§4.{feature-slug}.Header.tier_1_involved: true` declaration is what binds this TDD to the DSG ecosystem. The TDD itself does not author UX strategy content; the UX Design Spec instance (authored in CD per `[TPL] UX Design Spec`) carries that content. When either changes:
+The TDD per-feature `§4.{feature-slug}.Header.tier_1_involved: true` declaration is what binds this TDD to the DSG ecosystem. The TDD itself does not author UX strategy content; the UX Design Spec instance (Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec`) carries that content. When either changes:
 - Design System Governance additive update (new component / token added to instance) → in-flight features may reference the new asset by authoring it into the UX Design Spec instance §2.3, no TDD modification required
 - Design System Governance breaking change → all in-flight features touching Tier 1 must re-verify their UX Design Spec instance and may need TDD `§4.{feature-slug}` review if the breaking change invalidates the feature's data model or API surface (rare); typically the impact is contained to UX Design Spec instances
 - UX Design Spec instance §2.4 new-component / new-token plan → triggers DS instance update flow per DSG §12 at the originating feature's merge-to-main milestone; TDD `§4.{feature-slug}` is unchanged by this flow
@@ -633,7 +633,7 @@ Use this minimal template only for a Phase N ≥ 2 TDD that introduces no archit
 - **Status**: Active
 - **Paired PRD reference**: apps/<app-slug>/specs/prd/phase-<N>.md
 - **Prior phase TDD reference**: apps/<app-slug>/specs/tdd/phase-<N-1>.md
-- **Design System Governance instance reference**: v<x.y.z> (DS instance content lives in CD as SOT with CC mirror at `specs/design-system.md` per DSG §1.1) [only if Tier 1 touched in §4]
+- **Design System Governance instance reference**: v<x.y.z> (DS instance content lives in CD as SOT with a CC code-time mirror at `specs/design-system.md` and a Hub spec-time mirror at `hdc_ref_design-system.md` per DSG §1.1) [only if Tier 1 touched in §4]
 - **Author**: <you>
 - **Features in this phase**: <single feature-slug>
 
@@ -649,7 +649,7 @@ No cross-feature delta; phase-1 baselines apply. Prior-phase regression: <subset
 - feature-slug: <slug>
 - feature_phase_role: New | Evolves prior-phase feature
 - assigned_node: <logical-node-name>
-- tier_1_involved: <true|false>   [if true, a UX Design Spec instance is authored in CD per [TPL] UX Design Spec — not embedded in this TDD]
+- tier_1_involved: <true|false>   [if true, a UX Design Spec instance is Hub-authored at TK-02 Step 2.3 per [TPL] UX Design Spec — not embedded in this TDD]
 - prior-phase reference (if evolves): apps/<app-slug>/specs/tdd/phase-<M>.md §4.<slug>
 
 ### §4.<feature-slug>.API-Contracts (if any)
@@ -683,10 +683,10 @@ Before signing off a phase TDD, verify:
 5. **§3 content quality (Phase 1 only)**: Walking-Skeleton-Header populated with valid `unit_id`, `assigned_node` from [RULE] Workspace Topology constitutional residue §1.2 (logical naming convention) catalog, `prerequisite_units: []`, `feature_branch: feature/<app-slug>/walking-skeleton`, `phase_number: 1`, `paired_prd_section`; Scope-And-End-To-End-Coverage explicitly states all three tiers + persistence path + external integration (or explicit "no external integration" / "no persistence" rationale) + deferred-scope list demarcating walking_skeleton vs Phase 1 feature unit boundaries; Outputs section is the canonical-reference text (does not duplicate the CC substantive Workspace Topology canonical (walking-skeleton 6-output set) list); Walking-skeleton-first-ordering-rule and Milestone-choreography-and-acceptance-criteria reference their canonical owners
 6. **Phase 1 vs Phase N ≥ 2 explicit framing present**: §2.9 (Phase 1 baseline vs Phase N ≥ 2 deltas — explicit framing) clearly states phase position
 7. **§1 / §2 delta vs baseline coherence**: in Phase N ≥ 2, deltas are deltas, not full restatements; reference to phase-1 TDD path is present
-8. **Per-feature §4.{feature-slug} sub-section structure**: `Header` / `Module-Decomposition` / `Slice-List` always present; when `Header.tier_1_involved: true`, a corresponding UX Design Spec instance has been authored in CD per `[TPL] UX Design Spec` and reviewed in Hub against that template's §3 reviewer checklist (the UX Design Spec instance is a separate artifact, not a sub-section of this TDD); sub-section ordering is consistent across features
+8. **Per-feature §4.{feature-slug} sub-section structure**: `Header` / `Module-Decomposition` / `Slice-List` always present; when `Header.tier_1_involved: true`, a corresponding UX Design Spec instance has been Hub-authored at TK-02 Step 2.3 per `[TPL] UX Design Spec` and reviewed in Hub against that template's §3 reviewer checklist (the UX Design Spec instance is a separate artifact, not a sub-section of this TDD); sub-section ordering is consistent across features
 9. **Per-feature module decomposition MECE within feature scope**
 10. Tier responsibility mapping in §1 respects [RULE] Claude Code Architecture Rules §1
-11. **Domain references in `§4.{feature-slug}.Module-Decomposition` follow [RULE] Architecture Rules §Y.4 Model B**: existing-domain reuse evaluated before new-domain creation; cross-app domain duplication avoided
+11. **Domain references in `§4.{feature-slug}.Module-Decomposition` follow CC substantive CCAR canonical §Y.4 Model B**: existing-domain reuse evaluated before new-domain creation; cross-app domain duplication avoided
 12. **Slice-size advisory check completed in each `§4.{feature-slug}.Module-Decomposition`**: planned slices within CC substantive CI/CD Milestone Policy canonical (slice-size advisory) limits, or oversize justified
 13. API contracts in each `§4.{feature-slug}.API-Contracts` sufficient for OpenAPI accumulation and contract testing; Pact pair `{app-slug}-bff_{domain-name}` identified for each BFF-to-domain boundary
 14. **Phase-level testing strategy in §2 covers**: per-tier dominant test types; cross-feature scenarios that drive phase test plan; regression policy from prior phase (Phase N ≥ 2 only)

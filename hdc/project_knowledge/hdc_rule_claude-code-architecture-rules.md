@@ -55,7 +55,7 @@ Do not use this source as:
 - Subagent roster: A1-A10 names, individual subagent definitions, permission sets (CC substantive)
 - Named context scopes: `business_rules_only`, `api_contracts`, `code_whitebox` etc. and their configuration schemas (CC substantive)
 - Context scope enforcement mechanics (CC substantive)
-- Repository layout: specific path patterns, frozen-name rules, what-must-not-be-in-the-repository details (CC substantive)
+- Repository layout: path patterns within the tier-anchoring directories, frozen-name rules, what-must-not-be-in-the-repository details (CC substantive). The tier-anchoring paths themselves (`apps/{app-slug}/src/frontend|bff/`, `packages/domain/{domain-name}/`) are constitutional location references — see §1, §6
 - Domain rules: identity naming, boundary specifics, lifecycle model B specifics, contract testing Pact convention specifics, versioning rules (CC substantive)
 - Skill catalog: SK-F, SK-W, and per-skill load triggers (CC substantive)
 - Anti-drift signals at the operational level (CC substantive)
@@ -160,12 +160,12 @@ Substantive content (must-reference lists, authoring authority, cross-level navi
 The CC workspace operates a **subagent topology**: parts of the TK chain are executed by named subagents, each with a defined context scope and permission set. The topology's existence is constitutional (cross-workspace handoff documentation references "subagents" as a concept; specific subagent invocations may be referenced in Hub-authored test plans via subagent identifiers).
 
 **Constitutional invariants**:
-- A subagent roster exists at CC (CC substantive canonical owns the specific roster, currently A1-A10)
+- A subagent roster exists at CC (CC substantive canonical owns the specific roster — its membership, count, and per-subagent definitions)
 - Each subagent has a defined context scope (CC substantive canonical owns the scope catalog and configurations)
 - Subagent invocations are recorded at handoff (the Test Evidence Report schema in [MECH] CI/CD Milestone Policy Hub residue §3.2 references specific subagent output sections)
 - Subagent bias firewall principle: subagents do not share context with each other unless their roles authorize the cross-flow (CC substantive canonical implements the firewall)
 
-**What this source does not declare**: specific A1-A10 names, subagent definition file paths, context scope configurations, permission grant mechanisms — all CC substantive.
+**What this source does not declare**: specific subagent identifiers and names, the roster size, subagent definition file paths, context scope configurations, permission grant mechanisms — all CC substantive.
 
 ---
 

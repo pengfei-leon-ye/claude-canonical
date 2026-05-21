@@ -10,7 +10,7 @@
 - **Relationship to [OS]**: Supports the Specify loop by converting product thinking and solution intent into handoff-ready specification artifacts. Grounded in [OS] §0.1 project-level operating premises and [OS] §0.2 Cat 2 role anchor.
 - **Relationship to [PRIN]**: Applies [PRIN] HR Digital Decision Design Principles §1 (business-first, architecture-enabled), §2 (capability-first, not vendor-first), §4 (lifecycle value over implementation convenience), §6 (operation management and value realization by design), §7 (analytics-informed digital decision making).
 - **Relationship to [RULE] Workspace Topology**: Not directly consumed; the `App Slug` header field declared in §1.1 / §0.7.1 anchors handoff-ready PRDs to a target app whose downstream node assignment is owned by Workspace Topology
-- **Relationship to [RULE] Claude Code Architecture Rules**: The `App Slug` value must come from the frozen app-slug roster defined in Architecture Rules §Y; cross-reference for handoff-ready PRDs only
+- **Relationship to [RULE] Claude Code Architecture Rules**: The `App Slug` value must come from the frozen app-slug roster defined in CC substantive CCAR canonical §Y; cross-reference for handoff-ready PRDs only
 - **Relationship to [MECH] Development Track Workflow**: Handoff-ready PRDs (PRD + Full) are dev-track **inputs** (not dev-track artifacts) consumed at TK-01; one PRD = one phase = one feature set introduced in that phase; this template's `App Slug` and `Phase Number` field requirements at PRD + Full satisfy TK-01 input-readiness criteria
 - **Relationship to adjacent [TPL] sources**: Consumes framing from `[TPL] Problem Framing Memo` and decisions from `[TPL] Options Paper`; feeds `[TPL] PRD + TDD to Intent and Acceptance Conversion Specification` and `[TPL] Intent and Acceptance Interface Writing Standard` downstream; pairs 1:1 at phase level with `[TPL] Technical Design Document Template` (one PRD-TDD pair per phase per app)
 - **Relationship to [RULE] DingTalk Markdown Format Control Specification**: When the final document is uploaded to DingTalk Docs, apply that rule to normalize the Markdown before upload.
@@ -164,7 +164,7 @@ Note on "Lite" disambiguation: Execution Depth "Lite" refers to **document depth
 
 ## 0.7.1 App Slug and Phase Number field semantics
 
-The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to its target app and phase in the Path B2 multi-app monorepo (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster). They are conditional-mandatory based on the artifact type and execution depth combination established in §0.7.
+The `App Slug` and `Phase Number` fields in §1.1 anchor a handoff-ready PRD to its target app and phase in the multi-app monorepo (per CC substantive Claude Code Architecture Rules canonical, repository layout §Y — frozen app-slug roster). They are conditional-mandatory based on the artifact type and execution depth combination established in §0.7.
 
 **Conditional applicability**:
 
@@ -456,7 +456,7 @@ Use the following structure for each major function. For phase-level PRDs, organ
 Use when relevant.
 Reference mockups, click paths, or prototype intentions that materially affect understanding.
 Do not use this subsection for purely aesthetic commentary.
-Component selection, token usage, accessibility commitments, and Tier 1 implementation details belong in a separate CD-authored UX Design Spec instance per `[TPL] UX Design Spec` (consumed at TK-03 per-slice intent.md UX brief; the legacy TDD §5.8 / `§4.{feature-slug}.UX-Strategy` sub-section has been retired) and downstream slice-level intent.md UX brief, not here.
+Component selection, token usage, accessibility commitments, and Tier 1 implementation details belong in a separate Hub-authored UX Design Spec instance (authored at TK-02 Step 2.3) per `[TPL] UX Design Spec` (consumed at TK-03 per-slice intent.md UX brief; the legacy TDD §5.8 / `§4.{feature-slug}.UX-Strategy` sub-section has been retired) and downstream slice-level intent.md UX brief, not here.
 
 ---
 

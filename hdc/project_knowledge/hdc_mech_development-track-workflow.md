@@ -98,7 +98,7 @@ Inception is a once-per-monorepo project-level setup outside the TK sequence and
 |---|---|---|
 | TK-01 | Hub Claude (HC + H collaboration) | Design thinking; phase PRD authoring; cross-model review reminder fires at sign-off |
 | TK-02 Step 2.1 | Hub Claude (HC + H collaboration) | Phase TDD + phase test plan + per-feature integration test plans + per-feature slice-lists + openapi additive update + per-unit `assigned_node` decisions; cross-model review reminder fires at sign-off (applies to full TK-02 sign-off) |
-| TK-02 Step 2.2 (conditional on any feature `tier_1_involved=true`) | Claude Design (per feature with `tier_1_involved=true`) | Per-feature CD-authored design files: hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations (CD-native; not markdown). Inputs: PRD relevant sections + TDD relevant sections + Hub DS mirror reference per `[REF] Hub-CD-CC Architecture §3.4.1` |
+| TK-02 Step 2.2 (conditional on any feature `tier_1_involved=true`) | Claude Design (per feature with `tier_1_involved=true`) | Per-feature CD-authored design files: hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations (CD-native; not markdown). Inputs: PRD relevant sections + TDD relevant sections + attention prompt; CD grounds DS in its own instance (CD = DS SOT) per `[REF] Hub-CD-CC Architecture §5.2` |
 | TK-02 Step 2.3 (when Step 2.2 fired) | Hub Claude (HC + H collaboration) | Design file quality check (per `[TPL] UX Design Spec` §3 reviewer checklist, grounded in Hub DS mirror at `hdc_ref_design-system.md` per `[RULE] DSG §13.3`) → UX Design Spec instance authoring (Hub-authored markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` from design files + Hub DS mirror grounding) |
 | TK-03 | Hub Claude (HC + H collaboration) | Per-slice intent + acceptance + test-plan authoring (main body + UX brief when Tier 1); consumes PRD + TDD + Hub-authored UX Design Spec instance (from TK-02 Step 2.3) + design files (as visual reference); the operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze for the slice |
 | TK-04 | **assigned_node Claude Code** | M0 entry self-check (the absorbed M0 gate function — lightweight verification that the spec bundle is intact upon CC reception, not a re-decision of design freeze); GitHub Issue marker authoring per [RULE] Workspace Topology constitutional residue §4 (node-assignment interface contract) (`status: in-progress`); first commit on feature branch; substantive code writing with SK-F auto-loaded for Tier 1 work |
@@ -116,7 +116,7 @@ Four stages:
   - **TK-01** — hub-side: phase PRD. Cross-model review reminder fires at sign-off ([Enforcement·reminder-only])
   - **TK-02** — hub-side production of phase TDD + phase test plan + per-feature integration test plans + per-feature slice-lists + openapi additive update + per-unit `assigned_node` decisions for all units in the phase (`walking_skeleton` Phase 1 only, each `feature` unit, each `app_integration` unit). **TK-02 has three internal steps**:
     - **Step 2.1** — Hub-side TDD/test-plan/openapi/slice-list authoring (always runs)
-    - **Step 2.2** — CD-side per-feature design file production (runs per feature with `tier_1_involved=true`; skipped entirely when no features in the phase touch Tier 1). CD produces design files per [REF] Hub-CD-CC Architecture §3.4.1; the Hub session at TK-02 hands CD the PRD + TDD relevant sections as drop files with a Hub-attention prompt directing CD to UI-relevant sections
+    - **Step 2.2** — CD-side per-feature design file production (runs per feature with `tier_1_involved=true`; skipped entirely when no features in the phase touch Tier 1). CD produces design files per [REF] Hub-CD-CC Architecture §3.4.1; the Hub session at TK-02 hands CD the PRD + TDD relevant sections as drop files with a attention prompt directing CD to UI-relevant sections
     - **Step 2.3** — Hub-side design file quality check + UX Design Spec instance authoring (runs when Step 2.2 fired; one UX Design Spec instance authored per feature with `tier_1_involved=true`). Hub Claude verifies the CD-authored design files against the Hub DS mirror at `hdc_ref_design-system.md` per [RULE] DSG §13.3, then authors the per-feature UX Design Spec instance as markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` per [TPL] UX Design Spec
   - **TK-03** — hub-side: per-slice intent + acceptance + test-plan (main body + UX brief when Tier 1 involved, drawing from the Hub-authored UX Design Spec instance from TK-02 Step 2.3 and design files as visual reference). Runs for `feature` and `walking_skeleton` units only; not for `app_integration`. The operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze gate.
 - **S2 CC entry**: M0 entry self-check + GitHub Issue marker + first commit on feature branch (folded into the start of TK-04). Runs for `feature` and `walking_skeleton` units only; `app_integration` units skip M0 / M1 entirely (entry at TK-08).
@@ -143,7 +143,7 @@ Three classes of roles are referenced across tasks in this source.
 
 ## 2.2 Subagent roster (defined in CC substantive Claude Code Architecture Rules canonical (subagent roster §5.1))
 
-Codes **A1 through A10** reference the 10 subagents of the Development Track (one conditionally enabled). Their names, purposes, primary invocation tasks, and context scopes are owned by CC substantive Claude Code Architecture Rules canonical (subagent roster §5.1) as the single source of truth.
+Subagent codes (`A1`, `A2`, … as used in §4 task definitions) reference the CC subagent roster of the Development Track. The roster's membership, count, conditional-enablement, names, purposes, primary invocation tasks, and context scopes are owned by CC substantive Claude Code Architecture Rules canonical (subagent roster §5.1) as the single source of truth.
 
 When task definitions in §4 mention these codes with a parenthetical role name (e.g., "A5 (unit-test-auto-repair)"), the parenthetical is a reading convenience; Architecture Rules §5.1 remains authoritative for any discrepancy.
 
@@ -352,10 +352,10 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
 - **Workspace**: Claude Design (per feature with `tier_1_involved=true`)
 - **Condition**: fires per feature when the feature's `§4.{feature-slug}.Header.tier_1_involved=true` in the TDD authored at Step 2.1. Skipped entirely when no features in the phase touch Tier 1.
 - **Role sequence**: H (initiates each CD session, transfers Hub drop files) + CD (authors design files within its native workspace)
-- **Inputs** (per feature; transferred to CD as drop files with a Hub-attention prompt directing CD to UI-relevant sections):
+- **Inputs** (per feature; transferred to CD as drop files with a attention prompt directing CD to UI-relevant sections):
   - Phase PRD relevant sections (the feature's PRD sub-sections covering user value, scenarios, user flows)
   - Phase TDD relevant sections (the feature's `§4.{feature-slug}.Header` + `§4.{feature-slug}.Module-Decomposition` + `§4.{feature-slug}.API-Contracts` summary at UI-relevance level — enough for CD to ground component selection in the actual data and interaction surfaces)
-  - Hub DS mirror reference (CD reads the Hub mirror at `hdc_ref_design-system.md` via the drop files, or via direct access if CD-side DS mirror exists; this grounds CD's component selection in the actual DS inventory). Per [REF] Hub-CD-CC Architecture §3.4.1, CD is the design-file author and consults DS content for component / pattern selection.
+  - DS grounding: CD grounds component selection in its own DS instance (CD is the DS SOT per [REF] Hub-CD-CC Architecture §5.2); no separate DS reference is transferred per cycle. Per [REF] Hub-CD-CC Architecture §3.4.1, CD is the design-file author and consults DS content for component / pattern selection.
 - **Outputs** (per feature, CD-native format; transferred back to Hub for Step 2.3):
   - Hi-fi mockups for all affected Tier 1 screens
   - Prototypes / wireframes for interaction flows where static mockups are insufficient
@@ -363,7 +363,7 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
   - Interaction flows with embedded textual annotations (state transitions, edge cases, empty/loading/error states)
   - Any new-component / new-token proposals (these inform Step 2.3's UX Design Spec §2.4 entry; the DS change request itself is per [RULE] DSG §12)
 - **Trigger**: Operator manual (after Step 2.1 TDD is drafted and `tier_1_involved` flags are set; operator opens a CD session per feature with `tier_1_involved=true`)
-- **CD input strategy v1**: Full relevant PRD + TDD sections as drop files + Hub Claude attention prompt directing CD to UI-relevant sections. (Hub does not pre-extract a "UI summary"; the rationale is preserving signal-to-noise without dropping interaction-relevant content — see TK-02 Step 2.2 mechanism note below.)
+- **CD input strategy v1**: Full relevant PRD + TDD sections as drop files + attention prompt directing CD to UI-relevant sections. (Hub does not pre-extract a "UI summary"; the rationale is preserving signal-to-noise without dropping interaction-relevant content — see TK-02 Step 2.2 mechanism note below.)
 
 ### Step 2.3 — Hub-side design file quality check + UX Design Spec instance authoring (conditional, runs when Step 2.2 fired)
 
@@ -398,7 +398,7 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
 
 **Walking skeleton scope (Phase 1 only)**: The Phase 1 TDD's §3 Walking skeleton scope sub-section captures the thinnest end-to-end vertical slice that proves foundational architecture works before Phase 1 feature units begin. When walking-skeleton scope itself touches Tier 1 (rare), Step 2.2 + Step 2.3 fire for the walking-skeleton scope as if it were a feature with `tier_1_involved=true`; the UX Design Spec instance is authored at `apps/{app-slug}/specs/ux-design-spec/walking-skeleton.md`.
 
-**TK-02 Step 2.2 mechanism note (CD input strategy v1)**: The operator transfers the full relevant PRD + TDD sections as drop files to CD, accompanied by a Hub-attention prompt directing CD to UI-relevant sections. This is preferred over Hub pre-extracting a "UI summary" because: (a) what's "UI-relevant" depends on CD's design judgment (e.g., a data validation rule may turn out to drive an interaction state that needs visual treatment); (b) Hub pre-extraction risks dropping interaction-relevant content that CD would have picked up. The trade-off is signal-to-noise — but for design-file production, the cost of missing context outweighs the cost of CD processing slightly more input. This is a v1 strategy; if Hub pre-extraction proves more efficient in practice, this mechanism may be revised.
+**TK-02 Step 2.2 mechanism note (CD input strategy v1)**: The operator transfers the full relevant PRD + TDD sections as drop files to CD, accompanied by a attention prompt directing CD to UI-relevant sections. This is preferred over Hub pre-extracting a "UI summary" because: (a) what's "UI-relevant" depends on CD's design judgment (e.g., a data validation rule may turn out to drive an interaction state that needs visual treatment); (b) Hub pre-extraction risks dropping interaction-relevant content that CD would have picked up. The trade-off is signal-to-noise — but for design-file production, the cost of missing context outweighs the cost of CD processing slightly more input. This is a v1 strategy; if Hub pre-extraction proves more efficient in practice, this mechanism may be revised.
 
 **Cross-model review reminder at sign-off** ([Enforcement·reminder-only]): Same mechanics as TK-01. Hub Claude surfaces a reminder; operator chooses to invoke cross-model review (e.g., Codex review of the TDD architecture) or proceed.
 
@@ -566,7 +566,7 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 ## 5.2 Hub → CD → Hub (within TK-02 Step 2.2 → Step 2.3)
 
 The TK-02 multi-workspace authoring involves operator-mediated transfers between Hub and CD per [MECH] Cross-Tool Workflow Handoff §2:
-- **Hub → CD (Step 2.2 entry)**: operator transfers relevant PRD/TDD sections as drop files to a CD project + Hub-attention prompt directing CD to UI-relevant sections per [MECH] Cross-Tool Workflow Handoff §2.1
+- **Hub → CD (Step 2.2 entry)**: operator transfers relevant PRD/TDD sections as drop files to a CD project + attention prompt directing CD to UI-relevant sections per [MECH] Cross-Tool Workflow Handoff §2.1
 - **CD → Hub (Step 2.2 exit / Step 2.3 entry)**: operator transfers CD-authored design files back to the Hub session per [MECH] Cross-Tool Workflow Handoff §2.2; Hub Claude performs design file quality check against Hub DS mirror per [TPL] UX Design Spec §3 reviewer checklist; if `Pass` or `Pass with annotation`, Hub Claude authors the per-feature UX Design Spec instance markdown grounded in design files + Hub DS mirror per [RULE] DSG §13.3
 - **Quality check `Reject` path**: route back to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.3 pauses; Step 2.2 redo for the affected feature
 
@@ -588,13 +588,15 @@ Per-slice TK-03 artifacts (intent / acceptance / test-plan) are placed at assign
 
 ## 5.4 CC internal transitions
 
-- TK-04 → TK-05: **Auto via hook** (PostToolUse after code write)
-- TK-05 → TK-06: **Auto via SubagentStop hook** on unit test failure
-- TK-05 / TK-08 / TK-09 / TK-10 → TK-07: **Auto via SubagentStop hook** on non-auto-repairable test failure
-- TK-08 → TK-09: **Auto via SubagentStop hook** after TK-08 completion
-- TK-09 → TK-10: **Auto via SubagentStop hook** after TK-09 completion
-- TK-10 → TK-11: **Auto via SubagentStop hook** after TK-10 completion
-- TK-11 → TK-12: **Auto via Notification hook** (notification surfaces Test Evidence Report ready)
+CC-internal transitions are **automatic** (not operator-gated). The specific hook wiring that implements each automatic transition — which Claude Code hook fires which transition — is CC-runtime execution mechanics owned by CC substantive DTW canonical; this residue declares only that the transition is automatic.
+
+- TK-04 → TK-05: **automatic**, after code write
+- TK-05 → TK-06: **automatic**, on unit test failure
+- TK-05 / TK-08 / TK-09 / TK-10 → TK-07: **automatic**, on non-auto-repairable test failure
+- TK-08 → TK-09: **automatic**, after TK-08 completion
+- TK-09 → TK-10: **automatic**, after TK-09 completion
+- TK-10 → TK-11: **automatic**, after TK-10 completion
+- TK-11 → TK-12: **automatic** (the Test Evidence Report ready notification surfaces to the operator)
 
 ## 5.5 CC → Hub (TK-11 evidence + Codex review)
 
@@ -666,22 +668,22 @@ If steady-state interventions exceed the §6.1 per-unit-type budget for 2+ conse
 
 | Failure source | Routing target | Mechanism |
 |---|---|---|
-| Static analysis critical (TK-04) | TK-04 | PostToolUse hook |
+| Static analysis critical (TK-04) | TK-04 | automatic (CC-internal) |
 | **Tier 1 Design System drift (TK-04)** | **TK-04 with SK-F reinforcement** | **SK-F runtime** |
 | **TK-04 M0 self-check finds Hub/CC mirror version mismatch** | **Operator triggers DS markdown export resync per [RULE] DSG §12.5 lock-step** | **Manual** |
 | **TK-02 Step 2.3 design file quality check `Reject` disposition** | **Return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.2 redo for affected feature** | **Operator manual** |
 | **TK-02 Step 2.3 UX Design Spec authoring gap (design files insufficient)** | **Return to CD for additional design file coverage; Step 2.2 → Step 2.3 redo for affected feature** | **Operator manual** |
 | **TK-02 / TK-03 DS change required** | **Captured in UX Design Spec instance §2.4 New-Components-Or-Tokens at Step 2.3 (additive); separate change file at Step 2.3 + review gate (breaking); per [RULE] DSG §12** | **Manual** |
-| Unit test failure (TK-05) | TK-06 (≤3) | SubagentStop hook |
-| Unit test failure after 3 (TK-06) | TK-07 | SubagentStop hook |
-| Internal-integration failure (TK-05) | TK-07 | SubagentStop hook |
-| Contract / external-integration failure (TK-08) | TK-07 | SubagentStop hook |
+| Unit test failure (TK-05) | TK-06 (≤3) | automatic (CC-internal) |
+| Unit test failure after 3 (TK-06) | TK-07 | automatic (CC-internal) |
+| Internal-integration failure (TK-05) | TK-07 | automatic (CC-internal) |
+| Contract / external-integration failure (TK-08) | TK-07 | automatic (CC-internal) |
 | **Producer-side contract verification failure (TK-08)** | **TK-07** | **SubagentStop hook** |
-| Adversarial-loop test failure (TK-09) | TK-07 | SubagentStop hook |
-| E2E / visual / performance failure (TK-10) | TK-07 | SubagentStop hook |
+| Adversarial-loop test failure (TK-09) | TK-07 | automatic (CC-internal) |
+| E2E / visual / performance failure (TK-10) | TK-07 | automatic (CC-internal) |
 | **Accessibility baseline critical or serious (TK-10)** | **TK-07 + Notification** | **SK-W + hook** |
-| Security critical (TK-10) | Notification | Notification hook |
-| Compliance severe (TK-08, TK-11) | Notification | Notification hook |
+| Security critical (TK-10) | Notification | automatic notification (CC-internal) |
+| Compliance severe (TK-08, TK-11) | Notification | automatic notification (CC-internal) |
 | **Design System Governance compliance final violation (TK-11)** | **Notification** | **Notification hook** |
 | **App/domain placement violation (TK-08, TK-11)** | **Notification** | **Notification hook** |
 | RCA: revise specs | TK-03 (or upstream, including TK-02 Step 2.3 when UX Design Spec instance needs revision) | Manual |

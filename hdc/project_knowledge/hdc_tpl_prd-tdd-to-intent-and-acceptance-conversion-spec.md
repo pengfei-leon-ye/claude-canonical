@@ -6,7 +6,6 @@
 - **Role**: Reusable conversion standard for extracting one feature-slice-scoped `intent.md` and `acceptance.yaml` pair from the Y-chain upstream (canonical PRD + canonical TDD), with module-driven slicing and Design-System-Spec-aware UX brief generation
 - **Source Category**: Cat 4
 - **Management-System Role**: Specification-support template; outside L1-L5 hierarchy; this source is not itself an L2, L3, L4, or L5 artifact
-- **Supersedes**: `[TPL] PRD to Intent and Acceptance Conversion Specification` (single-upstream version). This source extends that one to the Y-chain dual-upstream model.
 - **Boundary note**:
   - This source defines extraction logic, slicing rules, blocking rules, and clarification behavior for PRD+TDD-to-interface conversion
   - This source does not redefine the target-file structure or field semantics already owned by `[TPL] Intent and Acceptance Interface Writing Standard`
@@ -15,7 +14,7 @@
 - **Relationship to [OS]**: Supports the Specify loop by converting dual-upstream product+architecture specification into lower-ambiguity execution inputs. Grounded in [OS] §0.1 project-level operating premises and [OS] §0.2 Cat 4 role anchor.
 - **Relationship to [RULE] Workspace Topology**: Conversion executes in Hub Claude (per [REF] Hub-CD-CC Architecture §5.1 content pillar — spec artifact main body produced in Hub). The slice's `assigned_node` Claude Code is the downstream consumer of the conversion outputs starting at TK-04; the executing-workspace constraint for node-side TKs is owned by Workspace Topology §3.5 + §4.2 (feature-level node affinity)
 - **Relationship to [MECH] Development Track Workflow**: This conversion is operationalized in TK-03 of the Development Track Workflow; the slicing rules in §2 presuppose the slice list produced in TK-02; the UX Design Spec instance consumed in §3.8 is Hub-authored at TK-02 Step 2.3 per [MECH] DTW TK-02 internal step decomposition; SK-F engagement is owned by [MECH] DTW TK-04 (CC-side, code-generation time)
-- **Relationship to [RULE] Claude Code Architecture Rules**: Module-driven slicing in §2 anchors to TDD module decomposition, which must respect the three-tier architecture defined in that source; repository path layout (`apps/{app-slug}/specs/...`) is owned by Architecture Rules §Y.1
+- **Relationship to [RULE] Claude Code Architecture Rules**: Module-driven slicing in §2 anchors to TDD module decomposition, which must respect the three-tier architecture defined in that source; repository path layout (`apps/{app-slug}/specs/...`) is owned by CC substantive CCAR canonical §Y.1
 - **Relationship to [MECH] CI/CD Milestone Policy**: §6 owns `evidence.md` vs Test Evidence Report disambiguation
 - **Relationship to [REF] Hub-CD-CC Architecture**: TK-03 (this conversion's operationalization) runs in Hub per §5.1 content pillar — the intent.md / acceptance.yaml main body is a "spec artifact main body" produced by Hub Claude. When Tier 1 is involved, the upstream UX Design Spec instance is Hub-authored at TK-02 Step 2.3 per §5.2 presentation pillar by Hub Claude reading CD-authored design files (transferred from CD per [MECH] Cross-Tool Workflow Handoff §2.2) grounded in the Hub DS mirror per [RULE] DSG §1.1 three-way distribution; the converter consumes the Hub-authored UX Design Spec instance markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` as the source for UX brief extraction.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: §2.2 (CD → operator → Hub) carries CD-authored design files into Hub as visual reference for TK-02 Step 2.3 UX Design Spec instance authoring when Tier 1 is involved; the Hub-authored instance markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` is the conversion's TK-03 UX brief source. §3.1 (Hub → operator → CC) carries the conversion outputs (intent.md / acceptance.yaml / test-plan.yaml) plus the Hub-authored UX Design Spec instance markdown and the CD design files (forwarded as visual reference) onward to CC at TK-04 entry per [MECH] DTW.
@@ -255,7 +254,7 @@ Each extracted slice must record the following metadata. The field set is paired
 - `tdd_modules_covered`: list of modules from phase TDD `§4.{feature-slug}.Module-Decomposition`
 - `tiers_covered`: subset of {tier-1, tier-2, tier-3}
 - `tier_1_involved`: boolean; triggers UX brief and accessibility expectations
-- `domains_consumed`: list of `{domain-name}` from `packages/domain/` if any; supports Pact pair `{app-slug}-bff_{domain-name}` scoping per [RULE] Architecture Rules §Y.4
+- `domains_consumed`: list of `{domain-name}` from `packages/domain/` if any; supports Pact pair `{app-slug}-bff_{domain-name}` scoping per CC substantive CCAR canonical §Y.4
 - `estimated_scope`: file count + net LOC estimate per slice-size advisory (CC substantive CI/CD Milestone Policy canonical (slice-size advisory)); flag oversize if applicable
 
 ---
@@ -373,7 +372,7 @@ Rule:
 
 Source: PRD non-regression expectations + TDD stability rules.
 
-Rule: Every constraint has an `evidence_how` pointing to the test technique (contract test, e2e scenario, permission test, etc.) that will verify it. For BFF-to-domain stability, the contract test references the Pact pair `{app-slug}-bff_{domain-name}` per [RULE] Architecture Rules §Y.4.
+Rule: Every constraint has an `evidence_how` pointing to the test technique (contract test, e2e scenario, permission test, etc.) that will verify it. For BFF-to-domain stability, the contract test references the Pact pair `{app-slug}-bff_{domain-name}` per CC substantive CCAR canonical §Y.4.
 
 ## 4.3 edge_cases
 

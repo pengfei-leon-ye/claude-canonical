@@ -3,7 +3,7 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Template
 - **Status**: Active canonical
-- **Role**: Content contract for the phase-level test plan (master, markdown) authored at TK-02 — covering file location, document header, required sections (phase scope summary, cross-feature scenario classes, app-scale NFR scenario classes, regression policy, phase exit criteria, cross-tier traceability), and the boundary against per-feature and per-slice test plans
+- **Role**: Reusable content contract for the phase-level test plan (master, markdown) authored at TK-02 — covering file location, document header, required sections (phase scope summary, cross-feature scenario classes, app-scale NFR scenario classes, regression policy, phase exit criteria, cross-tier traceability), and the boundary against per-feature and per-slice test plans
 - **Source Category**: Cat 4
 - **Management-System Role**: Template; outside L1-L5 hierarchy; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1.
