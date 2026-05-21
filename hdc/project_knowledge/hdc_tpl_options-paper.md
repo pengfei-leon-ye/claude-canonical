@@ -345,7 +345,7 @@ State the exact approval, endorsement, or alignment required from the decision f
 
 Complete this section using the structure below, per [OS] §5.4.
 
-Note: Own and Watch are document-content expectations for this deliverable, not a reinstatement of FLOW-L as a response-layer reasoning protocol. Per [OS] §5.4, the Level-or-linkage declaration is the only dimension that requires explicit response-layer enforcement; Frame, Land, Own, and Watch are already covered by the default Evidence / Assumptions / Inference / Conclusions / Implications response structure.
+Note: Own and Watch are document-content expectations for this deliverable, not a response-layer reasoning protocol. Per [OS] §5.4, the Level-or-linkage declaration is the only dimension that requires explicit response-layer enforcement; Frame, Land, Own, and Watch are already covered by the default Evidence / Assumptions / Inference / Conclusions / Implications response structure.
 
 ### 8.1.1 Decision restatement
 Restate the framed business decision in one line and name the recommended option.
@@ -360,7 +360,6 @@ Declare per [OS] §5.4.
 - If this options paper is being used as a specification output whose downstream correctness depends on management-system context, state the governing management-system linkage when it materially affects framing, review, or downstream design; omit the declaration when linkage is irrelevant.
 
 ### 8.1.3 Own
-**Scope: Ownership-declaration template field within the §8.1 landing block of an Options Paper instance; declares who owns, reviews, and decides on the next step after the recommendation is accepted.**
 
 State explicit ownership for the next step.
 

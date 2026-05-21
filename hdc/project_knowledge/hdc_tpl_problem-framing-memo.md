@@ -33,7 +33,7 @@ This is a strategic thinking aid for the operator's own pre-artifact decision wo
 
 ### Pass 1 — Frame
 
-**Scope: First of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`); the goal of Pass 1 is to make the business issue and decision explicit before deeper exploration begins.**
+**Scope: First of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`).**
 
 Complete:
 - 1. Basic Context
@@ -47,7 +47,7 @@ Goal:
 
 ### Pass 2 — Tension and value
 
-**Scope: Second of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`); the goal of Pass 2 is to surface tensions, evidence quality, variance logic, and value logic after Pass 1 has framed the business issue.**
+**Scope: Second of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`), after Pass 1 has framed the business issue.**
 
 Complete:
 - 4. Signals, Evidence, and Unknowns
@@ -60,7 +60,7 @@ Goal:
 
 ### Pass 3 — Land
 
-**Scope: Third of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`); the goal of Pass 3 is to decide what artifact should follow the memo, after Pass 1 framed the issue and Pass 2 surfaced tensions and value.**
+**Scope: Third of three iterative authoring passes for a Problem Framing Memo (under `How to use this source`), after Pass 1 framed the issue and Pass 2 surfaced tensions and value.**
 
 Complete:
 - 9. Likely Management-System Landing or Linkage and Recommended Next Artifact
@@ -209,7 +209,7 @@ The memo is good enough to move forward when:
 
 Complete this section per [OS] §5.4.
 
-Note: Own and Watch below are document-content expectations for this memo, not a reinstatement of FLOW-L as a response-layer reasoning protocol. Per [OS] §5.4, the Level-or-linkage declaration is the only dimension that requires explicit response-layer enforcement; Frame, Land, Own, and Watch are already covered by the default Evidence / Assumptions / Inference / Conclusions / Implications response structure.
+Note: Own and Watch below are document-content expectations for this memo, not a response-layer reasoning protocol. Per [OS] §5.4, the Level-or-linkage declaration is the only dimension that requires explicit response-layer enforcement; Frame, Land, Own, and Watch are already covered by the default Evidence / Assumptions / Inference / Conclusions / Implications response structure.
 
 - **Business decision restatement**: Restate the framed business decision (reference §2) in one line.
 - **Recommended next artifact**: Name the next artifact (reference §9).

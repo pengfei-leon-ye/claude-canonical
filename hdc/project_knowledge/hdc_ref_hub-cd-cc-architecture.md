@@ -9,7 +9,7 @@
 - **Relationship to [OS]**: [OS] owns canonical-source governance (Meta layer per [OS] §2.3.2: admissibility, naming, audit, anti-drift, classification). This source owns the substantive structural architecture of the three AI workspaces and the contracts that govern their interaction (Cross-category layer per [OS] §2.3.2). Both admissible across all four Cat categories.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Cross-topic judgment principles apply within any workspace; this source does not govern judgment, only structural architecture and inter-workspace contracts.
 - **Relationship to [REF] People Journey and Moments Catalog**: Different scope. People Journey is a domain reference (HR lifecycle stages); this source is an architectural reference (AI tool architecture).
-- **Relationship to [REF] Design System**: Anchored. The reintroduced `[REF] Design System` (Hub mirror of the CD-held DS instance, per the revised three-way distribution model in §5.2) is consumed by Hub Claude at TK-02 step 2.3 quality check and UX Design Spec authoring grounding, and is governed by [RULE] DSG §1.1 + §12 sync mechanism.
+- **Relationship to [REF] Design System**: Anchored (pending — the mirror file `hdc_ref_design-system.md` is not yet created; it awaits the first CD-generated DS markdown export sync, see §8.1). The reintroduced `[REF] Design System` (Hub mirror of the CD-held DS instance, per the revised three-way distribution model in §5.2) is consumed by Hub Claude at TK-02 step 2.3 quality check and UX Design Spec authoring grounding, and is governed by [RULE] DSG §1.1 + §12 sync mechanism.
 - **Relationship to adjacent sources within the same family or tightly coupled**:
   - [RULE] Workspace Topology — different scope (multi-node dev environment topology inside CC; this source is hub/CD/CC three-workspace architecture at the AI tool level)
   - [MECH] Development Track Workflow — consumes this source's CC workspace boundary and the revised TK-02 internal structure (Step 2.1 Hub TDD / Step 2.2 CD design files / Step 2.3 Hub UX Design Spec authoring)
@@ -90,7 +90,7 @@ This source does not own:
 | [PRIN] People Experience Design Principles | Domain-specific judgment within Cat 2 / Cat 4 UI scope; orthogonal to structural architecture. |
 | [POL] Digital Solution Policy Architecture Map | Policy architecture is exclusively within the Hub workspace's management-system work (Cat 1); this source defines the workspace boundary that locates such work. |
 | [REF] People Journey and Moments Catalog | Domain reference for HR lifecycle stages; orthogonal to architectural concerns. |
-| [REF] Design System | Anchored. The Hub mirror of DS instance content; consumed by Hub Claude at TK-02 step 2.3 quality check + UX Design Spec authoring grounding; synced from CD SOT per [RULE] DSG §12. |
+| [REF] Design System | Anchored (pending — mirror file `hdc_ref_design-system.md` not yet created, see §8.1). The Hub mirror of DS instance content; consumed by Hub Claude at TK-02 step 2.3 quality check + UX Design Spec authoring grounding; synced from CD SOT per [RULE] DSG §12. |
 | [REF] CC Project Memory Bank Layout | Different scope (CC-internal canonical layout); operates inside the CC workspace boundary that this source defines. |
 | [RULE] DingTalk MD Format Control | Cross-category-layer peer per [OS] §2.3.2. Delivery-interface for DingTalk-destined outputs; orthogonal to structural architecture. |
 | [RULE] Workspace Topology | Different scope. Multi-node dev environment inside CC; this source is hub/CD/CC at the AI tool level. |
@@ -610,7 +610,7 @@ Three asset systems coexist across the three workspaces, each with a distinct pu
 
 **Location**: Hub workspace, `hdc_tpl_*.md` files
 **Purpose**: Spec content contract — answers "what content dimensions a specification artifact should cover"
-**Examples**: [TPL] PRD Prototype MVP, [TPL] TDD, [TPL] UX Design Spec (the coverage framework for CD design files and the Hub-authoring template for UX Design Spec instances), [TPL] ADR Spec, [TPL] Phase Test Plan, [TPL] Intent and Acceptance Interface Writing Standard, [TPL] Test Plan YAML Schema, [TPL] PRD-TDD to Intent/Acceptance Conversion Spec, [TPL] Options Paper, [TPL] Problem Framing Memo, [TPL] CD Project Preparation Checklist
+**Examples**: [TPL] PRD Prototype MVP, [TPL] TDD, [TPL] UX Design Spec (the coverage framework for CD design files and the Hub-authoring template for UX Design Spec instances), [TPL] ADR Spec, [TPL] Phase Test Plan, [TPL] Intent and Acceptance Interface Writing Standard, [TPL] Test Plan YAML Schema, [TPL] PRD-TDD to Intent/Acceptance Conversion Spec, [TPL] Options Paper, [TPL] Problem Framing Memo
 **Authoring**: Hub-authored, governed by [MECH] Canonical File Self-Audit
 **Consumer**: Hub Claude when producing specification artifacts (including UX Design Spec instances at TK-02 step 2.3)
 
@@ -709,7 +709,7 @@ There are three operator-mediated handoff paths between the workspaces. Each is 
 For per-feature design work (TK-02 step 2.2, when TDD declares tier_1_involved=true):
 - Hub produces strategic framing for the feature, PRD main body (relevant chapters), TDD main body (relevant §4.{feature-slug} content)
 - Operator drops full text of relevant PRD + TDD sections into CD project as drop files (v1 strategy per [MECH] Cross-Tool Workflow Handoff §2.1.6: full text, not Hub-pre-extracted)
-- Hub Claude assists the operator in drafting an **attention prompt** that directs CD's focus to UI-relevant content within the dropped specs (e.g., "重点关注 PRD §X.Y 中的角色矩阵 / §Z 中的 UI 想象 / TDD §4.{feature-slug}.API-Contracts 中影响前端展示的字段")
+- Hub Claude assists the operator in drafting an **attention prompt** that directs CD's focus to UI-relevant content within the dropped specs (e.g., "Focus on the role matrix in PRD §X.Y / the UI vision in §Z / the frontend-display-affecting fields in TDD §4.{feature-slug}.API-Contracts")
 - Operator pastes the attention prompt into the CD project's free-form prompt area
 - DS instance reference is already linked at CD setup; no separate transfer needed per cycle
 
@@ -838,4 +838,4 @@ This source's content is updated under [OS] §8.5.2 same-revision discipline whe
 
 Routine updates (e.g., adding a new canonical to the §8.1 inventory) are made without same-revision constraint, but [OS] §8.5.2 pairing discipline applies if the addition creates new cross-source pairings.
 
-When this source is revised, [OS] §2.3.2 meta-layer membership list is checked for consistency with this source's meta-layer self-declaration; both must agree.
+When this source is revised, [OS] §2.3.2 Cross-category layer membership list is checked for consistency with this source's Cross-category layer self-declaration; both must agree.

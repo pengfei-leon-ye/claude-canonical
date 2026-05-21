@@ -735,7 +735,7 @@ The self-application limit: the audit framework cannot identify its own conceptu
 
 # 9. Audit finding disposition
 
-This section owns the discipline for handling audit findings **after** they are surfaced by §3-§5 output. The disposition framework distinguishes finding types and prescribes the appropriate resolution path for each. The disposition log (§9.2) archives operator裁决 across audit cycles.
+This section owns the discipline for handling audit findings **after** they are surfaced by §3-§5 output. The disposition framework distinguishes finding types and prescribes the appropriate resolution path for each. The disposition log (§9.2) archives operator ruling across audit cycles.
 
 ## 9.1 Finding type taxonomy
 
@@ -743,8 +743,8 @@ Audit findings fall into two distinct types, each with its own disposition path:
 
 | Finding type | Definition | Disposition path |
 |---|---|---|
-| **Mechanical inconsistency** | Canonical text is internally inconsistent (within one file or across multiple files), or text has not caught up with an already-established design. The design itself is sound; only the text is out of sync. | Apply text fixes in the affected canonical file(s) under same-revision discipline per [OS] §8.5.2. No design decision needed; no operator裁决 required beyond approving the textual correction. Log entry in §9.2 captures: which file(s), which lines, what corrected wording. |
-| **Design-intent variance** | Canonical implementation diverges from external audit checklist or expected design as anticipated by an upstream specification. The canonical is internally consistent and has inlined rationale, but conflicts with an outside expectation. | Operator裁决: accept the current canonical (and amend the upstream checklist / expected-design source) **or** revert to the upstream expectation (and modify canonical accordingly). Log entry in §9.2 captures: which finding(s), which alternatives considered, the裁决 rationale, and reversal trigger conditions. |
+| **Mechanical inconsistency** | Canonical text is internally inconsistent (within one file or across multiple files), or text has not caught up with an already-established design. The design itself is sound; only the text is out of sync. | Apply text fixes in the affected canonical file(s) under same-revision discipline per [OS] §8.5.2. No design decision needed; no operator ruling required beyond approving the textual correction. Log entry in §9.2 captures: which file(s), which lines, what corrected wording. |
+| **Design-intent variance** | Canonical implementation diverges from external audit checklist or expected design as anticipated by an upstream specification. The canonical is internally consistent and has inlined rationale, but conflicts with an outside expectation. | Operator ruling: accept the current canonical (and amend the upstream checklist / expected-design source) **or** revert to the upstream expectation (and modify canonical accordingly). Log entry in §9.2 captures: which finding(s), which alternatives considered, the ruling rationale, and reversal trigger conditions. |
 
 Distinguishing test: if the question "is the design right?" has an answer in the affirmative when reading the canonical alone (internal rationale present), the finding is design-intent variance; if the question "is the text right?" has the answer "no, the text contradicts itself or another canonical" without invoking any external checklist, the finding is mechanical inconsistency.
 
@@ -752,7 +752,7 @@ A single audit run can surface findings of both types; each is dispositioned ind
 
 ## 9.2 Disposition log
 
-Audit findings dispositions are recorded as entries in this section. Each entry captures the audit cycle, the findings dispositioned, the type, the裁决, and references to any artifacts produced.
+Audit findings dispositions are recorded as entries in this section. Each entry captures the audit cycle, the findings dispositioned, the type, the ruling, and references to any artifacts produced.
 
 ### 9.2.1 Disposition log entry schema
 
@@ -762,8 +762,8 @@ Audit findings dispositions are recorded as entries in this section. Each entry 
 | Finding ID(s) | Identifier of the finding(s) being dispositioned in this entry |
 | Finding type | `Mechanical inconsistency` or `Design-intent variance` |
 | Affected canonical | Files or sections that the disposition touches |
-| Disposition裁决 | `accept current canonical (amend external)` / `revert canonical (modify to match external)` / `apply text fix` / `retire rule` / `not applicable to project scope` |
-| Rationale | One-paragraph rationale linking the裁决 to inlined canonical rationale, design rationale, or scope-applicability judgment |
+| Disposition ruling | `accept current canonical (amend external)` / `revert canonical (modify to match external)` / `apply text fix` / `retire rule` / `not applicable to project scope` |
+| Rationale | One-paragraph rationale linking the ruling to inlined canonical rationale, design rationale, or scope-applicability judgment |
 | Reversal conditions | If applicable: trigger conditions under which the disposition should be revisited |
 | Operator authorization date | Date operator signed off on the disposition |
 | Produced artifacts | References to revised canonical / amended checklist / disposition memo, if any |
@@ -775,10 +775,10 @@ Audit findings dispositions are recorded as entries in this section. Each entry 
 | Field | Content |
 |---|---|
 | Audit cycle | 2026-05-16 cross-source consistency audit, 33 sources (32 PK + PI) per `hdc-refactor-verification-rule-set.md` (operator-supplied, v1 dated 2026-05-15) |
-| Finding ID(s) | Findings #1 (mechanical), #2 / #3 / #4 (variance), #5 / #6 (mechanical — formal split补完), #7 (mechanical — admissibility table gap), #8 (variance — Hook system), #9 (mechanical — passive voice), #10 / #12 (mechanical —补完), #11 / #13 (not applicable to project scope — retire), #14 (mechanical — clarifying note); 14 total |
+| Finding ID(s) | Findings #1 (mechanical), #2 / #3 / #4 (variance), #5 / #6 (mechanical — formal-split completion), #7 (mechanical — admissibility table gap), #8 (variance — Hook system), #9 (mechanical — passive voice), #10 / #12 (mechanical — completion), #11 / #13 (not applicable to project scope — retire), #14 (mechanical — clarifying note); 14 total |
 | Finding type | Mixed (see Finding ID column for per-finding type) |
 | Affected canonical | `hdc_tpl_test-plan-yaml-schema.md`, `hdc_ref_hub-cd-cc-architecture.md`, `hdc_os_project-operating-model.md`, `hdc_ref_cc-project-memory-bank-layout.md`, `hdc_mech_development-track-workflow.md`, `hdc_mech_canonical-file-self-audit.md` (this file) |
-| Disposition裁决 | **For Findings #2 / #3 / #4 (variance)**: `accept current canonical (amend external)` — operator accepts current canonical TK-03 = Hub-only producer, CC memory bank 5-level structure, and TK-04 renumbered active task; verification rule set v1 amended to v2 (2026-05-17) updating §C-04 / §E-01 / §F-08 / §J-01 wording. **For Finding #8 / K-07**: `accept current canonical` — Hook system is embedded at verification-rule-application level; no canonical fragment needed; K-07 reworded in rule set v2. **For Findings #11 / F-11 and #13 / K-08**: `not applicable to project scope — retire` — HDC does not use Backlog.md; Pattern A/B not in HDC scope; both rules retired in rule set v2. **For Findings #1 / #5 / #6 / #7 / #9 / #10 / #12 / #14 (mechanical)**: `apply text fix` — affected canonical files revised under same-revision discipline. |
+| Disposition ruling | **For Findings #2 / #3 / #4 (variance)**: `accept current canonical (amend external)` — operator accepts current canonical TK-03 = Hub-only producer, CC memory bank 5-level structure, and TK-04 renumbered active task; verification rule set v1 amended to v2 (2026-05-17) updating §C-04 / §E-01 / §F-08 / §J-01 wording. **For Finding #8 / K-07**: `accept current canonical` — Hook system is embedded at verification-rule-application level; no canonical fragment needed; K-07 reworded in rule set v2. **For Findings #11 / F-11 and #13 / K-08**: `not applicable to project scope — retire` — HDC does not use Backlog.md; Pattern A/B not in HDC scope; both rules retired in rule set v2. **For Findings #1 / #5 / #6 / #7 / #9 / #10 / #12 / #14 (mechanical)**: `apply text fix` — affected canonical files revised under same-revision discipline. |
 | Rationale | Variance findings #2 / #3 / #4 acceptance rationale: cross-model review consensus loop is Hub-only operable per [MECH] DTW §4 line 383-388; 5-level CLAUDE.md aligns with CC substantive Claude Code Architecture Rules canonical (named context scopes §X) agent context scopes per-tier discipline; TK-04 renumbering preserves serial consistency per H-08 exception clause "unless serial consistency requires". Full alternatives comparison preserved in Options Paper (2026-05-16 chat zone archive). Hook system / Backlog.md / Pattern A-B disposition per operator confirmation 2026-05-17. Mechanical fix findings #1 / #5 / #6 / #7 / #9 / #10 / #12 / #14 each have clear textual corrections that align canonical with established design intent. |
 | Reversal conditions | Per-variance reversal triggers: (a) D2 reversal if cross-model review consensus loop moves out of Hub-only operability; (b) D3 reversal if CC substantive Claude Code Architecture Rules canonical (named context scopes §X) agent context scopes simplify; (c) D4 reversal if empirical legacy/new TK-04 collision surfaces in operator workflow. Mechanical fixes have no reversal — they correct established design, not establish new design. |
 | Operator authorization date | 2026-05-17 |
@@ -791,14 +791,14 @@ This §9 disposition framework is distinct from:
 - **§5 Output format** (which owns audit report structure prior to disposition)
 - **§6 Audit execution flow** (which owns how the audit is run, including blocker handling at §6.4)
 - **[TPL] ADR Spec** (which records forward-looking architecture decisions — typically during TDD review at Cat 4 work)
-- **[TPL] Options Paper** (which compares decision options before a裁决 is made; this §9 records the裁决 after Options Paper consideration completes)
+- **[TPL] Options Paper** (which compares decision options before a ruling is made; this §9 records the ruling after Options Paper consideration completes)
 
-The disposition log captures audit-process裁决 archival, not architecture decision archival. When an audit-process裁决 also entails a downstream architecture decision (e.g., an audit surfaces a need to re-enable direct CD↔CC coupling), the architecture decision lands as an ADR per [TPL] ADR Spec §3.3 Meta-layer landing path, and the disposition log entry references the ADR.
+The disposition log captures audit-process ruling archival, not architecture decision archival. When an audit-process ruling also entails a downstream architecture decision (e.g., an audit surfaces a need to re-enable direct CD↔CC coupling), the architecture decision lands as an ADR per [TPL] ADR Spec §3.3 Meta-layer landing path, and the disposition log entry references the ADR.
 
 ## 9.4 Anti-drift red flags for disposition handling
 
-- Audit finding marked as "Mechanical inconsistency" actually carries a design-intent variance disguised as text fix → reclassify as variance and route to operator裁决
+- Audit finding marked as "Mechanical inconsistency" actually carries a design-intent variance disguised as text fix → reclassify as variance and route to operator ruling
 - Disposition log entry omitting reversal conditions for design-intent variance → add reversal conditions (variance dispositions should be reversible by future audit cycle if conditions change)
 - Same audit finding appearing in multiple consecutive disposition entries without progression → indicates the disposition is not actually closing the finding; re-evaluate finding type or disposition path
-- Disposition log entry recording an operator裁决 without inlined rationale → rationale must reference inlined canonical rationale, external evidence, or scope-applicability judgment; bare裁决 without traceability is anti-drift
+- Disposition log entry recording an operator ruling without inlined rationale → rationale must reference inlined canonical rationale, external evidence, or scope-applicability judgment; bare ruling without traceability is anti-drift
 - ADR authored for what should be a §9 disposition entry → ADRs are forward-looking architecture decisions; audit-finding dispositions belong here
