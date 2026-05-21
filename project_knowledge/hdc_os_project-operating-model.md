@@ -662,6 +662,10 @@ Relationship to hub:
 - the original chat becomes too branched or too long
 - a complete Artifact has been produced and the next task is materially new (Claude-specific: Artifacts are saved independently, so cross-contamination risk outweighs continuity value)
 
+### Canonical-governance snapshot rule
+
+A conversation's view of the canonical set is fixed at conversation open (the conversation-open snapshot model — see [MECH] Canonical File Self-Audit §6.1). A conversation that commits canonical changes therefore cannot be assumed to see its own commits. When a conversation performs canonical governance that commits changes, verification of those changes — and any subsequent governance work that depends on the post-commit state — must be done in a fresh conversation opened after re-indexing completes. Do not chain dependent canonical-governance decisions across a conversation's own commits within a single long-running (including cross-day) conversation; split at each commit boundary.
+
 ### One-month rule
 
 If a large topic returns after about one month, default to a new chat unless the goal is to keep editing the same artifact.
@@ -845,7 +849,7 @@ Under the current GitHub-sync mechanism, the canonical repository (e.g., the ope
 When verifying citations during a revision:
 - Use `project_knowledge_search` with the citation target (e.g., `[OS] §4.3`) as the query; confirm the target is reachable and content matches the cited claim
 - For exact-string verification (e.g., a § number rename), bash grep against the canonical repository clone (or the filesystem view if mounted) is acceptable as a supplementary check, but is not authoritative when the view diverges from the RAG layer — the RAG layer wins
-- When the operator commits to a structural change (rename, renumbering, retirement), ensure the change reaches the RAG layer before declaring §8.5.3 verified; if the project knowledge base ingestion is asynchronous (typical under GitHub-sync), wait for ingestion to complete before final sign-off
+- When the operator commits to a structural change (rename, renumbering, retirement), final §8.5.3 verification must be performed in a conversation opened **after** the project knowledge base has completed re-indexing the commit. Per the conversation-open snapshot model ([MECH] Canonical File Self-Audit §6.1), the conversation that made the commit cannot be assumed to see its own change; declaring §8.5.3 verified from within the committing conversation is unsound. Confirm re-indexing has completed (via the indexing indicator in the Claude.ai project settings UI), then verify in a fresh conversation
 
 This rule applies to canonical-to-canonical citations only. Canonical-to-runtime-artifact (C2R) pairings in §8.5.2 verify against the Development Track repository per the C2R subtype's own discipline.
 
