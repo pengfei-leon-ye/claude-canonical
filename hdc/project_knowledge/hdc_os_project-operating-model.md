@@ -846,7 +846,7 @@ The grep-verify discipline in §8.5.3 runs against **the canonical set as visibl
 Under the current GitHub-sync mechanism, the canonical repository (e.g., the operator's `claude-canonical` GitHub repo) commits flow into the RAG layer via the project knowledge base re-indexing pipeline. The hub Claude.ai platform may additionally expose an auxiliary filesystem view; when present, such a view is secondary and may diverge from the RAG layer for indexing-timing or mounting reasons. The RAG layer wins on any divergence.
 
 When verifying citations during a revision:
-- Use `project_knowledge_search` with the citation target (e.g., `[OS] §4.3`) as the query; confirm the target is reachable and content matches the cited claim
+- Use `project_knowledge_search` with the citation target (e.g., `[OS] §4.2`) as the query; confirm the target is reachable and content matches the cited claim
 - For exact-string verification (e.g., a § number rename), bash grep against the canonical repository clone (or the filesystem view if mounted) is acceptable as a supplementary check, but is not authoritative when the view diverges from the RAG layer — the RAG layer wins
 - When the operator commits to a structural change (rename, renumbering, retirement), final §8.5.3 verification must be performed in a conversation opened **after** the project knowledge base has completed re-indexing the commit. Per the conversation-open snapshot model ([MECH] Canonical File Self-Audit §6.1), the conversation that made the commit cannot be assumed to see its own change; declaring §8.5.3 verified from within the committing conversation is unsound. Confirm re-indexing has completed (via the indexing indicator in the Claude.ai project settings UI), then verify in a fresh conversation
 
@@ -1368,8 +1368,8 @@ Header fields appear in this order:
 6. `Source Category`
 7. `Management-System Role`
 8. `Phase` / phase ontology fields (when applicable)
-9. `Pairings I participate in` (when applicable)
-10. `Relationship to ...` fields (one per relationship; can be multiple lines)
+9. `Relationship to ...` fields (one per relationship; can be multiple lines)
+10. `Pairings I participate in` (when applicable)
 11. `Boundary with ...` / `Visibility boundary` / `Anti-drift boundary` (when applicable, per §10.3a)
 12. `How to use this source` (when applicable, as a separate sub-section below the field list)
 

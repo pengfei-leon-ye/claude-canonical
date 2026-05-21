@@ -6,8 +6,6 @@
 - **Role**: Stable policy architecture source for the Digital Solution team
 - **Source Category**: Cat 1
 - **Management-System Role**: Policy architecture map; outside L1-L5 hierarchy (this source is a control source above L2-L5 artifacts, not itself an L2, L3, L4, or L5 artifact); governs how L2-L5 artifacts for the Digital Solution team are designed
-- **Governing Baseline**: Current project instruction and active canonical [OS] Project Operating Model
-- **Scope Note**: This source defines architecture, boundaries, and decomposition logic. It does not draft detailed policy clauses, process maps, SOP content, or implementation specifications.
 - **Relationship to [OS]**: Extends the active policy architecture anchors in the Project Operating Model into a reusable Digital Solution policy map.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies [PRIN] HR Digital Decision Design Principles §1 (business-first, architecture-enabled), §3 (global core with governed local variance), §6 (operation management and value realization by design), §10 (apply MECE to important decomposition structures) to policy architecture decisions
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [POL] Digital Solution Policy Architecture Map` header fields per [OS] §8.5.1a)
@@ -42,7 +40,7 @@ L1 is intentionally not expanded in this source because the functional domain is
 
 # 2. Digital Solution interpretation of the management-system lens
 
-The L1-L5 management-system lens is defined by `[OS] Project Operating Model` §4.3, including each level's role, definition, core purpose, core question, required contents, and exclusion boundaries. This section does not redefine the lens; it maps each level to its Digital Solution team interpretation only.
+The L1-L5 management-system lens is defined by `[OS] Project Operating Model` §4.2, including each level's role, definition, core purpose, core question, required contents, and exclusion boundaries. This section does not redefine the lens; it maps each level to its Digital Solution team interpretation only.
 
 | Level / status | Digital Solution interpretation |
 |---|---|
@@ -52,7 +50,7 @@ The L1-L5 management-system lens is defined by `[OS] Project Operating Model` §
 | L5 | work instructions for recurring operational steps, reviews, approvals, migrations, release handling, or data tasks |
 | Outside L2-L5 | specification outputs should state governing linkage when materially relevant, but should not be force-fit into L2-L5 |
 
-For detailed level definitions, see [OS] §4.3.
+For detailed level definitions, see [OS] §4.2.
 
 # 3. Digital Solution L2 policy architecture
 

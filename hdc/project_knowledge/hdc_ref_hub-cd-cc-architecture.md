@@ -185,7 +185,7 @@ The Hub workspace accepts these canonical input forms:
 |---|---|---|
 | User Preferences (UP) | Operator account settings | Account-level harness; highest precedence on behavioral rules |
 | Project Instructions (PI) | Hub project settings | Project-level harness |
-| Project Knowledge (PK) | Hub PK `hdc_*.md` files (synced from GitHub `claude_ai_canonical/project_knowledge/` folder) | The canonical source set held in the Hub, including the reintroduced `hdc_ref_design-system.md` Hub DS mirror |
+| Project Knowledge (PK) | Hub PK `hdc_*.md` files (synced from GitHub `claude-canonical/hdc/project_knowledge/` folder) | The canonical source set held in the Hub, including the reintroduced `hdc_ref_design-system.md` Hub DS mirror |
 | Operator dialogue input | Conversation turn content | Framing, decisions, external materials provided in conversation |
 | Operator-mediated CD output | Conversation attachments, pasted content, or dropped files | Materials audited and forwarded by the operator from a CD session: per-feature design files (visual + annotation), DS instance markdown exports for mirror sync, stakeholder review materials |
 | Operator-mediated CC output | Conversation attachments or pasted content | Materials audited and forwarded by the operator from a CC session: Codex review output, CC-internal canonical change notifications, DS code change notifications |
@@ -387,7 +387,7 @@ CC accepts these canonical inputs:
 
 | Input | Source | Mechanism |
 |---|---|---|
-| Hub constitutional canonical set | Hub PK `hdc_*.md` files (synced from GitHub `claude_ai_canonical/project_knowledge/`) | CC accesses Hub canonical as a **read-only authoritative source** via operator-chosen mechanism (e.g., local clone of the canonical GitHub repository, operator-mediated paste, or any other access method). This canonical declares only the contract — one-way Hub → CC flow, no back-flow, CC consumes Hub canonical without modifying its origin. Specific access mechanism is operator-personal infrastructure, not canonical-governed. |
+| Hub constitutional canonical set | Hub PK `hdc_*.md` files (synced from GitHub `claude-canonical/hdc/project_knowledge/`) | CC accesses Hub canonical as a **read-only authoritative source** via operator-chosen mechanism (e.g., local clone of the canonical GitHub repository, operator-mediated paste, or any other access method). This canonical declares only the contract — one-way Hub → CC flow, no back-flow, CC consumes Hub canonical without modifying its origin. Specific access mechanism is operator-personal infrastructure, not canonical-governed. |
 | Hub spec artifact main bodies | Hub-authored PRD / TDD / per-feature UX Design Spec instances / intent / acceptance / test-plan main | Provided as files in the monorepo at `specs/` paths or operator-transferred per CC session |
 | CD-authored design files (visual reference) | CD-exported design files | Operator-mediated transfer at TK-04 alongside Hub UX Design Spec instances; CC consumes design files as **visual reference** during code implementation (visual mockups, component arrangement, motion specifications). CC does NOT author UX-touching field values from design files — those were Hub-authored at TK-03 from the UX Design Spec instance |
 | Hub-authored UX Design Spec instance | Hub markdown at `apps/{slug}/specs/ux-design-spec/{feature-slug}.md` | The **primary textual UX specification** consumed by CC at TK-04+ for tier-1 code implementation; this is what CC reads for component selections, interaction patterns, a11y requirements, i18n considerations, responsive behavior. Authored by Hub Claude at TK-02 step 2.3 from CD-authored design files + DS Hub mirror grounding |
@@ -656,7 +656,7 @@ Hub workspace holds the canonical set listed under Hub PK `hdc_*.md` files. The 
 | [MECH] | Development Track Workflow (**constitutional residue + Hub-internal substantive post-split** — TK-04~TK-11 + TK-13 execution mechanics migrated to CC), CI/CD Milestone Policy (**constitutional residue post-split** — gate criteria detail migrated to CC), Application Lifecycle Handoff, Cross-Tool Workflow Handoff, Canonical File Self-Audit, Sign-Off Cleanup Policy | Governance mechanisms |
 | [TPL] | Options Paper, Problem Framing Memo, PRD Prototype MVP, TDD, UX Design Spec, Test Plan YAML Schema, PRD-TDD to Intent/Acceptance Conversion Spec, Intent and Acceptance Interface Writing Standard, ADR Spec, Phase Test Plan | Content contract templates |
 
-**Sources fully migrated to CC (no Hub canonical residue retained, Phase 3 commit `70133e8`)**:
+**Sources fully migrated to CC (no Hub canonical residue retained)**:
 - `[RULE] Codex Plugin Usage` → CC substantive canonical
 - `[MECH] Code Quality Rule Set` → CC substantive canonical
 - `[MECH] Dev-Loopback Mode` → CC substantive canonical
@@ -664,7 +664,6 @@ Hub workspace holds the canonical set listed under Hub PK `hdc_*.md` files. The 
 
 Notes on inventory:
 - **[REF] Design System (Hub mirror)** status: declared as a three-way distribution mirror per DSG §1.1; the file `hdc_ref_design-system.md` is **pending** first sync from CD-generated DS markdown export per DSG §12 (will land when a DS instance update is committed at CD)
-- **[TPL] inventory**: 10 active templates (the formerly listed "CD Project Preparation Checklist" is not currently in canonical inventory; if reintroduced, the count updates accordingly)
 - **Constitutional / substantive boundary**: per [OS] §0.1.5 Premise 5, Hub canonical owns constitutional content (cross-workspace interface) plus Hub-internal substantive content (e.g., Hub Claude behavior). CC substantive canonical at CC's own canonical layer owns CC-internal operational details. The post-split Hub residues at [RULE] WT, [RULE] CCAR, [MECH] CI/CD, [MECH] DTW, [REF] CCMBL retain only the constitutional + Hub-internal-substantive portions; their CC-side substantive content is at CC.
 
 ## 8.2 CD-held substantive content
@@ -840,13 +839,3 @@ This source's content is updated under [OS] §8.5.2 same-revision discipline whe
 Routine updates (e.g., adding a new canonical to the §8.1 inventory) are made without same-revision constraint, but [OS] §8.5.2 pairing discipline applies if the addition creates new cross-source pairings.
 
 When this source is revised, [OS] §2.3.2 meta-layer membership list is checked for consistency with this source's meta-layer self-declaration; both must agree.
-
-## 12.1 Revision history note (this revision)
-
-This revision flips two foundational architectural decisions from the prior version:
-
-1. **DS three-way distribution model**: From "CD SOT / CC mirror / Hub holds neither" to "CD SOT / CC code-time mirror / Hub spec-time mirror" (per §5.2). The change reintroduces `[REF] Design System` to Hub PK as the spec-time mirror sync target, with content authored by CD and operator-transferred via DSG §12 markdown export.
-
-2. **UX Design Spec authoring model**: From "CD authors UX Design Spec instance, Hub Claude audits + forwards" to "CD authors design files (CD-native), Hub Claude authors UX Design Spec instance markdown at TK-02 step 2.3 from design files + DS Hub mirror grounding". The change recognizes that CD's natural output is visual (design files) and treats UX Design Spec as a Hub-authored downstream spec artifact, not a CD output.
-
-Both changes propagate to multiple paired canonical sources ([RULE] DSG §1.1 + §12; [MECH] DTW TK-02 internal structure; [TPL] UX Design Spec role inversion; [MECH] Cross-Tool Workflow Handoff §2.1 + §2.2 content contracts; [TPL] Conversion Spec TK-03 inputs; [TPL] Intent-Acceptance Writing Standard §2.3 producer table; [MECH] CI/CD Milestone Policy TK-02 sign-off scope). The same-revision discipline applies to this set per [OS] §8.5.2.

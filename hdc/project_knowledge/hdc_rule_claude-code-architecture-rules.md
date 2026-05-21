@@ -77,7 +77,7 @@ Do not use this source as:
 
 # 1. Three-tier architecture (constitutional)
 
-**Terminology note**: Tier 1 / Tier 2 / Tier 3 in this source refer exclusively to the code-layer architecture of Claude Code projects. They are deliberately distinct from the L1-L5 management-system lens defined in [OS] §4.3. The management-system lens is a governance-design construct used to place policies, process maps, and SOPs; the three-tier code architecture is an implementation-structure construct used inside Claude Code projects. The two should not be confused during design-to-code handoff or in any CLAUDE.md authoring work.
+**Terminology note**: Tier 1 / Tier 2 / Tier 3 in this source refer exclusively to the code-layer architecture of Claude Code projects. They are deliberately distinct from the L1-L5 management-system lens defined in [OS] §4.2. The management-system lens is a governance-design construct used to place policies, process maps, and SOPs; the three-tier code architecture is an implementation-structure construct used inside Claude Code projects. The two should not be confused during design-to-code handoff or in any CLAUDE.md authoring work.
 
 The CC workspace's code is organized into three tiers. Each tier has constitutional identity and high-level role; tier-internal substantive content (specific tools, frameworks, patterns) is owned by CC substantive canonical.
 

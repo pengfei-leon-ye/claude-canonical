@@ -28,7 +28,7 @@ Do not use this source as:
 
 ## Application discipline
 
-The fourteen principles below function as the operator's self-check tools at decision moments, not as a step-by-step methodology to follow sequentially. Principles are applied — not checked off. Red flags are decision-quality signals, not violations to count.
+The principles below function as the operator's self-check tools at decision moments, not as a step-by-step methodology to follow sequentially. Principles are applied — not checked off. Red flags are decision-quality signals, not violations to count.
 
 ---
 
@@ -281,7 +281,7 @@ This principle does not preempt vendor-specific or platform-specific behavior; r
 
 # 14. Preserve ambiguity rather than fabricate resolution
 
-**Principle**
+**Rule**
 
 When a business rule, requirement, or design decision is genuinely unresolved, preserve the ambiguity as an open question rather than collapse it into a single interpretation. This applies symmetrically to upstream framing work and to downstream specification artifacts: the obligation to surface unresolved ambiguity does not weaken as work moves from framing memo through PRD, TDD, intent, acceptance, and test plan.
 

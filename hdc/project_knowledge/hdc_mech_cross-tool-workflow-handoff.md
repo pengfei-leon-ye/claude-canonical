@@ -333,7 +333,7 @@ Hub content exists as:
 
 1. Ensure CC has access to the current Hub canonical source via the operator's chosen mechanism (e.g., local clone of the canonical GitHub repository synced to the latest commit; or operator-mediated paste of relevant content into the CC session)
 2. The specific mechanism is operator-personal infrastructure; this canonical does not prescribe it
-3. When Hub canonical evolves (new commit lands at `claude_ai_canonical/project_knowledge/`), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
+3. When Hub canonical evolves (new commit lands at `claude-canonical/hdc/project_knowledge/`), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
 4. CC contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin
 
 **For Sub-flow B — spec artifact transfer at TK-03 → TK-04 entry**:
