@@ -69,6 +69,12 @@ If the task does not require export fidelity, use the Rich Text Profile but stay
 
 Official DingTalk documentation states that DingTalk Docs supports **most** Markdown syntax and allows Markdown in import, export, paste, and editing workflows. Markdown import as an online document accepts `.md`, `.markdown`, and `.mark`, and only UTF-8 encoded files. For online-document import, the file size limit is 20 MB. Official export guidance also states that DingTalk-specific text elements may be downgraded during Markdown export.
 
+**Source documentation** — DingTalk Docs official help center at `alidocs.dingtalk.com`, knowledge base `Y7kmbokZp3pgGLq2` (consulted 2026-05-21):
+
+- `Markdown 使用手册` — syntax reference backing the Section 4 allowlist: https://alidocs.dingtalk.com/i/p/Y7kmbokZp3pgGLq2/docs/em7AML0b9lBV23rw0A7KJnNyqOD6vwro
+- `导入 Markdown 文件` — import format / encoding / size facts: https://alidocs.dingtalk.com/i/p/Y7kmbokZp3pgGLq2/docs/KGZLxjv9VG3RmPGoslwn9adDV6EDybno
+- `导出 Markdown 文件` — export downgrade behavior: https://alidocs.dingtalk.com/i/p/Y7kmbokZp3pgGLq2/docs/ZX6GRezwJl7DpGYes1OqR7ZlVdqbropQ
+
 This means:
 
 - Common Markdown cannot be assumed to be fully supported.
