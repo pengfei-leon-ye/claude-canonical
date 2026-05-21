@@ -101,7 +101,7 @@ Required instance section topics. Instance topics are labelled `IT1 … IT14` to
 - **IT3 — Design tokens** — color tokens (Arco semantic overrides + HDC custom accents + HR-specific semantic states), text/background tokens, typography tokens, corporate font stack, spacing tokens, border radius / elevation / other visual tokens, token consumption rules
 - **IT4 — Component inventory** — Tier A (Arco used directly), Tier B (HDC custom), Tier C (forbidden); cross-platform mapping
 - **IT5 — HDC layout patterns to HR scenario mapping** — PC patterns, mobile patterns, cross-platform pattern mapping
-- **IT6 — Accessibility stance** — recommended engineering practices, what is explicitly NOT required, on-demand sanity check, rationale
+- **IT6 — Accessibility stance** — the instance carries a pointer to this rule's §6, not a restated summary
 - **IT7 — Internationalization and RTL** — locale coverage and RTL approach
 - **IT8 — Motion and animation** — motion principles, `prefers-reduced-motion` handling
 - **IT9 — Iconography** — primary icon source, custom icon policy, a11y for icons
@@ -521,23 +521,23 @@ CC substantive Code Quality Rule Set canonical declares the runtime and build-ti
 
 # 15. Reviewer checklist (for DS instance updates)
 
-Before signing off an instance update (additive merge at slice M4 / breaking review gate), verify:
+When reviewing an instance update for sign-off (additive merge at slice M4 / breaking review gate), verify:
 
 1. Design language foundation rationale references actual HDC context, not generic reasoning
 2. Implementation path specifies both PC and mobile library version pin and custom component policy; corporate VI primary color and font stack are declared; theme injection mechanism is explicitly the build-time `less-loader` `modifyVars` path (not a runtime CSS file or `@arco-themes/...` npm package); single monorepo theme source at `packages/hdc-corporate-theme/`
 3. Token section lists all custom HDC tokens with VI source values and justification
 4. Component inventory is MECE on both PC and mobile; Tier C forbidden list is explicit; cross-platform mapping is complete
 5. Layout-pattern mapping covers all major HDC HR scenarios on both PC and mobile
-6. Accessibility section explicitly states "no formal WCAG conformance target", lists the recommendations, and confirms enforcement via Arco defaults + jsx-a11y at warn (no CI a11y gate)
+6. Accessibility section is a pointer to this rule's §6 stance and does not restate it (per the §2 header field and §12.7 IT6)
 7. i18n declares RTL capability requirement regardless of launch languages
 8. Platform tiers (T1/T2/T3) are declared and the instance lists tier defaults
 9. Skill integration lists both `hdc-arco-enterprise-ui` and `hdc-wcag-accessibility-checker`; Hub-side consumption discipline per §13.3 is referenced
 10. Governance section in the instance references this rule's §12 process
 11. No duplication with PRD, UX Design Spec, intent, acceptance scope
-12. The CC mirror (`specs/design-system.md`) has been re-synced from the reviewed DS markdown export after the update; mirror version metadata matches the CD-side declared instance version
+12. (Post-sync confirmation) After the CC mirror sync that follows a passing review per §12.3, the CC mirror (`specs/design-system.md`) reflects the reviewed DS markdown export and its version metadata matches the CD-side declared instance version
 13. DS markdown export per §12.7 was generated for this update and is referenced in the instance header
 
-Each of items 1-13 is a binary pass/fail check: an item fails when the reviewer can name a specific instance section (or specific missing content) that does not satisfy it. If 2+ items fail by that test, the instance update is not yet ready for sign-off.
+Items 1-11 and 13 are verified at the §12.3 export conformance review, before the CC mirror sync; item 12 is verified after the sync, as a post-sync confirmation. Each is a binary pass/fail check: an item fails when the reviewer can name a specific instance section (or specific missing content) that does not satisfy it. If 2+ of the pre-sync items (1-11, 13) fail by that test, the instance update is not yet ready for sign-off and the sync does not proceed. Once the sync has occurred, item 12 is the single post-sync confirmation — it must pass for the sync to be considered complete.
 
 ---
 
