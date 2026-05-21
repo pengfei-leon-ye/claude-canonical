@@ -4,8 +4,8 @@
 - **Document Type**: Governance Mechanism Specification
 - **Status**: Active canonical
 - **Role**: Stable governance mechanism for multi-round-revised long-living spec artifact terminal-state cleanup, defining the trigger conditions for sign-off entry, the Why Anchor (WA) plus four-question decision tree governing keep-vs-delete during cleanup, the adjudication procedure for the in-place cleanup operation, per-artifact specifics for PRD and TDD expressed as content-category + example-pattern semantic rules (with A3, A4, A5, A7 placeholder pending empirical evidence), and exception handling for openapi.yaml + CC-produced slice artifacts + code/test/evidence
-- **Source Category**: Meta
-- **Management-System Role**: Outside L1-L5 hierarchy; governance mechanism running sign-off cleanup across long-living Cat 2 and Cat 4 spec artifacts; not itself an L2, L3, L4, or L5 artifact
+- **Source Category**: Cat 4
+- **Management-System Role**: Outside L1-L5 hierarchy; governance mechanism running sign-off cleanup on long-living spec artifacts (PRD / TDD) to prepare them for Development Track downstream-task consumption; operates across the Cat 2 PRD and Cat 4 TDD spec-artifact set but its purpose-axis is Cat 4 DT readiness per [OS] §2.3.2; not itself an L2, L3, L4, or L5 artifact
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [MECH] Sign-Off Cleanup Policy` header fields per [OS] §8.5.1a)
 
 ## Position and boundary
@@ -30,7 +30,7 @@ Do not use this source as:
 ## Cross-reference
 
 - **Grounded in**: [OS] §1.4 audience and consumption model, [OS] §5 output family classification
-- **Relationship to [MECH] Canonical File Self-Audit**: Self-audit governs quality during active revision; this MECH governs the removal-of-process-content at sign-off. Companion mechanisms; both operate at Meta layer across canonical source and spec artifact quality lifecycle. The Audit-quiescence trigger in §2 explicitly consumes Self-Audit's S1 / S2 severity definitions
+- **Relationship to [MECH] Canonical File Self-Audit**: Self-audit governs quality during active revision; this MECH governs the removal-of-process-content at sign-off. Adjacent governance mechanisms operating on different layers — Self-Audit at the Meta layer (canonical-source governance), this MECH at the Cat 4 layer (DT-consumption readiness for long-living spec artifacts). The Audit-quiescence trigger in §2 explicitly consumes Self-Audit's S1 / S2 severity definitions
 - **Relationship to [MECH] CI/CD Milestone Policy**: M0 Design Freeze (§2.1 of CI/CD) may be a moment when the operator judges a PRD/TDD has reached sign-off candidacy. The relationship is informational, not directional — M0 fires per-slice while sign-off is per-artifact-per-phase, so M0 does not auto-trigger sign-off
 - **Relationship to [MECH] Application Lifecycle Handoff**: Application Lifecycle Handoff consumes sign-off versions; sign-off cleanup precedes handoff readiness (per Application Lifecycle Handoff §2.2 mechanical readiness checklist)
 - **Relationship to [MECH] Development Track Workflow**: DTW defines the downstream tasks (TK-03 deterministic conversion onwards) whose AI consumers this cleanup protects. Spec artifact paths are invariant across sign-off (cleanup is in place); DTW TK-03 input list paths do not change pre/post sign-off
@@ -108,7 +108,7 @@ The operator declares the trigger reason at session opening (per §3.1). This is
 
 # 3. Adjudication procedure
 
-The cleanup operation runs as a single Hub Claude session. It is a Meta operation on spec content — it does not run on Claude Code, since cleanup is meta to the spec, not to slice generation.
+The cleanup operation runs as a single Hub Claude session. It is a meta-level operation on spec content (operating on the spec artifact itself rather than on slice-level outputs); it does not run on Claude Code, since cleanup is meta to the spec, not to slice generation.
 
 ## 3.1 Session opening
 

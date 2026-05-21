@@ -4,9 +4,9 @@
 - **Document Type**: Reference Catalog
 - **Status**: Active canonical
 - **Role**: Canonical cross-tool architecture reference defining the three AI workspaces (Hub / Claude Design / Claude Code), their boundaries, data flow, and asset-system relationships
-- **Source Category**: Meta
-- **Management-System Role**: Reference catalog source above the Cat 1-4 category system; outside L1-L5 hierarchy; not itself an L2, L3, L4, or L5 artifact
-- **Relationship to [OS]**: Companion meta-layer source per [OS] §2.3.2. [OS] owns the operating model (routing, source governance, anti-drift logic, audience model). This source owns the structural architecture of the three AI workspaces and the contracts that govern their interaction. Both admissible across all four Cat categories.
+- **Source Category**: Cross-category
+- **Management-System Role**: Reference catalog source with cross-category scope (admissible across all four task categories per [OS] §2.3.2); outside L1-L5 hierarchy; not itself an L2, L3, L4, or L5 artifact; carries substantive cross-tool architecture content, not canonical-source governance content
+- **Relationship to [OS]**: [OS] owns canonical-source governance (Meta layer per [OS] §2.3.2: admissibility, naming, audit, anti-drift, classification). This source owns the substantive structural architecture of the three AI workspaces and the contracts that govern their interaction (Cross-category layer per [OS] §2.3.2). Both admissible across all four Cat categories.
 - **Relationship to [PRIN] HR Digital Decision Design Principles**: Cross-topic judgment principles apply within any workspace; this source does not govern judgment, only structural architecture and inter-workspace contracts.
 - **Relationship to [REF] People Journey and Moments Catalog**: Different scope. People Journey is a domain reference (HR lifecycle stages); this source is an architectural reference (AI tool architecture).
 - **Relationship to [REF] Design System**: Anchored. The reintroduced `[REF] Design System` (Hub mirror of the CD-held DS instance, per the revised three-way distribution model in §5.2) is consumed by Hub Claude at TK-02 step 2.3 quality check and UX Design Spec authoring grounding, and is governed by [RULE] DSG §1.1 + §12 sync mechanism.
@@ -16,8 +16,8 @@
   - [MECH] Cross-Tool Workflow Handoff — operationalizes this source's three operator-mediated handoff paths into content contracts
   - [MECH] Application Lifecycle Handoff — distinct flow (AI-dev to human dev team, application-level); not the cross-tool workflow handoff this source describes
   - [RULE] Design System Governance — consumes this source's revised three-way DS distribution model (CD SOT / CC mirror / Hub mirror)
-- **Relationship to [RULE] Claude Platform Behavior**: Meta-layer peer. That source owns Claude.ai platform-level behaviors; this source owns the three-workspace architecture built on top of those behaviors for HDC project use.
-- **Relationship to [RULE] DingTalk MD Format Control**: Meta-layer peer. Delivery-interface for DingTalk-destined outputs; orthogonal to this source's structural architecture.
+- **Relationship to [RULE] Claude Platform Behavior**: Cross-category-layer peer per [OS] §2.3.2. That source owns Claude.ai platform-level behaviors; this source owns the three-workspace architecture built on top of those behaviors for HDC project use.
+- **Relationship to [RULE] DingTalk MD Format Control**: Cross-category-layer peer per [OS] §2.3.2. Delivery-interface for DingTalk-destined outputs; orthogonal to this source's structural architecture.
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [REF] Hub-CD-CC Architecture` header fields per [OS] §8.5.1a)
 
 ## How to use this source
@@ -94,8 +94,8 @@ This source does not own:
 | [REF] People Journey and Moments Catalog | Domain reference for HR lifecycle stages; orthogonal to architectural concerns. |
 | [REF] Design System | Anchored. The Hub mirror of DS instance content; consumed by Hub Claude at TK-02 step 2.3 quality check + UX Design Spec authoring grounding; synced from CD SOT per [RULE] DSG §12. |
 | [REF] CC Project Memory Bank Layout | Different scope (CC-internal canonical layout); operates inside the CC workspace boundary that this source defines. |
-| [RULE] Claude Platform Behavior | Meta-layer peer. Describes Claude.ai surface behaviors that this source composes into the three-workspace architecture. |
-| [RULE] DingTalk MD Format Control | Meta-layer peer. Delivery-interface for DingTalk-destined outputs; orthogonal to structural architecture. |
+| [RULE] Claude Platform Behavior | Cross-category-layer peer per [OS] §2.3.2. Describes Claude.ai surface behaviors that this source composes into the three-workspace architecture. |
+| [RULE] DingTalk MD Format Control | Cross-category-layer peer per [OS] §2.3.2. Delivery-interface for DingTalk-destined outputs; orthogonal to structural architecture. |
 | [RULE] Workspace Topology | Different scope. Multi-node dev environment inside CC; this source is hub/CD/CC at the AI tool level. |
 | [RULE] Claude Code Architecture Rules | Operates inside the CC workspace boundary that this source defines. |
 | [RULE] Design System Governance | Consumes this source's revised three-way DS distribution; owns the governance discipline and the mirror sync mechanism. |

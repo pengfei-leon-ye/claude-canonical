@@ -4,7 +4,7 @@
 - **Document Type**: Principles
 - **Status**: Active canonical
 - **Role**: Durable decision and design principles for HR digital work in this hub
-- **Source Category**: Meta
+- **Source Category**: Cross-category
 - **Management-System Role**: Cross-topic judgment layer; outside L1-L5 hierarchy; admissible across all four task categories per [OS] §2.3.2; this source is not itself an L2, L3, L4, or L5 artifact
 - **Relationship to [OS]**: Grounded in [OS] §0.1 project-level operating premises. Cross-topic judgment layer per [OS] §2.3.2 (admissible across all four work categories within their respective role anchors per [OS] §0.2).
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [PRIN]` header fields per [OS] §8.5.1a)

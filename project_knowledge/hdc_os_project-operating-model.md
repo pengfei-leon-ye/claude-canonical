@@ -296,11 +296,19 @@ The project scope contains four task categories distinguished by what kind of wo
 
 The following rules govern `Relationship to ...` fields in canonical source headers (per §10) and any cross-source references embedded in source content.
 
-**Admissible for all four categories (meta layer)**:
-- `[OS]` (this operating model) as meta authority
-- `[PRIN] HR Digital Decision Design Principles` as cross-topic judgment layer
-- `[RULE] Claude Platform Behavior Specification` and `[RULE] DingTalk Markdown Format Control Specification` as delivery-interface rules
-- `[REF] Hub-CD-CC Architecture` as cross-tool architecture reference frame
+**Universally admissible — Meta layer (canonical-source governance)**:
+- `[OS]` (this operating model) — meta authority for the canonical-source set; owns admissibility, naming, audit triggers, anti-drift, classification, header schema, priority chain
+- `[MECH] Canonical File Self-Audit` — seven-dimensional self-audit applied to canonical sources and to PI on creation or substantive revision
+
+**Universally admissible — Cross-category layer (global substantive content; not canonical-source governance)**:
+- `[PRIN] HR Digital Decision Design Principles` — cross-topic judgment layer applied to HR digital work
+- `[REF] Hub-CD-CC Architecture` — cross-tool architecture reference frame (three-workspace structure)
+- `[RULE] Claude Platform Behavior Specification` — Claude.ai delivery-interface rule
+- `[RULE] DingTalk Markdown Format Control Specification` — DingTalk delivery-interface rule
+- `[TPL] Problem Framing Memo` — cross-category framing vehicle
+- `[TPL] Options Paper` — cross-category option-comparison vehicle
+
+Both layers are admissible from any Cat 1 / Cat 2 / Cat 3 / Cat 4 canonical source's `Relationship to ...` header. The Meta-vs-Cross-category distinction matters for canonical-source quality auditing (`[MECH] Canonical File Self-Audit` applies to Meta and to all four Cat layers; Cross-category sources are themselves audit subjects, not audit authorities) and for understanding which sources carry governance authority over the canonical set vs. which carry substantive work content consumed broadly.
 
 **Admissible for specific categories**:
 
@@ -313,13 +321,11 @@ The following rules govern `Relationship to ...` fields in canonical source head
 | Cat 2 specification templates (PRD / Prototype / MVP) | ✗ | ✓ | via PRD | via PRD |
 | Cat 4 specification templates (TDD, Intent / Acceptance, Conversion Spec, Test Plan, UX Design Spec, ADR Spec, Phase Test Plan) | ✗ | ✗ | ✗ | ✓ |
 | Development Track `[RULE]` family (Claude Code Architecture Rules, Workspace Topology, Design System Governance) | ✗ | ✗ | ✗ | ✓ |
-| Development Track `[MECH]` family (Development Track Workflow, CI/CD Milestone Policy, Application Lifecycle Handoff, Cross-Tool Workflow Handoff) | ✗ | ✗ | ✗ | ✓ |
+| Development Track `[MECH]` family (Development Track Workflow, CI/CD Milestone Policy, Application Lifecycle Handoff, Cross-Tool Workflow Handoff, Sign-Off Cleanup Policy) | ✗ | ✗ | ✗ | ✓ |
 
 Authoritative membership of each `[RULE]` or `[MECH]` family for a given task category is determined by the `Source Category` header field declared in each canonical source per §10.2. When a Cat 4 source is added or retired, update the corresponding parenthetical in the same revision per §8.5.2 same-revision discipline; drift is an anti-drift signal per §12.
 
-**Cross-category templates** (admissible in multiple categories as framing / option-comparison vehicles):
-- `[TPL] Problem Framing Memo`
-- `[TPL] Options Paper`
+The cross-category `[TPL]` family (Problem Framing Memo, Options Paper) admissibility is captured in the universally-admissible Cross-category layer block above.
 
 ### 2.3.3 Hard boundary: no Cat 1 citation in Cat 2/3/4 canonical sources
 
@@ -916,7 +922,7 @@ This catalog holds the design rationale for each active pairing in §8.5.2 — w
 
 ### 8.5.6 Cat 4 source map
 
-This section is a read view across the seven cross-cutting Cat 4 sources from the `[RULE]` and `[MECH]` families that govern Claude Code execution architecture, infrastructure, orchestration, gating, and cross-tool workflow at the Hub canonical layer (post-Phase-3 Hub-CC architecture refactor per [OS] §0.1.5 Premise 5). Each source's authoritative scope statement remains in its own §0 / §1 boundary chapter; this map exists so that readers can locate ownership across the family without grepping every source header.
+This section is a read view across the eight cross-cutting Cat 4 sources from the `[RULE]` and `[MECH]` families that govern Claude Code execution architecture, infrastructure, orchestration, gating, cross-tool workflow, and spec-artifact terminal-state readiness at the Hub canonical layer (post-Phase-3 Hub-CC architecture refactor per [OS] §0.1.5 Premise 5). Each source's authoritative scope statement remains in its own §0 / §1 boundary chapter; this map exists so that readers can locate ownership across the family without grepping every source header.
 
 `[TPL]` Cat 4 sources (specification-support templates such as TDD template, PRD template) are out of scope of this map; their ownership is template-level (which produced-artifact section each template authors), governed by the `Relationship to adjacent [TPL] sources` header field convention rather than by this map.
 
@@ -931,6 +937,7 @@ This section is a read view across the seven cross-cutting Cat 4 sources from th
 | `[MECH] CI/CD Milestone Policy` — **constitutional residue** | Lifecycle gating (constitutional) | M0–M5 ladder identity (§2.1-§2.6), per-unit-type milestone profile interface (§2.7), Test Evidence Report schema (§3), required artifact output gates (§4), multi-node evidence parity invariant (§1.2), cross-workspace anti-drift (§5). **CC-side substantive**: gate criteria per M-N, tooling baseline, accessibility thresholds, slice-size advisory, stuck recovery, code review tool operational specifics, performance test scope (at CC substantive CI/CD canonical) |
 | `[MECH] Application Lifecycle Handoff` (ALH) | App-to-human-team transition | Application lifecycle stages (§1), handoff readiness criteria (§2), content scope (§3), mechanism (§4), tag namespace (§4.1), re-entry policy (§5). Unchanged in Phase 3 |
 | `[MECH] Cross-Tool Workflow Handoff` (CTWH) | Cross-tool content flow contracts | Three operator-mediated handoff paths (Hub ↔ CD, Hub ↔ CC, CD ↔ CC), per-direction content contracts (§2-§4), reminder-form discipline (§5), audit-failure handling (§6), Hub Claude trigger phrases for cross-tool handoff (§7), CD ↔ CC decoupled-by-default discipline during research preview (§4.4). Unchanged in Phase 3 |
+| `[MECH] Sign-Off Cleanup Policy` (SOCP) | Spec-artifact terminal-state cleanup (DT-consumption readiness) | Why Anchor + four-question keep-vs-delete decision tree (§1.3), trigger conditions (§2), in-place adjudication procedure (§3), per-artifact specifics for PRD A1 + TDD A2 with A3-A7 placeholders pending empirical evidence (§4), exception handling for A6 openapi.yaml + B1-B3 CC-produced slice artifacts + C1-C3 code/test/evidence (§5). Operates across Cat 2 PRD and Cat 4 TDD spec artifacts; purpose-axis is Cat 4 DT downstream-task readiness per §2.3.2 Source Category definition. Unchanged in Phase 3 |
 
 **Sources fully migrated to CC substantive canonical in Phase 3 (no Hub Cat 4 residue retained)**:
 - `[RULE] Codex Plugin Usage` → CC substantive Codex Plugin Usage canonical (code review tool semantics, command catalog, trigger logic, evidence path schema)
@@ -1210,9 +1217,9 @@ Every canonical source must declare two fields in addition to the standard heade
 - `Cat 1` — management-system work scope
 - `Cat 2` — business solution design scope
 - `Cat 3` — configuration workbook production scope (currently empty per §2.3.5)
-- `Cat 4` — Development Track scope
-- `Cross-category` — admissible across multiple categories with explicit per-category constraints declared
-- `Meta` — operates above category scope (e.g., this operating model itself)
+- `Cat 4` — Development Track scope (includes sources whose purpose-axis is DT-readiness even when they operate across spec artifacts of other categories — e.g., sign-off cleanup of PRD prepares the artifact for DT downstream consumption)
+- `Cross-category` — global scope admissible across all four task categories, carrying substantive content (cross-topic judgment principles, delivery-interface rules, cross-tool architecture references, framing / option-comparison templates) consumed by work across multiple categories; **does NOT govern canonical sources themselves** — that is the distinguishing test against Meta
+- `Meta` — owns governance rules applied to other canonical sources (canonical-source admissibility, naming, audit, anti-drift, lifecycle, classification, priority chain, source-ready generation, header-schema discipline); does NOT produce substantive work output or template specification artifacts. The set is intentionally small; admission requires a primary axis of canonical-source governance, not mere cross-category applicability. A source whose content applies globally but governs work outputs (not canonical sources) belongs in `Cross-category`, not `Meta`.
 
 **Management-System Role** — declares where the source sits relative to the §4 L1-L5 management-system lens:
 - An L2-L5 level when the source is itself a management-system output landing at that level

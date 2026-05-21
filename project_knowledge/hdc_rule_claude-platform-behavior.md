@@ -4,7 +4,7 @@
 - **Document Type**: Tool Usage Specification
 - **Status**: Active canonical
 - **Role**: Stable platform-behavior source for Claude.ai deliverable rendering, web search use, and source precedence logic in this project
-- **Source Category**: Meta
+- **Source Category**: Cross-category
 - **Management-System Role**: Delivery-interface rule; outside L1-L5 hierarchy; admissible across all four task categories per [OS] §2.3.2; this source is not itself an L2, L3, L4, or L5 artifact
 - **Relationship to [OS]**: Serves the Think, Specify, and Harvest loops by codifying Claude.ai platform behaviors that affect deliverable landing and information grounding; complements [OS] §11 format and language stance without overlapping it.
 - **Relationship to [RULE] DingTalk Markdown Format Control Specification**: Companion rule for delivery-surface choices; DingTalk Format Control governs DingTalk-targeted Markdown syntax, while this source governs Claude.ai-native rendering and search behaviors

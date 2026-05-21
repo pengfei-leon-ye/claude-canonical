@@ -4,7 +4,7 @@
 - **Document Type**: Format Control Specification
 - **Status**: Active canonical
 - **Role**: Stable format-control source for DingTalk-targeted outputs and project source readability rules in this project
-- **Source Category**: Meta
+- **Source Category**: Cross-category
 - **Management-System Role**: Delivery-interface rule; outside L1-L5 hierarchy; admissible across all four task categories per [OS] §2.3.2; this source is not itself an L2, L3, L4, or L5 artifact
 - **Relationship to [OS]**: Serves as the active canonical DingTalk format-control source referenced by the Project Operating Model
 - **Pairings I participate in**: None currently (per [OS] §8.5.2 as of this revision)
