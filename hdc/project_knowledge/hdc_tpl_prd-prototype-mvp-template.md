@@ -251,7 +251,7 @@ Use the optional `Compliance and Regulatory Anchors` subsection in the body (§3
 - Generated documents may be English-only, Chinese-only, or bilingual. Set the language deliberately based on audience, review context, and implementation need.
 - If the final document will be uploaded to DingTalk Docs, normalize the upload-ready Markdown per [RULE] DingTalk Markdown Format Control Specification before upload.
 
-**Canonical path for handoff-ready PRDs**: when an Approved PRD at Full depth becomes the development handoff input, its canonical filesystem location is `apps/{app-slug}/specs/prd/phase-{N}.md` per [MECH] Development Track Workflow TK-01. The `{app-slug}` segment is the value populated in §1.1 `App Slug`; the `{N}` segment is the value populated in §1.1 `Phase Number`. Project-level singletons (Design System Spec at `specs/design-system.md`, Design System change drafts at `specs/design-system-changes/`) are not under any app's directory and are referenced by handoff-ready PRDs but not relocated.
+**Canonical path for handoff-ready PRDs**: when an Approved PRD at Full depth becomes the development handoff input, its canonical filesystem location is `apps/{app-slug}/specs/prd/phase-{N}.md` per [MECH] Development Track Workflow TK-01. The `{app-slug}` segment is the value populated in §1.1 `App Slug`; the `{N}` segment is the value populated in §1.1 `Phase Number`. The project-level Design System Spec singleton (`specs/design-system.md`) is not under any app's directory and is referenced by handoff-ready PRDs but not relocated.
 
 For PRDs that have not (yet) entered handoff (Prototype Brief, MVP Brief, PRD + Standard before app and phase commitment), the filesystem location is at the operator's discretion until handoff readiness is reached.
 
