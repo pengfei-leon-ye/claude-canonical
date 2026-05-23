@@ -3,7 +3,7 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Governance Mechanism Specification
 - **Status**: Active canonical
-- **Role**: Stable governance mechanism for multi-round-revised long-living spec artifact terminal-state cleanup, defining the trigger conditions for sign-off entry, the Why Anchor (WA) plus four-question decision tree governing keep-vs-delete during cleanup, the adjudication procedure for the in-place cleanup operation, per-artifact specifics for PRD and TDD expressed as content-category + example-pattern semantic rules (with A3, A4, A5, A7 placeholder pending empirical evidence), and exception handling for openapi.yaml + CC-produced slice artifacts + code/test/evidence
+- **Role**: Stable governance mechanism for multi-round-revised long-living spec artifact terminal-state cleanup, defining the trigger conditions for sign-off entry, the Why Anchor (WA) plus four-question decision tree governing keep-vs-delete during cleanup, the adjudication procedure for the in-place cleanup operation, per-artifact specifics for PRD and TDD expressed as content-category + example-pattern semantic rules (with A3, A4, A5, A7 placeholder pending empirical evidence), and exception handling for A6 openapi.yaml + B1-B3 Hub-produced slice interface artifacts + C1-C3 CC-produced code/test/evidence
 - **Source Category**: Cat 4
 - **Management-System Role**: Outside L1-L5 hierarchy; governance mechanism running sign-off cleanup on long-living spec artifacts (PRD / TDD) to prepare them for Development Track downstream-task consumption; operates across the Cat 2 PRD and Cat 4 TDD spec-artifact set but its purpose-axis is Cat 4 DT readiness per [OS] §10.2; not itself an L2, L3, L4, or L5 artifact
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [MECH] Sign-Off Cleanup Policy` header fields per [OS] §8.5.1a)
@@ -56,7 +56,7 @@ The cleanup is in-place; **no separate archived snapshot is produced and no `sig
 
 ## 1.2 Why Anchor (WA)
 
-Sign-off PRD / TDD / spec artifacts are consumed by AI consumers downstream — Hub Claude at TK-01 / TK-02 spec authoring or amendment, Claude Code at TK-03 deterministic conversion (per [TPL] PRD + TDD to Intent and Acceptance Conversion Specification) and beyond, and both at later TK-04 ~ TK-13 as reference. Process content gives those consumers zero positive grounding, occupies their context budget, and can cause attention drift (a consumer reading `vX.Y 曾叫 approval_category` may wrongly believe both names co-exist in current canonical); the root purpose of cleanup is therefore to produce a sign-off version containing only content with direct downstream value, in place at the canonical path, with no parallel artifact accumulation.
+Sign-off PRD / TDD / spec artifacts are consumed by AI consumers downstream — Hub Claude at TK-01 / TK-02 spec authoring or amendment and at TK-03 deterministic conversion (per [TPL] PRD + TDD to Intent and Acceptance Conversion Specification + [TPL] Writing Standard §1.11 Hub-only TK-03 invariant), and both Hub Claude and Claude Code at later TKs as reference. Process content gives those consumers zero positive grounding, occupies their context budget, and can cause attention drift (a consumer reading `vX.Y 曾叫 approval_category` may wrongly believe both names co-exist in current canonical); the root purpose of cleanup is therefore to produce a sign-off version containing only content with direct downstream value, in place at the canonical path, with no parallel artifact accumulation.
 
 Any keep-vs-delete uncertainty defaults to: **would keeping this line risk misleading an AI consumer about current canonical, or waste their attention budget?** Yes → delete; No → keep.
 
@@ -210,22 +210,24 @@ Until these §4 entries are filled in:
 
 Specifics for A6 are deferred until the first phase-end openapi sign-off occurs. The decision tree and cleanup procedure in §1.3 and §3 may need adaptation; this is acknowledged as a known exception, not a coverage gap.
 
-## 5.2 B1 – B3 — CC-produced slice-level artifacts, pending evaluation
+## 5.2 B1 – B3 — Hub-produced slice-level interface artifacts, pending evaluation
 
-The following artifacts are produced by Claude Code at TK-03 deterministic conversion:
+The following artifacts are produced by Hub Claude at TK-03 deterministic conversion (per [TPL] PRD + TDD to Intent and Acceptance Conversion Specification + [TPL] Writing Standard §1.11 Hub-only TK-03 invariant):
 
 - **B1** `apps/{app-slug}/specs/intent/{slice-id}.md`
 - **B2** `apps/{app-slug}/specs/acceptance/{slice-id}.yaml`
 - **B3** `apps/{app-slug}/specs/test-plan/{slice-id}.yaml`
 
-These artifacts may or may not exhibit the same process-content accumulation pattern as Hub-produced artifacts. The cleanup pattern is hypothesis until empirical evidence is gathered:
+These artifacts may or may not exhibit the same process-content accumulation pattern as A1/A2. The cleanup pattern is hypothesis until empirical evidence is gathered:
 
 | Hypothesis | Implication |
 | --- | --- |
-| CC artifacts use replace-style updates (deterministic conversion overwrites) | No process content accumulates; B1-B3 exempt from this MECH |
-| CC artifacts accumulate review feedback as inline annotations during M0-M4 iteration | Same pattern as A1/A2; B1-B3 covered by extension of this MECH |
+| B1-B3 use replace-style updates during Hub-side TK-03 sign-off cross-model review iteration (each operator-driven Hub Claude × ChatGPT consensus loop round rewrites in place) | No process content accumulates; B1-B3 exempt from this MECH |
+| B1-B3 accumulate inline annotations / revision history during Hub-side TK-03 sign-off cross-model review iteration | Same pattern as A1/A2; B1-B3 covered by extension of this MECH |
 
-**Default**: B1-B3 are exempt from this MECH until TK-03 starts and the first 2-3 slices are completed with full review iteration. The session that closes the third slice's M0 review reports the observed pattern, and this §5.2 is updated accordingly (either to confirm exemption or extend coverage).
+**Note on post-transfer modifications**: After TK-04 transfer to CC per [MECH] Cross-Tool Workflow Handoff §3.1, B1 (intent.md) and B2 (acceptance.yaml) are not modified by CC per [TPL] Writing Standard §1.11 ("No CC-side authoring at TK-03"). B3 (test-plan.yaml) may receive additive TK-10 adversarial-loop-patch entries from adversarial-tester subagent A3, recorded as canonical content with `generated_by: adversarial-loop-patch` provenance per [TPL] Test Plan YAML Schema §4 `generated_by` enum — these are forward canonical content, not process content, and do not by themselves trigger this MECH.
+
+**Default**: B1-B3 are exempt from this MECH until N=2 transition slices have completed TK-03 sign-off cross-model review (per [MECH] DTW §6.1 human intervention budget transition rule). The Hub Claude session that finalizes the second transition slice at TK-03 sign-off reports the observed pattern in its session response, and this §5.2 is updated accordingly (either to confirm exemption or extend coverage).
 
 ## 5.3 C1 – C3 — CC-produced code/test/evidence artifacts, permanently exempt
 
