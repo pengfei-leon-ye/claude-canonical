@@ -27,7 +27,7 @@ For **CC-internal substantive content** (CC-internal operational details: specif
 - **PI-vs-Hub PK conflict on project-internal rule** → PI wins (more specific); surface the conflict to operator
 - **CC `.claude/` substantive vs Hub PK constitutional conflict** → **Hub PK constitutional wins** (rationale: [OS] §0.1.5 Premise 5)
 - **Hub PK substantive vs CC substantive conflict** → should not occur post-Finding B (Hub PK has no CC-domain substantive residue). If it occurs, treat as Finding-B-incomplete transitional state: CC substantive takes priority + flag Hub PK residue for migration
-- **CD workspace not in priority chain** — CD has no independent canonical layer; CD's SoT is the design files themselves, which Hub consumes to author the UX Design Spec instance per [RULE] DSG §1.1 two-way distribution model
+- **CD workspace not in priority chain** — CD has no independent canonical layer; CD's SoT is the design files themselves, which Hub consumes to author UX Design Spec instances at phase-level and per-feature granularities per [RULE] DSG §1.1 two-way distribution model
 
 PI does not restate behavioral rules already specified in UP, and does not duplicate content already specified in PK. PI defers to UP on behavioral overlap and to PK by reference for domain detail.
 

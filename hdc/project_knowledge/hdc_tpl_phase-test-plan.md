@@ -11,6 +11,7 @@
 - **Relationship to [TPL] Test Plan YAML Schema**: Companion. This template owns the phase-level markdown master; [TPL] Test Plan YAML Schema owns the per-feature integration yaml and per-slice yaml. The two are paired by app and phase: one phase test plan + N feature integration test plans + M slice test plans per phase.
 - **Relationship to [TPL] TDD Template**: Anchored. Phase test plan §1 (Phase scope summary) cross-references paired phase TDD §1 (Architecture) and §2 (Cross-feature concerns); §3 NFR scenarios reference phase TDD §2.2.1 (NFR baselines).
 - **Relationship to [TPL] PRD Prototype MVP Template**: Anchored. Phase test plan §1 cross-references paired phase PRD scope; §2 risk attribution cross-references PRD §13.1 Key Risks.
+- **Relationship to [TPL] UX Design Spec**: When any feature in the phase has `tier_1_involved=true`, the phase-level UX Design Spec instance at `apps/{app-slug}/specs/ux-design-spec/phase-{N}.md` is paired with this phase test plan: §2A.3 cross-feature touchpoints inform §2 cross-feature scenario classes (UI-layer touchpoint scenarios feed cross-feature scenario authoring); §2A.5 visual regression naming convention is the canonical source for VR case-naming across all per-feature integration test plans and per-slice test plans in the phase (test cases of `test_type: visual_regression` follow the phase-level §2A.5 prefix + state vocabulary).
 - **Relationship to [MECH] Development Track Workflow**: TK-02 produces this artifact alongside phase TDD per DTW §4 task definition.
 - **Relationship to [MECH] Sign-Off Cleanup Policy**: Applies to phase test plans at sign-off — the phase test plan is a long-living spec artifact subject to Sign-Off Cleanup discipline at handoff prep time.
 - **Pairings I participate in**: None (post-Wave 2 Tier rationalization). Two previously-considered candidate couplings (with [TPL] Test Plan YAML Schema, with [TPL] TDD §2 phase-level testing strategy) both classify as Tier B per [OS] §8.5.1a — semantic-search-discoverable via the explicit `Relationship to adjacent [TPL] sources` header field above. No static pairing registration required.
@@ -113,6 +114,9 @@ A list of scenario classes that exercise multiple features end-to-end. For each 
 - Evidence requirement (which feature-level flows or slice-level cases evidence this class)
 - Owner subagent or human owner
 - Risk attribution (cross-reference paired PRD §13.1 Key Risks if applicable)
+- UI-layer touchpoint reference (when applicable; cross-reference phase-level UX Design Spec instance §2A.3 cross-feature touchpoint id, e.g., `C-01`, when the scenario exercises a UX touchpoint)
+
+Cross-feature scenario classes that exercise UI-layer touchpoints SHOULD trace back to the corresponding phase-level UX Design Spec §2A.3 entry. The TDD §2.2.5 Integration boundaries entries cover the interface-level (API / event / data) side of cross-feature contracts; the UX Spec §2A.3 entries cover the interaction-level (CTA / jump / mask / state-propagation) side; a single touchpoint may have both, and the scenario class can reference either or both as appropriate.
 
 ## §3 App-scale NFR scenario classes
 

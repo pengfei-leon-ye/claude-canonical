@@ -108,7 +108,7 @@ This conversion executes in **Hub Claude**, not on the assigned_node Claude Code
 
 2. **No SK-F live consultation at TK-03**: SK-F (`hdc-arco-enterprise-ui` skill) is a Claude Code skill that loads at CC session start and is invoked at code-generation time (TK-04 onward, when substantive code writing begins per [MECH] DTW TK-04 description). SK-F is **not** consulted during this conversion. Component-existence verification against the live DS instance happens at CC code generation, not at Hub TK-03. The TK-03 converter's contract with the UX Design Spec instance is: "if a component is named in the UX brief, Hub at TK-02 Step 2.3 grounded it in the CD-authored design files; CC will verify at code time against the CC mirror and surface any drift as a TK-04+ findings."
 
-3. **No SK-W live consultation at TK-03**: SK-W (`hdc-wcag-accessibility-checker` skill) is on-demand only and not bound to TK-03 timing. When the UX Design Spec instance §2.5 declares slice-specific a11y considerations, the converter writes them through to acceptance.yaml `accessibility_expectations` per §4.7 below; operator triggers SK-W audit on-demand later if warranted (per [RULE] DSG §6.3).
+3. **No SK-W live consultation at TK-03**: SK-W (`hdc-wcag-accessibility-checker` skill) is on-demand only and not bound to TK-03 timing. When the per-feature UX Design Spec instance §2B.5 declares slice-specific a11y considerations, the converter writes them through to acceptance.yaml `accessibility_expectations` per §4.7 below; operator triggers SK-W audit on-demand later if warranted (per [RULE] DSG §6.3).
 
 4. **Cross-model review at Hub as design-freeze gate**: After conversion outputs are drafted, the operator's GPT-Claude consensus review (manual loop with ChatGPT against Hub Claude's draft) serves as the design-freeze gate. The cross-model review is conducted in Hub; only after consensus does the operator transfer artifacts to CC per [MECH] Cross-Tool Workflow Handoff §3.1.
 
@@ -165,7 +165,7 @@ Before conversion begins, all of the following must be explicit:
 **Design system readiness** (if Tier 1 involved):
 - Current DS instance version known (CD = SOT; CC mirror at `specs/design-system.md` per [RULE] DSG §1.1). The UX Design Spec instance header records the DS instance version used at TK-02 Step 2.3 authoring time (from the CD-authored design files), anchoring traceability
 - Hub-authored UX Design Spec instance for this feature exists at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`, authored at TK-02 Step 2.3 from CD-authored design files (transferred per [MECH] Cross-Tool Workflow Handoff §2.2). The operator has applied the two reviewer checklists in `[TPL] UX Design Spec` §3 (§3.1 design file quality check at TK-02 Step 2.2 conclusion; §3.2 instance authoring quality check at TK-02 Step 2.3 conclusion) and signed off both before TK-03 begins
-- The UX Design Spec instance §2.4 (when present) declares the additive update plan for any new components or tokens this feature introduces; the update will merge to the DS instance at the originating feature's M4 → merge-to-main milestone per [RULE] DSG §12.5 (TK-12)
+- The per-feature UX Design Spec instance §2B.4 (when present) declares the additive update plan for any new components or tokens this feature introduces; the update will merge to the DS instance at the originating feature's M4 → merge-to-main milestone per [RULE] DSG §12.5 (TK-12)
 - SK-F live consultation is NOT required at TK-03 time (per §0.6 item 2); SK-F operates at CC code-generation time only
 
 If any of these are unclear, do not start extraction. Clarify upstream first.
@@ -285,20 +285,25 @@ Rule:
 
 ## 3.8 UX brief extraction (when Tier 1 involved)
 
-Source: Hub-authored UX Design Spec instance per `[TPL] UX Design Spec` (committed at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` at TK-02 Step 2.3 per §0.6) + Design System Governance topic-level rules + PRD user flow.
+Sources: Hub-authored UX Design Spec instances per `[TPL] UX Design Spec` — **both granularities**, with extraction targets differing per category:
+- **Per-feature instance** at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (committed at TK-02 Step 2.3 per §0.6) — primary source for in-slice UX (screens, components, interactions, a11y, i18n, additive plans the slice consumes)
+- **Phase-level instance** at `apps/{app-slug}/specs/ux-design-spec/phase-{N}.md` (committed at TK-02 Step 2.3 per §0.6) — source for cross-cutting context when the slice participates in a phase-level §2A.3 cross-feature touchpoint, consumes a phase-level §2A.2 shared vocabulary item, or uses a cross-cutting additive indexed in §2A.6
 
-**No SK-F live consultation at TK-03**: The converter does not query SK-F during conversion (SK-F is a CC-side skill — see §0.6 item 2). Component-existence verification, layout-pattern catalog matching, and token reference validation against the live DS instance are performed at CC code-generation time (TK-04 onward, when substantive code writing begins per [MECH] DTW TK-04), not at Hub TK-03. TK-02 Step 2.3's Hub-side authoring discipline is the upstream guarantee that the UX brief extraction is grounded in real DS instance content: Hub Claude authored the UX Design Spec instance from CD-authored design files per `[TPL] UX Design Spec` §1, and the operator ran the two reviewer checklists in `[TPL] UX Design Spec` §3 (design file quality check + instance authoring quality check) before TK-03 begins.
+Plus Design System Governance topic-level rules + PRD user flow.
+
+**No SK-F live consultation at TK-03**: The converter does not query SK-F during conversion (SK-F is a CC-side skill — see §0.6 item 2). Component-existence verification, layout-pattern catalog matching, and token reference validation against the live DS instance are performed at CC code-generation time (TK-04 onward, when substantive code writing begins per [MECH] DTW TK-04), not at Hub TK-03. TK-02 Step 2.3's Hub-side authoring discipline is the upstream guarantee that the UX brief extraction is grounded in real DS instance content: Hub Claude authored both UX Design Spec instances from the CD-authored design file per `[TPL] UX Design Spec` §1, and the operator ran the reviewer checklists in `[TPL] UX Design Spec` §3 (§3A for phase-level + §3B for per-feature, both with design file quality check + instance authoring quality check) before TK-03 begins.
 
 **Field rules**:
 
-- **Screens**: Pick the subset of the UX Design Spec instance §2.1 (Affected Tier 1 scope) screens that fall within this slice's modules. One sentence purpose per screen. Layout pattern assignment from UX Design Spec instance §2.2 (HDC layout pattern selection).
-- **Key interactions**: Pick the interactions specific to this slice's scenarios. Components from UX Design Spec instance §2.3 (Tier A or Tier B as already declared in the instance, grounded in the CD-authored design files at authoring time). Do not restate Design System Governance component specs — reference only.
+- **Screens**: Pick the subset of the per-feature UX Design Spec instance §2B.1 (Affected Tier 1 scope) screens that fall within this slice's modules. One sentence purpose per screen. Layout pattern assignment from per-feature UX Design Spec instance §2B.2 (HDC layout pattern selection).
+- **Key interactions**: Pick the interactions specific to this slice's scenarios. Components from per-feature UX Design Spec instance §2B.3 (Tier A or Tier B as already declared in the instance, grounded in the CD-authored design file at authoring time). When an interaction participates in a phase-level §2A.3 cross-feature touchpoint, additionally reference the touchpoint id (e.g., `C-01`) so the slice's downstream consumers can locate the contract on both sides. Do not restate Design System Governance component specs — reference only.
 - **Empty / loading / error states**: Only note deviations from DS instance defaults (per [RULE] DSG §10 content style governance). If DSG defaults suffice, write "Per Design System Governance defaults."
-- **Accessibility call-outs**: Lift from UX Design Spec instance §2.5 (Accessibility call-outs, feature-specific only). Do not restate [RULE] DSG §6.1 baseline content.
-- **Internationalization call-outs**: Only when the slice has specific i18n load beyond DSG §7 defaults. Lift from UX Design Spec instance §2.6 (Internationalization and RTL call-outs). Translation volume estimate if non-trivial.
-- **New components or tokens (slice-local use only)**: Only if UX Design Spec instance §2.4 (New components or tokens) declared a new asset that this slice uses. Reference the additive update plan in §2.4; do not embed the plan content in intent.md. The plan itself flows to the DS instance via [RULE] DSG §12 at the originating feature's M4 → merge-to-main milestone (TK-12). Otherwise write "None."
+- **Accessibility call-outs**: Lift from per-feature UX Design Spec instance §2B.5 (Accessibility call-outs, feature-specific only). Do not restate [RULE] DSG §6.1 baseline content.
+- **Internationalization call-outs**: Only when the slice has specific i18n load beyond DSG §7 defaults. Lift from per-feature UX Design Spec instance §2B.6 (Internationalization and RTL call-outs). Translation volume estimate if non-trivial.
+- **New components or tokens (slice-local use only)**: Only if per-feature UX Design Spec instance §2B.4 (New components or tokens) declared a new asset that this slice uses. Reference the additive update plan in §2B.4 by asset name; do not embed the plan content in intent.md. If the additive is cross-cutting, the slice MAY additionally reference the phase-level instance §2A.6 index entry. The plan itself flows to the DS instance via [RULE] DSG §12 at the originating feature's M4 → merge-to-main milestone (TK-12). Otherwise write "None."
+- **Shared vocabulary references (when applicable)**: When the slice consumes a phase-level §2A.2 shared visual vocabulary item (badge family, status visual language, masking pattern, etc.), reference the vocabulary item by name rather than restating it. The phase-level instance is the canonical source.
 
-**If the UX Design Spec instance §2.x is silent on a UX point the slice needs**: Treat as a clarification trigger (see §5.4 below). Do not invent UX content in Hub Claude. Raise to operator; operator routes back to CD for additional design file coverage and then Hub re-authors the instance section, if warranted.
+**If a UX Design Spec instance §2A.x or §2B.x is silent on a UX point the slice needs**: Treat as a clarification trigger (see §5.4 below). Do not invent UX content in Hub Claude. Raise to operator; operator routes back to CD for additional design file coverage (phase-level cross-cutting sections or the affected feature's slice as appropriate) and then Hub re-authors the affected instance section, if warranted.
 
 ## 3.9 Assumptions extraction
 
@@ -325,7 +330,7 @@ Reference the exact PRD and TDD filenames and slice list (all under `apps/{app-s
 When Tier 1 involved, also reference:
 
 - The DS instance — CC mirror at `specs/design-system.md` for CC-side reference (read by CC at TK-04+ code generation via SK-F); the CD instance is the SOT, and Hub grounds spec authoring in the CD-authored design files (Hub holds no DS instance copy)
-- The Hub-authored UX Design Spec instance for this feature at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (authored at TK-02 Step 2.3 from CD-authored design files per [TPL] UX Design Spec §1; CD design files in their native format are forwarded to CC alongside the instance markdown at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1 as visual reference)
+- The Hub-authored UX Design Spec instances for this feature's slice — the per-feature instance at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (in-slice UX source) and the phase-level instance at `apps/{app-slug}/specs/ux-design-spec/phase-{N}.md` (cross-cutting context source) — both authored at TK-02 Step 2.3 from the CD-authored design file per [TPL] UX Design Spec §1; CD design files in their native format are forwarded to CC alongside both instance markdowns at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1 as visual reference
 
 The DS instance CC mirror path `specs/design-system.md` is not under `apps/` because the design system is project-level (one instance shared across all apps). The retired `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` path is no longer in scope.
 
@@ -377,11 +382,11 @@ Rule: Each expectation must trace to a must_pass_scenario that triggers the sign
 
 ## 4.7 accessibility_expectations (when Tier 1 involved)
 
-Source: UX Design Spec instance §2.5 (Accessibility call-outs, feature-specific only) + [RULE] DSG §6 stance.
+Source: per-feature UX Design Spec instance §2B.5 (Accessibility call-outs, feature-specific only) + [RULE] DSG §6 stance.
 
 Rule:
 - Per [RULE] DSG §6, HDC has no formal WCAG conformance target; this section is **optional** and used only when the slice has specific a11y considerations beyond Arco component defaults
-- When the UX Design Spec instance §2.5 declares feature-specific a11y call-outs, convert each into an `accessibility_expectations` entry; otherwise omit the section entirely
+- When the per-feature UX Design Spec instance §2B.5 declares feature-specific a11y call-outs, convert each into an `accessibility_expectations` entry; otherwise omit the section entirely
 - Each entry includes `verification: automated | manual | both`; "automated" maps to either `eslint-plugin-jsx-a11y` (warn-level lint, per CC substantive Code Quality Rule Set canonical) or to an on-demand SK-W audit; "manual" means an operator spot-check at M4
 - No entry creates a milestone gate; the project a11y stance is "no formal gate"
 
@@ -423,7 +428,7 @@ Action: Do not silently pick one. Record the conflict explicitly. Either fix TDD
 
 ## 5.4 Design System Governance silent on a UX point
 
-Example: the UX Design Spec instance §2.2 references a layout pattern that is not in DSG §11 / DS instance pattern catalog; or the UX Design Spec instance §2.3 references a component not in DS instance §4 inventory without an §2.4 additive update plan.
+Example: the per-feature UX Design Spec instance §2B.2 references a layout pattern that is not in DSG §11 / DS instance pattern catalog; or the per-feature UX Design Spec instance §2B.3 references a component not in DS instance §4 inventory without an §2.4 additive update plan.
 
 Action: Raise to the spec owner (the operator). Either add the missing asset to the DS instance via [RULE] DSG §12 additive update path (authored in CD), or revise the UX Design Spec instance to use a cataloged asset (Hub re-authors the relevant §2.x section at TK-02 Step 2.3, drawing from updated CD design files). Hub Claude cannot extend the DS inventory nor SK-F-validate a component reference at TK-03; the gap routes back to CD for resolution.
 
@@ -463,7 +468,7 @@ When PRD and TDD disagree:
 - **Scope boundary**: PRD wins (TDD scope must align with PRD scope)
 - **API contract specifics**: TDD wins
 - **User experience flow**: PRD wins for the flow; the Hub-authored UX Design Spec instance (per `[TPL] UX Design Spec`, drawing from CD-authored design files at TK-02 Step 2.3) wins for screen / layout pattern / component realization
-- **Accessibility targets**: [RULE] Design System Governance (project-level) wins over any feature-level override unless the UX Design Spec instance §2.5 explicitly justifies exceeding the baseline
+- **Accessibility targets**: [RULE] Design System Governance (project-level) wins over any feature-level override unless the per-feature UX Design Spec instance §2B.5 explicitly justifies exceeding the baseline
 
 If a conflict cannot be resolved by this priority table, raise clarification.
 
@@ -524,7 +529,7 @@ Before finalizing the extracted `intent.md` and `acceptance.yaml`, verify all of
 4. Do `permissions.owning_tier` entries respect phase TDD `§1.Tier-Responsibility-Mapping` tier mapping and [RULE] Claude Code Architecture Rules §3?
 5. If Tier 1 involved: is the UX brief present in intent.md?
 6. If Tier 1 involved: are accessibility_expectations present in acceptance.yaml?
-7. If Tier 1 involved: are referenced components named in the UX brief covered by the Hub-authored UX Design Spec instance §2.3 inventory entries (which Hub grounded in the CD-authored design files at TK-02 Step 2.3)? This is the TK-03-actionable check the extractor performs. (Informational, not a TK-03 action: component-existence is separately verified at CC code time via SK-F against the CC mirror — at TK-03 the converter trusts TK-02 Step 2.3's Hub-side authoring discipline; because CD authors both the design files and the DS instance, the UX Design Spec's design-file-grounded references and the CC mirror are consistent by common authorship, and the DSG §15 export conformance review is the cross-workspace cross-check the extractor cannot itself execute.)
+7. If Tier 1 involved: are referenced components named in the UX brief covered by the Hub-authored per-feature UX Design Spec instance §2B.3 inventory entries (which Hub grounded in the CD-authored design files at TK-02 Step 2.3)? This is the TK-03-actionable check the extractor performs. (Informational, not a TK-03 action: component-existence is separately verified at CC code time via SK-F against the CC mirror — at TK-03 the converter trusts TK-02 Step 2.3's Hub-side authoring discipline; because CD authors both the design files and the DS instance, the UX Design Spec's design-file-grounded references and the CC mirror are consistent by common authorship, and the DSG §15 export conformance review is the cross-workspace cross-check the extractor cannot itself execute.)
 8. Are all must_pass_scenarios traceable to at least one PRD FR or user value statement?
 9. Are all non_regression_constraints traceable to PRD non-regression expectations or TDD stability rules?
 10. Are any unresolved business-rule or architecture open questions present in intent.md? (Should be none — resolve upstream.)
@@ -532,7 +537,7 @@ Before finalizing the extracted `intent.md` and `acceptance.yaml`, verify all of
 12. Are any conflicts between PRD and TDD silently papered over in the extraction?
 13. Is the extraction free of database tables, API payload shape specifics, component internal specs, test framework code, and file paths?
 14. **Is `app_slug` consistent across phase PRD §1.1, phase TDD §1 header, slice metadata, and the target worktree path at the receiving CC? Is `phase_number` consistent across phase PRD, phase TDD, and slice metadata? Is `assigned_node` consistent between the relevant phase TDD `§4.{feature-slug}.Header.assigned_node` declaration and the CC session at which the slice will be implemented (the conversion itself runs in Hub; the assigned_node consistency is verified at TK-03 by inspecting the TDD value).**
-15. **Are all referenced paths under `apps/{app-slug}/specs/` for feature artifacts, with the project-level DS instance CC mirror at `specs/design-system.md` and the Hub-authored UX Design Spec instance at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` as the recognized non-app-scoped or per-feature paths? No references remain to retired paths `specs/design-system-changes/{change-id}.md` (the legacy DS change-draft path; change drafts now live CD-internally as part of UX Design Spec instance §2.4 additive update plans) or `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` (the legacy CD-authored bundle path, retired in favor of the Hub-authored UX Design Spec instance markdown).**
+15. **Are all referenced paths under `apps/{app-slug}/specs/` for feature artifacts, with the project-level DS instance CC mirror at `specs/design-system.md` and the Hub-authored UX Design Spec instance at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` as the recognized non-app-scoped or per-feature paths? No references remain to retired paths `specs/design-system-changes/{change-id}.md` (the legacy DS change-draft path; change drafts now live CD-internally as part of per-feature UX Design Spec instance §2B.4 additive update plans) or `apps/{app-slug}/specs/ux-bundles/{feature-slug}/` (the legacy CD-authored bundle path, retired in favor of the Hub-authored UX Design Spec instance markdown).**
 
 If any item fails, return to upstream resolution before approval.
 
