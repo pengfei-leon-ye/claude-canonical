@@ -40,7 +40,7 @@ Do not use this document as:
 
 This source applies to:
 - All work executed within Hub Claude for the HDC project (canonical authoring, spec artifact production including per-feature UX Design Spec instances, strategic framing)
-- All work executed within Claude Design for the HDC project (DS setup and use, per-feature design files generation, visual artifact generation for HDC content)
+- All work executed within Claude Design for the HDC project (DS setup and use, phase-level design file generation, visual artifact generation for HDC content)
 - All work executed within Claude Code for the HDC project (code, tests, deployment, CC-internal canonical authoring)
 - All cross-workspace flows mediated by the operator
 
@@ -115,7 +115,7 @@ The HDC project operates across three AI workspaces, each accessed by the operat
 | Workspace | Surface | Identity |
 |---|---|---|
 | **Hub** | claude.ai HDC project | Strategic advisor + content SOT + governance SOT + per-feature UX Design Spec authoring |
-| **Claude Design (CD)** | claude.ai/design | DS-aware multi-purpose visual generator workspace; DS SOT; per-feature design files producer |
+| **Claude Design (CD)** | claude.ai/design | DS-aware multi-purpose visual generator workspace; DS SOT; phase-level design file producer (one design file per phase covering all tier-1-involved features in that phase) |
 | **Claude Code (CC)** | Assigned dev nodes (dev-node-portable / dev-node-stationary-1) | Dev environment + implementation SOT + CC-internal canonical author + DS code-time mirror holder |
 
 The three are independent Claude product surfaces. They do not share session state directly. All cross-workspace flows go through the operator (§1.2).
@@ -156,7 +156,7 @@ The Hub workspace accepts these canonical input forms:
 | Project Instructions (PI) | Hub project settings | Project-level harness |
 | Project Knowledge (PK) | Hub PK `hdc_*.md` files (synced from GitHub `claude-canonical/hdc/project_knowledge/` folder) | The canonical source set held in the Hub |
 | Operator dialogue input | Conversation turn content | Framing, decisions, external materials provided in conversation |
-| Operator-mediated CD output | Conversation attachments, pasted content, or dropped files | Materials audited and forwarded by the operator from a CD session: per-feature design files (visual + annotation), DS markdown exports for the DSG §15 export conformance review, stakeholder review materials |
+| Operator-mediated CD output | Conversation attachments, pasted content, or dropped files | Materials audited and forwarded by the operator from a CD session: phase-level design file (visual + annotation, with per-feature internal labeling), DS markdown exports for the DSG §15 export conformance review, stakeholder review materials |
 | Operator-mediated CC output | Conversation attachments or pasted content | Materials audited and forwarded by the operator from a CC session: Codex review output, CC-internal canonical change notifications, DS code change notifications |
 
 The Hub does not directly access CD or CC. Anything CD or CC produced reaches the Hub only via operator action.
@@ -218,7 +218,7 @@ In a Hub session, the operator:
 
 ## 3.1 Identity
 
-Claude Design is a **DS-aware multi-purpose visual generator workspace**. It is the SOT for DS instance content and the producer of per-feature design files for HDC tier-1-involved work. It is not a single-purpose UX or DS pillar. CD organizes work into projects (independent visual generation workspaces), each of which can use DS instances as optional context enrichment and can produce many visual artifact forms through skill-based generation.
+Claude Design is a **DS-aware multi-purpose visual generator workspace**. It is the SOT for DS instance content and the producer of the **phase-level design file** for HDC tier-1-involved work — CD designs by application phase (one design file per phase covering all tier-1-involved features in that phase), aligning with CD's natural unit of visual production rather than forcing per-feature splits at design time. It is not a single-purpose UX or DS pillar. CD organizes work into projects (independent visual generation workspaces), each of which can use DS instances as optional context enrichment and can produce many visual artifact forms through skill-based generation.
 
 CD is in research preview status as of this revision (Claude product status, not HDC project status). The HDC project treats CD as a usable workspace with several specific items pending empirical verification (§3.7).
 
@@ -262,11 +262,11 @@ When the operator initializes a DS instance in CD:
 
 ### 3.3.2 Use-time inputs (per project, per generation)
 
-When the operator creates and operates a CD project for HDC per-feature design work:
+When the operator creates and operates a CD project for HDC phase-level design work:
 - DS instance reference (the HDC DS instance, set up at workspace inception)
-- Skills selection (typically Hi-fi design + Interactive prototype for feature work; Wireframe + Make a deck for stakeholder communication)
-- **Drop files containing full PRD + TDD relevant sections** (per the v1 input strategy in [MECH] Cross-Tool Workflow Handoff §2.1.6 — full text of PRD feature chapter + TDD §4.{feature-slug} content, not Hub-pre-extracted)
-- **Free-form prompt with operator-authored attention guidance** (Hub Claude assists in drafting; directs CD's attention to UI-relevant sections of the dropped PRD/TDD content)
+- Skills selection (typically Hi-fi design + Interactive prototype for phase-level design work; Wireframe + Make a deck for stakeholder communication)
+- **Drop files containing full PRD + TDD relevant sections for all tier-1-involved features in the phase** (per the v1 input strategy in [MECH] Cross-Tool Workflow Handoff §2.1.6 — full text of PRD feature chapters + TDD §4.{feature-slug} content for each tier-1-involved feature, not Hub-pre-extracted)
+- **Free-form prompt with operator-authored attention guidance enumerating each tier-1-involved feature** (Hub Claude assists in drafting; directs CD's attention to UI-relevant sections per feature within the dropped PRD/TDD content, and instructs CD to internally label per-feature design file scope by feature-slug for Hub Step 2.3 grounding)
 - Optional: existing reference designs (screenshots from competitor analysis, internal precedents), brand direction hints, People Experience principle excerpts
 
 **Critical note on CD's input mechanism**: CD does not consume hub-style structured specification documents as structured specs. CD has no PRD/TDD-parsing mechanism. The full-text drop file + attention prompt strategy gives CD complete information access while using prompt guidance to direct attention to UI-relevant content. The operator's responsibility is to frame the attention prompt so CD focuses appropriately.
@@ -292,7 +292,7 @@ Within a CD project, the operator may compose multiple skills to produce richer 
 
 For HDC project work specifically, the operator typically uses CD to produce:
 
-- **Per-feature design files** (when TDD declares tier_1_involved=true): hi-fi mockups, interactive prototypes, wireframes, component callouts, interaction flows, with embedded textual annotations covering design rationale, a11y considerations, i18n notes, responsive behavior, motion expectations. These design files are **raw source material** from which Hub Claude authors the per-feature UX Design Spec instance at TK-02 step 2.3 — not a CC-consumable spec equivalent. Design files contain material on each [TPL] UX Design Spec §2 content category (CD chooses the native form; coverage means the material is present), but **CC does not consume design files directly as specification**: Hub-side synthesis is required to (a) translate visual + informal annotation form into structured markdown that CC can deterministically consume, (b) verify the design files are spec-ready against the feature's PRD/TDD scope — the design file quality check per [RULE] DSG §13.3, which needs the PRD/TDD that CD does not hold as structured specs, and (c) produce a per-feature spec instance integrated with adjacent specification artifacts (PRD, TDD, per-slice intent/acceptance/test-plan) that share the Hub-side authoring context. The CD → Hub → CC chain therefore has a substantive synthesis step at the Hub middle; CD output and CC input are **not at the same content layer**.
+- **Phase-level design file** (when any feature in the phase has TDD `tier_1_involved=true`): one design file per phase covering all tier-1-involved features in that phase — hi-fi mockups, interactive prototypes, wireframes, component callouts, interaction flows, with embedded textual annotations covering design rationale, a11y considerations, i18n notes, responsive behavior, motion expectations. The phase-level design file MUST internally label per-feature scope (frame / section / page tag matching the TDD `feature-slug`) so Hub TK-02 step 2.3 can ground each per-feature UX Design Spec instance in the relevant subset. This design file is **raw source material** from which Hub Claude authors the per-feature UX Design Spec instances at TK-02 step 2.3 — not a CC-consumable spec equivalent. The design file contains material on each [TPL] UX Design Spec §2 content category for each tier-1-involved feature (CD chooses the native form; coverage means the material is present), but **CC does not consume design files directly as specification**: Hub-side synthesis is required to (a) translate visual + informal annotation form into structured markdown that CC can deterministically consume, (b) verify the design file slice for each feature is spec-ready against that feature's PRD/TDD scope — the design file quality check per [RULE] DSG §13.3, which needs the PRD/TDD that CD does not hold as structured specs, and (c) produce per-feature spec instances integrated with adjacent specification artifacts (PRD, TDD, per-slice intent/acceptance/test-plan) that share the Hub-side authoring context. The CD → Hub → CC chain therefore has a substantive synthesis step at the Hub middle; CD output and CC input are **not at the same content layer**. Granularity asymmetry — phase-level design file on the CD side, per-feature UX Design Spec instances on the Hub side — is intentional: design files are organized at CD's natural unit of visual production (phase), specs are organized at CC's natural unit of consumption (feature).
 - **DS instance content** (additive or breaking changes to DS authored in CD as SOT per [RULE] DSG §12): when CD-side authoring produces new components, tokens, patterns, or other DS evolution, the change is finalized in CD SOT; CD also generates an updated DS markdown export for the DSG §15 conformance review and CC-mirror sync.
 - **Stakeholder review materials** (prototypes, slide decks) for operator's own use; not integrated into Hub canonical.
 
@@ -429,7 +429,7 @@ The three workspaces are distinguished by what kind of substantive content they 
 | Dimension | Location | Examples |
 |---|---|---|
 | **Content** | Hub | PRD business logic, TDD technical decisions, per-feature UX Design Spec instances (slice-orienting textual UX specifications), governance rules, strategic framing, specification artifact main bodies |
-| **Presentation** | CD | UI visual designs, prototypes, slide decks, per-feature design files, DS instance content (SOT), any visual artifact |
+| **Presentation** | CD | UI visual designs, prototypes, slide decks, phase-level design file (per-feature internally labeled), DS instance content (SOT), any visual artifact |
 | **Implementation** | CC | Code, tests, deployment artifacts, DS code, CI configurations, executable artifacts |
 
 The tripartition is not strict (DS content is authored in CD but mirrored to CC for code-time consumption; some content has presentation aspects, etc.), but the SOT for each dimension is unambiguous.
@@ -491,11 +491,11 @@ The §5.1 tripartition classifies content by ownership dimension (content / pres
 - **Hub Constitutional** (Hub PK `hdc_*.md` files): `[OS]`, `[POL]`, `[PRIN]`, `[REF]`, `[RULE]`, `[MECH]`, `[TPL]` — all Constitutional. SOT for the why, scope, contracts, and governance the project depends on.
 - **Hub spec artifacts** (Hub-authored at `apps/{slug}/specs/...`): PRD instances, TDD instances, per-feature UX Design Spec instances, per-slice intent / acceptance / test-plan, ADRs, OpenAPI specs. These are not Constitutional canonical (no Hub PK location); they are spec artifacts produced under Constitutional template governance.
 - **CC Substantive** (Tool runtime at the monorepo): `.claude/rules/`, `.claude/agents/`, `.claude/commands/`, `.claude/skills/{name}/SKILL.md`, `.claude/hooks/`, `CLAUDE.md` at each tier-aligned hierarchy level (specific paths owned by the CC substantive Memory Bank Layout canonical). SOT for path-scoped rule application, subagent prompts, skill loading, hook firing logic. Plus DS code-time mirror at `specs/design-system.md` (Substantive consumption, mirror not SOT).
-- **CD Substantive** (Tool runtime at CD): DS instance internal content authored under [RULE] DSG governance rules (CD as SOT for DS content); per-feature design files (CD-native format with embedded annotations, authored against [TPL] UX Design Spec coverage framework as the upstream quality guide); CD project artifacts.
+- **CD Substantive** (Tool runtime at CD): DS instance internal content authored under [RULE] DSG governance rules (CD as SOT for DS content); phase-level design file (CD-native format with embedded annotations and per-feature internal labeling, authored against [TPL] UX Design Spec coverage framework as the upstream quality guide); CD project artifacts.
 
 ### 5.4.3 Self-authoring workflow for Substantive content
 
-1. Tool drafts Substantive content informed by the relevant Hub Constitutional sources (e.g., CC drafts `.claude/rules/*.md` under the CC substantive Claude Code Architecture Rules canonical's agent context scope guidance; CD authors DS instance content under [RULE] DSG governance; CD produces per-feature design files against [TPL] UX Design Spec coverage framework)
+1. Tool drafts Substantive content informed by the relevant Hub Constitutional sources (e.g., CC drafts `.claude/rules/*.md` under the CC substantive Claude Code Architecture Rules canonical's agent context scope guidance; CD authors DS instance content under [RULE] DSG governance; CD produces the phase-level design file against [TPL] UX Design Spec coverage framework)
 2. Operator reviews tool-drafted Substantive content for boundary compliance with the governing Constitutional canonical
 3. Tool runtime persists the Substantive content at its native path (CC commits to monorepo paths; CD persists within the CD project)
 4. Hub indexes the **existence** of the Substantive content via the relevant `[REF]` source (e.g., this [REF] Hub-CD-CC Architecture §8 inventory indexes CC-internal Substantive content existence) but does **not** mirror the Substantive content itself
@@ -626,7 +626,7 @@ CD workspace holds these substantive content forms (none of which are canonical 
 |---|---|---|
 | DS instance (SOT for DS content) | [RULE] Design System Governance | DS instance authored inside CD as SOT; CD-generated markdown export reviewed Hub-side against DSG §15 then synced to the CC mirror at `specs/design-system.md` per DSG §12 two-way distribution model |
 | CD-authored substantive rules within a DS instance | [RULE] Design System Governance | Operator audits the DS markdown export (DSG §15 review) before syncing the CC mirror |
-| Per-feature design files (when tier_1_involved=true) | [TPL] UX Design Spec (coverage framework) + [MECH] Cross-Tool Workflow Handoff §2.2 (transfer contract) | CD-native format with embedded annotations; transferred to Hub at TK-02 step 2.3 for Hub Claude to consume in UX Design Spec authoring; transferred to CC at TK-04 as visual reference alongside Hub-authored UX Design Spec instance |
+| Phase-level design file (when any feature in the phase has tier_1_involved=true) | [TPL] UX Design Spec (coverage framework) + [MECH] Cross-Tool Workflow Handoff §2.2 (transfer contract) | One CD-native design file per phase with embedded annotations and per-feature internal labeling; transferred to Hub at TK-02 step 2.3 for Hub Claude to consume per-feature in UX Design Spec instance authoring; transferred to CC at TK-04 as visual reference alongside Hub-authored per-feature UX Design Spec instances |
 | Operator-authored CD Templates | None (per §7.2 scope) | Outside hub canonical scope |
 | Operator-authored CD Projects and stakeholder review outputs | [MECH] Cross-Tool Workflow Handoff (for HDC-scoped projects only) | Output bundles audited before transfer |
 
@@ -658,10 +658,10 @@ There are three operator-mediated handoff paths between the workspaces. Each is 
 
 **Hub → operator → CD direction:**
 
-For per-feature design work (TK-02 step 2.2, when TDD declares tier_1_involved=true):
-- Hub produces strategic framing for the feature, PRD main body (relevant chapters), TDD main body (relevant §4.{feature-slug} content)
-- Operator drops full text of relevant PRD + TDD sections into CD project as drop files (v1 strategy per [MECH] Cross-Tool Workflow Handoff §2.1.6: full text, not Hub-pre-extracted)
-- Hub Claude assists the operator in drafting an **attention prompt** that directs CD's focus to UI-relevant content within the dropped specs (e.g., "Focus on the role matrix in PRD §X.Y / the UI vision in §Z / the frontend-display-affecting fields in TDD §4.{feature-slug}.API-Contracts")
+For phase-level design work (TK-02 step 2.2, when any feature in the phase has TDD `tier_1_involved=true`):
+- Hub produces strategic framing for the phase, PRD main body (chapters for each tier-1-involved feature), TDD main body (§4.{feature-slug} content for each tier-1-involved feature)
+- Operator drops full text of relevant PRD + TDD sections (across all tier-1-involved features in the phase) into a single CD project as drop files (v1 strategy per [MECH] Cross-Tool Workflow Handoff §2.1.6: full text, not Hub-pre-extracted)
+- Hub Claude assists the operator in drafting an **attention prompt** that enumerates each tier-1-involved feature and directs CD's focus to UI-relevant content per feature within the dropped specs (e.g., "For feature-A focus on the role matrix in PRD §X.Y / the UI vision in §Z / the frontend-display-affecting fields in TDD §4.feature-A.API-Contracts; for feature-B …"). The attention prompt also instructs CD to internally label per-feature design file scope (frame / section / page tag = feature-slug) so Hub TK-02 Step 2.3 can ground each per-feature UX Design Spec instance in the relevant slice
 - Operator pastes the attention prompt into the CD project's free-form prompt area
 - DS instance reference is already linked at CD setup; no separate transfer needed per cycle
 
@@ -673,13 +673,13 @@ For stakeholder communication:
 
 **CD → operator → Hub direction:**
 
-For per-feature design files (TK-02 step 2.3):
-- CD produces per-feature design files (hi-fi mockups, prototypes, wireframes with embedded annotations)
-- Operator audits the design files for HDC project relevance and completeness against [TPL] UX Design Spec §2 coverage categories
-- Operator transfers design files to Hub session via attachment / paste / drop file
-- Hub Claude performs the design file quality check at TK-02 step 2.3 using [TPL] UX Design Spec §3 reviewer checklist — a spec-readiness review against the feature's PRD/TDD scope per [RULE] DSG §13.3
-- If quality check passes: Hub Claude authors the per-feature UX Design Spec instance markdown drawing from the design files
-- If quality check fails: Hub Claude surfaces findings; operator routes back to CD for revision (Hub → CD direction with updated prompt context)
+For the phase-level design file (TK-02 step 2.3):
+- CD produces one phase-level design file covering all tier-1-involved features in the phase (hi-fi mockups, prototypes, wireframes with embedded annotations and per-feature internal labeling)
+- Operator audits the design file for HDC project relevance and per-feature coverage completeness against [TPL] UX Design Spec §2 coverage categories
+- Operator transfers the design file to Hub session via attachment / paste / drop file
+- Hub Claude iterates per tier-1-involved feature: locates the feature's labeled slice in the design file, performs the design file quality check at TK-02 step 2.3 using [TPL] UX Design Spec §3 reviewer checklist — a spec-readiness review against that feature's PRD/TDD scope per [RULE] DSG §13.3
+- If a feature's quality check passes: Hub Claude authors that feature's UX Design Spec instance markdown drawing from the relevant design file slice
+- If a feature's quality check fails: Hub Claude surfaces findings; operator routes back to CD for revision (Hub → CD direction with updated prompt context targeting that feature's slice or coverage)
 
 For DS instance changes (per DSG §12):
 - CD generates DS markdown export reflecting updated SOT content
@@ -705,7 +705,7 @@ During the current operating period (CD research preview), there is no direct CD
 
 **CD → operator → CC direction:**
 - Two content types flow this path:
-  - **Per-feature design files** (CD-native format): transferred to CC at TK-04 entry as **visual reference** accompanying the Hub-authored UX Design Spec instance. CC consumes design files visually (mockups, layout reference, motion observation) but does NOT author UX-touching field values from them — those are Hub-authored at TK-03 from the UX Design Spec instance which itself was authored at TK-02 step 2.3 from the design files.
+  - **Phase-level design file** (CD-native format): transferred to CC at TK-04 entry as **visual reference** accompanying the Hub-authored per-feature UX Design Spec instances. CC consumes the design file visually (mockups, layout reference, motion observation) — typically focusing on the slice labeled with the active feature-slug — but does NOT author UX-touching field values from it; those are Hub-authored at TK-03 from the UX Design Spec instance which itself was authored at TK-02 step 2.3 from the relevant design file slice.
   - **DS markdown export** (per DSG §12 sync cycle): transferred to CC mirror at `specs/design-system.md` for code-time DS reference consumption by SK-F skill
 - Operator audits both content types for HDC project relevance and sync correctness before transfer
 

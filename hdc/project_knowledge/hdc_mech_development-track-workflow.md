@@ -8,19 +8,19 @@
 - **Management-System Role**: Workflow orchestration specification; outside L1-L5 hierarchy; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Detailed task-level expansion of the Development Track routing defined in [OS] §7.1. The constitutional / substantive boundary in [OS] §0.1.5 (Premise 5) applies: Hub-side residue carries the constitutional skeleton + Hub-authored substantive content; CC-side substantive canonical owns the CC-executed task mechanics.
 - **Relationship to [PRIN]**: Applies HR Digital Decision Design Principles §5 (management mechanism over ad hoc control), §6 (operation management and value realization by design), §10 MECE, §12 make important work executable.
-- **Relationship to [REF] Hub-CD-CC Architecture**: TK sequence operates across the three workspaces (Hub / CD / CC). Hub-side TKs (TK-01, TK-02 sub-steps, TK-03) author content per the content pillar; CD-side participation embedded inside TK-02 Step 2.2 produces per-feature design files when `tier_1_involved=true`; CC-side TKs (TK-04 onwards) consume content for implementation per the implementation pillar.
+- **Relationship to [REF] Hub-CD-CC Architecture**: TK sequence operates across the three workspaces (Hub / CD / CC). Hub-side TKs (TK-01, TK-02 sub-steps, TK-03) author content per the content pillar; CD-side participation embedded inside TK-02 Step 2.2 produces the phase-level design file (with per-feature internal labeling) when any feature in the phase has `tier_1_involved=true`; CC-side TKs (TK-04 onwards) consume content for implementation per the implementation pillar.
 - **Relationship to [MECH] Cross-Tool Workflow Handoff**: Three-path handoffs at the relevant TK transitions:
   - TK-01 → TK-02 hub-side: PRD consumed in hub for TDD authoring
   - TK-02 Step 2.1 → Step 2.2 (Hub → CD): Hub PRD/TDD relevant sections transferred to CD per [MECH] Cross-Tool Workflow Handoff §2.1
-  - TK-02 Step 2.2 → Step 2.3 (CD → Hub): CD-produced design files transferred to Hub per §2.2 for Hub-side design-file quality check + UX Design Spec instance authoring
-  - TK-03 → TK-04 (Hub → CC): completed per-slice spec artifacts + per-feature UX Design Spec instance + CD-authored design files transferred to assigned_node working directory per §3.1
+  - TK-02 Step 2.2 → Step 2.3 (CD → Hub): the CD-produced phase-level design file is transferred to Hub per §2.2 for Hub-side per-feature design-file quality check + per-feature UX Design Spec instance authoring (Step 2.3 iterates over all tier-1-involved features against each feature's labeled slice of the design file)
+  - TK-03 → TK-04 (Hub → CC): completed per-slice spec artifacts + per-feature UX Design Spec instance + CD-authored phase-level design file transferred to assigned_node working directory per §3.1
   - TK-11 code review output → Hub: per §3.2 (the specific code review tool — historically Codex — is governed by CC substantive canonical)
   - DS markdown export at TK-12 M4 merge (when DS instance changed): CD generates the export → Hub reviews it against DSG §15 → CC mirror, per [RULE] Design System Governance §12.3 / §12.7
 - **Relationship to [RULE] Workspace Topology**: Companion. DTW imports WT constitutional residue's unit_type catalog and node-assignment interface contract; hub-to-assigned_node onboarding (after TK-02) implements WT's node assignment workflow.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Imports CCAR constitutional residue's tier identity; CC substantive CCAR owns the subagent roster, context scopes, paths, and skill loading rules consumed by TK-04+.
 - **Relationship to [MECH] CI/CD Milestone Policy**: Imports M0–M5 gate identity from CI/CD constitutional residue; task-to-milestone mapping reflected in §0.3 with TK-13 as the terminal CI/CD task.
 - **Relationship to [MECH] Application Lifecycle Handoff**: TK-12 merges feature branches directly to `main`. Application-level handoff to a human dev team is a distinct lifecycle event after one or more apps reach maturity per [MECH] Application Lifecycle Handoff §2; the AI-dev CI/CD chain terminates at TK-13 staging deploy.
-- **Relationship to [RULE] Design System Governance**: TK-02 Step 2.3 implements DSG §13.3 Hub-side consumption discipline (design file quality check + UX Design Spec instance authoring grounded in CD-authored design files). DSG §12 additive change requests are surfaced at TK-02 Step 2.3 when authoring the UX Design Spec instance reveals a gap in the current DS.
+- **Relationship to [RULE] Design System Governance**: TK-02 Step 2.3 implements DSG §13.3 Hub-side consumption discipline (per-feature design file quality check + per-feature UX Design Spec instance authoring grounded in the relevant per-feature slice of the CD-authored phase-level design file). DSG §12 additive change requests are surfaced at TK-02 Step 2.3 when authoring a per-feature UX Design Spec instance reveals a gap in the current DS.
 - **Relationship to [TPL] sources**: References TDD template, Intent-Acceptance Writing Standard, PRD+TDD Conversion Spec, Test Plan YAML Schema, UX Design Spec, and Design System Governance as artifact contracts.
 - **Pairings I participate in**: P-03 (with [MECH] CI/CD constitutional residue §2 — milestone-to-TK anchoring), P-09 (with [MECH] CI/CD constitutional residue §2.7 — per-unit-type milestone profile), P-10 (with [RULE] WT constitutional residue §4 — node-assignment marker schema), P-31 (with [TPL] PRD §0.7 + [TPL] TDD §0.7). Pre-split pairings P-32 / P-38 / P-49 retired at this Hub residue level; substantive obligations migrate to CC.
 
@@ -51,7 +51,7 @@ Do not use this source as:
 - Unit_type catalog: the three node-level work unit types `walking_skeleton`, `feature`, `app_integration` — their purpose, scope, deliverables, and per-unit-type task path through the TK sequence (§4 Unit_type catalog and per-unit-type task paths)
 - Conditional brownfield reconstruct pre-step at TK-01 — triggered when an app has existing behavior worth preserving, producing an app-specific reconstruct memo as TK-01 input
 - Cross-model review reminders at TK-01 and TK-02 sign-offs — advisory [Enforcement·reminder-only] reminders for the operator to consider invoking a cross-model spec review before signing off
-- **TK-02 internal step structure** (Step 2.1 Hub-side TDD/test-plan/openapi/slice-list authoring → Step 2.2 CD-side design file production, conditional on `tier_1_involved=true` → Step 2.3 Hub-side design file quality check + UX Design Spec instance authoring)
+- **TK-02 internal step structure** (Step 2.1 Hub-side TDD/test-plan/openapi/slice-list authoring → Step 2.2 CD-side phase-level design file production, conditional on any feature in the phase having `tier_1_involved=true` → Step 2.3 Hub-side per-feature design file quality check + per-feature UX Design Spec instance authoring)
 - Role sequence per task, including which workspace (Hub Claude, Claude Design, assigned_node Claude Code) executes each task or sub-step
 - File-level inputs and outputs, anchored to the repository layout in CC substantive Claude Code Architecture Rules canonical (repository layout)
 - Trigger mechanism per task (manual / auto via hook / auto via Routine / conditional)
@@ -98,9 +98,9 @@ Inception is a once-per-monorepo project-level setup outside the TK sequence and
 |---|---|---|
 | TK-01 | Hub Claude (HC + H collaboration) | Design thinking; phase PRD authoring; cross-model review reminder fires at sign-off |
 | TK-02 Step 2.1 | Hub Claude (HC + H collaboration) | Phase TDD + phase test plan + per-feature integration test plans + per-feature slice-lists + openapi additive update + per-unit `assigned_node` decisions; cross-model review reminder fires at sign-off (applies to full TK-02 sign-off) |
-| TK-02 Step 2.2 (conditional on any feature `tier_1_involved=true`) | Claude Design (per feature with `tier_1_involved=true`) | Per-feature CD-authored design files: hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations (CD-native; not markdown). Inputs: PRD relevant sections + TDD relevant sections + attention prompt; CD grounds DS in its own instance (CD = DS SOT) per `[REF] Hub-CD-CC Architecture §5.2` |
-| TK-02 Step 2.3 (when Step 2.2 fired) | Hub Claude (HC + H collaboration) | Design file quality check (per `[TPL] UX Design Spec` §3 reviewer checklist — spec-readiness review against PRD/TDD per `[RULE] DSG §13.3`) → UX Design Spec instance authoring (Hub-authored markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` from CD-authored design files) |
-| TK-03 | Hub Claude (HC + H collaboration) | Per-slice intent + acceptance + test-plan authoring (main body + UX brief when Tier 1); consumes PRD + TDD + Hub-authored UX Design Spec instance (from TK-02 Step 2.3) + design files (as visual reference); the operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze for the slice |
+| TK-02 Step 2.2 (conditional on any feature in the phase having `tier_1_involved=true`) | Claude Design (one CD session per phase, covering all tier-1-involved features in the phase) | Phase-level CD-authored design file with per-feature internal labeling (frame / section / page tag = feature-slug): hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations (CD-native; not markdown). Inputs: PRD relevant sections + TDD relevant sections for every tier-1-involved feature in the phase + attention prompt enumerating each feature and instructing per-feature labeling; CD grounds DS in its own instance (CD = DS SOT) per `[REF] Hub-CD-CC Architecture §5.2` |
+| TK-02 Step 2.3 (when Step 2.2 fired) | Hub Claude (HC + H collaboration) | Iterated per tier-1-involved feature in the phase: design file quality check against the feature's labeled slice in the phase-level design file (per `[TPL] UX Design Spec` §3 reviewer checklist — spec-readiness review against the feature's PRD/TDD scope per `[RULE] DSG §13.3`) → UX Design Spec instance authoring (Hub-authored markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` from that slice of the CD-authored phase-level design file) |
+| TK-03 | Hub Claude (HC + H collaboration) | Per-slice intent + acceptance + test-plan authoring (main body + UX brief when Tier 1); consumes PRD + TDD + Hub-authored UX Design Spec instance (from TK-02 Step 2.3) + the phase-level design file (focusing on the active feature's labeled slice as visual reference); the operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze for the slice |
 | TK-04 | **assigned_node Claude Code** | M0 entry self-check (the absorbed M0 gate function — lightweight verification that the spec bundle is intact upon CC reception, not a re-decision of design freeze); GitHub Issue marker authoring per [RULE] Workspace Topology constitutional residue §4 (node-assignment interface contract) (`status: in-progress`); first commit on feature branch; substantive code writing with SK-F auto-loaded for Tier 1 work |
 | TK-05 → TK-11 | assigned_node Claude Code | Tests + adversarial + evidence + Codex code review at TK-11 |
 | TK-12 | Hub Claude or assigned_node (operator's choice) | M4 review + smoke test; merge PR action (target = `main`) can fire from any workspace; DS markdown export sync (Hub + CC mirrors) when this slice carries a DS change finalization per [RULE] DSG §12.5 |
@@ -116,8 +116,8 @@ Four stages:
   - **TK-01** — hub-side: phase PRD. Cross-model review reminder fires at sign-off ([Enforcement·reminder-only])
   - **TK-02** — hub-side production of phase TDD + phase test plan + per-feature integration test plans + per-feature slice-lists + openapi additive update + per-unit `assigned_node` decisions for all units in the phase (`walking_skeleton` Phase 1 only, each `feature` unit, each `app_integration` unit). **TK-02 has three internal steps**:
     - **Step 2.1** — Hub-side TDD/test-plan/openapi/slice-list authoring (always runs)
-    - **Step 2.2** — CD-side per-feature design file production (runs per feature with `tier_1_involved=true`; skipped entirely when no features in the phase touch Tier 1). CD produces design files per [REF] Hub-CD-CC Architecture §3.4.1; the Hub session at TK-02 hands CD the PRD + TDD relevant sections as drop files with a attention prompt directing CD to UI-relevant sections
-    - **Step 2.3** — Hub-side design file quality check + UX Design Spec instance authoring (runs when Step 2.2 fired; one UX Design Spec instance authored per feature with `tier_1_involved=true`). Hub Claude verifies the CD-authored design files are spec-ready against the feature's PRD/TDD scope per [RULE] DSG §13.3, then authors the per-feature UX Design Spec instance as markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` per [TPL] UX Design Spec
+    - **Step 2.2** — CD-side phase-level design file production (runs once per phase when any feature in the phase has `tier_1_involved=true`; skipped entirely when no features in the phase touch Tier 1). CD produces a single phase-level design file with per-feature internal labeling per [REF] Hub-CD-CC Architecture §3.4.1; the Hub session at TK-02 hands CD the PRD + TDD relevant sections for all tier-1-involved features in the phase as drop files, with an attention prompt enumerating each feature, directing CD to UI-relevant sections per feature, and instructing CD to internally label per-feature design file scope (frame / section / page tag = feature-slug)
+    - **Step 2.3** — Hub-side per-feature design file quality check + per-feature UX Design Spec instance authoring (runs when Step 2.2 fired; iterates per tier-1-involved feature in the phase, producing one UX Design Spec instance per such feature). For each feature, Hub Claude locates that feature's labeled slice in the phase-level design file, verifies the slice is spec-ready against that feature's PRD/TDD scope per [RULE] DSG §13.3, then authors that feature's UX Design Spec instance as markdown at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` per [TPL] UX Design Spec
   - **TK-03** — hub-side: per-slice intent + acceptance + test-plan (main body + UX brief when Tier 1 involved, drawing from the Hub-authored UX Design Spec instance from TK-02 Step 2.3 and design files as visual reference). Runs for `feature` and `walking_skeleton` units only; not for `app_integration`. The operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze gate.
 - **S2 CC entry**: M0 entry self-check + GitHub Issue marker + first commit on feature branch (folded into the start of TK-04). Runs for `feature` and `walking_skeleton` units only; `app_integration` units skip M0 / M1 entirely (entry at TK-08).
 - **S3 Claude Code implementation and validation**: Code + tests + adversarial + evidence. TK-04 to TK-11. `app_integration` units enter S3 at TK-08 directly.
@@ -209,9 +209,9 @@ Spec-artifact paths are stated inline in the §4 task definition that produces o
 
 **brownfield reconstruct memo**: A TK-01 conditional pre-step output produced when an app has existing behavior worth preserving. The memo extracts existing PRD content, TDD content, and observed code behavior into a structured reference for the new phase PRD's authoring. See §4 TK-01 task definition.
 
-**design files** (CD-authored): Per-feature visual artifacts produced by CD in TK-02 Step 2.2 when `tier_1_involved=true`. CD-native format (hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations). Distinct from the UX Design Spec instance, which is the Hub-authored markdown counterpart authored at TK-02 Step 2.3.
+**design file** (CD-authored): The phase-level visual artifact produced by CD in TK-02 Step 2.2 when any feature in the phase has `tier_1_involved=true`. One design file per phase covers all tier-1-involved features in the phase as per-feature labeled internal scopes (frame / section / page tag = feature-slug). CD-native format (hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations). Distinct from the per-feature UX Design Spec instances, which are the Hub-authored markdown counterparts authored at TK-02 Step 2.3, each grounded in the corresponding labeled slice.
 
-**UX Design Spec instance** (Hub-authored): Per-feature markdown spec at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`, authored by Hub Claude at TK-02 Step 2.3 from CD-authored design files per [TPL] UX Design Spec. The markdown form is for AI-RAG consumption (Hub TK-03 + CC TK-04+).
+**UX Design Spec instance** (Hub-authored): Per-feature markdown spec at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`, authored by Hub Claude at TK-02 Step 2.3 from the corresponding per-feature labeled slice of the CD-authored phase-level design file per [TPL] UX Design Spec. The markdown form is for AI-RAG consumption (Hub TK-03 + CC TK-04+).
 
 ---
 
@@ -223,7 +223,7 @@ Thirteen tasks total (TK-01 through TK-13). Scope levels and per-unit-type appli
 
 **Note on "Required" in task descriptions**: each task definition in §4 below includes a `**Human intervention**: **Required**` (or `**Conditional**` / `**None**`) field. The word "Required" here denotes the task's **expected level of operator attention** as a taxonomic classifier — it describes how the task is designed to be operated, not a hard mechanism that can compel operator presence. Per [Enforcement·reminder-only] discipline, "Required" tasks are **reminder-enforced**: Hub Claude surfaces the expected attention level at task initiation and does not auto-execute the task past the operator sign-off point, but it cannot canonical-text-enforce operator presence. Proceeding past a "Required" task without operator sign-off is the §8 anti-drift red flag — the classifier and the §8 red flag are two views of the same rule. The classifier reads as: "Required" = task designed for operator-driven execution, reminder-enforced at the sign-off point; "Conditional" = task auto-runs unless failure surfaces operator-needed escalation; "None" = task fully autonomous in steady state. See CC substantive CI/CD Milestone Policy canonical (tooling baseline) for the operator attention allocation rationale underlying this taxonomy.
 
-- **TK-01, TK-02** — **per-phase**, runs once per app per phase; TK-01 produces phase PRD; TK-02 has three internal steps (Step 2.1 / Step 2.2 / Step 2.3) producing phase TDD, phase test plan (master), per-feature integration test plans, per-feature slice-lists, per-unit `assigned_node` decisions, and — when any feature has `tier_1_involved=true` — per-feature CD-authored design files plus per-feature Hub-authored UX Design Spec instances
+- **TK-01, TK-02** — **per-phase**, runs once per app per phase; TK-01 produces phase PRD; TK-02 has three internal steps (Step 2.1 / Step 2.2 / Step 2.3) producing phase TDD, phase test plan (master), per-feature integration test plans, per-feature slice-lists, per-unit `assigned_node` decisions, and — when any feature in the phase has `tier_1_involved=true` — one phase-level CD-authored design file with per-feature internal labeling plus per-feature Hub-authored UX Design Spec instances (one per tier-1-involved feature)
 - **TK-03 through TK-11** — **per-slice within a unit**, looping through slices of `feature` units and the single slice of a `walking_skeleton` unit; not run for `app_integration` units below TK-08 (per §0.3 milestone table and §4.0 per-unit-type task paths)
 - **TK-08 through TK-13** — entered directly by `app_integration` units at TK-08 (M2 entry); for `feature` and `walking_skeleton` units, reached as part of the slice's M0 → M5 progression
 - **TK-12 through TK-13** — per-slice for slice-bearing units; per-unit (single PR) for `app_integration` units
@@ -255,7 +255,7 @@ A `walking_skeleton` unit produces six outputs in a single PR (canonical list ow
 | TK | Walking_skeleton-specific notes |
 |---|---|
 | TK-01 | Phase 1 PRD; covers all features in Phase 1 plus implicit walking-skeleton scope |
-| TK-02 | Phase 1 TDD §3 Walking skeleton scope is authored alongside per-feature `§4.{feature-slug}` sections in Step 2.1; walking_skeleton unit's `assigned_node` is decided alongside per-feature node assignments in Step 2.1; if walking-skeleton scope itself touches Tier 1 (rare), Step 2.2 + Step 2.3 produce design files and a UX Design Spec instance for the walking-skeleton scope, treated as the `walking-skeleton` feature-slug-equivalent |
+| TK-02 | Phase 1 TDD §3 Walking skeleton scope is authored alongside per-feature `§4.{feature-slug}` sections in Step 2.1; walking_skeleton unit's `assigned_node` is decided alongside per-feature node assignments in Step 2.1; if walking-skeleton scope itself touches Tier 1 (rare), Step 2.2 + Step 2.3 include the walking-skeleton scope as a labeled slice within the phase-level design file and produce a UX Design Spec instance for it, treated as the `walking-skeleton` feature-slug-equivalent |
 | TK-03 | Single-slice authoring; `slice-id` = `walking-skeleton`; Hub-side per [REF] Hub-CD-CC Architecture §5.1; UX brief drawn from Hub-authored UX Design Spec instance from TK-02 Step 2.3 if walking-skeleton scope touches Tier 1 |
 | TK-04 | M0 entry self-check (folded into TK-04 entry per the post-refactor architecture; the prior separate M0 gate task has been retired); GitHub Issue marker authoring; first commit on `feature/<app-slug>/walking-skeleton` branch; produces the six walking_skeleton outputs in the single PR per CC substantive Workspace Topology canonical (walking-skeleton output set); CC main loop begins code generation |
 | TK-05 → TK-10 | Single-slice loop continues: tests, adversarial, evidence |
@@ -310,9 +310,9 @@ The reconstruct process is reused across brownfield TK-01 invocations; the memo 
 
 ---
 
-## TK-02: Produce phase TDD + phase test plan + feature integration test plans + per-feature slice-lists + per-feature node assignments + (conditional) per-feature design files + per-feature UX Design Spec instances
+## TK-02: Produce phase TDD + phase test plan + feature integration test plans + per-feature slice-lists + per-feature node assignments + (conditional) phase-level design file + per-feature UX Design Spec instances
 
-TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core spec authoring) → Step 2.2 (CD-side per-feature design file production, conditional on `tier_1_involved=true`) → Step 2.3 (Hub-side design file quality check + per-feature UX Design Spec instance authoring). The three steps execute in order, with Step 2.2 / Step 2.3 conditional on whether any feature in the phase has `tier_1_involved=true`. The overall TK-02 sign-off covers all three steps.
+TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core spec authoring) → Step 2.2 (CD-side phase-level design file production, conditional on any feature in the phase having `tier_1_involved=true`) → Step 2.3 (Hub-side per-feature design file quality check + per-feature UX Design Spec instance authoring, iterated per tier-1-involved feature). The three steps execute in order, with Step 2.2 / Step 2.3 conditional on whether any feature in the phase has `tier_1_involved=true`. The overall TK-02 sign-off covers all three steps.
 
 - **Workspace**: Hub Claude (Step 2.1 + Step 2.3) + Claude Design (Step 2.2, conditional)
 - **Stage**: S1; **Milestone**: Pre-M0
@@ -331,62 +331,64 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
   - **Per-feature slice-lists** — one per feature in the phase, at `apps/{app-slug}/specs/slice-list/{feature-slug}.md` per [TPL] TDD `§4.{feature-slug}.Slice-List`
   - **App-scoped openapi additive update** — `apps/{app-slug}/specs/openapi.yaml` updated with new or evolved API surfaces from this phase
 
-### Step 2.2 — CD-side per-feature design file production (conditional)
+### Step 2.2 — CD-side phase-level design file production (conditional)
 
-- **Workspace**: Claude Design (per feature with `tier_1_involved=true`)
-- **Condition**: fires per feature when the feature's `§4.{feature-slug}.Header.tier_1_involved=true` in the TDD authored at Step 2.1. Skipped entirely when no features in the phase touch Tier 1.
-- **Role sequence**: H (initiates each CD session, transfers Hub drop files) + CD (authors design files within its native workspace)
-- **Inputs** (per feature; transferred to CD as drop files with a attention prompt directing CD to UI-relevant sections):
-  - Phase PRD relevant sections (the feature's PRD sub-sections covering user value, scenarios, user flows)
-  - Phase TDD relevant sections (the feature's `§4.{feature-slug}.Header` + `§4.{feature-slug}.Module-Decomposition` + `§4.{feature-slug}.API-Contracts` summary at UI-relevance level — enough for CD to ground component selection in the actual data and interaction surfaces)
+- **Workspace**: Claude Design (one CD session per phase, covering all tier-1-involved features in the phase)
+- **Condition**: fires once per phase when at least one feature has `§4.{feature-slug}.Header.tier_1_involved=true` in the TDD authored at Step 2.1. Skipped entirely when no features in the phase touch Tier 1.
+- **Role sequence**: H (initiates the phase-level CD session, transfers Hub drop files for all tier-1-involved features) + CD (authors the phase-level design file within its native workspace)
+- **Inputs** (per phase; transferred to CD as drop files with an attention prompt directing CD to UI-relevant sections per feature):
+  - For each tier-1-involved feature in the phase: phase PRD relevant sections (the feature's PRD sub-sections covering user value, scenarios, user flows) + phase TDD relevant sections (the feature's `§4.{feature-slug}.Header` + `§4.{feature-slug}.Module-Decomposition` + `§4.{feature-slug}.API-Contracts` summary at UI-relevance level — enough for CD to ground component selection in the actual data and interaction surfaces)
+  - Attention prompt enumerating each tier-1-involved feature with per-feature UI-relevant pointers, plus the per-feature internal labeling instruction (frame / section / page tag = feature-slug) so Hub Step 2.3 can locate each feature's slice
   - DS grounding: CD grounds component selection in its own DS instance (CD is the DS SOT per [REF] Hub-CD-CC Architecture §5.2); no separate DS reference is transferred per cycle. Per [REF] Hub-CD-CC Architecture §3.4.1, CD is the design-file author and consults DS content for component / pattern selection.
-- **Outputs** (per feature, CD-native format; transferred back to Hub for Step 2.3):
-  - Hi-fi mockups for all affected Tier 1 screens
+- **Outputs** (one phase-level design file, CD-native format with per-feature internal labeling; transferred back to Hub for Step 2.3):
+  - Hi-fi mockups for all affected Tier 1 screens across all tier-1-involved features in the phase
   - Prototypes / wireframes for interaction flows where static mockups are insufficient
   - Component callouts identifying which DS components are used per screen
   - Interaction flows with embedded textual annotations (state transitions, edge cases, empty/loading/error states)
-  - Any new-component / new-token proposals (these inform Step 2.3's UX Design Spec §2.4 entry; the DS change request itself is per [RULE] DSG §12)
-- **Trigger**: Operator manual (after Step 2.1 TDD is drafted and `tier_1_involved` flags are set; operator opens a CD session per feature with `tier_1_involved=true`)
-- **CD input strategy v1**: Full relevant PRD + TDD sections as drop files + attention prompt directing CD to UI-relevant sections. (Hub does not pre-extract a "UI summary"; the rationale is preserving signal-to-noise without dropping interaction-relevant content — see TK-02 Step 2.2 mechanism note below.)
+  - Per-feature internal labeling (frame / section / page tag = feature-slug) so each tier-1-involved feature's design scope is locatable for Hub Step 2.3 grounding
+  - Any new-component / new-token proposals (these inform Step 2.3's UX Design Spec §2.4 entry on the relevant per-feature instance; the DS change request itself is per [RULE] DSG §12)
+- **Trigger**: Operator manual (after Step 2.1 TDD is drafted and `tier_1_involved` flags are set; operator opens one CD session for the phase covering all tier-1-involved features)
+- **CD input strategy v1**: Full relevant PRD + TDD sections for all tier-1-involved features as drop files + attention prompt enumerating each feature and directing CD to UI-relevant sections per feature plus per-feature internal labeling. (Hub does not pre-extract a "UI summary"; the rationale is preserving signal-to-noise without dropping interaction-relevant content — see TK-02 Step 2.2 mechanism note below.)
 
-### Step 2.3 — Hub-side design file quality check + UX Design Spec instance authoring (conditional, runs when Step 2.2 fired)
+### Step 2.3 — Hub-side per-feature design file quality check + per-feature UX Design Spec instance authoring (conditional, runs when Step 2.2 fired)
 
 - **Workspace**: Hub Claude
-- **Condition**: runs once per feature for which Step 2.2 fired
-- **Role sequence**: H + HC (design file quality check first; UX Design Spec instance authoring second)
-- **Inputs** (per feature):
-  - CD-authored design files from Step 2.2 (transferred to Hub per [MECH] Cross-Tool Workflow Handoff §2.2)
-  - Phase PRD + phase TDD (the feature's relevant sections)
-  - **[RULE] DSG** §13.3 — the Hub-side consumption discipline governing this step (design file quality check is a spec-readiness review against PRD/TDD; UX Design Spec authoring is grounded in the design files)
+- **Condition**: runs once per tier-1-involved feature in the phase for which Step 2.2 fired; iterates over all tier-1-involved features against the phase-level design file's per-feature labeled slices
+- **Role sequence**: H + HC (per feature: design file quality check first; UX Design Spec instance authoring second)
+- **Inputs** (one phase-level design file consumed iteratively per feature):
+  - CD-authored phase-level design file from Step 2.2 (transferred to Hub per [MECH] Cross-Tool Workflow Handoff §2.2), with per-feature internal labeling (frame / section / page tag = feature-slug)
+  - Phase PRD + phase TDD (each iteration uses the active feature's relevant sections)
+  - **[RULE] DSG** §13.3 — the Hub-side consumption discipline governing this step (per-feature design file quality check is a spec-readiness review against the feature's PRD/TDD scope; per-feature UX Design Spec authoring is grounded in that feature's labeled slice of the design file)
   - [TPL] UX Design Spec (the spec contract authored as Hub-authored markdown)
-  - [TPL] UX Design Spec §3 reviewer checklist (governs the design file quality check)
-- **Outputs** (per feature):
-  - Design file quality check disposition recorded in conversation log (`Pass` / `Pass with annotation` / `Reject — return to CD for revision`) per [TPL] UX Design Spec §3
+  - [TPL] UX Design Spec §3 reviewer checklist (governs the per-feature design file quality check)
+- **Outputs** (per tier-1-involved feature):
+  - Per-feature design file quality check disposition recorded in conversation log (`Pass` / `Pass with annotation` / `Reject — return to CD for revision`) per [TPL] UX Design Spec §3
   - **Per-feature UX Design Spec instance markdown** at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` per [TPL] UX Design Spec
-  - **Conditional**: DS change request entries (additive: captured as UX Design Spec instance §2.4 New-Components-Or-Tokens; breaking: separate change file per [RULE] DSG §12.4) when the design files introduce new components or tokens not present in the current DS
-- **Mechanism**:
-  1. Hub Claude verifies the CD-authored design files are spec-ready per [TPL] UX Design Spec §3 reviewer checklist — confirms the design files are complete against the feature's PRD/TDD scope, internally consistent, and carry annotations rich enough to author the UX Design Spec instance from (DS-conformance of the design files is CD's responsibility as DS owner per [RULE] DSG §13.3)
-  2. If quality check disposition is `Reject — return to CD for revision`: route back to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.3 pauses until revised design files are transferred back
-  3. If `Pass` or `Pass with annotation`: Hub Claude authors the per-feature UX Design Spec instance markdown grounded in the CD-authored design files (every `component: <name>` reference is transcribed from a component callout in the design files; every token and layout-pattern reference likewise traces to the design files' annotations)
-  4. If new components or tokens are needed: Hub Claude authors the §2.4 New-Components-Or-Tokens entry capturing the additive plan per [RULE] DSG §12.4 change content structure; the actual DS instance content change is authored by CD at the originating feature's M4 → merge-to-main milestone per DSG §12.5
+  - **Conditional**: DS change request entries (additive: captured as the per-feature UX Design Spec instance §2.4 New-Components-Or-Tokens; breaking: separate change file per [RULE] DSG §12.4) when the design file slice introduces new components or tokens not present in the current DS
+- **Mechanism** (iterated per tier-1-involved feature):
+  1. Hub Claude locates the feature's labeled slice in the phase-level design file (frame / section / page tag = feature-slug); if the labeling is missing or ambiguous, route to step 2's failure path with scope = full-phase relabeling
+  2. Hub Claude verifies that slice is spec-ready per [TPL] UX Design Spec §3 reviewer checklist — confirms the slice is complete against the feature's PRD/TDD scope, internally consistent, and carries annotations rich enough to author the UX Design Spec instance from (DS-conformance of the design file is CD's responsibility as DS owner per [RULE] DSG §13.3)
+  3. If quality check disposition is `Reject — return to CD for revision`: route back to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.3 pauses for this feature until a revised design file (with the corrected slice, or with corrected labeling) is transferred back. Other features' iterations may proceed in parallel if their slices passed
+  4. If `Pass` or `Pass with annotation`: Hub Claude authors that feature's UX Design Spec instance markdown grounded in the feature's design file slice (every `component: <name>` reference is transcribed from a component callout in the slice; every token and layout-pattern reference likewise traces to the slice's annotations)
+  5. If new components or tokens are needed: Hub Claude authors the §2.4 New-Components-Or-Tokens entry on that feature's instance capturing the additive plan per [RULE] DSG §12.4 change content structure; the actual DS instance content change is authored by CD at the originating feature's M4 → merge-to-main milestone per DSG §12.5
 
 ### TK-02 task-level fields (apply to the full three-step task)
 
 - **Prerequisite**: TK-01
 - **Trigger**: **Manual**
-- **Completion**: Phase TDD uses [TPL] TDD template; `Features in this phase` matches phase PRD §7.1 feature list; per-feature module decomposition MECE within each feature; openapi covers all TDD-introduced API surfaces; each feature's slice-list slices are single-objective; phase test plan exit criteria are testable; per-feature `assigned_node` decided; cross-tier traceability consistent; **for each feature with `tier_1_involved=true`**: CD-authored design files complete and Hub design file quality check disposition is `Pass` or `Pass with annotation`; per-feature UX Design Spec instance markdown authored at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` and signs off the reviewer checklist; operator signs off the full output set; **cross-model review reminder fires at sign-off** (per TK-01 mechanics applied to TDD; the reminder applies to the TDD specifically — the operator may invoke cross-model review of architecture decisions in §1 + §2 + §4 + walking-skeleton scope)
-- **Failure routing**: Phase PRD gaps → TK-01; MECE violation → revise within Step 2.1; **design file quality check `Reject` disposition → return to CD per [MECH] Cross-Tool Workflow Handoff §6, Step 2.2 redo**; **UX Design Spec authoring gap (Hub Claude finds design files insufficient to ground UX Design Spec content) → return to CD for additional design file coverage**; Design System change required → produce DS change request per [RULE] DSG §12 (additive: captured in UX Design Spec instance §2.4 at Step 2.3; breaking: separate change file + review gate); new domain capability needed → schedule as feature-driven domain extension
+- **Completion**: Phase TDD uses [TPL] TDD template; `Features in this phase` matches phase PRD §7.1 feature list; per-feature module decomposition MECE within each feature; openapi covers all TDD-introduced API surfaces; each feature's slice-list slices are single-objective; phase test plan exit criteria are testable; per-feature `assigned_node` decided; cross-tier traceability consistent; **when any feature has `tier_1_involved=true`**: the phase-level CD-authored design file is complete (covers all tier-1-involved features as labeled internal slices) and the per-feature design file quality check disposition is `Pass` or `Pass with annotation` for each tier-1-involved feature; per-feature UX Design Spec instance markdown authored at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` for each tier-1-involved feature and signs off the reviewer checklist; operator signs off the full output set; **cross-model review reminder fires at sign-off** (per TK-01 mechanics applied to TDD; the reminder applies to the TDD specifically — the operator may invoke cross-model review of architecture decisions in §1 + §2 + §4 + walking-skeleton scope)
+- **Failure routing**: Phase PRD gaps → TK-01; MECE violation → revise within Step 2.1; **per-feature design file quality check `Reject` disposition → return to CD per [MECH] Cross-Tool Workflow Handoff §6, Step 2.2 redo scope is the affected feature's slice (or full-phase relabeling when per-feature labeling itself is broken)**; **per-feature UX Design Spec authoring gap (Hub Claude finds a feature's design file slice insufficient to ground its UX Design Spec content) → return to CD for additional design file coverage on that feature's slice**; Design System change required → produce DS change request per [RULE] DSG §12 (additive: captured in the relevant per-feature UX Design Spec instance §2.4 at Step 2.3; breaking: separate change file + review gate); new domain capability needed → schedule as feature-driven domain extension
 - **Human intervention**: **Required**
 
 **Per-unit node assignment note**: `assigned_node` is per-unit, not per-phase. A phase may contain multiple units (one Phase 1 walking_skeleton + multiple feature units + zero-or-more app_integration units) executing on different nodes. Each assignment is an independent operator decision per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 1).
 
-**Walking skeleton scope (Phase 1 only)**: The Phase 1 TDD's §3 Walking skeleton scope sub-section captures the thinnest end-to-end vertical slice that proves foundational architecture works before Phase 1 feature units begin. When walking-skeleton scope itself touches Tier 1 (rare), Step 2.2 + Step 2.3 fire for the walking-skeleton scope as if it were a feature with `tier_1_involved=true`; the UX Design Spec instance is authored at `apps/{app-slug}/specs/ux-design-spec/walking-skeleton.md`.
+**Walking skeleton scope (Phase 1 only)**: The Phase 1 TDD's §3 Walking skeleton scope sub-section captures the thinnest end-to-end vertical slice that proves foundational architecture works before Phase 1 feature units begin. When walking-skeleton scope itself touches Tier 1 (rare), it is included as a labeled slice (frame / section / page tag = `walking-skeleton`) within the phase-level design file produced at Step 2.2, and Step 2.3 iterates a UX Design Spec instance for the walking-skeleton scope authored at `apps/{app-slug}/specs/ux-design-spec/walking-skeleton.md`, treating it as a feature-slug-equivalent.
 
-**TK-02 Step 2.2 mechanism note (CD input strategy v1)**: The operator transfers the full relevant PRD + TDD sections as drop files to CD, accompanied by a attention prompt directing CD to UI-relevant sections. This is preferred over Hub pre-extracting a "UI summary" because: (a) what's "UI-relevant" depends on CD's design judgment (e.g., a data validation rule may turn out to drive an interaction state that needs visual treatment); (b) Hub pre-extraction risks dropping interaction-relevant content that CD would have picked up. The trade-off is signal-to-noise — but for design-file production, the cost of missing context outweighs the cost of CD processing slightly more input. This is a v1 strategy; if Hub pre-extraction proves more efficient in practice, this mechanism may be revised.
+**TK-02 Step 2.2 mechanism note (CD input strategy v1)**: The operator transfers the full relevant PRD + TDD sections for all tier-1-involved features in the phase as drop files to a single phase-level CD session, accompanied by an attention prompt that (a) enumerates each tier-1-involved feature with pointers to that feature's UI-relevant content within the drop files, and (b) instructs CD to internally label per-feature design file scope (frame / section / page tag = feature-slug) so Hub Step 2.3 can ground per-feature UX Design Spec instances in each feature's slice. The phase-level (not per-feature) CD session is preferred because CD designs by application phase as its natural unit of visual production; forcing per-feature CD sessions fragments visual cohesion and contradicts CD's by-phase workflow per [REF] Hub-CD-CC Architecture §3.4.1. Full PRD/TDD drop files (not Hub pre-extracted summaries) are preferred because: (a) what's "UI-relevant" depends on CD's design judgment (e.g., a data validation rule may turn out to drive an interaction state that needs visual treatment); (b) Hub pre-extraction risks dropping interaction-relevant content that CD would have picked up. The trade-off is signal-to-noise — but for design-file production, the cost of missing context outweighs the cost of CD processing slightly more input. This is a v1 strategy; if Hub pre-extraction proves more efficient in practice, this mechanism may be revised.
 
 **Cross-model review reminder at sign-off** ([Enforcement·reminder-only]): Same mechanics as TK-01. Hub Claude surfaces a reminder; operator chooses to invoke cross-model review (e.g., Codex review of the TDD architecture) or proceed.
 
-**Hub-to-assigned_node onboarding (between TK-02 and the unit's first node-side TK)**: Immediately after TK-02 sign-off, for each unit in the phase the operator onboards that unit's `assigned_node` per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). The four Hub-level onboarding contracts (working-branch naming, phase-level spec landing paths, branch publication, Claude Code session start) are stated in full in §5.3 — see §5.3. The CD-authored design files accompany as visual reference (transferred to CC at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1, not committed to the monorepo unless the operator explicitly opts to). From this point, all subsequent node-side TKs for that unit execute within that Claude Code session.
+**Hub-to-assigned_node onboarding (between TK-02 and the unit's first node-side TK)**: Immediately after TK-02 sign-off, for each unit in the phase the operator onboards that unit's `assigned_node` per CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4). The four Hub-level onboarding contracts (working-branch naming, phase-level spec landing paths, branch publication, Claude Code session start) are stated in full in §5.3 — see §5.3. The CD-authored phase-level design file accompanies as visual reference (transferred to CC at TK-04 entry per [MECH] Cross-Tool Workflow Handoff §3.1, not committed to the monorepo unless the operator explicitly opts to commit at `apps/{app-slug}/design-references/phase-{N}/`). From this point, all subsequent node-side TKs for that unit execute within that Claude Code session.
 
 ---
 
@@ -402,7 +404,7 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
   4. Operator transfers the complete per-slice artifact bundle to the assigned_node working directory per [MECH] Cross-Tool Workflow Handoff §3.1 (places files at `apps/{app-slug}/specs/{intent,acceptance,test-plan}/{slice-id}.{md,yaml,yaml}`)
 - **Inputs**:
   - From Hub PK (HC access): `apps/{app-slug}/specs/prd/phase-{N}.md` (paired phase PRD); `apps/{app-slug}/specs/tdd/phase-{N}.md` (phase TDD; specifically the active feature's `§4.{feature-slug}` sub-section); `apps/{app-slug}/specs/test-plan/phase-{N}.md` (phase test plan master, for testing strategy reference); `apps/{app-slug}/specs/test-plan/feature-{feature-slug}.yaml` (feature integration test plan, for cross-slice flow context); `apps/{app-slug}/specs/openapi.yaml`; `apps/{app-slug}/specs/slice-list/{feature-slug}.md`
-  - **When Tier 1 involved**: the **Hub-authored UX Design Spec instance markdown** at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (produced at TK-02 Step 2.3); the corresponding CD-authored design files (as visual reference accompanying the UX Design Spec instance in the operator's working materials)
+  - **When Tier 1 involved**: the **Hub-authored UX Design Spec instance markdown** at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (produced at TK-02 Step 2.3); the corresponding per-feature slice of the CD-authored phase-level design file (as visual reference accompanying the UX Design Spec instance in the operator's working materials)
   - Target slice ID; active `feature-slug` and `phase_number`
 - **Outputs**:
   - `apps/{app-slug}/specs/intent/{slice-id}.md` — full content including UX brief when Tier 1 involved (UX brief content is a slice-narrow extraction from the Hub-authored UX Design Spec instance per [TPL] Writing Standard §2.3)
@@ -416,12 +418,12 @@ TK-02 is a multi-step task with three internal steps: Step 2.1 (Hub-side core sp
 
 **Mechanism rationale (why this TK is Hub-only in the post-refactor architecture)**:
 - Per `[REF] Hub-CD-CC Architecture §5.1` content pillar: spec artifact main bodies (PRD / TDD / intent / acceptance / test-plan) are Hub-produced. TK-03 falls under this pillar.
-- The per-feature UX Design Spec instance markdown — also a Hub-authored spec artifact — was authored upstream at TK-02 Step 2.3 (the feature-level UX spec, grounded in CD-authored design files). TK-03 extracts slice-narrow content from this Hub-authored instance; it does not invoke CD again.
+- The per-feature UX Design Spec instance markdown — also a Hub-authored spec artifact — was authored upstream at TK-02 Step 2.3 (the feature-level UX spec, grounded in the corresponding labeled slice of the CD-authored phase-level design file). TK-03 extracts slice-narrow content from this Hub-authored instance; it does not invoke CD again.
 - Per the user's cross-model review discipline: the operator's Hub-side ChatGPT-Claude consensus loop is the de facto design freeze gate, replacing the pre-refactor separate TK-04 M0 adversarial review. This loop is only operable in Hub.
-- Per `[REF] Hub-CD-CC Architecture §5.2` presentation pillar: when Tier 1 is involved, **design files** are CD-authored at TK-02 Step 2.2 (CD-native visual artifacts), and the **UX Design Spec instance** is Hub-authored at TK-02 Step 2.3 (markdown spec grounded in the design files). TK-03 consumes the Hub-authored UX Design Spec instance as the primary textual UX source; design files accompany as visual reference but TK-03 does not parse them as text.
+- Per `[REF] Hub-CD-CC Architecture §5.2` presentation pillar: when any feature in the phase has Tier 1 involved, a **phase-level design file** is CD-authored at TK-02 Step 2.2 (CD-native visual artifact with per-feature internal labeling), and per-feature **UX Design Spec instances** are Hub-authored at TK-02 Step 2.3 (one markdown spec per tier-1-involved feature, each grounded in the corresponding labeled slice of the design file). TK-03 consumes the Hub-authored UX Design Spec instance as the primary textual UX source; the design file accompanies as visual reference but TK-03 does not parse it as text.
 - The cost of round-tripping TK-03 between Hub and CC (the pre-refactor design) is eliminated: artifacts produced in Hub are transferred to CC once, after the cross-model review, with no revert path needed.
 
-**Skill loading note (CC-side, post-TK-03)**: SK-F (`hdc-arco-enterprise-ui`) is in scope from new TK-04 onwards on assigned_node for Tier 1 code generation (when substantive code writing begins per TK-04 description below). SK-F is **not** invoked at TK-03 because TK-03 is Hub-side and Hub cannot load `.claude/skills/`. The Hub-authored UX Design Spec instance is the upstream guarantee for DS-coupled content at TK-03 (authored at TK-02 Step 2.3 from CD-authored design files); SK-F enforces DS-coupled correctness at code time grounded in the CC mirror. SK-W (`hdc-wcag-accessibility-checker`) is on-demand only per [RULE] Design System Governance §6.
+**Skill loading note (CC-side, post-TK-03)**: SK-F (`hdc-arco-enterprise-ui`) is in scope from new TK-04 onwards on assigned_node for Tier 1 code generation (when substantive code writing begins per TK-04 description below). SK-F is **not** invoked at TK-03 because TK-03 is Hub-side and Hub cannot load `.claude/skills/`. The Hub-authored per-feature UX Design Spec instance is the upstream guarantee for DS-coupled content at TK-03 (authored at TK-02 Step 2.3 from the per-feature slice of the CD-authored phase-level design file); SK-F enforces DS-coupled correctness at code time grounded in the CC mirror. SK-W (`hdc-wcag-accessibility-checker`) is on-demand only per [RULE] Design System Governance §6.
 
 **Unit_type applicability**: TK-03 runs for `feature` and `walking_skeleton` units only.
 
@@ -444,7 +446,7 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 
 - **Executing workspace**: assigned_node Claude Code
 - **Constitutional identity**: Entry point for CC's slice implementation. Absorbs the M0 design-freeze function as a lightweight intake check (spec bundle intact upon CC reception) — not a re-decision of design freeze (per [MECH] CI/CD constitutional residue §2.1).
-- **Hub-facing interface — inputs**: Per-slice spec bundle handed off from TK-03 (intent.md, acceptance.yaml, test-plan.yaml + per-feature UX Design Spec instance + design files as visual reference) per [MECH] Cross-Tool Workflow Handoff §3.1
+- **Hub-facing interface — inputs**: Per-slice spec bundle handed off from TK-03 (intent.md, acceptance.yaml, test-plan.yaml + per-feature UX Design Spec instance + the phase-level design file as visual reference) per [MECH] Cross-Tool Workflow Handoff §3.1
 - **Hub-facing interface — outputs**: First commit on feature branch; GitHub Issue marker block updated to `status: in-progress` per [RULE] WT constitutional residue §4
 - **Substantive execution detail**: CC substantive DTW canonical
 
@@ -543,14 +545,14 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 
 - Within one task: single turn produces multiple artifacts (TK-02 Step 2.1)
 - Between hub tasks (TK-01 → TK-02 Step 2.1): **Manual**
-- Within TK-02: Step 2.1 → Step 2.2 trigger (conditional on any feature `tier_1_involved=true`) → Step 2.3: **Manual** (operator initiates CD session per feature when Step 2.1 sets `tier_1_involved` flags; operator returns to Hub session for Step 2.3 after each feature's design files are produced by CD)
+- Within TK-02: Step 2.1 → Step 2.2 trigger (conditional on any feature in the phase having `tier_1_involved=true`) → Step 2.3: **Manual** (operator initiates one phase-level CD session covering all tier-1-involved features in the phase when Step 2.1 sets `tier_1_involved` flags; operator returns to Hub session for Step 2.3 — which iterates per tier-1-involved feature — after the phase-level design file is produced by CD)
 - Between TK-02 (Step 2.3 sign-off) → TK-03: **Manual** (operator picks slice from slice-list)
 
 ## 5.2 Hub → CD → Hub (within TK-02 Step 2.2 → Step 2.3)
 
 The TK-02 multi-workspace authoring involves operator-mediated transfers between Hub and CD per [MECH] Cross-Tool Workflow Handoff §2:
 - **Hub → CD (Step 2.2 entry)**: operator transfers relevant PRD/TDD sections as drop files to a CD project + attention prompt directing CD to UI-relevant sections per [MECH] Cross-Tool Workflow Handoff §2.1
-- **CD → Hub (Step 2.2 exit / Step 2.3 entry)**: operator transfers CD-authored design files back to the Hub session per [MECH] Cross-Tool Workflow Handoff §2.2; Hub Claude performs the design file quality check (spec-readiness against PRD/TDD) per [TPL] UX Design Spec §3 reviewer checklist; if `Pass` or `Pass with annotation`, Hub Claude authors the per-feature UX Design Spec instance markdown grounded in the CD-authored design files per [RULE] DSG §13.3
+- **CD → Hub (Step 2.2 exit / Step 2.3 entry)**: operator transfers the CD-authored phase-level design file back to the Hub session per [MECH] Cross-Tool Workflow Handoff §2.2; Hub Claude iterates per tier-1-involved feature in the phase, performing the per-feature design file quality check (spec-readiness against that feature's PRD/TDD scope) per [TPL] UX Design Spec §3 reviewer checklist on each feature's labeled slice; if `Pass` or `Pass with annotation` for a given feature, Hub Claude authors that feature's UX Design Spec instance markdown grounded in the relevant slice per [RULE] DSG §13.3
 - **Quality check `Reject` path**: route back to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.3 pauses; Step 2.2 redo for the affected feature
 
 This transition happens conditionally — only per feature with `tier_1_involved=true`. Features that are purely Tier 2 / Tier 3 do not trigger Step 2.2 / Step 2.3.
@@ -567,7 +569,7 @@ The hub-to-assigned_node handoff happens immediately after TK-02 sign-off (cover
 
   The specific SCM commands, branch-publication mechanics, and session-bootstrap procedure are operator-personal mechanism owned by CC substantive Workspace Topology canonical.
 
-Per-slice TK-03 artifacts (intent / acceptance / test-plan) are placed at assigned_node working directory by the operator at the end of each TK-03 iteration per [MECH] Cross-Tool Workflow Handoff §3.1. CD-authored design files accompany the spec bundle as visual reference for the operator and CC, but are not committed to the monorepo unless the operator explicitly opts to.
+Per-slice TK-03 artifacts (intent / acceptance / test-plan) are placed at assigned_node working directory by the operator at the end of each TK-03 iteration per [MECH] Cross-Tool Workflow Handoff §3.1. The CD-authored phase-level design file accompanies the spec bundle as visual reference for the operator and CC, but is not committed to the monorepo unless the operator explicitly opts to commit at `apps/{app-slug}/design-references/phase-{N}/`.
 
 ## 5.4 CC internal transitions
 
@@ -604,7 +606,7 @@ The intervention budget varies by unit_type because `app_integration` units skip
 | # | Task | Purpose | Workspace |
 |---|---|---|---|
 | 1 | TK-01 | PRD sign-off (cross-model review reminder fires) | Hub |
-| 2 | TK-02 | TDD + openapi + slice-list + assigned_node sign-off across Step 2.1 / Step 2.2 / Step 2.3 (Step 2.2 + Step 2.3 conditional on any feature `tier_1_involved=true`; design file quality check + UX Design Spec instance authoring happen at Step 2.3; cross-model review reminder fires at full TK-02 sign-off) | Hub + CD |
+| 2 | TK-02 | TDD + openapi + slice-list + assigned_node sign-off across Step 2.1 / Step 2.2 / Step 2.3 (Step 2.2 + Step 2.3 conditional on any feature in the phase having `tier_1_involved=true`; Step 2.2 produces one phase-level design file; Step 2.3 iterates per tier-1-involved feature for design file quality check + UX Design Spec instance authoring; cross-model review reminder fires at full TK-02 sign-off) | Hub + CD |
 | 3 | TK-03 | Per-slice specs review (transition period only; skipped after N=2) | Hub |
 | 4 | TK-04 (entry self-check sub-step) | M0 entry self-check verification | assigned_node CC |
 | 5 | TK-12 | M4 merge to `main` + smoke test + DS change merge + (conditional) DS markdown export §15 review + CC-mirror sync | Hub or assigned_node |
@@ -633,7 +635,7 @@ Workspace inception is a one-time human-driven activity owned outside this sourc
 | 6 | TK-13 | Staging deploy failure |
 | 7 | TK-01 | Cross-model review invoked at operator's discretion |
 | 8 | TK-02 | Cross-model review invoked at operator's discretion |
-| 9 | TK-02 Step 2.3 | Design file quality check `Reject` disposition → return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback |
+| 9 | TK-02 Step 2.3 | Per-feature design file quality check `Reject` disposition (for some tier-1-involved feature's labeled slice) → return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.2 redo scope is the affected feature's slice (or full-phase relabeling when per-feature labeling itself is broken) |
 
 ## 6.3 Anti-drift on intervention budget
 
@@ -650,8 +652,8 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 - Compliance-checker first-pass violations frequent
 - **Design System Governance drift recurrent**
 - **Cross-app domain contract churn**
-- **CD-side design file quality check failures recurrent at TK-02 Step 2.3** (operator returning CD design files for redo too often suggests upstream framing issues — possibly insufficient PRD/TDD drop-file context at Step 2.2 entry, or DS mirror not adequately consulted by CD)
-- **UX Design Spec instance authoring stalls recurrent at TK-02 Step 2.3** (Hub Claude finding design files insufficient to ground UX Design Spec content too often suggests Step 2.2 input strategy needs revision)
+- **Per-feature design file quality check failures recurrent at TK-02 Step 2.3** (operator returning CD design file slices for redo too often suggests upstream framing issues — possibly insufficient PRD/TDD drop-file context per feature at Step 2.2 entry, or DS mirror not adequately consulted by CD, or per-feature labeling instruction insufficiently emphasized in the attention prompt)
+- **UX Design Spec instance authoring stalls recurrent at TK-02 Step 2.3** (Hub Claude finding design file slices insufficient to ground UX Design Spec content too often suggests Step 2.2 input strategy needs revision)
 
 ---
 
@@ -662,8 +664,8 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 | Static analysis critical (TK-04) | TK-04 | automatic (CC-internal) |
 | **Tier 1 Design System drift (TK-04)** | **TK-04** | **automatic (CC-internal)** |
 | **TK-04 M0 self-check finds the CC DS mirror stale** | **Operator triggers a DS markdown export resync (DSG §15 review + CC-mirror sync) per [RULE] DSG §12.3** | **Manual** |
-| **TK-02 Step 2.3 design file quality check `Reject` disposition** | **Return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.2 redo for affected feature** | **Operator manual** |
-| **TK-02 Step 2.3 UX Design Spec authoring gap (design files insufficient)** | **Return to CD for additional design file coverage; Step 2.2 → Step 2.3 redo for affected feature** | **Operator manual** |
+| **TK-02 Step 2.3 per-feature design file quality check `Reject` disposition** | **Return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.2 redo scope is the affected feature's slice (or full-phase relabeling when per-feature labeling itself is broken)** | **Operator manual** |
+| **TK-02 Step 2.3 UX Design Spec authoring gap (a feature's design file slice insufficient)** | **Return to CD for additional design file coverage on that feature's slice; Step 2.2 → Step 2.3 redo for the affected feature** | **Operator manual** |
 | **TK-02 / TK-03 DS change required** | **Captured in UX Design Spec instance §2.4 New-Components-Or-Tokens at Step 2.3 (additive); separate change file at Step 2.3 + review gate (breaking); per [RULE] DSG §12** | **Manual** |
 | Unit test failure (TK-05) | TK-06 (≤3) | automatic (CC-internal) |
 | Unit test failure after 3 (TK-06) | TK-07 | automatic (CC-internal) |
@@ -695,9 +697,10 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 - A task silently skipped
 - Hook chain reports completion but downstream task no trigger
 - TK-01, TK-02, or TK-04 entry self-check proceeding without operator sign-off (the operator's sign-off on TK-02 + the operator-driven Hub-side cross-model review at TK-03 sign-off are the design freeze gates; TK-04 entry self-check is a structural check executed by CC that nevertheless requires operator awareness when it surfaces inconsistency)
-- **TK-02 Step 2.1 sign-off proceeding without setting `tier_1_involved` flags per feature** — the flag drives whether Step 2.2 / Step 2.3 fire; missing flags cause Tier 1 features to skip CD-side design file production silently
-- **TK-02 Step 2.2 fired but Step 2.3 skipped** — Step 2.2 produces CD-native design files; without Step 2.3 the markdown UX Design Spec instance is missing and downstream Hub TK-03 / CC TK-04+ have no AI-RAG-consumable UX spec
-- **TK-02 Step 2.3 UX Design Spec instance authored without grounding in the CD-authored design files** — violates [RULE] DSG §13.3 Hub-side consumption discipline; results in UX Design Spec instances referencing nonexistent or misnamed DS elements
+- **TK-02 Step 2.1 sign-off proceeding without setting `tier_1_involved` flags per feature** — the flag drives whether Step 2.2 / Step 2.3 fire; missing flags cause Tier 1 features to skip CD-side phase-level design file inclusion silently
+- **TK-02 Step 2.2 fired but Step 2.3 skipped** — Step 2.2 produces the CD-native phase-level design file; without Step 2.3 the per-feature markdown UX Design Spec instances are missing and downstream Hub TK-03 / CC TK-04+ have no AI-RAG-consumable UX spec
+- **TK-02 Step 2.3 UX Design Spec instance authored without grounding in the per-feature slice of the CD-authored phase-level design file** — violates [RULE] DSG §13.3 Hub-side consumption discipline; results in UX Design Spec instances referencing nonexistent or misnamed DS elements
+- **TK-02 Step 2.2 produced a phase-level design file without per-feature internal labeling** — Hub Step 2.3 cannot ground per-feature UX Design Spec instances without the labels; route through CD for labeling before Step 2.3 proceeds
 - TK-03 transition period skipped prematurely (before N=2 slices)
 - Reintroduction of TK-15+ (release authorization, production deploy) into the AI-dev TK sequence without canonical revision authorizing it
 - **Cross-model review reminder at TK-01 / TK-02 promoted from advisory to hard gate without canonical revision** (the reminder is [Enforcement·reminder-only]; reframing it as a required task constitutes scope expansion requiring revision of this source)
@@ -705,11 +708,12 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 **Workspace dimension** (DTW-specific):
 - TK-04 onwards executed in Hub Claude instead of assigned_node Claude Code (breaks evidence chain locality and SK-F coverage; TK-04+ is mechanically impossible in hub anyway — Hub cannot load `.claude/skills/`)
 - TK-01, TK-02 Step 2.1, TK-02 Step 2.3, or TK-03 executed in assigned_node CC instead of hub (loses hub's content-pillar discipline per [REF] Hub-CD-CC Architecture §5.1)
-- **TK-02 Step 2.2 executed in Hub instead of CD when feature has `tier_1_involved=true`** (loses presentation-pillar discipline; Hub cannot produce CD-native visual design files)
+- **TK-02 Step 2.2 executed in Hub instead of CD when any feature in the phase has `tier_1_involved=true`** (loses presentation-pillar discipline; Hub cannot produce CD-native visual design files)
+- **TK-02 Step 2.2 executed as one CD session per feature instead of one CD session per phase** — the canonical CD delivery unit is phase-level (covering all tier-1-involved features in the phase as labeled internal scopes); per-feature CD sessions fragment visual cohesion and contradict CD's by-phase design workflow
 - **TK-02 Step 2.3 executed in CD instead of Hub** (loses content-pillar discipline; CD does not author markdown specs — UX Design Spec instance authoring belongs in Hub per the revised architecture)
 - Hub-to-assigned_node onboarding skipped or partial
-- **Operator hand-authoring UX content in Hub at TK-02 Step 2.3 without the CD-authored design files** — Step 2.3 grounds the UX Design Spec instance in the CD-authored design files; authoring without them invalidates the instance's grounding chain
-- **Operator skipping CD design files entirely at TK-02 Step 2.2 when feature has `tier_1_involved=true`, going directly to Hub UX Design Spec instance authoring** — Hub Claude has no visual reasoning capability; UX Design Spec instances authored without design file grounding produce content disconnected from actual visual design (the operator may sometimes choose to bypass CD for trivial UX content with clearly named patterns, but recurring bypass on non-trivial UX is a drift signal)
+- **Operator hand-authoring UX content in Hub at TK-02 Step 2.3 without the CD-authored phase-level design file** — Step 2.3 grounds each per-feature UX Design Spec instance in the relevant slice of the CD-authored phase-level design file; authoring without it invalidates the instance's grounding chain
+- **Operator skipping CD design file entirely at TK-02 Step 2.2 when any feature in the phase has `tier_1_involved=true`, going directly to Hub UX Design Spec instance authoring** — Hub Claude has no visual reasoning capability; UX Design Spec instances authored without design file grounding produce content disconnected from actual visual design (the operator may sometimes choose to bypass CD for trivial UX content with clearly named patterns, but recurring bypass on non-trivial UX is a drift signal)
 
 **App / domain dimension**: see [RULE] Claude Code Architecture Rules §8 for the canonical red-flag list. DTW-specific augmentations:
 - Feature work using `{feature-slug}` not preceded by `{app-slug}` in TDD reference path (TK-02 / TK-03 surface)
@@ -736,14 +740,14 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 - Evidence files from one slice cross-contaminating another slice's `evidence/{slice-id}/` directory
 
 **Cross-tool handoff dimension** (DTW local variants of [MECH] Cross-Tool Workflow Handoff §8 red flags):
-- **TK-02 Step 2.2 CD design files transferred to Hub Step 2.3 without operator audit** (per [MECH] Cross-Tool Workflow Handoff §2.2 audit checklist)
+- **TK-02 Step 2.2 CD phase-level design file transferred to Hub Step 2.3 without operator audit** (per [MECH] Cross-Tool Workflow Handoff §2.2 audit checklist — including the per-feature internal labeling completeness check across all tier-1-involved features in the phase)
 - **TK-02 Step 2.3 UX Design Spec instance transferred to assigned_node working directory without operator audit** (UX Design Spec instance is a Hub-authored markdown spec; standard operator-mediated transfer discipline applies)
 - TK-11 Codex review output bypasses Hub judgment (per [MECH] Cross-Tool Workflow Handoff §3.2.3)
 - **TK-12 DS markdown export §15 review or CC-mirror sync skipped when slice carries DS change** (violates [RULE] DSG §12.3; leaves the CC mirror stale or unreviewed)
 
 **UX and accessibility**: most red flags here are owned by CC substantive Code Quality Rule Set canonical (UX/accessibility lint rules) and [RULE] Design System Governance §16 governance. DTW local variants:
 - **SK-F (`hdc-arco-enterprise-ui`) not invoked during TK-04 Tier 1 code generation** (the TK-04 instance of skill-loading drift)
-- **Tier-1-involving feature's UX Design Spec instance missing at TK-02 Step 2.3 sign-off** (when CD-side design files were produced but Hub-side UX Design Spec authoring was skipped)
+- **Tier-1-involving feature's UX Design Spec instance missing at TK-02 Step 2.3 sign-off** (when the CD-side phase-level design file was produced and contains that feature's slice but Hub-side UX Design Spec authoring for the feature was skipped)
 - **Tier-1-involving slice's intent.md missing UX brief section** (TK-03 surface — when feature's UX Design Spec instance is missing or insufficient)
 - **Tier-1-involving slice's test-plan.yaml missing `test_type: accessibility` cases when slice has specific a11y concerns** (TK-03 surface)
 - **i18n resource files missing for supported locales when Tier 1 adds user-facing text** (TK-04 surface)
@@ -764,12 +768,13 @@ When user phrasing in a Hub Claude conversation matches any of the following, Hu
 - "merge before TK-10 finishes"
 - "fast-track this slice"
 - "skip the Codex review"
-- **"skip Step 2.2 even though this feature touches Tier 1"** / **"skip the CD design files for this Tier 1 feature"** (Step 2.2 is required per [REF] Hub-CD-CC Architecture §5.2 revised; skipping is a presentation-pillar bypass)
-- **"skip Step 2.3, just go to TK-03 directly with the CD design files"** / **"don't author the UX Design Spec instance, TK-03 can read the design files"** (TK-03 consumes the Hub-authored UX Design Spec instance as the primary textual UX source; design files alone do not satisfy AI-RAG consumption requirements)
+- **"skip Step 2.2 even though some features in this phase touch Tier 1"** / **"skip the CD design file for these Tier 1 features"** (Step 2.2 is required per [REF] Hub-CD-CC Architecture §5.2 revised; skipping is a presentation-pillar bypass)
+- **"open one CD session per feature for the phase's Tier 1 features"** / **"split the phase into per-feature CD sessions"** (the canonical CD delivery unit is phase-level — one CD session per phase covering all tier-1-involved features as labeled internal scopes; per-feature CD sessions contradict CD's by-phase design workflow per [REF] Hub-CD-CC Architecture §3.4.1)
+- **"skip Step 2.3, just go to TK-03 directly with the CD design file"** / **"don't author the per-feature UX Design Spec instances, TK-03 can read the design file directly"** (TK-03 consumes the Hub-authored per-feature UX Design Spec instance as the primary textual UX source; the design file alone does not satisfy AI-RAG consumption requirements)
 
 **Workspace-shift phrasing** → reference §0.4 and §4 TK-02 Step 2.2 / Step 2.3 / TK-03 / TK-04:
-- **"let me author the UX Design Spec instance in CD"** / **"have CD produce the markdown spec"** — Step 2.3 belongs in Hub per the revised architecture; CD outputs design files, not markdown specs
-- **"have Hub produce the design files / mockups"** — Step 2.2 belongs in CD; Hub Claude cannot produce CD-native visual artifacts
+- **"let me author the UX Design Spec instance in CD"** / **"have CD produce the markdown spec"** — Step 2.3 belongs in Hub per the revised architecture; CD outputs the phase-level design file, not markdown specs
+- **"have Hub produce the design file / mockups"** — Step 2.2 belongs in CD; Hub Claude cannot produce CD-native visual artifacts
 - "let me draft the intent in this hub chat without consulting the UX Design Spec instance" (when slice involves Tier 1 — reference TK-03 inputs)
 - "let me write the test-plan UX-touching fields here in hub" (these fields are derived from the Hub-authored UX Design Spec instance, not invented in TK-03)
 - "do the M0 entry self-check in hub Claude" (M0 entry self-check is a CC-side structural verification per TK-04; it cannot run at Hub because the CC mirror SK-F engagement is part of the check)
@@ -778,7 +783,7 @@ When user phrasing in a Hub Claude conversation matches any of the following, Hu
 
 **Sign-off bypass phrasing** → reference §6.1 (steady-state intervention budget):
 - "auto-approve TK-02"
-- **"auto-approve TK-02 Step 2.3 design file quality check"** (Step 2.3 quality check requires operator awareness; the `Pass` / `Pass with annotation` / `Reject` disposition is recorded in the conversation log)
+- **"auto-approve TK-02 Step 2.3 per-feature design file quality check"** (Step 2.3 quality check requires operator awareness per tier-1-involved feature; the `Pass` / `Pass with annotation` / `Reject` disposition per feature is recorded in the conversation log)
 - "let CC sign off TK-04 entry self-check unilaterally without surfacing inconsistency" (CC executes the self-check mechanically; when inconsistency is found, operator awareness is required)
 - "skip the M4 manual review"
 - "skip the cross-model review reminder" (the reminder is [Enforcement·reminder-only]; skipping is allowed but the operator should acknowledge skipping consciously)
