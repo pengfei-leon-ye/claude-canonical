@@ -331,6 +331,7 @@ Each rule serves a justified purpose traceable to a User Preferences (UP) or Pro
 - **Source-existence justification** (T1 creation trigger only): does the new canonical source clear the [OS] §0.1.7 Premise 7 conservative-formalization test — recurrence (the need has actually recurred), coverage gap (no existing source can absorb the content as a section), AI-consumer value (the content drives Hub Claude / Claude Code behavior at RAG retrieval time), and maintenance budget (pairing fan-out and audit surface are proportionate to operational return)? A new source that an existing source could have absorbed is a D5 finding.
 - **Side-effect disclosure**: where a rule plausibly has known side effects (e.g., raising friction, slowing iteration, creating dependencies), does the source acknowledge them?
 - **Mechanism-fatigue check**: is this rule's addition to the canonical set likely to interact with existing mechanisms in a way that produces audit-fatigue, governance overhead, or rule density beyond the [OS] §8.5.7 thresholds?
+- **Capability-compensation / staleness check** (full T1 audits and on-demand D5 runs only; not a T2-magnitude check, since model-capability shifts are not introduced by minor edits): classify each rule's reason-for-existence as exactly one of {interface-constitutional, human-auditability, model-capability-compensation}. Only the model-capability-compensation class is re-validated against current model capability — ask whether the model limitation the rule compensates for still binds on the current model. A rule compensating for a limitation the current model no longer has is a D5 staleness finding (dead weight); the mechanism may be retained while stale parameters are recalibrated, following the context-reset precedent (a harness intervention added for one model generation that a later, more capable model renders unnecessary). Interface-constitutional and human-auditability rules are out of scope of this check — they do not go stale as models improve. Scope note: "dead weight" here means weight in the model's attention / instruction budget, never human reading burden.
 
 ### 3.6.3 Failure modes D5 catches
 
@@ -339,6 +340,7 @@ Each rule serves a justified purpose traceable to a User Preferences (UP) or Pro
 - A rule whose known side effects are not acknowledged in the source
 - A new rule that pushes the canonical set toward §8.5.7 re-architecture thresholds without commensurate operational return
 - A new canonical source (T1 creation trigger) authored when an existing source could have absorbed the content as a section, or for a need that has not genuinely recurred — a [OS] §0.1.7 Premise 7 violation
+- A rule that exists to compensate for a model limitation the current model no longer has — a capability-compensation staleness finding. The rule is dead weight even though it remains correct and purpose-traceable; it should be retired, or its stale parameters recalibrated while the mechanism is kept. Interface-constitutional and human-auditability rules are exempt, because they do not go stale as models improve.
 
 ## 3.7 D6 Rationale Transparency
 
