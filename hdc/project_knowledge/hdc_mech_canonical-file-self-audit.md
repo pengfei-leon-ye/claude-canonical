@@ -353,6 +353,7 @@ Load-bearing rules state their rationale in the text. Rules' purposes are expose
 - **Load-bearing rationale presence**: for each rule that other rules depend on, or that is cited from another canonical source, is the rationale stated in 1-2 sentences alongside the rule?
 - **Hard rule vs principle distinction**: does the source distinguish between hard rules (high-stakes, bright-line; rationale less critical because behavior is binary) and principles (lower-stakes; rationale critical because Hub Claude must generalize to novel cases)?
 - **Generalization support**: where Hub Claude may face a situation the rule does not directly cover, does the stated rationale provide enough basis for sensible extrapolation?
+- **Capability-assumption naming** (feeds D5 §3.6.2): for a rule whose reason-for-existence is model-capability-compensation, does the stated rationale name the specific model limitation it compensates for? Naming it lets the D5 capability-staleness check re-validate the rule against current model capability without auditor guesswork. Interface-constitutional and human-auditability rules carry no such obligation — they do not go stale as models improve.
 - **Distinction from D5**: D5 checks whether the rule *has* a justified purpose (audit-side determination); D6 checks whether the rule *exposes* its purpose in the text (content-side observation).
 
 ### 3.7.3 Failure modes D6 catches
