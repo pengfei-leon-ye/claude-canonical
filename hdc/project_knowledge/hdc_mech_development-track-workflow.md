@@ -230,7 +230,7 @@ Thirteen tasks total (TK-01 through TK-13). Scope levels and per-unit-type appli
 
 Within a single phase, the loop structure for `feature` and `walking_skeleton` units is: TK-01 → TK-02 (Step 2.1 → Step 2.2 → Step 2.3) → (for each unit: for each slice in the unit: TK-03 through TK-11) → TK-12 onwards.
 
-The Phase 1 `walking_skeleton` unit must reach `status: merged` before any `feature` unit's TK-03 or any `app_integration` unit's TK-08 begins, per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). For `app_integration` units, the loop is: TK-01 → TK-02 (consumed as input) → TK-08 → TK-09 → TK-10 → TK-11 → TK-12 onwards.
+The Phase 1 `walking_skeleton` unit must reach `status: merged` before any `feature` unit's TK-04 (M0 entry; first node-side milestone) or any `app_integration` unit's TK-08 (M2 entry; first node-side milestone) begins, per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). Hub-side TK-03 specification authoring is Hub-only in the post-refactor architecture and MAY proceed in parallel with the Phase 1 walking-skeleton unit's node-side execution; the gate is the first node-side milestone, not Hub-side authoring. For `app_integration` units, the loop is: TK-01 → TK-02 (consumed as input) → TK-08 → TK-09 → TK-10 → TK-11 → TK-12 onwards.
 
 ## 4.0 Unit_type catalog and per-unit-type task paths
 
