@@ -132,7 +132,7 @@ Mechanism design for [MECH] sources must reason from these AI primitives rather 
 
 **Audit operationalization**: [MECH] CFSA §3.11 operationalizes this premise as a D5 Soundness check applied specifically to [MECH] sources.
 
-**Origin**: this premise codifies a costly lesson from the early Development Track CI/CD design, where commercial CI/CD patterns assuming continuous-context coworker review were transplanted into AI-sub-agent contexts and produced repeated execution stalls. The pattern of "AI mimicry of human workflow primitives" is the failure mode this premise prevents.
+**Origin**: codifies the AI mimicry of human workflow primitives failure mode — transplanting patterns that implicitly assume continuous-context coworker review, proactive escalation, or persistent state into AI-sub-agent contexts produces predictable execution stalls.
 
 ### 0.1.7 Premise 7 — Conservative formalization (canonical-set expansion requires affirmative justification)
 
@@ -151,7 +151,7 @@ Promoting content to a new canonical source — or a new §-block, `[RULE]`, `[M
 
 **Audit operationalization**: CFSA D5 Soundness §3.6.2 operationalizes this premise as a source-existence justification check fired at the T1 creation trigger. §8.9 makes the four-question test a required pre-generation confirmation; §8.10 reserved-empty registry is the operational record of needs evaluated and deliberately *not* formalized.
 
-**Origin**: this premise codifies a discipline validated in practice — Library Project Protocol and Expert Consultation Trigger were both scoped as prospective canonical sources and then deliberately not formalized (2026-05-17) because existing mechanisms already covered them. The failure mode this premise prevents is canonical-set sprawl: formalizing every identified need into a dedicated source until pairing fan-out and audit overhead exceed operator working-memory capacity.
+**Origin**: prevents canonical-set sprawl — formalizing every identified need into a dedicated source until pairing fan-out and audit overhead exceed operator working-memory capacity.
 
 ### 0.1.8 How new Premises are added (meta-note)
 
@@ -239,10 +239,7 @@ Hub Claude and Claude Code (CC) operate against disjoint file-system contexts:
 
 ### Operational consequences for Hub-Claude-targeted sources
 
-- Section structure, terminology, and cross-references should optimize for Hub Claude's semantic-search retrieval (`project_knowledge_search`) and rule-application reliability per §0.1.4
-- Prose density should match information density; rhetorical closure is decorative under §0.1.4
-- Repetition that increases Hub Claude's RAG retrieval reliability is acceptable; repetition that only serves human reading-flow is not
-- Orientation chapters (e.g., `# 0. Boundary and position`, `## How to use this source`) remain valid because they encode AI scope-routing signals
+Implementing §0.1.4 in Hub-Claude-targeted sources, with one orientation-chapter exception: `# 0. Boundary and position` chapters and `## How to use this source` blocks remain valid because they encode AI scope-routing signals.
 
 ---
 
@@ -694,7 +691,7 @@ Only stable, reusable, cross-topic content should become canonical source. Conte
 
 ## 8.2 One-source-one-job rule
 
-Each canonical source should serve one stable purpose. Intentional dual-ownership is permitted only when explicitly surfaced per §8.7 with rationale stating why two perspectives are genuinely orthogonal.
+Each canonical source should serve one stable purpose. Intentional dual-ownership is permitted only when explicitly surfaced with rationale stating why two perspectives are genuinely orthogonal.
 
 ## 8.3 Abstract-before-storing rule
 
@@ -1005,7 +1002,7 @@ The protocol activates when the user explicitly asks for a source-ready canonica
 
 ### Required pre-generation declarations
 
-Before generating the final source-ready Markdown, first confirm the proposed source clears the §0.1.7 Premise 7 conservative-formalization test: if an existing canonical source can absorb the content as a section, or the need has not genuinely recurred, do not generate a new source. Once the new-source decision is affirmed, state:
+Before generating the final source-ready Markdown, first confirm the proposed source clears the §0.1.7 Premise 7 conservative-formalization test by answering: (1) **Recurrence** — has the need actually recurred? (2) **Coverage gap** — do existing canonical sources genuinely fail to cover it (can an existing source absorb the content as a section)? (3) **AI-consumer value** — will the formalized content drive Hub Claude / Claude Code behavior at RAG retrieval time? (4) **Maintenance budget** — is the resulting pairing fan-out and audit surface proportionate to the operational return? Per §0.1.7 these are reasoning anchors not a mechanical gate; a proposal weak on one but decisively strong on the others may still be justified when the trade-off is made explicit. Once the new-source decision is affirmed, state:
 - routing decision (which hub zone or file the source belongs to)
 - output family (management-system output, specification-support artifact, or canonical source outside L2-L5; see §5)
 - governing anchor, if the source extends or applies another canonical source
@@ -1360,7 +1357,7 @@ Claude should surface anti-drift corrections when any of the following happen:
 - a `Document Type`, `Status`, or `Role first word` field uses a value not in the §10.4 controlled vocabulary, or uses a slash-compounded multi-axis form deprecated as of the §10.4 revision
 - a Cat 4 source's §0 / §1 boundary chapter materially changes its owned scope without the §8.5.6 Cat 4 source map being re-verified in the same revision
 - a new coupling is registered as `P-NN` in §8.5.2 without applying §8.5.1a Tier discrimination first; or a Tier B coupling is registered as `P-NN` despite being fully discoverable via semantic search and explicit cross-reference in the source's `Relationship to ...` header field
-- a §8.5.7 harness re-architecture threshold is crossed (active pairings > 50, anti-drift red flag chapter count > 20, canonical sources > 30, single source > 1500 lines, single source's `Pairings I participate in` > 10 for non-hub sources or > 12 for hub-pattern sources) without an Options Paper evaluation initiated — adding more pairings, sources, or anti-drift dimensions before the evaluation completes is itself a drift signal
+- a §8.5.7 harness re-architecture threshold (see §8.5.7 for the full threshold set) is crossed without an Options Paper evaluation initiated — adding more pairings, sources, or anti-drift dimensions before the evaluation completes is itself a drift signal
 - a CC-targeted file (CLAUDE.md, `.claude/agents/*.md`, `.claude/skills/{name}/SKILL.md`, or a hub-produced spec file destined for CC consumption — project-level singletons under monorepo-root `specs/` or app-scoped artifacts under `apps/{app-slug}/specs/**`) carries a bare cross-reference to a hub canonical source — any hub-side filesystem path (e.g., `/mnt/project/...`), or a `[RULE] X §N` / `[MECH] Y §N` reference without the substantive inlined content the reference depends on — violating the visibility boundary declared in §1.4
 - a canonical source carries content that does not drive AI behavior at retrieval time — derived statistics, derived counts, restated boilerplate of rules owned elsewhere, "Why X exists" motivation sub-sections, historical status snapshots that are superseded, decorative meta-text, operator-navigation tables, summary closures — violating §0.1.4 AI-consumer-RAG-optimization premise
 

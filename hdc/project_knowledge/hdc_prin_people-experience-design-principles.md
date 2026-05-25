@@ -29,13 +29,9 @@ Do not use this source as:
 - a full journey catalog
 - a PRD, handoff spec, or implementation design
 
-# 1. Position in the source architecture
+# 1. Boundary with `[PRIN] HR Digital Decision Design Principles`
 
-This source is the People-Experience-specific design-judgment layer; for the formal ownership boundary against the parent and reference sources, see the §2.2 table.
-
-# 2. Boundary with `[PRIN] HR Digital Decision Design Principles`
-
-## 2.1 Decomposition axis
+## 1.1 Decomposition axis
 
 - **`[PRIN] HR Digital Decision Design Principles`**
   - decomposition axis = **cross-topic digital judgment**
@@ -44,7 +40,7 @@ This source is the People-Experience-specific design-judgment layer; for the for
   - decomposition axis = **People Experience design quality**
   - core question = **How should we design employee-facing or manager-facing experiences once People Experience is the chosen topic?**
 
-## 2.2 Ownership boundary
+## 1.2 Ownership boundary
 
 | Source | Owns | Explicitly excludes |
 |---|---|---|
@@ -52,7 +48,7 @@ This source is the People-Experience-specific design-judgment layer; for the for
 | `[PRIN] People Experience Design Principles` | journey-first design rules, moment prioritization logic, persona logic, digital-vs-human interaction logic, manager-led experience logic, continuous listening and iteration logic for People Experience topics | general source-governance rules, policy architecture, full data-governance logic, vendor or platform selection logic, journey catalog reference content |
 | `[REF] People Journey and Moments Catalog` | stable lifecycle stages and moments used as reference | principles, prioritization method, design-template logic |
 
-## 2.3 Usage sequence
+## 1.3 Usage sequence
 
 Use the sources in this order:
 
@@ -62,9 +58,9 @@ Use the sources in this order:
 4. Use a fit-for-purpose working artifact when one priority moment must become a structured design artifact.
 5. Move into roadmap, PRD, prototype, or handoff artifacts only after the above are stable enough.
 
-# 3. Principles
+# 2. Principles
 
-## 3.1 Journey-first, not function-first
+## 2.1 Journey-first, not function-first
 
 Design around the employee's lived journey and the outcome they are trying to achieve, not around HR functional ownership or system module boundaries.
 
@@ -82,7 +78,7 @@ This prevents the failure where a single employee moment is fragmented across HR
 - the user must understand internal system structure to complete a simple task
 - one moment is fragmented across multiple disconnected tools without a deliberate orchestration layer
 
-## 3.2 Moments that matter first
+## 2.2 Moments that matter first
 
 Not every experience point deserves the same design depth. Prioritize the moments that are most common, most memorable, most risky, or most clearly painful.
 
@@ -100,7 +96,7 @@ This prevents the failure where design effort is spread evenly across every mome
 - the catalog becomes a backlog dump
 - analysis expands faster than design action
 
-## 3.3 Employee lens before HR lens
+## 2.3 Employee lens before HR lens
 
 Describe the moment from the employee, manager, or HRBP point of view before translating it into service, workflow, or system terms.
 
@@ -118,7 +114,7 @@ This prevents the failure where a moment is framed in HR transaction language fr
 - the design is understandable only to HR or system specialists
 - the proposed experience solves reporting or process neatness more than user friction
 
-## 3.4 Persona and context over "average employee"
+## 2.4 Persona and context over "average employee"
 
 People Experience design should not assume one universal employee. Different personas and contexts experience the same moment differently.
 
@@ -136,7 +132,7 @@ This prevents the failure where a design built for an "average employee" works a
 - one global design is applied without persona testing
 - persona variation is acknowledged but never reflected in design choices
 
-## 3.5 Digital where digital is best, human where human is best
+## 2.5 Digital where digital is best, human where human is best
 
 Some moments are best served digitally; others require human empathy, escalation, or interpretation. Design knows when to switch.
 
@@ -155,7 +151,7 @@ This prevents the failure where moments that need human empathy are forced into 
 - empathy-required moments are reduced to a form
 - AI is used as a brand statement instead of a service decision
 
-## 3.6 Manager-led experience by design
+## 2.6 Manager-led experience by design
 
 Many People Experience outcomes hinge on the manager. Design the manager's experience explicitly, not as an afterthought.
 
@@ -174,7 +170,7 @@ This prevents the failure where an employee experience depends on manager action
 - manager experience is treated as a separate afterthought
 - the design adds manager responsibilities without enablement, guardrails, or signal visibility
 
-## 3.7 Transition quality matters as much as steady-state efficiency
+## 2.7 Transition quality matters as much as steady-state efficiency
 
 Entry, role change, leave and return, mobility, and exit moments should be designed as transitions, not just as administrative events.
 
@@ -192,7 +188,7 @@ This prevents the failure where a transition is designed as a status-change tran
 - return from leave has no explicit support logic
 - the journey ends at the point of approval rather than the point of successful transition
 
-## 3.8 Continuous listening and iteration by design
+## 2.8 Continuous listening and iteration by design
 
 People Experience design is not finished at launch. It needs feedback signals and management action loops.
 
@@ -210,7 +206,7 @@ This prevents the failure where a design is treated as complete at launch, so it
 - adoption is assumed rather than evidenced
 - the design has no post-launch adjustment mechanism
 
-## 3.9 Global core journey, governed local variance
+## 2.9 Global core journey, governed local variance
 
 Applies `[PRIN] HR Digital Decision Design Principles` §3 (Global core with governed local variance) to People Experience journey and moment design.
 
@@ -224,11 +220,11 @@ Applies `[PRIN] HR Digital Decision Design Principles` §3 (Global core with gov
 - local preferences are silently absorbed into the core moment design
 - global consistency destroys necessary local usability, accessibility, or compliance in a specific moment
 
-**Boundary with §3.4**
+**Boundary with §2.4**
 
-§3.4 and §3.9 both address global-invariant-vs-local-variant decomposition but at different layers: §3.4 governs *whether and how* personas and contexts make the same moment differ, so design attention is targeted where experience consequences diverge; §3.9 governs *how an approved difference is held* — which part of a moment stays globally consistent and which local variance is justified, owned, and reviewed. Use §3.4 to discover where personas diverge, and §3.9 to govern the variance that divergence justifies.
+§2.4 and §2.9 both address global-invariant-vs-local-variant decomposition but at different layers: §2.4 governs *whether and how* personas and contexts make the same moment differ, so design attention is targeted where experience consequences diverge; §2.9 governs *how an approved difference is held* — which part of a moment stays globally consistent and which local variance is justified, owned, and reviewed. Use §2.4 to discover where personas diverge, and §2.9 to govern the variance that divergence justifies.
 
-## 3.10 Design must land as an artifact
+## 2.10 Design must land as an artifact
 
 Applies `[PRIN] HR Digital Decision Design Principles` §12 (Make important work executable) to People Experience design output.
 
@@ -242,7 +238,7 @@ Applies `[PRIN] HR Digital Decision Design Principles` §12 (Make important work
 - no priority moment is made explicit enough for product or service design
 - the concept cannot survive without verbal explanation of employee-lens logic
 
-## 3.11 Design AI–employee interaction with employee-felt dignity
+## 2.11 Design AI–employee interaction with employee-felt dignity
 
 Applies `[PRIN] HR Digital Decision Design Principles` §13 (Design human–AI collaboration with the same rigor as human-to-human collaboration) to People Experience moments where AI participates in employee-facing service delivery, manager-facing tooling, or HRBP-facing decision support.
 
@@ -263,18 +259,18 @@ PE-specific framing: in People Experience contexts the AI participant interacts 
 - fallback path treats AI unavailability as "ticket queue" rather than as warm handoff to a named human role, especially during transition moments (entry, return, exit)
 - tone and framing are inherited from generic chatbot defaults instead of being designed against the moment's emotional contour
 
-# 5. Default review questions
+# 3. Default review questions
 
-Use these questions to review People Experience work. The list is aligned one-to-one with the principles §3.1-§3.11:
+Use these questions to review People Experience work. The list is aligned one-to-one with the principles §2.1-§2.11:
 
-1. (§3.1) What lifecycle stage and moment is this work actually about, and is the design organized around the employee's journey rather than HR function or system boundaries?
-2. (§3.2) Is this a truly priority moment or just a visible one?
-3. (§3.3) Is the moment described from the employee, manager, or HRBP point of view before being translated into service, workflow, or system terms?
-4. (§3.4) Which personas and contexts experience this moment differently, and where does that divergence change the design?
-5. (§3.5) What part should be digital and what part should remain high-touch?
-6. (§3.6) What manager behavior is part of this experience, and is the manager's experience designed explicitly?
-7. (§3.7) Are entry, role change, leave-and-return, mobility, and exit moments designed as transitions rather than administrative events?
-8. (§3.8) What listening or signal logic, linked to management action, will show whether the design works after launch?
-9. (§3.9) What should be standardized globally and what local variance is genuinely justified, owned, and reviewed?
-10. (§3.10) What next artifact should this become?
-11. (§3.11) Where AI participates in this PE moment, is the AI–employee interaction designed for employee-felt dignity (autonomy boundary, checkpoint, trust calibration, fallback, tone)?
+1. (§2.1) What lifecycle stage and moment is this work actually about, and is the design organized around the employee's journey rather than HR function or system boundaries?
+2. (§2.2) Is this a truly priority moment or just a visible one?
+3. (§2.3) Is the moment described from the employee, manager, or HRBP point of view before being translated into service, workflow, or system terms?
+4. (§2.4) Which personas and contexts experience this moment differently, and where does that divergence change the design?
+5. (§2.5) What part should be digital and what part should remain high-touch?
+6. (§2.6) What manager behavior is part of this experience, and is the manager's experience designed explicitly?
+7. (§2.7) Are entry, role change, leave-and-return, mobility, and exit moments designed as transitions rather than administrative events?
+8. (§2.8) What listening or signal logic, linked to management action, will show whether the design works after launch?
+9. (§2.9) What should be standardized globally and what local variance is genuinely justified, owned, and reviewed?
+10. (§2.10) What next artifact should this become?
+11. (§2.11) Where AI participates in this PE moment, is the AI–employee interaction designed for employee-felt dignity (autonomy boundary, checkpoint, trust calibration, fallback, tone)?

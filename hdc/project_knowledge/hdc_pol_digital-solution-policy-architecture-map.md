@@ -45,7 +45,7 @@ The L1-L5 management-system lens is defined by `[OS] Project Operating Model` §
 | Level / status | Digital Solution interpretation |
 |---|---|
 | L2 | the landing level for the three major Digital Solution policy anchors defined in §3 |
-| L3 | used as a default architecture layer for Operation Management and Data Asset Management; not used as a default layer for Project Management Policy in this source (§4.2 is the authority) |
+| L3 | used as a default architecture layer for Operation Management and Data Asset Management; not used as a default layer for Project Management Policy in this source (§4.1 is the authority) |
 | L4 | the normal landing for project lifecycle flows, live-solution operating flows, and data-management workflows |
 | L5 | work instructions for recurring operational steps, reviews, approvals, migrations, release handling, or data tasks |
 | Outside L2-L5 | specification outputs should state governing linkage when materially relevant, but should not be force-fit into L2-L5 |
@@ -58,7 +58,7 @@ The current stable minimum L2 policy architecture for the Digital Solution team 
 
 | L2 policy domain | Definition | Intended role | Normal downstream landing |
 |---|---|---|---|
-| Project Management Policy | The policy domain that governs formal delivery governance for time-bounded Digital Solution work | connect strategic intent to project or program execution pathways and control formal delivery from entry to closure | L2 directly to L4 (no default L3 — see §4.2) |
+| Project Management Policy | The policy domain that governs formal delivery governance for time-bounded Digital Solution work | connect strategic intent to project or program execution pathways and control formal delivery from entry to closure | L2 directly to L4 (no default L3 — see §4.1) |
 | Operation Management Policy | The policy domain that governs how a live or post-implementation solution is controlled after or beyond implementation | govern steady-state access, usage, maintenance, lightweight change, and controlled operating artifacts | L2 to minimum stable L3, then to L4 |
 | Data Asset Management Policy | The policy domain that governs how solution data is managed as an asset across the lifecycle | govern definition, structure, lifecycle, metadata, quality, and security of data assets | L2 to minimum stable L3, then to L4 |
 
@@ -68,7 +68,7 @@ This is a controlled minimum architecture. It does not claim that every enterpri
 
 The decomposition rules that govern when and how L3 architecture is created — including the authoritative L3-creation gate — are consolidated in §5. This chapter applies those rules to each L2 policy domain.
 
-## 4.2 Project Management Policy
+## 4.1 Project Management Policy
 
 **Definition**
 
@@ -102,7 +102,7 @@ External project-management frameworks may be used as coverage references, but t
 - Post-handover live-solution operation belongs primarily to Operation Management Policy.
 - Program is a delivery pathway choice with shared governance where justified, not a default L3 domain in this source.
 
-## 4.3 Operation Management Policy
+## 4.2 Operation Management Policy
 
 **Definition**
 
@@ -150,7 +150,7 @@ The decisive test for lightweight vs project-scale: an item is lightweight only 
 - *Lightweight enhancement (Change Request Management)*: adding an optional filter to an existing report view in a live solution — contained scope, no architectural change, BAU-triageable.
 - *Not lightweight — project-scale (escalates to Project Management)*: replacing the live solution's authentication model — cross-cutting impact, architectural change, requires formal delivery governance; it is not a Change Request Management item even though it begins as a request.
 
-## 4.4 Data Asset Management Policy
+## 4.3 Data Asset Management Policy
 
 **Definition**
 
@@ -248,7 +248,7 @@ The following are the **domain-specific instances** of each output family in Dig
 **Management-system outputs specific to this domain** (per [OS] §5.1):
 - this policy architecture map itself
 - detailed L2 policy sources for Project Management, Operation Management, or Data Asset Management
-- L3 sub-policy sources under Operation Management and Data Asset Management (where §4.3 and §4.4 justify them)
+- L3 sub-policy sources under Operation Management and Data Asset Management (where §4.2 and §4.3 justify them)
 - L4 process maps implementing each L2 or L3 policy domain
 - L5 SOP / SWI for recurring operational, review, approval, migration, release, or data tasks
 - governance mechanisms that run oversight over the above (see §6.2)
@@ -272,5 +272,5 @@ Use the following rules before changing this architecture:
 - Do not rename the minimum stable L3 domains without first revisiting their definitions and boundaries.
 - Adding a new L2 policy domain is governed by the controlled-minimum L2 architecture rule — see §3.
 - Adding a new L3 domain is governed by the authoritative L3-creation gate — see §5.
-- The prohibition on a separate L3 domain for vendor commercial performance management is owned by §4.3.
+- The prohibition on a separate L3 domain for vendor commercial performance management is owned by §4.2.
 - Update this source before detailed downstream policy drafting begins, per the §1 scope intent.
