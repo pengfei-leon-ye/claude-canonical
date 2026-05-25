@@ -6,7 +6,7 @@
 - **Format**: Strongly structured common Markdown
 - **Role**: Stable operating baseline for project routing, source governance, naming discipline, anti-drift logic, and the relationship between this hub and the Development Track
 - **Source Category**: Meta
-- **Management-System Role**: Operating-model source that defines the L1-L5 management-system lens; outside L1-L5 hierarchy; not itself an L2, L3, L4, or L5 artifact
+- **Management-System Role**: Meta-level; defines the L1-L5 lens itself
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [OS]` header fields per §8.5.1a)
 
 ## How to use this source
