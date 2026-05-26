@@ -109,7 +109,7 @@ Effective context budget is materially smaller than nominal window — performan
 
 **Three independent dimensions** — any one entering red zone triggers; do not collapse into a composite score.
 
-- **Capacity** — % of the model's effective context window in use. The CC client surfaces this number to the operator (visible in the status bar / settings panel); read it from there when reported, ask the operator if uncertain, and fall back to a proxy (turn count + cumulative tool-call output volume) only when neither is available. Anchor on the actual % over the proxy whenever both are visible.
+- **Capacity** — my-side observable: cumulative tool-call output volume + turn count (the proxies I can directly track). True underlying signal: % of the model context window in use — the CC client surfaces this number to the operator (status bar / settings panel), but **no tool exposes the value to the model**. My-side trigger decisions run on the proxy; when my proxy estimate approaches Yellow or Red, ask the operator for their CC-client % before acting. Operator-reported % overrides the proxy whenever shared.
 - **Entropy** — accumulated noise: topic switches, corrections, abandoned branches, self-reference failures.
 - **Task** — remaining task complexity and reasoning hops.
 
@@ -127,12 +127,18 @@ Effective context budget is materially smaller than nominal window — performan
 
 **Starting thresholds (calibrate via use)**:
 
-- Capacity — task-typed two-track ladder, primary signal = % of model context window in use:
-  - **Linear task** (build-out, refactor following a clear plan, single coherent thread): low < 50% · mid 50–75% · high > 75%.
-  - **High-entropy task** (debugging unknown territory, multi-fact retrieval, random-access reads across many files, frequent pivots): low < 40% · mid 40–60% · high > 60%.
-  - Additional high triggers (either track): auto-compaction imminent (operator reports CC warning) · a single tool result absorbing > 100K tokens in one turn.
-  - **Proxy fallback** (only when % unavailable): cumulative tool-call output volume + turn count. Mid ≈ ~50 turns OR ~250K chars of tool output. High ≈ ~90 turns OR ~500K chars. The proxy systematically over-flags on a fresh-cache 1M window — when in doubt, read the operator's CC-client % over the proxy.
-  - **Rationale**: Anthropic does not publish hard thresholds — degradation is gradual and task-dependent. Community heuristics center on ~60% utilization for general intervention; linear tasks tolerate noticeably higher utilization than multi-hop / random-access ones. Lost-in-the-middle persists but is materially less pronounced in current frontier models than in earlier ones. The two-track ladder reflects this — do not collapse it back into a single number.
+- Capacity — task-typed two-track **proxy** ladder. The proxy formulas are what I actually trigger on; the parenthetical % anchors describe the operator-side truth signal the proxy is estimating, and apply only when the operator shares the CC-client value.
+  - **Linear task** (build-out, refactor following a clear plan, single coherent thread):
+    - low: < ~50 turns AND < ~250K chars of cumulative tool output (operator anchor: ≲ 50% window)
+    - mid: ~50–90 turns OR ~250K–500K chars tool output (anchor: 50–75%)
+    - high: > ~90 turns OR > ~500K chars tool output (anchor: > 75%)
+  - **High-entropy task** (debugging unknown territory, multi-fact retrieval, random-access reads across many files, frequent pivots):
+    - low: < ~30 turns AND < ~150K chars tool output (anchor: ≲ 40%)
+    - mid: ~30–50 turns OR ~150K–300K chars tool output (anchor: 40–60%)
+    - high: > ~50 turns OR > ~300K chars tool output (anchor: > 60%)
+  - Additional high triggers (either track): operator reports CC's auto-compaction warning · single tool result absorbing > 100K tokens in one turn.
+  - The proxy systematically over-flags on a fresh-cache 1M-window session — when my proxy estimate is about to fire Yellow or Red, **ask the operator for their CC-client % first**; the operator-reported value supersedes the proxy estimate.
+  - **Rationale**: Anthropic does not publish hard thresholds — degradation is gradual and task-dependent. Community heuristics center on ~60% utilization for general intervention; linear tasks tolerate noticeably higher utilization than multi-hop / random-access ones. Lost-in-the-middle persists but is materially less pronounced in current frontier models than in earlier ones. The two-track ladder reflects this — do not collapse it back into a single number, and do not present operator-side % numbers as if they were my-side observables.
 - Entropy — low: single topic, near-zero corrections; mid: 1–2 topic switches OR 2–3 corrections; high: ≥ 3 topic switches OR ≥ 4 corrections OR observed self-reference failure.
 - Task — low: single-point queries; mid: multi-step reasoning within one domain; high: cross-domain reframing OR internal contradiction observed.
 
