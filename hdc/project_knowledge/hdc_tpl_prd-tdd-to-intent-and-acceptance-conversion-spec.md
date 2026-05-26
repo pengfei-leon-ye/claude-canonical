@@ -176,7 +176,7 @@ If any of these are unclear, do not start extraction. Clarify upstream first.
 
 ## 2.1 What counts as one feature slice
 
-A feature slice is fundamentally an **engineering execution unit** — one M0 → M5 evidence chain landed as one PR — constrained by business coherence rather than driven by it. The five conditions below combine engineering primary criteria (4 module-aligned, 5 one-PR sized) with business sanity constraints (1 single objective, 2 closed scenario, 3 coherent rule boundary). When the engineering and business signals conflict, §2.2 gives precedence to engineering decomposition.
+A feature slice is fundamentally an **engineering execution unit** — one M0 → M4 evidence chain landed as one PR — constrained by business coherence rather than driven by it. The five conditions below combine engineering primary criteria (4 module-aligned, 5 one-PR sized) with business sanity constraints (1 single objective, 2 closed scenario, 3 coherent rule boundary). When the engineering and business signals conflict, §2.2 gives precedence to engineering decomposition.
 
 A good feature slice normally satisfies all five conditions:
 

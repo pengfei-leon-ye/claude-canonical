@@ -3,15 +3,15 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Governance Mechanism Specification
 - **Status**: Active canonical
-- **Role**: Stable declaration of the M0–M5 milestone ladder used in Claude Code development: the existence and identity of each gate, the per-unit-type milestone profile (which `unit_type` runs which gate subset), the Test Evidence Report interface contract (the handoff artifact schema consumed by the operator at M4), the required artifact outputs that constitute the cross-workspace interface, and the multi-node evidence parity invariant. Substantive gate criteria (specific tools, thresholds, tooling baselines, accessibility thresholds, performance scopes, anti-drift signals at the operational level) are owned by CC under its own substantive canonical.
+- **Role**: Stable declaration of the M0–M4 milestone ladder used in Claude Code development: the existence and identity of each gate, the per-unit-type milestone profile (which `unit_type` runs which gate subset), the Test Evidence Report interface contract (the handoff artifact schema consumed by the operator at M4), the required artifact outputs that constitute the cross-workspace interface, and the multi-node evidence parity invariant. Substantive gate criteria (specific tools, thresholds, tooling baselines, accessibility thresholds, performance scopes, anti-drift signals at the operational level) are owned by CC under its own substantive canonical.
 - **Source Category**: Cat 4
 - **Management-System Role**: Governance mechanism specification; outside L1-L5 hierarchy; not itself an L2-L5 artifact
 - **Relationship to [OS]**: Supports the Orchestrate loop by codifying the review-gating mechanism. Subject to [OS] §8.5 paired-update consistency. The constitutional / substantive boundary in [OS] §0.1.5 (Premise 5) applies: Hub-side residue carries the constitutional skeleton declared here; CC-side substantive canonical owns the gate criteria and operational details.
-- **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §5 (management mechanism over ad hoc control) to milestone gating design; §6 (operation management and value realization by design) to the M0–M5 sequence as a managed sequence rather than ad-hoc checkpoints.
+- **Relationship to [PRIN] HR Digital Decision Design Principles**: Applies §5 (management mechanism over ad hoc control) to milestone gating design; §6 (operation management and value realization by design) to the M0–M4 sequence as a managed sequence rather than ad-hoc checkpoints.
 - **Relationship to [REF] Hub-CD-CC Architecture**: Operates inside the CC workspace boundary. CI/CD milestone gating is a CC-side mechanism; this Hub residue declares the cross-workspace interface that handoff documentation consumes.
 - **Relationship to [RULE] Workspace Topology**: Co-governing. §1.2 multi-node evidence parity in this residue anchors WT's parity discipline. WT's walking-skeleton-first ordering rule defers downstream-unit milestone entry per §2 below.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Companion. The contract testing convention referenced at M2 (gate criteria substantive at CC) anchors CCAR's Pact contract testing rules at CC substantive layer.
-- **Relationship to [MECH] Development Track Workflow**: Companion. The M-gates are the milestone semantics that DTW's TK chain triggers and consumes; M0–M5 identity declared here is referenced by DTW's TK chain for hub/CC boundary purposes.
+- **Relationship to [MECH] Development Track Workflow**: Companion. The M-gates are the milestone semantics that DTW's TK chain triggers and consumes; M0–M4 identity declared here is referenced by DTW's TK chain for hub/CC boundary purposes.
 - **Relationship to [MECH] Application Lifecycle Handoff**: The AI-dev CI/CD pipeline produces no release tags; release tag namespaces belong to the receiving company's CI/CD scope. The handoff tag namespace (Handoff §4.1) is the only canonical-recognized tag namespace in the AI-dev monorepo. This is a constitutional invariant.
 - **Relationship to [RULE] Design System Governance**: M3 visual review references DSG consistency at the substantive layer (specific check criteria at CC substantive). No accessibility gate at any milestone (per DSG §6 stance) is a constitutional invariant. DS instance two-way distribution per DSG §1.1 governs DS consumption — at TK-02 Step 2.3 Hub Claude grounds UX Design Spec authoring (at phase-level and per-feature granularities) in the CD-authored design file; the CC mirror is consulted at TK-04+ via skill enforcement.
 - **Relationship to [TPL] Intent and Acceptance Interface Writing Standard** + **[TPL] PRD + TDD to Intent and Acceptance Conversion Specification**: §3 below owns the disambiguation between milestone-level Test Evidence Report (constitutional schema declared here) and feature-slice-scoped `evidence.md` (substantive content at CC).
@@ -40,7 +40,7 @@ Do not use this source as:
 
 ## 0.1 What this source owns (constitutional)
 
-- The existence and identity of M0–M5 as a 6-gate milestone ladder (§2 below)
+- The existence and identity of M0–M4 as a 5-gate milestone ladder (§2 below)
 - Per-unit-type milestone profile (§2.7): which gates apply to which `unit_type` — this is the interface contract consumed by cross-workspace handoff sequencing
 - Test Evidence Report interface contract: required sections schema (§3.2) — the artifact schema consumed by the operator at the M4 gate
 - Operator digest one-pager interface (§3.3) — fixed-structure schema declared as constitutional interface
@@ -67,7 +67,7 @@ Do not use this source as:
 | Adjacent source | Relationship |
 |---|---|
 | [MECH] Development Track Workflow | Companion. DTW's TK chain triggers and consumes M-gates declared here; the TK-to-M anchoring is constitutional interface |
-| [MECH] Application Lifecycle Handoff | The AI-dev CI/CD pipeline interfaces with Handoff at the M5 → release boundary. Tag namespace separation is constitutional invariant |
+| [MECH] Application Lifecycle Handoff | The AI-dev CI/CD pipeline terminates at M4 (merge to `main`); deployment to staging and production is the receiving company's CI/CD scope after handoff. Tag namespace separation is constitutional invariant |
 | [REF] Hub-CD-CC Architecture | M-gates execute in CC workspace; this Hub residue is the cross-workspace interface declaration |
 | [RULE] Workspace Topology | Multi-node evidence parity (§1.2) + walking-skeleton-first ordering deference |
 
@@ -77,7 +77,7 @@ Do not use this source as:
 
 ## 1.1 Existence of the M-gate ladder
 
-A 6-gate milestone ladder (M0 → M5) gates Claude Code development work between autonomous AI execution and operator review checkpoints. Each gate has a constitutional identity declared in §2 below. The specific criteria for passing each gate are CC substantive content.
+A 5-gate milestone ladder (M0 → M4) gates Claude Code development work between autonomous AI execution and operator review checkpoints. Each gate has a constitutional identity declared in §2 below. The specific criteria for passing each gate are CC substantive content.
 
 The milestone ladder is the **review-gating mechanism**: it defines where operator review is required versus where the AI works autonomously. The constitutional invariant is that the ladder exists; specific criteria are CC-owned.
 
@@ -125,31 +125,23 @@ Each M-gate has a constitutional identity (purpose, position in the ladder, cros
 
 **Substantive details (at CC)**: Accessibility gate thresholds, visual regression check criteria, specific tool runs at M3 — all CC substantive. No accessibility gate at any milestone is a constitutional invariant per [RULE] DSG §6 stance.
 
-## 2.5 M4 Merge Decision
+## 2.5 M4 Merge Decision (terminal)
 
-**Identity**: User-review merge gate. The operator reviews the Test Evidence Report (and operator digest one-pager) and decides go/no-go on merging the slice to `main`. A code review gate executes before the operator decision.
+**Identity**: User-review merge gate, and terminal milestone in the AI-dev CI/CD chain. The operator reviews the Test Evidence Report (and operator digest one-pager) and decides go/no-go on merging the slice to `main`. A code review gate executes before the operator decision. Successful merge to `main` (`status: merged`) ends the slice's milestone progression on the AI-dev side; subsequent deployment (staging, production) is the receiving company's CI/CD responsibility per [MECH] Application Lifecycle Handoff §0.2 and is out of AI-dev CI/CD scope.
 
-**Cross-workspace consequence**: M4 is the constitutional **user-review checkpoint**: the AI does not auto-merge; the operator's decision is required. The code review gate (its existence) is constitutional; the specific tool used (historically Codex, governed by CC substantive canonical) is CC substantive.
+**Cross-workspace consequence**: M4 is the constitutional **user-review checkpoint**: the AI does not auto-merge; the operator's decision is required. The code review gate (its existence) is constitutional; the specific tool used (historically Codex, governed by CC substantive canonical) is CC substantive. For Phase 1 `walking_skeleton` units, successful M4 (`status: merged`) releases the walking-skeleton-first ordering gate per [RULE] Workspace Topology constitutional residue §3; downstream `feature` and `app_integration` units in the same Phase 1 may then begin their first node-side milestone.
 
-**Substantive details (at CC)**: Per-slice and batched review scheduling modes, the specific code review tool invocation — all CC substantive.
+**Substantive details (at CC)**: Per-slice and batched review scheduling modes, the specific code review tool invocation, walking-skeleton dev-loopback acceptance assertions (additional pre-merge check for `walking_skeleton` units only) — all CC substantive.
 
-## 2.6 M5 Staging Deploy
+## 2.6 Per-unit-type milestone profile (interface contract)
 
-**Identity**: Staging deployment completion. The slice's merged code is deployed to a staging environment for runtime validation.
-
-**Cross-workspace consequence**: After M5, the slice is operationally ready for the AI-dev → human team handoff per [MECH] Application Lifecycle Handoff. Walking-skeleton M5 completion releases the walking-skeleton-first gate for downstream `feature` and `app_integration` units in the same Phase 1.
-
-**Substantive details (at CC)**: Staging environment configuration, deploy mechanism — CC substantive.
-
-## 2.7 Per-unit-type milestone profile (interface contract)
-
-Three node-level work unit types (`walking_skeleton`, `feature`, `app_integration`) catalogued in [MECH] Development Track Workflow run different subsets of M0–M5. The profile is constitutional interface:
+Three node-level work unit types (`walking_skeleton`, `feature`, `app_integration`) catalogued in [MECH] Development Track Workflow run different subsets of M0–M4. The profile is constitutional interface:
 
 | Unit type | Milestone path | Notes |
 |---|---|---|
-| `walking_skeleton` (Phase 1 only, exactly 1 slice) | M0 → M1 → M2 → M3 → M4 → M5 (full chain) | M5 completion releases the walking-skeleton-first gate for downstream Phase 1 units |
-| `feature` (any phase, 1+ slices) | Per slice: M0 → M1 → M2 → M3 → M4 → M5 (full chain) | The **last slice** of a feature runs an **expanded M2 scope** (substantive details at CC) |
-| `app_integration` (any phase, 0 customer-facing slices) | M2 → M3 → M4 → M5 (truncated; no M0 / M1) | Single PR per unit. M2 entry scope shift to phase-level test plans (substantive at CC) |
+| `walking_skeleton` (Phase 1 only, exactly 1 slice) | M0 → M1 → M2 → M3 → M4 (full chain) | M4 (`status: merged`) completion releases the walking-skeleton-first gate for downstream Phase 1 units. Walking-skeleton-specific dev-loopback acceptance assertions run at M4 pre-merge (substantive at CC) |
+| `feature` (any phase, 1+ slices) | Per slice: M0 → M1 → M2 → M3 → M4 (full chain) | The **last slice** of a feature runs an **expanded M2 scope** (substantive details at CC) |
+| `app_integration` (any phase, 0 customer-facing slices) | M2 → M3 → M4 (truncated; no M0 / M1) | Single PR per unit. M2 entry scope shift to phase-level test plans (substantive at CC) |
 
 Walking-skeleton-first ordering (per [RULE] Workspace Topology constitutional residue §3): in Phase 1, no `feature` unit's M0 and no `app_integration` unit's M2 entry can begin until the Phase 1 `walking_skeleton` unit reaches `status: merged` on `main`. Hub-side specification work MAY proceed in parallel; the gate is the unit's first node-side milestone, not the Hub-side specification work.
 
@@ -227,7 +219,7 @@ Certain artifact outputs are constitutional **handoff interface** — produced a
 
 - **Produced at**: M2 (when database migrations are introduced)
 - **Path**: per CC substantive canonical
-- **Consumer**: Staging deploy at M5; production deploy at receiving team
+- **Consumer**: Production deploy at receiving team's CI/CD post-handoff
 
 ## 4.3 Traceability matrix output gate
 

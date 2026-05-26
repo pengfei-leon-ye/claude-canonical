@@ -8,7 +8,7 @@
 - **Management-System Role**: Specification-support template; outside L1-L5 hierarchy; this source is not itself an L2, L3, L4, or L5 artifact
 - **Boundary note**: This source intentionally excludes `evidence.md` and `test-plan.yaml`. `evidence.md` is an execution-side approval pack standard for the AI virtual development team, not a project canonical source in this hub; `test-plan.yaml` is owned by `[TPL] Test Plan YAML Schema`. For the semantic description of `evidence.md` and its distinction from the milestone-level Test Evidence Report, see [MECH] CI/CD Milestone Policy §6.
 - **Relationship to [OS]**: Supports the Specify loop by creating lower-ambiguity execution interfaces without turning this hub into an engineering-design repository
-- **Relationship to [MECH] Development Track Workflow**: intent.md and acceptance.yaml are produced in TK-03 of the Development Track Workflow; consumed in TK-06, TK-10, TK-11, TK-12, TK-13
+- **Relationship to [MECH] Development Track Workflow**: intent.md and acceptance.yaml are produced in TK-03 of the Development Track Workflow; consumed in TK-06, TK-10, TK-11, TK-12
 - **Relationship to [RULE] Claude Code Architecture Rules**: Permissions declared in acceptance.yaml must respect tier boundaries defined in that source; UX brief in intent.md only appears when Tier 1 is involved; the substantive repository path layout detail (`apps/{app-slug}/specs/...`) is owned by the CC-side substantive canonical
 - **Relationship to [MECH] CI/CD Milestone Policy**: §6 owns the semantic disambiguation between `evidence.md` and the milestone-level Test Evidence Report; §6.4 owns the `operator_digest` definition that appears in this source's evidence_required default set
 - **Relationship to [REF] Hub-CD-CC Architecture**: intent.md and acceptance.yaml main bodies are produced by Hub Claude at TK-03 per §5.1 content pillar; when Tier 1 is involved, both upstream UX Design Spec instances (phase-level + per-feature) are Hub-authored at TK-02 Step 2.3 per [TPL] UX Design Spec (drawing from the CD-produced design file per §5.2 presentation pillar concept-vs-realization split, per [RULE] DSG §13.3), and are consumed as input sources for the intent.md UX brief field per §2.3 below. After TK-03 conclusion, both files are transferred to CC via [MECH] Cross-Tool Workflow Handoff §3.1 for the implementation pillar.
@@ -735,7 +735,7 @@ evidence_required:
     description:           # one-sentence description
 ```
 
-**Default set** (produced in Development Track Workflow TK-13):
+**Default set** (compiled in Development Track Workflow TK-11 for M4 review):
 - `test_results_summary`: aggregated pass/fail from all test types executed
 - `traceability_summary`: slice-level traceability from PRD→TDD→intent→acceptance→test-plan→code→tests
 - `compliance_audit`: compliance-checker final pass output

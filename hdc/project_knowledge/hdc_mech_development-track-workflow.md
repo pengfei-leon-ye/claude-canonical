@@ -3,7 +3,7 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Workflow Orchestration Specification
 - **Status**: Active canonical
-- **Role**: Stable declaration of the end-to-end task sequence (TK-01 through TK-13) and the cross-workspace orchestration contract. Hub-side ownership: full substantive content for Hub-authored tasks (TK-01 / TK-02 with sub-steps / TK-03 / TK-12 operator gate), the unit_type catalog as cross-workspace interface, the per-task workspace mapping, the milestone-to-task mapping, the transition mechanism catalog, the human intervention budget, the failure routing matrix, cross-workspace anti-drift signals, and Hub Claude soft compliance trigger phrases (Hub-internal substantive). CC-executed tasks (TK-04 through TK-11 and TK-13) are declared at constitutional identity + Hub-facing interface level only; their detailed step-by-step execution mechanics live at CC substantive DTW canonical.
+- **Role**: Stable declaration of the end-to-end task sequence (TK-01 through TK-12) and the cross-workspace orchestration contract. Hub-side ownership: full substantive content for Hub-authored tasks (TK-01 / TK-02 with sub-steps / TK-03 / TK-12 operator gate), the unit_type catalog as cross-workspace interface, the per-task workspace mapping, the milestone-to-task mapping, the transition mechanism catalog, the human intervention budget, the failure routing matrix, cross-workspace anti-drift signals, and Hub Claude soft compliance trigger phrases (Hub-internal substantive). CC-executed tasks (TK-04 through TK-12) are declared at constitutional identity + Hub-facing interface level only; their detailed step-by-step execution mechanics live at CC substantive DTW canonical.
 - **Source Category**: Cat 4
 - **Management-System Role**: Workflow orchestration specification; outside L1-L5 hierarchy; not itself an L2–L5 artifact
 - **Relationship to [OS]**: Detailed task-level expansion of the Development Track routing defined in [OS] §7.1. The constitutional / substantive boundary in [OS] §0.1.5 (Premise 5) applies: Hub-side residue carries the constitutional skeleton + Hub-authored substantive content; CC-side substantive canonical owns the CC-executed task mechanics.
@@ -18,8 +18,8 @@
   - DS markdown export at TK-12 M4 merge (when DS instance changed): CD generates the export → Hub reviews it against DSG §15 → CC mirror, per [RULE] Design System Governance §12.3 / §12.7
 - **Relationship to [RULE] Workspace Topology**: Companion. DTW imports WT constitutional residue's unit_type catalog and node-assignment interface contract; hub-to-assigned_node onboarding (after TK-02) implements WT's node assignment workflow.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Imports CCAR constitutional residue's tier identity; CC substantive CCAR owns the subagent roster, context scopes, paths, and skill loading rules consumed by TK-04+.
-- **Relationship to [MECH] CI/CD Milestone Policy**: Imports M0–M5 gate identity from CI/CD constitutional residue; task-to-milestone mapping reflected in §0.3 with TK-13 as the terminal CI/CD task.
-- **Relationship to [MECH] Application Lifecycle Handoff**: TK-12 merges feature branches directly to `main`. Application-level handoff to a human dev team is a distinct lifecycle event after one or more apps reach maturity per [MECH] Application Lifecycle Handoff §2; the AI-dev CI/CD chain terminates at TK-13 staging deploy.
+- **Relationship to [MECH] CI/CD Milestone Policy**: Imports M0–M4 gate identity from CI/CD constitutional residue; task-to-milestone mapping reflected in §0.3 with TK-12 as the terminal CI/CD task.
+- **Relationship to [MECH] Application Lifecycle Handoff**: TK-12 merges feature branches directly to `main`. Application-level handoff to a human dev team is a distinct lifecycle event after one or more apps reach maturity per [MECH] Application Lifecycle Handoff §2; the AI-dev CI/CD chain terminates at TK-12 merge to `main`.
 - **Relationship to [RULE] Design System Governance**: TK-02 Step 2.3 implements DSG §13.3 Hub-side consumption discipline at two granularities: phase-level cross-cutting design file quality check + phase-level UX Design Spec instance authoring grounded in the design file's cross-cutting sections, plus per-feature design file quality check + per-feature UX Design Spec instance authoring grounded in each feature's labeled slice of the CD-authored phase-level design file. DSG §12 additive change requests are surfaced at TK-02 Step 2.3 when authoring a UX Design Spec instance reveals a gap in the current DS; cross-cutting additives are indexed in the phase-level instance §2A.6 with the originating feature's per-feature instance §2B.4 holding the authoritative plan content.
 - **Relationship to [TPL] sources**: References TDD template, Intent-Acceptance Writing Standard, PRD+TDD Conversion Spec, Test Plan YAML Schema, UX Design Spec, and Design System Governance as artifact contracts.
 - **Pairings I participate in**: P-03 (with [MECH] CI/CD constitutional residue §2 — milestone-to-TK anchoring), P-09 (with [MECH] CI/CD constitutional residue §2.7 — per-unit-type milestone profile), P-10 (with [RULE] WT constitutional residue §4 — node-assignment marker schema), P-31 (with [TPL] PRD §0.7 + [TPL] TDD §0.7). Pre-split pairings P-32 / P-38 / P-49 retired at this Hub residue level; substantive obligations migrate to CC.
@@ -47,7 +47,7 @@ Do not use this source as:
 
 ## 0.1 What this source owns
 
-- Task identity (TK-01 through TK-13 unit-internal-workflow tasks) and stage grouping. Project-level workspace inception (the once-per-monorepo setup that produces project-level scaffolding and singletons) is owned by [RULE] Workspace Topology constitutional residue §5 (workspace inception governance), not by this source; per-app physical skeleton is owned by CC substantive Workspace Topology canonical (walking-skeleton output set)
+- Task identity (TK-01 through TK-12 unit-internal-workflow tasks) and stage grouping. Project-level workspace inception (the once-per-monorepo setup that produces project-level scaffolding and singletons) is owned by [RULE] Workspace Topology constitutional residue §5 (workspace inception governance), not by this source; per-app physical skeleton is owned by CC substantive Workspace Topology canonical (walking-skeleton output set)
 - Unit_type catalog: the three node-level work unit types `walking_skeleton`, `feature`, `app_integration` — their purpose, scope, deliverables, and per-unit-type task path through the TK sequence (§4 Unit_type catalog and per-unit-type task paths)
 - Conditional brownfield reconstruct pre-step at TK-01 — triggered when an app has existing behavior worth preserving, producing an app-specific reconstruct memo as TK-01 input
 - Cross-model review reminders at TK-01 and TK-02 sign-offs — advisory [Enforcement·reminder-only] reminders for the operator to consider invoking a cross-model spec review before signing off
@@ -87,8 +87,7 @@ The base milestone-to-task mapping below applies to the `feature` and `walking_s
 | M1 Feature Slice | TK-04–TK-07 | S3 |
 | M2 Integration Green | TK-08, TK-09 | S3 |
 | M3 Pre-Release | TK-10 | S3 |
-| M4 Merge | TK-11, TK-12 | S4 |
-| M5 Staging Deploy | TK-13 | S4 |
+| M4 Merge (terminal) | TK-11, TK-12 | S4 |
 
 Inception is a once-per-monorepo project-level setup outside the TK sequence and is not represented as a milestone row above.
 
@@ -103,8 +102,7 @@ Inception is a once-per-monorepo project-level setup outside the TK sequence and
 | TK-03 | Hub Claude (HC + H collaboration) | Per-slice intent + acceptance + test-plan authoring (main body + UX brief when Tier 1); consumes PRD + TDD + Hub-authored UX Design Spec instances (phase-level + active feature's per-feature instance from TK-02 Step 2.3) + the phase-level design file (focusing on the active feature's labeled slice plus phase-level cross-cutting sections as visual reference); the operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze for the slice |
 | TK-04 | **assigned_node Claude Code** | M0 entry self-check (the absorbed M0 gate function — lightweight verification that the spec bundle is intact upon CC reception, not a re-decision of design freeze); GitHub Issue marker authoring per [RULE] Workspace Topology constitutional residue §4 (node-assignment interface contract) (`status: in-progress`); first commit on feature branch; substantive code writing with SK-F auto-loaded for Tier 1 work |
 | TK-05 → TK-11 | assigned_node Claude Code | Tests + adversarial + evidence + Codex code review at TK-11 |
-| TK-12 | Hub Claude or assigned_node (operator's choice) | M4 review + smoke test; merge PR action (target = `main`) can fire from any workspace; DS markdown export sync (Hub + CC mirrors) when this slice carries a DS change finalization per [RULE] DSG §12.5 |
-| TK-13 | TOOL (CI/CD) | Automated staging deploy on `main` merge — terminal AI-dev CI/CD task |
+| TK-12 | Hub Claude or assigned_node (operator's choice) | M4 review + smoke test; merge PR action (target = `main`) can fire from any workspace; DS markdown export sync (Hub + CC mirrors) when this slice carries a DS change finalization per [RULE] DSG §12.5; **terminal task in the AI-dev CI/CD chain** |
 
 ---
 
@@ -121,7 +119,7 @@ Four stages:
   - **TK-03** — hub-side: per-slice intent + acceptance + test-plan (main body + UX brief when Tier 1 involved, drawing from both Hub-authored UX Design Spec instances — phase-level for cross-feature touchpoints / shared vocabulary, per-feature for in-slice UX — from TK-02 Step 2.3 and design files as visual reference). Runs for `feature` and `walking_skeleton` units only; not for `app_integration`. The operator's GPT-Claude consensus loop at TK-03 sign-off serves as the de facto design freeze gate.
 - **S2 CC entry**: M0 entry self-check + GitHub Issue marker + first commit on feature branch (folded into the start of TK-04). Runs for `feature` and `walking_skeleton` units only; `app_integration` units skip M0 / M1 entirely (entry at TK-08).
 - **S3 Claude Code implementation and validation**: Code + tests + adversarial + evidence. TK-04 to TK-11. `app_integration` units enter S3 at TK-08 directly.
-- **S4 Merge gate and deployment**: M4 merge to `main` + M5 staging deploy. TK-12 to TK-13. Production deployment is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2 and is not part of this source's TK sequence.
+- **S4 Merge gate (terminal)**: M4 merge to `main`. TK-12 only — terminal task in the AI-dev CI/CD chain. Subsequent deployment to staging and production is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2 and is not part of this source's TK sequence.
 
 **Foundation prerequisite (outside this source)**: Project-level workspace inception is owned by [RULE] Workspace Topology constitutional residue §5 (workspace inception governance) and runs once before any TK-01 begins. Per-app physical skeleton is owned by CC substantive Workspace Topology canonical (walking-skeleton output set) and is produced as part of the first phase's walking_skeleton unit at TK-04 onwards on the assigned_node — not as a hub-side pre-TK step.
 
@@ -199,7 +197,7 @@ Spec-artifact paths are stated inline in the §4 task definition that produces o
 
 **unit_id**: Kebab-case stable identifier unique within the app's phase. Recommended naming: `walking-skeleton` for the Phase 1 walking_skeleton unit; the `feature-slug` for `feature` units; `app-int-phase-{N}` for `app_integration` units.
 
-**slice**: smallest unit of work that completes the M0 → M5 evidence chain on a single dev node. A `feature` unit decomposes into one or more slices at TK-02; a `walking_skeleton` unit consists of exactly one slice (the thinnest end-to-end vertical slice that proves foundational architecture); an `app_integration` unit has zero customer-facing slices (its single PR runs the M2–M5 subset directly).
+**slice**: smallest unit of work that completes the M0 → M4 evidence chain on a single dev node. A `feature` unit decomposes into one or more slices at TK-02; a `walking_skeleton` unit consists of exactly one slice (the thinnest end-to-end vertical slice that proves foundational architecture); an `app_integration` unit has zero customer-facing slices (its single PR runs the M2–M4 subset directly).
 
 **slice-id**: slice-level identifier extending feature-slug, e.g., `manager-e-signature-01-initiation`.
 
@@ -217,7 +215,7 @@ Spec-artifact paths are stated inline in the §4 task definition that produces o
 
 # 4. Task catalog
 
-Thirteen tasks total (TK-01 through TK-13). Scope levels and per-unit-type applicability are summarized below; the formal unit_type catalog with per-unit-type task path is in §4.0 immediately following.
+Twelve tasks total (TK-01 through TK-12). Scope levels and per-unit-type applicability are summarized below; the formal unit_type catalog with per-unit-type task path is in §4.0 immediately following.
 
 **Inception is not a TK**: Project-level workspace inception (per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance)) and per-app physical skeleton (per CC substantive Workspace Topology canonical (walking-skeleton output set)) are owned outside this source. The TK sequence begins at TK-01 for the first phase of each app.
 
@@ -225,8 +223,8 @@ Thirteen tasks total (TK-01 through TK-13). Scope levels and per-unit-type appli
 
 - **TK-01, TK-02** — **per-phase**, runs once per app per phase; TK-01 produces phase PRD; TK-02 has three internal steps (Step 2.1 / Step 2.2 / Step 2.3) producing phase TDD, phase test plan (master), per-feature integration test plans, per-feature slice-lists, per-unit `assigned_node` decisions, and — when any feature in the phase has `tier_1_involved=true` — one phase-level CD-authored design file with per-feature internal labeling plus Hub-authored UX Design Spec instances at two granularities (one phase-level instance + per-feature instances, one per tier-1-involved feature)
 - **TK-03 through TK-11** — **per-slice within a unit**, looping through slices of `feature` units and the single slice of a `walking_skeleton` unit; not run for `app_integration` units below TK-08 (per §0.3 milestone table and §4.0 per-unit-type task paths)
-- **TK-08 through TK-13** — entered directly by `app_integration` units at TK-08 (M2 entry); for `feature` and `walking_skeleton` units, reached as part of the slice's M0 → M5 progression
-- **TK-12 through TK-13** — per-slice for slice-bearing units; per-unit (single PR) for `app_integration` units
+- **TK-08 through TK-12** — entered directly by `app_integration` units at TK-08 (M2 entry); for `feature` and `walking_skeleton` units, reached as part of the slice's M0 → M4 progression
+- **TK-12** — per-slice for slice-bearing units; per-unit (single PR) for `app_integration` units; terminal in the AI-dev CI/CD chain
 
 Within a single phase, the loop structure for `feature` and `walking_skeleton` units is: TK-01 → TK-02 (Step 2.1 → Step 2.2 → Step 2.3) → (for each unit: for each slice in the unit: TK-03 through TK-11) → TK-12 onwards.
 
@@ -240,13 +238,13 @@ The phase ontology partitions a phase's work into `walking_skeleton` / `feature`
 
 | Unit type | Applicability | Slice count | Milestone profile | Cardinality per phase |
 |---|---|---|---|---|
-| `walking_skeleton` | Phase 1 only | exactly 1 | M0 → M1 → M2 → M3 → M4 → M5 (full chain) | exactly 1 (Phase 1); 0 (Phase N≥2) |
-| `feature` | All phases | 1+ | M0 → M1 → M2 → M3 → M4 → M5 per slice (full chain) | 1+ |
-| `app_integration` | All phases (per-phase only; not cross-phase) | 0 | M2 → M3 → M4 → M5 (truncated; no M0 / M1) | 0+ |
+| `walking_skeleton` | Phase 1 only | exactly 1 | M0 → M1 → M2 → M3 → M4 (full chain) | exactly 1 (Phase 1); 0 (Phase N≥2) |
+| `feature` | All phases | 1+ | M0 → M1 → M2 → M3 → M4 per slice (full chain) | 1+ |
+| `app_integration` | All phases (per-phase only; not cross-phase) | 0 | M2 → M3 → M4 (truncated; no M0 / M1) | 0+ |
 
 Per-unit-type milestone profile is owned by [MECH] CI/CD Milestone Policy. Per-unit-type code review tool fire conditions are owned by CC substantive Codex Plugin Usage canonical (post-Phase-3 migration). Code review fires at M4 (TK-11) for all three unit types; cross-model review reminders at TK-01 / TK-02 sign-offs are operator-advisory and are not Codex invocations.
 
-A `feature` unit runs the standard TK-01 through TK-13 path with one iteration of TK-03 through TK-11 per slice; the unit's **last slice** runs an expanded TK-08 scope for feature integration test execution per [MECH] CI/CD Milestone Policy. `walking_skeleton` and `app_integration` units carry real task-path deviations, detailed in §4.0.2 and §4.0.3 below.
+A `feature` unit runs the standard TK-01 through TK-12 path with one iteration of TK-03 through TK-11 per slice; the unit's **last slice** runs an expanded TK-08 scope for feature integration test execution per [MECH] CI/CD Milestone Policy. `walking_skeleton` and `app_integration` units carry real task-path deviations, detailed in §4.0.2 and §4.0.3 below.
 
 ### 4.0.2 Walking_skeleton unit task path
 
@@ -261,7 +259,6 @@ A `walking_skeleton` unit produces six outputs in a single PR (canonical list ow
 | TK-05 → TK-10 | Single-slice loop continues: tests, adversarial, evidence |
 | TK-11 | M4 prep + code review fires per CC substantive Codex Plugin Usage canonical |
 | TK-12 | M4 merge as for any unit |
-| TK-13 | M5 staging deploy on `main` merge |
 
 ### 4.0.3 App_integration unit task path
 
@@ -275,7 +272,6 @@ A `walking_skeleton` unit produces six outputs in a single PR (canonical list ow
 | TK-10 | Standard M3 pre-release validation |
 | TK-11 | M4 prep + Codex code review fires (review target: PR diff including integration test code) |
 | TK-12 | M4 merge as for any unit |
-| TK-13 | M5 staging deploy on `main` merge |
 
 TK-07 RCA may fire for an `app_integration` unit when its TK-08 / TK-09 / TK-10 tests fail; routing per the standard TK-07 mechanics, with the failed test context drawn from the app_integration's own test code rather than slice-level whitebox tests.
 
@@ -289,7 +285,7 @@ TK-07 RCA may fire for an `app_integration` unit when its TK-08 / TK-09 / TK-10 
 - **Role sequence**: H + HC (iterative collaboration)
 - **Inputs**: Business needs signal for the target phase; existing PRDs under `apps/*/specs/prd/**` (especially the prior phase PRD if `{N}≥2`); target `{app-slug}`; target `{N}` (phase number, monotonic per app); **conditional**: brownfield reconstruct memo (per TK-01 conditional pre-step below) when an app has existing behavior worth preserving
 - **Outputs**: Phase PRD content for `apps/{app-slug}/specs/prd/phase-{N}.md` (committed to the active phase's working branch ahead of TK-03 per-slice extraction)
-- **Prerequisite**: workspace inception complete per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance). For Phase N≥2 of an existing app, the prior phase's TK-13 release (or equivalent stable boundary) should also be reached. For Phase 1 of a new app, the `{app-slug}` is decided in this task per operator pure judgment (immutable once committed) and added to the frozen app-slug roster maintained at workspace level per CC substantive Claude Code Architecture Rules canonical (app-slug roster); the app's physical skeleton is produced subsequently as part of the Phase 1 walking_skeleton unit's output set per CC substantive Workspace Topology canonical (walking-skeleton output set)
+- **Prerequisite**: workspace inception complete per [RULE] Workspace Topology constitutional residue §5 (workspace inception governance). For Phase N≥2 of an existing app, the prior phase's TK-12 merge (or equivalent stable boundary) should also be reached. For Phase 1 of a new app, the `{app-slug}` is decided in this task per operator pure judgment (immutable once committed) and added to the frozen app-slug roster maintained at workspace level per CC substantive Claude Code Architecture Rules canonical (app-slug roster); the app's physical skeleton is produced subsequently as part of the Phase 1 walking_skeleton unit's output set per CC substantive Workspace Topology canonical (walking-skeleton output set)
 - **Trigger**: **Manual**
 - **Completion**: Phase PRD uses [TPL] PRD template; business-facing; `app_slug` and `phase_number` fields populated in PRD header per [TPL] PRD §0.7.1; §7.1 Feature List enumerates the features introduced or evolved in this phase by `feature-slug`; operator signs off; **cross-model review reminder fires at sign-off** (see below)
 - **Failure routing**: Revise within TK-01
@@ -513,20 +509,20 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 - **Hub-facing interface — outputs**: Test Evidence Report at `apps/{app-slug}/reports/m4/{slice-id}/test-evidence-report.md` per [MECH] CI/CD constitutional residue §3.1; operator digest at `operator-digest.md` per §3.3; code review tool output (historically Codex) included in Test Evidence Report. The specific code review tool is CC substantive.
 - **Substantive execution detail**: CC substantive DTW canonical
 
-## TK-12: M4 merge-decision gate (merge decision + smoke test)
+## TK-12: M4 merge-decision gate (terminal — merge + walking-skeleton-first gate release)
 
 - **Workspace**: Hub Claude or assigned_node (operator's choice)
 - **Stage**: S4; **Milestone**: M4
 - **Role sequence**:
   1. H (reviews Test Evidence Report, Codex review, domain-judge questions, **accessibility audit**)
-  2. H (executes smoke test — **includes spot-check on accessibility-flagged screens and manual-validation items from SK-W report**)
+  2. H (executes smoke test — **includes spot-check on accessibility-flagged screens and manual-validation items from SK-W report**; for `walking_skeleton` units additionally runs the dev-loopback acceptance assertions per CC substantive Dev-Loopback Mode canonical)
   3. H (issues merge go/no-go; PR target = `main`)
   4. **Conditional**: H merges DS change request if any DS update originated from this slice per [RULE] Design System Governance change flow; when merged, CD regenerates the DS markdown export, Hub Claude reviews it against DSG §15, and on a passing review the operator syncs the CC mirror (`specs/design-system.md`) per [RULE] DSG §12.3. The DS-export regeneration (in a CD session) and the §15 export review (in a Hub Claude session) are **separate operator-mediated sessions**, not in-line sub-steps of TK-12 — the operator routes between them; cross-ref [RULE] DSG §12.3
   5. H updates GitHub Issue marker block: `status: merged`
 - **Inputs**: Test Evidence Report; Codex review; domain-judge questions; **accessibility audit**
 - **Outputs**:
   - Merge decision (target branch = `main`)
-  - Smoke test result
+  - Smoke test result (for `walking_skeleton` units: also dev-loopback acceptance assertions result)
   - **Conditional**: DS update merged per [RULE] Design System Governance, with both DS mirrors re-synced from CD-generated DS markdown export
   - Updated GitHub Issue marker block
 - **Prerequisite**: TK-11
@@ -534,21 +530,12 @@ For `app_integration` units, TK-03 is skipped entirely (no per-slice interface a
 - **Completion**: Merge go → feature branch merged into `main` + DS update applied (if any, with the DS export reviewed against DSG §15 and the CC mirror re-synced) + marker block updated; merge no-go → issues returned
 - **Failure routing**: No-go → back to specific TK
 - **Human intervention**: **Required**
+- **Walking-skeleton gate release (constitutional invariant)**: For Phase 1 `walking_skeleton` units, successful TK-12 (`status: merged` on `main`) releases the walking-skeleton-first ordering gate per [RULE] WT constitutional residue §3; downstream `feature` and `app_integration` units in the same Phase 1 may then begin their first node-side milestone.
+- **Terminal status (constitutional invariant)**: TK-12 is the terminal task in the AI-dev CI/CD chain. No automated TK fires after TK-12 in the AI-dev scope. Subsequent deployment to staging and production is the receiving company's CI/CD responsibility per [MECH] Application Lifecycle Handoff §0.2.
 
-**Branch model note**: Per CC substantive Workspace Topology canonical (branch topology), feature branches merge directly to `main` in the single-branch topology. Production deployment from `main` is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2; the AI-dev CI/CD chain terminates at TK-13 staging deploy.
+**Branch model note**: Per CC substantive Workspace Topology canonical (branch topology), feature branches merge directly to `main` in the single-branch topology. Production deployment from `main` is the receiving company's CI/CD scope after handoff per [MECH] Application Lifecycle Handoff §0.2; the AI-dev CI/CD chain terminates at TK-12 merge to `main`.
 
 **Scheduling note**: TK-12 may execute per-slice or batched per CC substantive CI/CD Milestone Policy canonical (M4 review scheduling per-slice/batched). Per-slice integrity (one Test Evidence Report, one PR, one go/no-go, one merge action per slice) is preserved in either mode; batching is purely review-session scheduling.
-
----
-
-## TK-13: Staging deploy
-
-- **Executing workspace**: TOOL (CI/CD automation)
-- **Constitutional identity**: Terminal task in the AI-dev CI/CD chain — staging deploy on `main` merge. Production deployment after handoff is the receiving company's CI/CD responsibility per [MECH] Application Lifecycle Handoff §0.2.
-- **Hub-facing interface — inputs**: Merged code on `main` (from TK-12)
-- **Hub-facing interface — outputs**: Deployed application in staging environment; staging smoke check results
-- **Walking-skeleton gate release (constitutional invariant)**: For Phase 1 `walking_skeleton` units, successful TK-13 releases the walking-skeleton-first ordering gate per [RULE] WT constitutional residue §3; downstream `feature` and `app_integration` units in the same Phase 1 may then begin their first node-side milestone.
-- **Substantive execution detail**: CC substantive DTW canonical (specific CI/CD automation, staging environment configuration, smoke check scope, dev-loopback supplemental assertions integration)
 
 ---
 
@@ -600,10 +587,6 @@ CC-internal transitions are **automatic** (not operator-gated). The specific hoo
 
 After TK-11 completes, the operator may transfer the code review tool output to a Hub Claude conversation for judgment and archive per [MECH] Cross-Tool Workflow Handoff §3.2 (specific code review tool processing rules owned by CC substantive Codex Plugin Usage canonical post-Phase-3 migration).
 
-## 5.6 Hub or assigned_node → CI/CD (TK-12 → TK-13)
-
-After TK-12 merge to `main`, CI/CD auto-fires TK-13 staging deploy. No operator action between TK-12 and TK-13 in the success path.
-
 ---
 
 # 6. Human intervention budget
@@ -645,10 +628,9 @@ Workspace inception is a one-time human-driven activity owned outside this sourc
 | 3 | TK-08 | Severe compliance violation |
 | 4 | TK-09 | High-severity adversarial finding |
 | 5 | TK-10 | Severe visual regression, accessibility critical/serious, or security finding |
-| 6 | TK-13 | Staging deploy failure |
-| 7 | TK-01 | Cross-model review invoked at operator's discretion |
-| 8 | TK-02 | Cross-model review invoked at operator's discretion |
-| 9 | TK-02 Step 2.3 | Design file quality check `Reject` disposition — phase-level check on cross-cutting sections, or per-feature check on a labeled slice — → return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.2 redo scope is the affected cross-cutting sections (phase-level reject) or the affected feature's slice (per-feature reject), or full-phase relabeling when per-feature labeling itself is broken |
+| 6 | TK-01 | Cross-model review invoked at operator's discretion |
+| 7 | TK-02 | Cross-model review invoked at operator's discretion |
+| 8 | TK-02 Step 2.3 | Design file quality check `Reject` disposition — phase-level check on cross-cutting sections, or per-feature check on a labeled slice — → return to CD per [MECH] Cross-Tool Workflow Handoff §6 fallback; Step 2.2 redo scope is the affected cross-cutting sections (phase-level reject) or the affected feature's slice (per-feature reject), or full-phase relabeling when per-feature labeling itself is broken |
 
 ## 6.3 Anti-drift on intervention budget
 
@@ -698,7 +680,6 @@ These drift-investigation triggers are deliberately set above the §6.1 design t
 | RCA: accept limitation | Proceed with waiver | Manual |
 | M4 no-go (TK-12) | Back to specific TK | Manual |
 | **TK-12 DS markdown export sync failure (CC mirror not updated, or committed without the §15 review)** | **Operator completes the DSG §15 review and CC-mirror sync per [RULE] DSG §12.3** | **Manual** |
-| Staging deploy failure (TK-13) | Auto rollback + Notification + TK-12 | CI/CD |
 
 ---
 
@@ -809,10 +790,10 @@ When user phrasing in a Hub Claude conversation matches any of the following, Hu
 - **"commit the DS export to the CC mirror, skip the §15 review"** / **"the DS export review can wait"** (violates [RULE] DSG §12.3; the DS markdown export MUST pass the §15 conformance review before the CC mirror is committed)
 - **"hand-edit `specs/design-system.md` for this slice"** (the CC DS mirror is read-only; direct edits violate [RULE] DSG §12.6)
 
-**AI-dev / company-side boundary phrasing** → reference §4 TK-12 / TK-13 and [MECH] Application Lifecycle Handoff §0.2:
+**AI-dev / company-side boundary phrasing** → reference §4 TK-12 and [MECH] Application Lifecycle Handoff §0.2:
 - "deploy this to prod from here" / "push to production"
 - "tag a release in this monorepo" / "cut a release tag"
-- "set up M5-prod" / "add a TK-15 / TK-16 step"
+- "set up M5 staging deploy" / "auto-deploy to staging on merge" / "add a TK-13 staging-deploy step" / "add a TK-13 / TK-14 step"
 - "reintroduce hdc/feature-development" / "add an integration branch between feature and main"
 
 Hub Claude reminders are conversational. The operator may override with explicit acknowledgment, but the override itself must be stated in the conversation, preserving traceability for later retrospective review.

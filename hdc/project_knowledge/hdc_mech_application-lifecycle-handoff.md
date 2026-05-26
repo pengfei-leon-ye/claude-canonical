@@ -13,7 +13,7 @@
 - **Relationship to [RULE] Workspace Topology**: Imports WT §5.1 branch topology + §5.2 branch protection. Handoff tag namespace `handoff/{app-slug}/{YYYY-MM-DD}` is intentionally distinct from WT §5.1 working-branch namespace. The handoff tag is the only canonical-recognized tag namespace at the AI-dev side; company-side release tags are out of canonical scope per §0.2.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Anchored. §3 content scope consumes the canonical repository-layout paths and the subagent / skill / hook artifact definitions, whose substantive detail is owned by the CC-side substantive canonical.
 - **Relationship to [MECH] Development Track Workflow**: Inter-unit. Handoff is an application-level operator action, not a TK in DTW §4 sequence; re-entry (§5) re-enters DTW §4.0 unit_type catalog by starting a new Phase 1 for the returning app.
-- **Relationship to [MECH] CI/CD Milestone Policy**: Application-level event after zero, one, or many M5 completions; independent of CI/CD §2.0 per-unit-type milestone semantics.
+- **Relationship to [MECH] CI/CD Milestone Policy**: Application-level event after zero, one, or many M4 merges (slices reaching `status: merged` on `main`); independent of CI/CD §2.0 per-unit-type milestone semantics.
 - **Pairings I participate in**: P-33 (with [RULE] WT §3 + [TPL] TDD §3)
 
 ## How to use this source
@@ -47,7 +47,7 @@ Do not use as: a reference for any topic this source does not own — see §0.2 
 - Three-workspace topology (Hub / CD / CC boundaries and operator-mediated data flow model; owned by [REF] Hub-CD-CC Architecture)
 - Branch topology, branch protection settings, GitHub Issue marker block ([RULE] Workspace Topology §5, §6)
 - TK-by-TK orchestration ([MECH] Development Track Workflow §4)
-- M5 milestone trigger conditions, evidence paths, completion criteria ([MECH] CI/CD Milestone Policy)
+- M4 milestone trigger conditions, evidence paths, completion criteria ([MECH] CI/CD Milestone Policy)
 - Deployment to the operator's working environment (operator personal ops; not regulated by canonical)
 - Versioning scheme (project-level versioning convention is owned outside this source)
 - Subagent, skill, hook artifact definitions (the subagent roster and the skill / hook artifact definitions are owned by the CC-side substantive canonical)
@@ -78,7 +78,7 @@ This source covers the application-level transition from AI-dev to human-dev, pl
 ```
 [AI-dev]
    │
-   │  features delivered M0 → M5, one or many
+   │  features delivered M0 → M4, one or many
    │  (cross-tool flows per [MECH] Cross-Tool Workflow Handoff during this period)
    │
    ▼
@@ -96,7 +96,7 @@ This source covers the application-level transition from AI-dev to human-dev, pl
 [Re-entry to AI-dev] — policy per §5
 ```
 
-The handoff event is application-scoped, not feature-scoped. A single application can be handed off only when the operator judges it ready as a whole, regardless of how many individual features have completed M5.
+The handoff event is application-scoped, not feature-scoped. A single application can be handed off only when the operator judges it ready as a whole, regardless of how many individual features have completed M4 (merge to `main`).
 
 ---
 
@@ -121,8 +121,8 @@ The following must be true at the moment a handoff event is initiated. Failures 
 
 | # | Item | Verification |
 |---|---|---|
-| 1 | At least one feature has completed M5 | [MECH] CI/CD Milestone Policy M5 evidence present in `apps/{app-slug}/evidence/**` |
-| 2 | All in-flight features have either completed M5 or been explicitly canceled with a recorded decision | No feature branches under `feature/<app-slug>/**` are in M0 → M4 mid-state without an operator cancellation note. The cancellation note is recorded in one of two forms: a note in the closing commit that abandons the branch, or an entry in `apps/{app-slug}/handoff-record.md` |
+| 1 | At least one feature has completed M4 (slice merged to `main`) | [MECH] CI/CD Milestone Policy M4 evidence present in `apps/{app-slug}/evidence/**` |
+| 2 | All in-flight features have either completed M4 or been explicitly canceled with a recorded decision | No feature branches under `feature/<app-slug>/**` are in M0 → M3 mid-state (pre-M4 merge) without an operator cancellation note. The cancellation note is recorded in one of two forms: a note in the closing commit that abandons the branch, or an entry in `apps/{app-slug}/handoff-record.md` |
 | 3 | All `apps/{app-slug}/specs/**` artifacts (phase PRD, phase TDD, openapi, slice-list, intent, acceptance, phase test plan, feature integration test plan, slice test plan) are committed to `main` | `main` head contains the artifact set defined by the canonical repository layout, which is owned by the CC-side substantive canonical |
 | 4 | Evidence chain is complete for every M4-merged feature | `apps/{app-slug}/evidence/{slice-id}/` contains the digest produced at the Codex code review TK per the digest-binding rule (cross-reference [TPL] Test Plan YAML Schema `evidence_required`) |
 | 5 | Domain dependencies are explicitly declared | App root `CLAUDE.md` (per Architecture Rules §4.2) lists every consumed `packages/domain/{domain-name}/` and pinned version per the domain-versioning rule owned by the CC-side substantive canonical |
@@ -248,7 +248,7 @@ The TK sequence for the returning application starts at TK-01 (phase 1 PRD autho
 
 - **TK-01**: produces a new phase PRD for `apps/{new-app-slug}/specs/prd/phase-1.md`. The `{new-app-slug}` is decided here per operator pure judgment (immutable once committed) and added to the frozen app-slug roster owned by the CC-side substantive canonical. The phase PRD's "Existing PRDs" input pattern (per [MECH] Development Track Workflow §4 TK-01 inputs) naturally includes the original app's `apps/{original-app-slug}/specs/prd/**` (which contains the original app's phase PRDs) as historical reference. The new phase PRD also implicitly carries the architectural foundation that the new app's Phase 1 walking skeleton will validate. Conditional brownfield reconstruct pre-step applies per DTW TK-01 conditional pre-step when the operator judges the original app has behavior worth preserving.
 - **TK-02**: produces a new phase TDD at `apps/{new-app-slug}/specs/tdd/phase-1.md` (including §1 foundational architecture, §2 cross-feature concerns, §3 walking skeleton scope, and per-feature `§4.{feature-slug}` sub-sections) plus the paired phase test plan, per-feature integration test plans, per-feature slice-lists, and **per-unit `assigned_node` decisions for the new app's Phase 1 walking_skeleton unit, each feature unit, and any app_integration unit** per [MECH] Development Track Workflow TK-02 outputs. The new phase TDD may declare module reuse from the original app's domain dependencies. Domain consumption (governed by the domain lifecycle rules owned by the CC-side substantive canonical) is independent of app identity, so the new app may consume the same `packages/domain/{domain-name}/` packages the original app consumed
-- **Walking-skeleton-first ordering applies** for the new app's Phase 1: the walking_skeleton unit's PR must be merged to `main` (M5 staging deploy completion per [MECH] CI/CD Milestone Policy §2.6) before any feature unit's TK-04 (M0 entry; first node-side milestone) or any app_integration unit's TK-08 (M2 entry; first node-side milestone) begins, per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). Hub-side TK-03 specification authoring for the new app's Phase 1 is Hub-only post-refactor and MAY proceed in parallel; the gate is the first node-side milestone, not Hub-side authoring. The new app's physical skeleton (`apps/{new-app-slug}/CLAUDE.md` hierarchy, `apps/{new-app-slug}/package.json`, skeleton directories, `pnpm-workspace.yaml` registration) is produced as part of this walking_skeleton unit's output set per CC substantive Workspace Topology canonical (walking-skeleton 6-output set) — not as a hub-side pre-step. This applies even though the original app's architecture may be very similar — the returning application is a distinct app-slug and runs its own walking skeleton to establish its own CI/CD pipeline assertion
+- **Walking-skeleton-first ordering applies** for the new app's Phase 1: the walking_skeleton unit's PR must be merged to `main` (M4 merge completion, `status: merged`, per [MECH] CI/CD Milestone Policy §2.5) before any feature unit's TK-04 (M0 entry; first node-side milestone) or any app_integration unit's TK-08 (M2 entry; first node-side milestone) begins, per [RULE] Workspace Topology constitutional residue §3 (walking-skeleton-first ordering rule). Hub-side TK-03 specification authoring for the new app's Phase 1 is Hub-only post-refactor and MAY proceed in parallel; the gate is the first node-side milestone, not Hub-side authoring. The new app's physical skeleton (`apps/{new-app-slug}/CLAUDE.md` hierarchy, `apps/{new-app-slug}/package.json`, skeleton directories, `pnpm-workspace.yaml` registration) is produced as part of this walking_skeleton unit's output set per CC substantive Workspace Topology canonical (walking-skeleton 6-output set) — not as a hub-side pre-step. This applies even though the original app's architecture may be very similar — the returning application is a distinct app-slug and runs its own walking skeleton to establish its own CI/CD pipeline assertion
 - **TK-03 onwards**: proceed per the unit_type-specific task path defined in [MECH] Development Track Workflow §4.0 (for `feature` and `walking_skeleton` units, TK-03 → TK-11 Codex code review → TK-12 onwards per slice; for `app_integration` units, TK-08 onwards directly)
 
 The human team's modifications during their stewardship period are **not merged back into the AI-dev monorepo**. They are reflected in the human team's repository state, which the operator may consult as additional historical reference material when authoring the new phase PRD / phase TDD, but no mechanical merge happens.
@@ -319,7 +319,7 @@ Each handoff conversation re-confirms readiness directly from the §2.2 evidence
 **Maturity / readiness dimension**:
 - Handoff initiated without §2.2 checklist completion
 - Maturity judgment proceeding without operator awareness of §2.1 lens (e.g., a stakeholder externally pressing for handoff before the operator has formed a maturity judgment)
-- M5 evidence claimed but not retrievable in `apps/{app-slug}/evidence/**`
+- M4 evidence claimed but not retrievable in `apps/{app-slug}/evidence/**`
 
 **Content scope dimension**:
 - Handoff content set missing any §3.1 mandatory item
