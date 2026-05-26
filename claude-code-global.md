@@ -109,7 +109,7 @@ Effective context budget is materially smaller than nominal window — performan
 
 **Three independent dimensions** — any one entering red zone triggers; do not collapse into a composite score.
 
-- **Capacity** — proxy via high-density turn count + cumulative tool-call output volume (file reads, edits, bash output, agent invocations).
+- **Capacity** — % of the model's effective context window in use. The CC client surfaces this number to the operator (visible in the status bar / settings panel); read it from there when reported, ask the operator if uncertain, and fall back to a proxy (turn count + cumulative tool-call output volume) only when neither is available. Anchor on the actual % over the proxy whenever both are visible.
 - **Entropy** — accumulated noise: topic switches, corrections, abandoned branches, self-reference failures.
 - **Task** — remaining task complexity and reasoning hops.
 
@@ -127,7 +127,12 @@ Effective context budget is materially smaller than nominal window — performan
 
 **Starting thresholds (calibrate via use)**:
 
-- Capacity — low: < 24 high-density turns AND cumulative tool-call output < 90K chars; mid: 24–45 turns OR tool-call output 90K–240K; high: > 45 turns OR tool-call output > 240K OR single file read / bash output > 150K. (Heuristic starting points calibrated for the 1M-token window, kept deliberately conservative: lost-in-the-middle / context rot persist regardless of nominal window size, so usable attention scales sub-linearly with the raw window — do not relax these on window size alone. Subject to the Calibration protocol below.)
+- Capacity — task-typed two-track ladder, primary signal = % of model context window in use:
+  - **Linear task** (build-out, refactor following a clear plan, single coherent thread): low < 50% · mid 50–75% · high > 75%.
+  - **High-entropy task** (debugging unknown territory, multi-fact retrieval, random-access reads across many files, frequent pivots): low < 40% · mid 40–60% · high > 60%.
+  - Additional high triggers (either track): auto-compaction imminent (operator reports CC warning) · a single tool result absorbing > 100K tokens in one turn.
+  - **Proxy fallback** (only when % unavailable): cumulative tool-call output volume + turn count. Mid ≈ ~50 turns OR ~250K chars of tool output. High ≈ ~90 turns OR ~500K chars. The proxy systematically over-flags on a fresh-cache 1M window — when in doubt, read the operator's CC-client % over the proxy.
+  - **Rationale**: Anthropic does not publish hard thresholds — degradation is gradual and task-dependent. Community heuristics center on ~60% utilization for general intervention; linear tasks tolerate noticeably higher utilization than multi-hop / random-access ones. Lost-in-the-middle persists but is materially less pronounced in current frontier models than in earlier ones. The two-track ladder reflects this — do not collapse it back into a single number.
 - Entropy — low: single topic, near-zero corrections; mid: 1–2 topic switches OR 2–3 corrections; high: ≥ 3 topic switches OR ≥ 4 corrections OR observed self-reference failure.
 - Task — low: single-point queries; mid: multi-step reasoning within one domain; high: cross-domain reframing OR internal contradiction observed.
 
@@ -139,7 +144,10 @@ Effective context budget is materially smaller than nominal window — performan
 - This trigger does NOT invoke the Clarification Gate — it is output-side, not input-side.
 - Anchor preference: when in doubt, prefer fresh-session restart with canonical-file rebuild over reliance on in-session compaction (per Anthropic context engineering guidance).
 
-**Calibration protocol**: starting thresholds are heuristic; my feedback ("too early" / "too late") adjusts mid/high boundaries for subsequent sessions.
+**Calibration protocol**: starting thresholds are heuristic; operator feedback ("too early" / "too late") + the CC-client utilization % observed at the calibration moment adjust mid/high boundaries for subsequent sessions. When both the operator-reported % and the proxy are available, anchor on the % — the proxy is a fallback estimator with known over-flagging bias on fresh-cache 1M-window sessions.
+
+**Calibration history**:
+- 2026-05-26 (Opus 4.7 [1M], HDC walking-skeleton TK-04 session): the prior single-track proxy (240K chars / 45 turns → high) called Red at observed 48% utilization on a strongly linear coding task. Recalibrated to the two-track ladder above; linear-task high boundary moved to > 75% utilization; proxy fallback approximately doubled. Cause analysis: the old formula treated chars/turns as absolutes rather than as estimators of %, and applied a uniform high-entropy threshold to every task type. Cross-reference: anthropic/claude-code issue #34685 documents self-reported degradation at 40% / restart-recommend at 48% as a known model over-flagging pattern in earlier Opus 4.6 1M sessions — the prior canonical reproduced that bias.
 
 **Model-version re-tune trigger (harness-wide)**: on model-version-change — a discrete external event, not a calendar cadence — re-validate this harness's version-coupled assumptions: the Session Lifecycle thresholds above, the CoVe-vs-native-verification boundary (Sensors), and any instruction phrased to rely on loose interpretation rather than literal reading. A model upgrade is the signal to re-tune — the prior model's compensations may have become dead weight, and the new model's literalism may bite previously-tolerated loose wording.
 
