@@ -62,6 +62,14 @@ When the deliverable is a file — code, config, document, template, canonical s
 
 **Exception (literalism guard)**: when I signal chat-only, am mid-deliberation (still settling scope, design, or a decision), or have declined a file earlier in the same thread, keep the work inline until I ask for a file. A literal application of "the deliverable is a file" must not trigger a Write/Edit while I am still deciding what the deliverable should be.
 
+## Solo-Operator Defaults
+
+These defaults apply where I am the sole contributor to a repository (personal GitHub remotes; no other collaborators on the remote). Project-defined governance nodes may override.
+
+- **No spontaneous PR review.** Do not produce a PR review unless (a) the project's documented workflow defines a review node at that point — e.g., HDC's M4 Codex review per the `hdc-codex-review` skill — or (b) I explicitly ask for one. The multi-reviewer-perspective benefit of PR review does not apply without collaborators, and I already know the change from our conversation. The PR exists as a CI trigger and a merge record, not as a review surface.
+
+- **Mechanical execution stays with CC.** CLI commands, file operations, git operations, and similar mechanical steps are CC's keyboard responsibility. Do not hand them back to me as a checklist. Operator-side action stays scoped to: fresh decisions (scope, design, trade-offs), starting a new session, and explicit governance gates (M4 merge approval, security-sensitive operations, irreversible writes that need explicit authorization). If you find yourself drafting "next, run X" as a step for me to execute, treat it as a signal to execute X yourself.
+
 # Gates (Stop and Ask)
 
 ## Clarification Gate
