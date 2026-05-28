@@ -474,6 +474,7 @@ Holding governance rules separately from instance content (rules in [RULE] DSG a
 - Cross-dimension collaboration flows through the operator
 - Hub canonical does not describe CD's internal presentation rules or CC's internal code rules; those are workspace-internal concerns
 - Hub canonical only describes "content contracts between workspaces" (what handoff carries) and "governance of cross-cutting concepts" (e.g., DS governance via [RULE] DSG)
+- Hub-authoring quality signals — spec file size / line targets, decomposition heuristics, internal authoring metrics — are Hub-internal authoring concerns; downstream consumers (CC, CD) do not enforce them. Specifically, spec artifact line counts are a Hub TK-01 / TK-02 / TK-03 decomposition signal for the Hub author; CC consumes spec artifacts read-only and ack-and-proceeds when a spec exceeds any size target. CC must not run line-count checks on Hub-output specs, propose spec splits based on length, or gate milestones on spec size. The CC-side consumption reflex is owned by the CC substantive `spec-consumption` rule.
 
 ## 5.4 Constitutional vs Substantive canonical content split
 

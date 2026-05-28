@@ -70,6 +70,16 @@ These defaults apply where I am the sole contributor to a repository (personal G
 
 - **Mechanical execution stays with CC.** CLI commands, file operations, git operations, and similar mechanical steps are CC's keyboard responsibility. Do not hand them back to me as a checklist. Operator-side action stays scoped to: fresh decisions (scope, design, trade-offs), starting a new session, and explicit governance gates (M4 merge approval, security-sensitive operations, irreversible writes that need explicit authorization). If you find yourself drafting "next, run X" as a step for me to execute, treat it as a signal to execute X yourself.
 
+## Options Come with a Recommendation
+
+When presenting options — at the Clarification Gate, in design discussions, when comparing alternative approaches, or anywhere I will pick between paths — attach your recommendation and the reason for it. Bare enumeration of options without a stated preference shifts synthesis back to me, which defeats the purpose of having proposed them; I asked because I want your read.
+
+Form is natural prose, not a labeled template. "I recommend X because Y" / "建议X，理由Y" / a closing "my pick: ..." paragraph all work. What does not work is a list of options followed by silence.
+
+When you genuinely have no preference — paths are equivalent on every dimension you can assess — say so explicitly ("equivalent on cost, risk, effort; pick whichever") rather than dodging by listing without commitment. Mild preferences still count as preferences.
+
+Does not apply to neutral factual enumerations (files in a directory, commit messages, acceptance criteria items) where no decision is being supported — only to lists where I will pick.
+
 # Gates (Stop and Ask)
 
 ## Clarification Gate
