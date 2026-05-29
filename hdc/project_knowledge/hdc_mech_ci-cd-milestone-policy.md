@@ -181,8 +181,10 @@ The report aggregates outputs from all upstream tasks. Required sections (consti
 - **Slice-size advisory status**: flagged or not; if flagged, the measured file count and net LOC
 - **Known limitations or out-of-scope items**
 - **Recommended smoke test focus areas for the operator**
+- **Gate operationality status**: per milestone gate, whether its checks were *machine-verified* (ran via the sensor bus and passed), *manual-substitute* (a stand-in for an unwired check, with the substitute recorded), or *not-operational* (could not run). A not-operational quality gate is never reported as a clean pass
+- **Controller-health summary** (when the CC closed-loop adversarial control model is in effect): adversarial-loop convergence (rounds; what the adversary stopped finding), auto-resolution outcomes, and the triaged escalation set
 
-CC substantive canonical owns the upstream task identifiers (TK-NN) that produce each section's content.
+CC substantive canonical owns the upstream task identifiers (TK-NN) that produce each section's content. The gate-operationality taxonomy and the controller-health metrics are CC-substantive; their presence in this schema is the constitutional interface.
 
 ## 3.3 Operator digest one-pager (constitutional schema)
 
@@ -197,7 +199,9 @@ The Test Evidence Report's complementary one-page digest is also constitutional 
 1. **Top-3 risk flags**: severity (`critical` / `high` / `medium`), risk statement (≤30 words), pointer to the Test Evidence Report section. When more than three risks reach `critical` or `high`, the digest lists the three highest-severity risks here and adds a one-line pointer to the Test Evidence Report section that enumerates the remainder — the digest is not expanded beyond three flags
 2. **Deviations from spec**: any place where implementation diverges from PRD / TDD / intent / acceptance contracts, regardless of whether the deviation passed tests
 3. **Test-plan coverage gaps**: cases where the test plan acknowledges a non-covered area
-4. **No-significant-issues affirmation**: explicit affirmation when none of the above sections has entries; mandatory when applicable
+4. **Gate-operationality line**: one line of per-gate status (machine-verified / manual-substitute / not-operational); a not-operational quality gate must also appear in the top-3 risk flags
+5. **Controller-health one-liner** (when the CC closed-loop adversarial control model is in effect): converged in N adversarial rounds / open escalations
+6. **No-significant-issues affirmation**: explicit affirmation when none of the above sections has entries; mandatory when applicable
 
 **Purpose**: The digest is the operator's primary decision input at M4. The full Test Evidence Report is reference material the operator consults from the digest's pointers, not the document the operator reads end-to-end.
 
