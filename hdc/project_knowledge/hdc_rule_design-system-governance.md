@@ -99,7 +99,7 @@ Required instance section topics. Instance topics are labelled `IT1 … IT14` to
 
 - **IT1 — Design language foundation** — base design system reference and rationale
 - **IT2 — Implementation path** — PC implementation, mobile implementation, cross-platform consistency
-- **IT3 — Design tokens** — color tokens (Arco semantic overrides + HDC custom accents + HR-specific semantic states), text/background tokens, typography tokens, corporate font stack, spacing tokens, border radius / elevation / other visual tokens, token consumption rules
+- **IT3 — Design tokens** — color tokens (Arco semantic overrides + HDC custom accents + HR-specific semantic states), text/background tokens, typography tokens, corporate font stack, spacing tokens, border radius / elevation / other visual tokens, sizing/density tokens, token consumption rules; per-token lifecycle state (`active` / `deprecated` / `removed`) with successor where deprecated
 - **IT4 — Component inventory** — Tier A (Arco used directly), Tier B (HDC custom), Tier C (forbidden); cross-platform mapping
 - **IT5 — HDC layout patterns to HR scenario mapping** — PC patterns, mobile patterns, cross-platform pattern mapping
 - **IT6 — Accessibility stance** — the instance carries a pointer to this rule's §6, not a restated summary
@@ -143,6 +143,8 @@ Governance over the implementation path is twofold:
 
 **Rule 3.6 — External dependency factual verification**: Every DS instance statement about external packages and tooling — package identity, declared version, license, repository URL, official documentation URL, theme API surface, import pattern, browser support — MUST be verified against the project lockfile and the package's official source (repository, registry metadata, official docs) before becoming canonical. The DS instance records `verified_at`, `verified_source`, and `verification_owner` per fact (or per fact-group when several facts share a source). License statements and other legally-loaded fields require legal-review sign-off in addition to source verification. When public sources conflict, the DS records the conflict and marks the field `pending verification` rather than asserting an unverified value. The verification scope covers Tier 1 PC/mobile libraries (§3.4), iconography sources (§9.1), and any other external-package reference appearing in the DS instance.
 
+**Rule 3.7 — Theme-variance readiness**: The token system and the single monorepo theme source (Rule 3.2) MUST NOT be authored so as to foreclose a future governed theme variance — at minimum the active corporate light theme today, with an alternate (dark, or a future regional variant) addable as a **governed additive variance** rather than a token-system rebuild. Dark mode is **not currently active**; this is a forward declaration paralleling the §7.2 RTL-capability stance. The concrete delivery mechanism for an alternate theme (an additional build-time `modifyVars` variant, a runtime attribute / CSS-variable switch layered on the Rule 3.1 build-time corporate palette, or a combination) is **not fixed by this rule** — it is decided when the variant is actually scoped, with the chosen mechanism's API surface verified per Rule 3.6 and reconciled with the Rule 3.1 build-time-override stance at that point. The standing readiness obligation falls on token *authoring* (Rule 4.2.6), which is mechanism-agnostic.
+
 The specific theme values, version pins, and custom component list live in the instance (CD as SOT; the CC mirror carries the same content).
 
 ---
@@ -161,6 +163,7 @@ The instance MUST organize tokens into the following taxonomies. The taxonomies 
 - **Corporate font stack** — primary font family declaration with fallback chain
 - **Spacing tokens** — Arco-aligned spacing scale
 - **Border radius, elevation, and other visual tokens** — shadow, radius, opacity scales
+- **Sizing and density tokens** — control heights, minimum touch-target dimensions, and density-scale steps (`compact` / `standard` / `comfortable`). These back the §11.3 mobile-parity commitment (touch targets are a first-class mobile concern, not a derived PC value) and the §11.2 Tier-3 dense-data-grid screens, so interactive-control sizing is token-driven rather than hardcoded per slice. Arco's PC/mobile component defaults are the floor; the instance declares HDC overrides where corporate density or HR-scenario need diverges.
 
 ## 4.2 Token consumption rules
 
@@ -173,6 +176,22 @@ The instance MUST organize tokens into the following taxonomies. The taxonomies 
 **Rule 4.2.4**: Token values that diverge from Arco defaults MUST be motivated by corporate VI or HR-specific design need; recorded in the instance with rationale.
 
 **Rule 4.2.5**: Enforcement is via ESLint rules and Tailwind config in CC substantive Code Quality Rule Set canonical; this rule declares the design-level rules, Code Quality Rule Set declares the tool-level enforcement.
+
+**Rule 4.2.6 — Theme-variant token authoring**: Color and elevation tokens MUST be authorable as theme-variant pairs (the light value now; an alternate-theme value addable later) without changing token names or the §4.1 taxonomy. A token whose definition hardcodes a single theme's value in a way that blocks a paired alternate value violates the Rule 3.7 readiness requirement.
+
+## 4.3 Token lifecycle and deprecation
+
+Tokens follow a governed lifecycle that parallels the component tier transitions in §5.4, so a token can be retired without forcing every consumer through a single breaking value-change event.
+
+**Rule 4.3.1 — Lifecycle states**: Every token is in one of `active`, `deprecated`, or `removed`. A newly added token enters `active` via the §12 additive flow (Rule 4.2.3).
+
+**Rule 4.3.2 — Deprecation requires a live successor**: A token MAY move `active → deprecated` only when its replacement token (or an explicit "no replacement — stop using" decision) is already `active` in the instance — mirroring the §5.4 Tier B→C rule that the successor must already exist. The deprecation records the successor token name (or the no-replacement decision) and the rationale in the instance (IT3) and change log (IT14).
+
+**Rule 4.3.3 — Aliasing during transition**: A `deprecated` token SHOULD resolve to its successor's value (alias) for the transition window, so not-yet-migrated slices continue to render correctly. Introducing the alias is an **additive** change (the successor's value semantics do not change) and does not by itself require breaking back-propagation.
+
+**Rule 4.3.4 — Removal is breaking**: Moving `deprecated → removed` (deleting the token from the instance) is a **breaking** change per §12.2 and requires the §12.4 backward-compatibility analysis to confirm no merged slice still references the removed token. Removal MUST NOT occur while any merged slice still consumes the token.
+
+**Rule 4.3.5 — Rename = add successor + deprecate + (later) remove**: A token rename is never an in-place name/value edit. It is modeled as add-successor (additive) → deprecate-old with alias (additive) → remove-old (breaking, after migration). This keeps every step's blast radius governed rather than collapsing a rename into one breaking event.
 
 ---
 
@@ -204,6 +223,8 @@ Qualification (b) examples — compliant: an `ApprovalStatusTag` that renders th
 - **Feature-specific** — has a **single owning feature**. Documented in that feature's per-feature UX Design Spec instance §2B.4; **not** given a DS instance §4 inventory entry — **including** when the component is surfaced in a second feature only through a **declared structural seam** rather than independent peer instantiation. A *declared structural seam* is a composition contract in which the host feature receives the component through a slot / injection point owned by a cross-cutting floorplan contract, rather than independently instantiating the component as a peer. The recognized seam is the **`ObjectPage` facet-body injection** contract (a feature injects its own facet body into another feature's `ObjectPage` floorplan); this enumeration is **non-exhaustive** — additional seams are admitted through the §12 governance flow, each judged against the general criterion stated in this paragraph.
 
 Reserving cross-cutting status (DS instance §4 + phase §2A.6) for genuine no-single-owner components keeps the project-level surface that a §12.2 breaking change must back-propagate to *all* consumers as small as the topology warrants. This reuse-scope criterion is paired with `[TPL] UX Design Spec` §2A.6 / §2B.4 (P-54 in [OS] §8.5.2): the criterion here governs the classification those instance sections implement.
+
+**Rule 5.2.5 — Contract-change governance follows reuse scope**: A backward-incompatible change to a **cross-cutting** Tier B component's props or data contract (the kind registered in the DS instance §4 inventory and indexed in the phase-level §2A.6) is a **breaking DS change** per §12.2 and back-propagates to every consuming slice. A **feature-specific** Tier B (single owner, documented only in its feature's §2B.4 per Rule 5.2.4) is governed **within its owning feature** and does NOT trigger the DS §12.2 gate — unless and until it is promoted to cross-cutting, at which point its contract becomes subject to this rule. This keeps the project-level breaking surface as small as the §5.2.4 topology warrants (consistent with the Rule 5.2.4 rationale).
 
 ## 5.3 Tier C — Discouraged / forbidden
 
@@ -278,6 +299,8 @@ This is a deliberate design choice, not a deferral. If regulatory or contractual
 
 **Rule 7.6**: If a feature introduces a new launch language, the instance §7 i18n scope MUST be updated via §12 additive flow before slice code is merged.
 
+**Rule 7.7 — Pseudo-localization validation**: The §7.4 text-expansion budget is a recommended engineering practice to **validate**, not only declare. Tier 1 layouts SHOULD be exercised under a pseudo-localization mode — accented-character substitution, ~30–40% length inflation, and optional RTL mirroring (per §7.2) — during development or visual review, so the 30% margin on dense labels (form labels, table headers, button text) is empirically confirmed rather than visually estimated. Pseudo-loc is **advisory**: it is not a merge-blocking CI gate (consistent with the §6 stance that a11y/i18n hygiene is enforced by practice and warn-level tooling, not hard gates).
+
 ---
 
 # 8. Motion & animation hygiene
@@ -304,6 +327,8 @@ This is a deliberate design choice, not a deferral. If regulatory or contractual
 
 **Rule 9.4 — Icon-only UI**: Icon-only buttons / actions are discouraged unless space-constrained (mobile, dense data grids). When used, the icon's meaning MUST be conveyable to screen readers via `aria-label`, AND a tooltip on hover (PC) or accessible-name dialogue should reinforce the meaning for sighted users not yet familiar with the icon.
 
+**Rule 9.5 — Icon import discipline**: Icons MUST be imported individually by name from the §9.1 sources (e.g., `import { IconUser } from '@arco-design/web-react/icon'`). Whole-set or namespace imports (`import * as Icons from ...`) are **forbidden** — they defeat the tree-shaking that the build-time theme path (Rule 3.1) and bundle hygiene rely on. Custom icons (§9.2) are likewise imported per-component, not pulled through an aggregated barrel that imports the entire custom set.
+
 ---
 
 # 10. Content style governance
@@ -323,6 +348,8 @@ This is a deliberate design choice, not a deferral. If regulatory or contractual
 **Rule 10.7 — Capitalization**: Sentence case for labels and buttons; title case only in page titles. Locale-specific capitalization conventions override this rule.
 
 **Rule 10.8 — Mobile copy compaction**: Mobile labels and button text trimmed to 2–3 words where possible; long labels acceptable only when full meaning loss is unacceptable.
+
+**Rule 10.9 — Voice and tone (HR-sensitive messaging)**: Beyond the mechanical rules above, user-facing copy at HR-sensitive moments — approval rejection, error states, empty states involving personal or employment data, and any negative or corrective message — MUST be respectful, non-blaming, and specific. Rejections state the reason and the next step without attributing fault to the user; errors follow Rule 10.4 (what happened + what to do) without alarming or accusatory phrasing; messages referencing personal or employment data use neutral, privacy-aware wording. This rule is DSG's implementation carrier for the [PRIN] People Experience Design Principles at the copy layer. The instance MAY carry exemplar phrasings for the recurring sensitive moments (rejection, access-denied, data-not-available, pending-approval).
 
 ---
 
@@ -371,6 +398,10 @@ For Tier 3 features:
 
 Every Tier A and Tier B component in the instance §4 inventory MUST declare its PC and mobile variants. When a component is PC-only or mobile-only, the rationale MUST be stated.
 
+## 11.5 Token-sourced sizing for interactive elements
+
+**Rule 11.5 — Token-sourced sizing for interactive elements**: Minimum touch-target dimensions for mobile interactive elements MUST be sourced from the §4.1 sizing/density tokens, never hardcoded in slice code (Arco mobile defaults are the floor). PC dense grids and compact toolbars MAY apply a `compact` density step, also token-sourced. Cross-platform density differences (a control denser on PC than on mobile) MUST be expressed as distinct token values, not as ad-hoc per-slice spacing. This narrows the §4.2.1 Tailwind-layout carve-out for the specific case of interactive-element sizing: a control's height and touch-target dimensions are a token concern, not layout padding to be set ad hoc per slice.
+
 ---
 
 # 12. Update flow (core governance)
@@ -383,7 +414,7 @@ Every Tier A and Tier B component in the instance §4 inventory MUST declare its
 ## 12.2 Change categories
 
 - **Additive** (new component, new token, new locale, new layout pattern, new icon): proposed by Hub Claude in the originating feature's per-feature UX Design Spec instance §2B.4 New-Components-Or-Tokens at TK-02 step 2.3 (Hub-authored markdown); cross-cutting additives (used by multiple features in the phase) are additionally indexed in the phase-level UX Design Spec instance §2A.6 cross-cutting additive index, which cross-references the originating feature's §2B.4 entry holding the authoritative plan content; the proposal travels via operator-mediated transfer to CD per [MECH] Cross-Tool Workflow Handoff §2.1 for CD-side instance authoring; the change merges into the DS instance (CD-side) when the originating feature's slice merges to main (see [MECH] Development Track Workflow TK-12); the CC mirror is re-synced from the reviewed DS markdown export after the CD-side change is finalized.
-- **Breaking** (token value change, Arco major version upgrade, accessibility hygiene rule change, mobile-tier reassignment of existing screens, platform-tier downgrade of a feature already shipped): requires separate review gate outside the normal TK flow; all affected slices MUST be reviewed before rollout.
+- **Breaking** (token value change, token removal or rename per §4.3.4–§4.3.5, Arco major version upgrade, accessibility hygiene rule change, mobile-tier reassignment of existing screens, platform-tier downgrade of a feature already shipped, a backward-incompatible change to a registered **cross-cutting** (DS §4-inventoried) Tier B component's props or data contract, and the removal or Tier-C demotion (§5.4) of such a component): requires separate review gate outside the normal TK flow; all affected slices MUST be reviewed before rollout. For a Tier B contract break or a token removal, the §12.4 backward-compatibility analysis MUST enumerate every consuming slice.
 
 ## 12.3 Change process
 
@@ -397,7 +428,7 @@ Every Tier A and Tier B component in the instance §4 inventory MUST declare its
 6. If approved:
    - **CD-side authoring**: CD finalizes the change in the DS instance content. CD authors against the current DSG (transferred to CD as a read-only input per [MECH] Cross-Tool Workflow Handoff §2.1) and self-checks the finalized change against §2-§11 of this rule before export. The change is recorded in the instance change log (instance topic IT14)
    - **DS markdown export regeneration**: CD generates an updated DS markdown export reflecting the new instance state per §12.7 export specification
-   - **Export conformance review (Hub-side)**: the operator brings the CD-generated DS markdown export into a Hub conversation; Hub Claude reviews the export against the §15 reviewer checklist to confirm the finalized instance conforms to §2-§11 of this rule. This review catches divergence between the approved change plan and what CD actually authored, including any out-of-band CD change. On a material finding, the export returns to CD for correction
+   - **Export conformance review (Hub-side)**: the export first passes the §12.7 **structural pre-check** (mechanical completeness / shape — IT anchors present, header fields populated, key tables well-formed); only a structurally complete export proceeds to this semantic review. The operator brings the CD-generated DS markdown export into a Hub conversation; Hub Claude reviews the export against the §15 reviewer checklist to confirm the finalized instance conforms to §2-§11 of this rule. This review catches divergence between the approved change plan and what CD actually authored, including any out-of-band CD change. On a material finding, the export returns to CD for correction
    - **CC mirror sync**: on a passing export review, the operator commits the reviewed export to the CC monorepo (`specs/design-system.md`) at the next sync point (additive: at the originating feature's merge-to-main milestone per §12.5; breaking: after CD-side breaking change is finalized at the separate review gate)
 
 ## 12.4 Change content minimum structure
@@ -435,7 +466,7 @@ Breaking-change rollback: if a finalized breaking change must be reverted, treat
 The DS markdown export is the canonical artifact that propagates DS instance content from CD SOT to the CC mirror. It is produced by CD on operator prompt at every change finalization (additive merge or breaking-change finalization) and at workspace inception (initial DS setup).
 
 **Content requirement**: The DS markdown export MUST faithfully represent the DS instance content covering all required instance topics declared in §2 (IT1 Design language foundation through IT14 Change log). For each topic:
-- **IT3 Design tokens**: List all tokens by taxonomy category with specific values (e.g., `primary: #1664FF`, `spacing-md: 16px`) and any per-token rationale.
+- **IT3 Design tokens**: List all tokens by taxonomy category with specific values (e.g., `primary: #1664FF`, `spacing-md: 16px`) and any per-token rationale, and each token's lifecycle state (active / deprecated, with successor where deprecated).
 - **IT4 Component inventory**: Full list of Tier A (Arco direct), Tier B (HDC custom), Tier C (forbidden) with canonical import paths, PC/mobile variant declarations, and any composition/a11y notes for Tier B components.
 - **IT5 Layout patterns**: Full pattern catalog with names, applicable HR scenarios, PC/mobile mappings.
 - **IT6 Accessibility stance**: the instance references DSG §6, does not restate it.
@@ -450,6 +481,8 @@ The DS markdown export is the canonical artifact that propagates DS instance con
 **Export header diff summary**: Beyond instance version, each export header MUST declare previous instance version, new instance version, change category (`additive` / `breaking` / `structural`), and the IT section IDs touched (e.g., `IT3, IT4`). Per-token / per-component change detail is recorded in the instance IT14 change log, not duplicated in the export header. The summary lets §12.3 export reviewers locate change surface without scanning the entire export.
 
 **Generation mechanism**: Operator prompts CD to generate the export at each §12.5 sync point. The prompt should request a structured markdown summary covering all §2 topics; CD produces it from the SOT instance content.
+
+**Structural pre-check (gates the §12.3 conformance review)**: Before the §12.3 semantic conformance review consumes reviewer attention, the export passes a lightweight **structural** validation — presence and shape only, no §3–§11 semantics. It confirms: (a) all required instance-topic anchors **IT1–IT14** are present with stable `## §X.Y`-style headers; (b) the **§2 required instance header fields** are populated **and** the **export header diff summary** (previous version, new version, change category, IT sections touched) is present; (c) the **IT3 token list** carries columns `name / value / category / lifecycle-state / rationale-where-divergent`, the **IT4 component inventory** carries `name / tier / import-path / PC-variant / mobile-variant`, and the **IT11 breakpoint table** carries `name / range`. This check is *mechanical* — it needs no design judgment and cannot judge §3–§11 conformance; it runs as the first pass of the §12.3 review (today by Hub Claude in the review conversation; it could later be scripted). On any pre-check failure the export returns to CD **before** the semantic review and operator sign-off, so reviewer effort is spent on §3–§11 semantics rather than on detecting missing sections or malformed tables.
 
 **Transfer mechanism**: The operator brings the CD-generated markdown into a Hub conversation for the §12.3 export conformance review; on a passing review, the operator commits it to the CC monorepo per [MECH] Cross-Tool Workflow Handoff.
 
@@ -561,8 +594,11 @@ When reviewing an instance update for sign-off (additive merge at slice M4 / bre
 11. No duplication with PRD, UX Design Spec, intent, acceptance scope
 12. (Post-sync confirmation) After the CC mirror sync that follows a passing review per §12.3, the CC mirror (`specs/design-system.md`) reflects the reviewed DS markdown export and its version metadata matches the CD-side declared instance version
 13. DS markdown export per §12.7 was generated for this update and is referenced in the instance header
+14. (If the update touches §4 tokens) token lifecycle states are valid — every deprecation names a live successor (Rule 4.3.2), no token is `removed` while a merged slice still references it (Rule 4.3.4), and any rename followed the add→deprecate→remove sequence (Rule 4.3.5)
+15. (If the update registers or changes a Tier B component) a backward-incompatible props/contract change to a **cross-cutting** Tier B is routed as breaking per §12.2 with a §12.4 consuming-slice enumeration; a feature-specific Tier B contract change correctly stays within its owning feature (Rule 5.2.5)
+16. Sizing/density tokens (§4.1) are declared where the feature has mobile touch targets or dense grids and are token-sourced not hardcoded (Rule 11.5); any new color/elevation token satisfies theme-variant readiness (Rule 3.7 / Rule 4.2.6)
 
-Items 1-11 and 13 are verified at the §12.3 export conformance review, before the CC mirror sync; item 12 is verified after the sync, as a post-sync confirmation. Each is a binary pass/fail check: an item fails when the reviewer can name a specific instance section (or specific missing content) that does not satisfy it. If 2+ of the pre-sync items (1-11, 13) fail by that test, the instance update is not yet ready for sign-off and the sync does not proceed. Once the sync has occurred, item 12 is the single post-sync confirmation — it must pass for the sync to be considered complete.
+Items 1-11 and 13-16 are verified at the §12.3 export conformance review, before the CC mirror sync; item 12 is verified after the sync, as a post-sync confirmation. Each is a binary pass/fail check: an item fails when the reviewer can name a specific instance section (or specific missing content) that does not satisfy it. If 2+ of the pre-sync items (1-11, 13-16) fail by that test, the instance update is not yet ready for sign-off and the sync does not proceed. Once the sync has occurred, item 12 is the single post-sync confirmation — it must pass for the sync to be considered complete.
 
 ---
 
@@ -594,5 +630,11 @@ Red flags that should trigger correction:
 - **DS markdown export not regenerated at §12 change finalization** — instance content updated in CD SOT but no export produced, leaving the CC mirror stale relative to SOT
 - **CC mirror sync bypasses the §15 export review or the operator-mediated transfer** — the CC mirror must be updated only from a DS markdown export that passed the §12.3 export conformance review; a direct CD-to-mirror push bypassing the review or the operator audit violates §12.3 and [MECH] Cross-Tool Workflow Handoff operator-audit discipline
 - **Tier B additive proposals chronically deferred or stuck** — proposals raised in per-feature UX Design Spec instance §2B.4 entries remain in `pending` or `deferred` state across multiple TK cycles without resolution or rejection per §12.8; the §12 flow is being avoided or has stalled, and the DS instance is failing to absorb legitimate evolution pressure (the inverse of the §12.6 "silent additions" pattern — proposed correctly but never advanced)
+- **A token moved to `removed` while a merged slice still references it**, or a token rename done as an in-place name/value edit instead of the Rule 4.3.5 add→deprecate→remove sequence — violates §4.3
+- **A backward-incompatible props/contract change to a registered cross-cutting Tier B component rolled out without the §12.2 breaking gate** and §12.4 consuming-slice analysis — violates Rule 5.2.5 / §12.2
+- **Whole-set / namespace icon import** (`import * as Icons` from an Arco icon path, or from a custom-icon barrel) instead of named per-icon imports — violates Rule 9.5, defeats tree-shaking
+- **A DS markdown export reaching §12.3 review without having passed the §12.7 structural pre-check** (missing IT anchor, unpopulated header field, malformed token/component/breakpoint table) — the mechanical pre-check must gate the semantic review
+- **Hardcoded touch-target or control-height values on mobile interactive elements** instead of §4.1 sizing tokens — violates Rule 11.5, breaks the §11.3 mobile-parity token backing
+- **A new color or elevation token authored so a future dark/alternate theme cannot supply a paired value** without a rename or taxonomy change — violates Rule 3.7 / Rule 4.2.6 theme-variance readiness
 
 **Periodic sweep**: These red flags are scanned both at change-flow review (§12.3 export review, §15 reviewer checklist) and as part of [MECH] Canonical File Self-Audit periodic sweep over DSG and the DS instance. Chronic appearance of a red flag is itself a §12 governance signal — the operator surfaces it for breaking-change review or §12.8 resolution rather than continuing to flag-and-ignore.
