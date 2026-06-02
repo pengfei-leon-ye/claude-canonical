@@ -453,6 +453,8 @@ For `additive` changes, the originating feature's per-feature UX Design Spec ins
 
 Breaking-change rollback: if a finalized breaking change must be reverted, treat the rollback as itself a breaking change — it goes through the §12.2 separate review gate, regenerates the DS markdown export, and re-syncs the CC mirror, so SOT and mirror return to a consistent state together.
 
+**Pending-registration cadence (additive Tier-B registrations must not accrete).** Additive registration is *due* at the originating slice's M4 (above), but the DS markdown export is operator-prompted (§12.7) and exports are commonly batched across slices — so between a slice's M4 and the next export its first-owned Tier-B / cross-cutting registrations sit **pending**. The pending-registration set is a **governed object**, not per-M4 operator memory: each merged slice records its still-unregistered first-owned Tier-B / cross-cutting components (surfaced in that slice's M4 operator digest, tracked in the app `issue-log` under `category: design-debt` until drained). The set MUST be drained — a CD export-registration per §12.3 — no later than the **earliest** of: (a) a wave boundary; (b) the TK-04 entry of any slice that **reuses** a still-unregistered shared widget (so the reuser's A9 compliance audits against a governed instance, not an as-built); (c) the set exceeding an operator-set threshold (default ~5 components). A registration carried past its drain trigger is a §12 governance signal (§12.6 + the periodic red-flag sweep) — surfaced for the operator to run the export, never flagged-and-ignored. This governs the lag that otherwise accumulates as an ad-hoc CC tracker (the W2 `issue-040` case).
+
 ## 12.6 Forbidden patterns
 
 - Silent token or component additions in feature branches without instance update
@@ -460,6 +462,7 @@ Breaking-change rollback: if a finalized breaking change must be reverted, treat
 - Hardcoded color, typography, or spacing values in Tier 1 code outside Tailwind layout utilities
 - Cross-platform divergence not declared in the instance §4 component inventory mapping table
 - **Updates to the CC mirror** (`specs/design-system.md`) without a corresponding CD-side SOT update — the CC mirror is read-only and synced from CD via the reviewed DS markdown export; direct edits create drift between SOT and mirror that CC will operate against incoherently at code generation
+- **A first-owned Tier-B / cross-cutting registration carried past its §12.5 drain trigger** — a slice reusing a still-unregistered shared widget (compiling against an as-built rather than the governed DS instance), or the pending-registration set accreting unbounded across waves instead of being drained at a wave boundary / reuse / threshold
 
 ## 12.7 DS markdown export specification
 
