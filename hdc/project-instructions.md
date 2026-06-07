@@ -47,6 +47,7 @@ The canonical sources listed below are the detailed source of truth for their re
 - [MECH] Sign-Off Cleanup Policy — sign-off cleanup for multi-round-revised long-living spec artifacts (PRD / TDD initially; A3-A7 pending empirical evidence), Why Anchor and four-question keep-vs-delete decision tree, trigger conditions covering audit quiescence (zero S1 / S2 findings) / operator judgment / handoff prep, in-place cleanup at original canonical path (no archive, no signoff- prefix; provenance via git history), per-artifact specifics expressed as content-category + example-pattern semantic rules, and exception handling for A6 openapi.yaml + B1-B3 Hub-produced slice interface artifacts + C1-C3 CC-produced code/test/evidence
 
 **Sources fully migrated to CC substantive canonical in Phase 3 (no Hub PK presence; Hub-side handoff documentation refers to them generically or via "CC substantive X canonical" per the decoupled-reference model)**:
+
 - [RULE] Codex Plugin Usage — code review tooling (specific commands, trigger logic, evidence path schema)
 - [MECH] Code Quality Rule Set — three-tier code quality enforcement (specific lint tools, presets, severity policy, CI integration)
 - [MECH] Dev-Loopback Mode — single-machine runnability contract (single-command startup, fixture content, placeholder pattern, env switch gate, walking-skeleton M5 acceptance assertions)
