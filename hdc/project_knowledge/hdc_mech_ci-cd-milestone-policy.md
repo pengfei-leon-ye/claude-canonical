@@ -216,7 +216,7 @@ Certain artifact outputs are constitutional **handoff interface** — produced a
 ## 4.1 OpenAPI YAML output gate
 
 - **Produced at**: M2 (last slice of a feature or app_integration unit)
-- **Path**: `apps/{app-slug}/specs/api/openapi.yaml`
+- **Path**: `apps/{app-slug}/specs/openapi.yaml`
 - **Consumer**: Pact contract testing harness; cross-workspace contract artifact
 
 ## 4.2 Migration tooling output gate
