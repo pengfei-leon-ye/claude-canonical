@@ -22,7 +22,7 @@ Active QA of CC's own canonical sources. Operationalizes the declarative drift-s
 
 ## Procedure (CC runs inline — no subagents)
 
-1. **Enumerate** the in-scope surface: git-tracked files under the two IN rows; skip every exempt path. Pull frontmatter from every `.claude/{skills,rules,agents}` file in one sweep.
+1. **Enumerate** the in-scope surface: git-tracked files under the two IN rows; skip every exempt path. Pull frontmatter from every `.claude/{skills,rules,agents}` file in one sweep. Drive all enumeration and reference sweeps with `git ls-files` / `git grep` (tracked files only) — never raw `grep -r` or `find`, which descend into gitignored `worktrees/` and inflate results.
 2. **Run the six dimensions** (D1–D6) below.
 3. **Emit** the actionable report (see Output).
 
