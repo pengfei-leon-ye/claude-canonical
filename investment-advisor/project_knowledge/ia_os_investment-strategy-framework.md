@@ -207,6 +207,8 @@ The advisor reads private state from uploaded project-knowledge **data files** (
 
 Rules: never fabricate any of these; if a value is missing or stale, ask or request a data-file refresh; treat all prices and fundamentals as needing a current source. This document and anything synced to the public repo carry **none** of this data.
 
+**File schema (the data contract).** The exact format of these files is defined by the canonical schema templates `ia_tpl_portfolio-state.md` (holdings + capital snapshot) and `ia_tpl_transaction-log.md` (append-only trades), versioned alongside this framework. Those templates are blank schemas carrying only field definitions and illustrative examples; the investor's *filled* instances are private (local `investment-advisor-private/`, never committed), and only the filled copies are uploaded to project knowledge — the `.env.example` / `.env` split.
+
 ---
 
 ## 11. Invariants (single-list summary)
