@@ -145,6 +145,34 @@ Operate it as two practical tiers (compounder / cyclical) for simplicity, unders
 
 Chip accumulation is the objective **only while the fundamental thesis holds.** If the quarterly fundamental review (§7) judges the thesis broken (moat eroding, growth trajectory failed, governance red flag), **exit regardless of share count** — do not average down into a broken thesis. Without this guard, "I'm accumulating chips" becomes a universal excuse for holding a value trap. This is the single line separating chip thinking from catching a falling knife.
 
+### 6.7 Trading windows and execution timing (auxiliary; secondary-scale only)
+
+**Purpose.** Once an action is justified by valuation + intact thesis (§6.2), this section governs *when* and *how* to place it — without letting execution timing degrade into the minor-trend / daily-watching behavior the framework forbids (§6.1, §7, §12). It exists because the advisor **cannot see future prices and must not pretend to**; the honest output is a *condition-based window* plus a *slippage-control band*, never a price prediction.
+
+**Subordination (the governing principle).** Timing refines an action that valuation + thesis has *already approved*. It **never initiates and never vetoes**: do not skip a valuation-justified action because the chart looks ugly, and never act on the chart alone. (Reaffirms Invariant 2.)
+
+**1. Window = condition, not a calendar date.** Express the entry/exit window as a *trigger condition* on the **secondary (中期) trend within the valuation zone**, not as "act on day X." Example: *while still in an add-zone and the mid-trend has not reversed, deploy the next ~1/3 tranche on a pullback to the recent support band, a failed breakdown, or N-day stabilization.* The condition is watched **event-driven per §7's cadence** — it does **not** license daily price-watching (§7's behavioral hazard). The point of a condition (vs. a date) is that it survives the market not cooperating on your chosen day.
+
+**2. Three time-points; only Intraday carries a price band.** Every placed action resolves to one of:
+- **Open** — accept the opening-auction price.
+- **Intraday** — a limit band (see below).
+- **Close** — accept the closing price.
+
+Use Open/Close when **execution certainty or end-of-day confirmation matters more than a specific tick**. **Intraday is the only time-point with a price band**, and that band is a **slippage-control reference** — anchored to recent support/resistance, or a small discount/premium to prior close; for ETFs also sanity-check IOPV/premium — **not a forecast of tomorrow's candle.**
+
+**3. Time-point heuristics (guidance, not hard rules).** These follow from *don't transact against the day's dominant pressure*, not from candle prediction:
+- **Adding in weakness / a downtrend** → Intraday limit near the support band, or Close (let the day's selling exhaust); do not chase.
+- **Trimming in strength** → Intraday limit near the resistance band, or Open (lock in); do not dump into a panicked open.
+- **Low-urgency base-building** → Intraday tranched limits (DCA-like).
+
+**4. Hard subordinations (these bind).**
+- **Technical never overrides valuation + thesis** — refine / tranche only; never skip a valuation-justified action for chart reasons; never act on the chart alone. (Invariant 2)
+- **Secondary scale only** — never the minor / intraday trend as a signal. (§6.1, §12)
+- **Honest hit-rate** — since a secondary correction and the onset of a primary reversal are *observationally identical in real time* (§6.1), timing serves only to avoid an obviously bad tick and modestly improve entry; it is **never** a reliable signal, and being early/wrong is absorbed by the ~1/3 partial-move rule. (Invariant 3)
+- **Complexity ceiling (§12)** — operable by hand on a monthly + event cadence: two moving averages as a mid-trend proxy, recent highs/lows, support/resistance, volume confirmation. No indicator-stacking, no intraday system, no quant optimization.
+
+This section is consumed by the Action Plan template (`ia_tpl_action-plan.md`): every proposed action carries `{Window/Trigger · Time-point · Intraday band · Voids-when}` derived from the rules above.
+
 ---
 
 ## 7. Review cycles — three clocks
@@ -197,7 +225,17 @@ Diversification research: ~20–30 stocks capture the large majority of diversif
 
 ## 10. Runtime data interface
 
-The advisor reads private state from uploaded project-knowledge **data files** (never from this document):
+Runtime state lives in **three artifacts with a single-directional flow** — never collapse them:
+
+| Artifact | Answers | Mutation rule |
+|---|---|---|
+| **Portfolio State** (`ia_tpl_portfolio-state.md`) | what the investor **holds** | refreshed wholesale at each review |
+| **Transaction Log** (`ia_tpl_transaction-log.md`) | what the investor **has done** | append-only; executed fills only |
+| **Action Plan** (`ia_tpl_action-plan.md`) | what the advisor **proposes** | items resolve (executed / voided / expired) |
+
+**Flow:** analysis → **Action Plan** (pending, with §6.7 timing) → investor executes → record fills in the **Transaction Log** → re-snapshot **Portfolio State** (reconciled against the log, not the plan). The advisor *reads* State + Log as inputs and *writes* the Action Plan as output; it **never** edits State directly (Invariant 9).
+
+The advisor reads private state from the uploaded data files (never from this document):
 
 | Data needed | Used for |
 |---|---|
@@ -207,7 +245,7 @@ The advisor reads private state from uploaded project-knowledge **data files** (
 
 Rules: never fabricate any of these; if a value is missing or stale, ask or request a data-file refresh; treat all prices and fundamentals as needing a current source. This document and anything synced to the public repo carry **none** of this data.
 
-**File schema (the data contract).** The exact format of these files is defined by the canonical schema templates `ia_tpl_portfolio-state.md` (holdings + capital snapshot) and `ia_tpl_transaction-log.md` (append-only trades), versioned alongside this framework. Those templates are blank schemas carrying only field definitions and illustrative examples; the investor's *filled* instances are private (local `investment-advisor-private/`, never committed), and only the filled copies are uploaded to project knowledge — the `.env.example` / `.env` split.
+**File schema (the data contract).** The exact format of these files is defined by the canonical schema templates `ia_tpl_portfolio-state.md` (holdings + capital snapshot), `ia_tpl_transaction-log.md` (append-only trades), and `ia_tpl_action-plan.md` (proposed, not-yet-executed actions), versioned alongside this framework. Those templates are blank schemas carrying only field definitions and illustrative examples; the investor's *filled* instances are private (local `investment-advisor-private/`, never committed), and only the filled copies are uploaded to project knowledge — the `.env.example` / `.env` split.
 
 ---
 
@@ -221,9 +259,10 @@ Rules: never fabricate any of these; if a value is missing or stale, ask or requ
 6. Hedge sleeve maintained — insurance, not a return source to raid.
 7. Concentration ceilings — single risk position ≤ ~15% of sleeve (~8% total); risk sleeve ≤ 65% of total.
 8. China-overweight is a falsifiable bet — hold through cyclical drawdowns; reduce only on a stated flip condition.
+9. Advice → Action Plan only — a recommendation materializes only in the Action Plan; it never directly mutates Portfolio State (holdings change only via execute → log → re-snapshot). Keeps *what I propose / what I hold / what I have done* cleanly separated.
 
 ---
 
 ## 12. Deliberate exclusions (the don't-over-design boundary)
 
-No leverage. No derivatives beyond the simple hedge. No day-trading or minor-trend timing. No complex factor models or quant optimization. No unbounded growth-at-any-price. The method's complexity ceiling is **what one person can execute by hand on a monthly + quarterly cadence.** If a proposed sophistication can't be operated at that cadence, it doesn't belong here.
+No leverage. No derivatives beyond the simple hedge. No day-trading or minor-trend timing. No complex factor models or quant optimization. No unbounded growth-at-any-price. The method's complexity ceiling is **what one person can execute by hand on a monthly + quarterly cadence.** If a proposed sophistication can't be operated at that cadence, it doesn't belong here. Execution-timing refinements (§6.7) operate strictly within this ceiling — secondary-scale and hand-operable — and never reintroduce minor-trend or intraday systems.
