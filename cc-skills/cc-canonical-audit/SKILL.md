@@ -23,12 +23,15 @@ Active QA of CC's own canonical sources. Operationalizes the declarative drift-s
 ## Procedure (CC runs inline — no subagents)
 
 1. **Enumerate** the in-scope surface: git-tracked files under the two IN rows; skip every exempt path. Pull frontmatter from every `.claude/{skills,rules,agents}` file in one sweep. Drive all enumeration and reference sweeps with `git ls-files` / `git grep` (tracked files only) — never raw `grep -r` or `find`, which descend into gitignored `worktrees/` and inflate results.
-2. **Run the six dimensions** (D1–D6) below.
-3. **Emit** the actionable report (see Output).
+2. **Run the deterministic resolver** — `python3 <skill-dir>/resolve.py <hdc-repo-path>` (`resolve.py` ships beside this SKILL.md). It mechanically discharges the resolvable parts of D2 / D3 as checks MR1–MR5 (roster parity · token resolution · §-anchor existence · Hub-citation form · orphans), so those no longer ride on a thorough manual sweep — the miss-mode behind real drift. Fold its findings into the report; exit 1 ⇒ ≥1 P0/P1. It never reads `canonical/hdc/**` (Hub handles form-checked only, [OS] §1.4); bare Hub acronyms are prose, not citations.
+3. **Run the judgment dimensions** the resolver cannot mechanize — D1 structural, D4 cross-file consistency, D5 staleness, D6 self-conformance, plus any D2/D3 reasoning past mechanical resolution. Resolve-before-flag: resolve a handle/acronym against its registry before flagging it unknown.
+4. **Emit** the actionable report (see Output).
 
 Where a check needs a value mirrored into product code or CI config (`apps/*/**`, `tools/*.json`, `*.config.*`, `pom.xml`), the full grep may exceed audit altitude — flag as a slice-level follow-up candidate rather than asserting clean.
 
 ## Dimensions
+
+Reference-resolution parts of D2/D3 are mechanized by `resolve.py` (MR1–MR5, Procedure step 2); the set below is the full audit including the judgment parts the script cannot do.
 
 **D1 — Structural / schema validity**
 - Skill: `skills/{name}/SKILL.md` present; frontmatter has `description` (required); `name`, if set, matches the dir.
