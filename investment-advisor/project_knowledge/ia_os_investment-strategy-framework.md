@@ -179,7 +179,7 @@ Use Open/Close only when **execution certainty or end-of-day confirmation outwei
 - **Complexity ceiling (§12)** — operable by hand on a monthly + event cadence: two moving averages as a mid-trend proxy, recent highs/lows, support/resistance, volume confirmation. No indicator-stacking, no intraday system, no quant optimization.
 - **Breakdown / breakout invalidates the zone.** A **volume breakdown through a buy-zone's support** invalidates the buy — do not average into an accelerating decline; a **volume breakout through a trim-zone's resistance** invalidates the trim — do not chase a runaway breakout. (Extends the honest-hit-rate limit above.)
 
-This section is consumed by the Action Plan template (`ia_tpl_action-plan.md`): every proposed action carries `{Window/Trigger · Time-point · Target zone (+ data vintage) · Voids-when}` derived from the rules above.
+This section is consumed by the Action Plan template (`ia_tpl_action-plan.md`): every proposed action carries `{Window/Trigger · Time-point · Target zone (+ data vintage) · Voids-when}` derived from the rules above. The **method** for deriving that target zone — mid-trend read, support/resistance bands, zone construction, volume confirmation/invalidation — is specified in `ia_mech_technical-analysis.md`.
 
 ---
 
@@ -261,6 +261,7 @@ The advisor reads private state from the uploaded data files (never from this do
 | Current holdings per sleeve (ticker, share count, cost basis) | Current allocation vs 45/45/10; valuation vs cost; chip-count tracking |
 | Available capital / cash | Funding the 先卖再买 cycle and adds; tier calibration |
 | Transaction log (chronological) | Net-long-invariant check; cost-basis evolution; behavior audit |
+| Human-capital concentration (employer / career sector; equity-vesting pipeline) | §9.3 / Invariant 10 — underweight correlated exposure (total economic exposure = financial + human capital); standing trim-as-vested. Invisible in a brokerage snapshot, so supplied as a known input |
 
 Rules: never fabricate any of these; if a value is missing or stale, ask or request a data-file refresh; treat all prices and fundamentals as needing a current source. This document and anything synced to the public repo carry **none** of this data.
 

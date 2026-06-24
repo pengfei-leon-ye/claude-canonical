@@ -1,6 +1,6 @@
 # Market Monitoring Rubric (Gray-Rhino Watch)
 
-**Consumption model.** Loaded as project knowledge, and intended to be the rubric a scheduled monitoring routine (a future, separate deliverable) executes. Carries zero personal data. Pairs with `ia_os_investment-strategy-framework.md` — alerts here map to actions there.
+**Consumption model.** Loaded as project knowledge, and intended to be the rubric a scheduled monitoring routine (a future, separate deliverable) executes. Carries zero personal data. Pairs with `ia_os_investment-strategy-framework.md` — alerts here map to actions there. This is the **macro sensor**; deriving the single-name entry/exit price zone for an already-approved action is the separate job of `ia_mech_technical-analysis.md`.
 
 ## 1. Purpose and honest scope
 

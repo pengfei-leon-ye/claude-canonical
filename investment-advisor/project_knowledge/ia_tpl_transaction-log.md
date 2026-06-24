@@ -4,9 +4,9 @@
 
 Append a row on **every** trade. The advisor uses the filled log for the net-long invariant check (持有时间 > 不持有时间), cost-basis evolution (chip accumulation), and a behavior audit (did the trade follow the method, or was it a chase/panic?). Append-only — never delete or rewrite history; append corrections as new rows.
 
-**Action vocabulary:** **Buy** = establish initial 底仓 (value-based) · **Add** = buy-back-low (cheap leg of the cycle) · **Trim** = partial sell-high (expensive leg) · **Sell** = full exit (usually a broken thesis). Moves are partial (~1/3); never all-in / all-out.
+**Action vocabulary:** **Buy** = establish initial 底仓 (value-based) · **Add** = buy-back-low (cheap leg of the cycle) · **Trim** = partial sell-high (expensive leg) · **Sell** = full exit (a broken thesis, or a strategic theme-drop / rebalance exit). Moves are partial (~1/3); never all-in / all-out.
 
-**Rationale** must capture: **valuation zone** (cheap/expensive, ideally a percentile) · the **trigger** (valuation primary + optional secondary-trend confirmation) · **thesis status**. This is what makes the log auditable against the framework.
+**Rationale** must capture: **valuation zone** (cheap/expensive, ideally a percentile) · the **trigger** (valuation primary + optional secondary-trend confirmation) · **thesis status** (for a §9.3 de-concentration / human-capital trim, record the concentration + correlation rationale in place of a valuation-high trigger). This is what makes the log auditable against the framework.
 
 | 日期 Date | 名称/代码 Name | Sleeve | 动作 Action | 股数 Shares | 价格 Price | 金额 Amount | 理由 Rationale (估值区间 + 触发 + 逻辑) | 操作后 Post (股数 / 成本均价) |
 |---|---|---|---|---|---|---|---|---|

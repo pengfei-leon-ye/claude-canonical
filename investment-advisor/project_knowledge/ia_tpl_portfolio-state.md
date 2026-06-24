@@ -34,3 +34,16 @@ Per-position guardrails (§9.2): single risk position ≤ ~15% of risk sleeve (~
 | _示例-周期标的B (example)_ | Risk | 新能源 / 储能 | Cyclical | 2000 | 12.00 | Watch | 先卖再买主战场 |
 
 _The rows above are illustrative; the filled private copy replaces them with real holdings._
+
+## Human-capital context (人力资本背景 — §9.3)
+
+Human capital — the present value of future earnings — is the investor's largest asset for most life stages and is **invisible in a brokerage snapshot**. The advisor cannot infer it from holdings, so it is carried here as a **known input** (framework §9.3 / Invariant 10). It drives the employer/sector **underweight**: total economic exposure = financial position + human capital, and the two are positively correlated.
+
+| Field | Value (private copy only) | Used for |
+|---|---|---|
+| Employer (雇主) + listed & holdable? | ____ | Whether the employer's stock is a correlated double-exposure |
+| Career sector(s) (职业所在行业) | ____ | Add no satellite theme here (§9.3) |
+| Employer-stock holding (雇主股票) | shares / cost / RSU-vested vs open-market | Hold well below the per-position cap regardless of thesis; also listed in Holdings above |
+| Equity-vesting pipeline (待归属股权) | approx. schedule & size | Re-adds exposure over time → standing trim-as-vested policy |
+
+_Blank in this canonical schema; fill only in the private copy. If the investor has no employer/sector concentration, record "n/a" — do not omit the assessment (§9.3 requires it be assessed separately, not inferred from holdings)._

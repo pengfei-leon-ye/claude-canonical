@@ -54,7 +54,7 @@ _Rows above are illustrative and generic; the filled private copy replaces them 
 For each non-trivial action, expand:
 
 > **#N — {Action} {Instrument}**
-> - **Rationale** (auditable to the same standard as the log): **valuation zone** (cheap/expensive, ideally a percentile) · **trigger** (valuation primary + optional secondary-trend confirmation) · **thesis status** (Intact / Watch / Broken).
+> - **Rationale** (auditable to the same standard as the log): **valuation zone** (cheap/expensive, ideally a percentile) · **trigger** (valuation primary + optional secondary-trend confirmation) · **thesis status** (Intact / Watch / Broken). For a **§9.3 de-concentration / human-capital trim**, the rationale axis is concentration + correlation (not a valuation-high trigger), though execution still sells into strength (§6.7).
 > - **Timing (§6.7):** Window/Trigger · Time-point · **Target zone** (concrete band + data vintage; act-if-reached, not a forecast) · Voids-when. State the *condition* and the *zone*, never a date or a path prediction.
 > - **Funding source:** cash / sale proceeds / cycle cash.
 > - **Partial-move check:** size ≈ 1/3; not all-in/out (Invariant 3).
