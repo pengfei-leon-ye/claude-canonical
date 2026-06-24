@@ -103,6 +103,8 @@ Within a chosen sub-industry, select 2–3 names as a **basket per theme**, neve
 - Management/governance quality — verify via scuttlebutt (channel checks, customers, suppliers, ecosystem), Fisher-style, not just financials.
 - A **valuation ceiling** — even a great future leader is a bad investment at any price. Impose a sanity check (e.g. growth-adjusted valuation); do not pay an unbounded premium for growth.
 
+**Held-name neutrality.** These criteria are the *only* basis for selection. A name already in the portfolio gets **no priority** for being held — incumbency is not a selection criterion, and treating it as one invites endowment bias. Every existing holding must re-earn its slot against the same future-leader test as any new candidate, or be replaced; "I already own it" is not a thesis.
+
 ---
 
 ## 6. Trading method — the heart of the risk sleeve
@@ -147,31 +149,37 @@ Chip accumulation is the objective **only while the fundamental thesis holds.** 
 
 ### 6.7 Trading windows and execution timing (auxiliary; secondary-scale only)
 
-**Purpose.** Once an action is justified by valuation + intact thesis (§6.2), this section governs *when* and *how* to place it — without letting execution timing degrade into the minor-trend / daily-watching behavior the framework forbids (§6.1, §7, §12). It exists because the advisor **cannot see future prices and must not pretend to**; the honest output is a *condition-based window* plus a *slippage-control band*, never a price prediction.
+**Purpose.** Once an action is justified by valuation + intact thesis (§6.2), this section governs *when* and *how* to place it — without letting execution timing degrade into the minor-trend / daily-watching behavior the framework forbids (§6.1, §7, §12). It exists because the advisor **cannot see future prices and must not pretend to**; the honest output is a *condition-based window* plus a *concrete advisor-derived target price zone*, never a price prediction.
 
 **Subordination (the governing principle).** Timing refines an action that valuation + thesis has *already approved*. It **never initiates and never vetoes**: do not skip a valuation-justified action because the chart looks ugly, and never act on the chart alone. (Reaffirms Invariant 2.)
 
 **1. Window = condition, not a calendar date.** Express the entry/exit window as a *trigger condition* on the **secondary (中期) trend within the valuation zone**, not as "act on day X." Example: *while still in an add-zone and the mid-trend has not reversed, deploy the next ~1/3 tranche on a pullback to the recent support band, a failed breakdown, or N-day stabilization.* The condition is watched **event-driven per §7's cadence** — it does **not** license daily price-watching (§7's behavioral hazard). The point of a condition (vs. a date) is that it survives the market not cooperating on your chosen day.
 
-**2. Three time-points; only Intraday carries a price band.** Every placed action resolves to one of:
+**2. Three time-points, and a target price zone the advisor derives at plan time.** Every placed action resolves to one of:
 - **Open** — accept the opening-auction price.
-- **Intraday** — a limit band (see below).
+- **Intraday** — place a limit in the target zone (below).
 - **Close** — accept the closing price.
 
-Use Open/Close when **execution certainty or end-of-day confirmation matters more than a specific tick**. **Intraday is the only time-point with a price band**, and that band is a **slippage-control reference** — anchored to recent support/resistance, or a small discount/premium to prior close; for ETFs also sanity-check IOPV/premium — **not a forecast of tomorrow's candle.**
+Use Open/Close only when **execution certainty or end-of-day confirmation outweighs a better tick**. **In all three cases the advisor derives and states a concrete target entry/exit price *zone* at plan-creation time**, from technical analysis of the instrument's recent K-line — recent support/resistance, the two-MA mid-trend proxy, recent swing highs/lows, volume; for ETFs cross-check IOPV/premium. The zone is the operative timing instrument, under four limits:
+- **A level to act *at*, not a forecast of the path.** The zone says "act if price reaches it," never "price will reach it." Reading where support/resistance sits is legitimate technical work; predicting the candle is not — the rule requires the first and still forbids the second.
+- **A band, not a tick** — its width is the honest expression of uncertainty; a single-tick target is false precision.
+- **Subordinate to valuation + thesis (Invariant 2)** — it refines *where/when* inside an already-justified action; it never initiates or vetoes.
+- **Advisor-produced, not deferred.** The advisor does this analysis itself when asked for a plan and **marks the data vintage** of the K-line it used; it does not punt the level to "confirm live" or to the investor. The investor's execution-time role is a final live IOPV/tick sanity-check — and, optionally, supplying a fresher K-line for a tighter zone — not producing the level from scratch.
 
 **3. Time-point heuristics (guidance, not hard rules).** These follow from *don't transact against the day's dominant pressure*, not from candle prediction:
 - **Adding in weakness / a downtrend** → Intraday limit near the support band, or Close (let the day's selling exhaust); do not chase.
 - **Trimming in strength** → Intraday limit near the resistance band, or Open (lock in); do not dump into a panicked open.
 - **Low-urgency base-building** → Intraday tranched limits (DCA-like).
+- **A strategic exit (theme-drop or rebalance) of a name whose thesis is *not* broken** → still sell into strength: Intraday limit near the resistance band, or on a bounce; **do not dump at the lows.** Only a *Broken* thesis (§6.6) overrides this and licenses exiting regardless of price.
 
 **4. Hard subordinations (these bind).**
 - **Technical never overrides valuation + thesis** — refine / tranche only; never skip a valuation-justified action for chart reasons; never act on the chart alone. (Invariant 2)
 - **Secondary scale only** — never the minor / intraday trend as a signal. (§6.1, §12)
 - **Honest hit-rate** — since a secondary correction and the onset of a primary reversal are *observationally identical in real time* (§6.1), timing serves only to avoid an obviously bad tick and modestly improve entry; it is **never** a reliable signal, and being early/wrong is absorbed by the ~1/3 partial-move rule. (Invariant 3)
 - **Complexity ceiling (§12)** — operable by hand on a monthly + event cadence: two moving averages as a mid-trend proxy, recent highs/lows, support/resistance, volume confirmation. No indicator-stacking, no intraday system, no quant optimization.
+- **Breakdown / breakout invalidates the zone.** A **volume breakdown through a buy-zone's support** invalidates the buy — do not average into an accelerating decline; a **volume breakout through a trim-zone's resistance** invalidates the trim — do not chase a runaway breakout. (Extends the honest-hit-rate limit above.)
 
-This section is consumed by the Action Plan template (`ia_tpl_action-plan.md`): every proposed action carries `{Window/Trigger · Time-point · Intraday band · Voids-when}` derived from the rules above.
+This section is consumed by the Action Plan template (`ia_tpl_action-plan.md`): every proposed action carries `{Window/Trigger · Time-point · Target zone (+ data vintage) · Voids-when}` derived from the rules above.
 
 ---
 
@@ -221,6 +229,17 @@ Diversification research: ~20–30 stocks capture the large majority of diversif
 - **Max:** single risk-sleeve position ≤ ~15% of the risk sleeve (≈8% of total) — bounds single-name blow-up.
 - **Min:** ≥ ~2–3% of the risk sleeve — below this a 2× move barely moves the portfolio, so the monitoring cost isn't earned.
 
+### 9.3 Human-capital / employer-concentration adjustment
+
+The §9.2 caps bound *financial-position* size. They are blind to **human capital** — the present value of future earnings (salary, vesting equity, career optionality), which for most investors is their single largest asset and is often concentrated in one employer or sector. When human capital is concentrated, **total economic exposure** to that name/sector = financial position + human capital, and the two are **positively correlated**: a shock to the employer hits salary, vesting equity, *and* the stock together (the canonical own-employer-stock trap).
+
+Rule: **the financial portfolio must underweight whatever the investor's human capital is already concentrated in.**
+- **Employer's own stock** (including RSU-sourced holdings): hold the financial position **well below the normal per-position cap (§9.2), biased toward minimal**, and reduce it over time. The human-capital stake already supplies the (over-)exposure; the financial stake mostly doubles a correlated bet. This holds **even when the company's investment thesis is Intact** — the issue is correlation and concentration, not company quality.
+- **The career's sector**: add **no** satellite *theme* in that sector — the career already is the (over-)allocation; a financial theme on top concentrates total wealth in one factor. Route proceeds from trimming the employer stock into **uncorrelated** assets (other sleeves/themes), never back into the same sector.
+- **Execution** still respects the trading method: trim in tranches into strength (§6.7), never a panic dump; and account for an ongoing RSU-vesting pipeline (which re-adds exposure) with a **standing trim-as-vested policy** rather than one-off action.
+
+This adjustment only **tightens** the concentration discipline; it never loosens it. Human-capital exposure is assessed separately and is **invisible in a brokerage snapshot** — it must be carried as a known input, not inferred from holdings.
+
 ---
 
 ## 10. Runtime data interface
@@ -260,6 +279,7 @@ Rules: never fabricate any of these; if a value is missing or stale, ask or requ
 7. Concentration ceilings — single risk position ≤ ~15% of sleeve (~8% total); risk sleeve ≤ 65% of total.
 8. China-overweight is a falsifiable bet — hold through cyclical drawdowns; reduce only on a stated flip condition.
 9. Advice → Action Plan only — a recommendation materializes only in the Action Plan; it never directly mutates Portfolio State (holdings change only via execute → log → re-snapshot). Keeps *what I propose / what I hold / what I have done* cleanly separated.
+10. Human-capital-aware concentration — the financial portfolio underweights whatever the investor's human capital (employer / sector) is already concentrated in; an employer's own stock is held well below the normal per-position cap **regardless of thesis quality**, and no satellite theme is added in the career's sector. (§9.3)
 
 ---
 

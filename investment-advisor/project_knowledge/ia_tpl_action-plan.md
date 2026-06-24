@@ -2,6 +2,8 @@
 
 **Canonical schema (the blank `.env.example`) for the Investment Advisor's Action Plan — the advisor's *proposed, not-yet-executed* recommendations.** Carries zero real data — only field definitions and illustrative (generic) examples. To use: the advisor emits a filled instance when proposing trades; the investor reviews, executes (in whole or part), records executed fills in the transaction log, and re-snapshots portfolio state. Like the other runtime files, the filled instance lives in the private `investment-advisor-private/` folder; only this blank schema belongs in the public repo.
 
+**Language note.** This template is canonical control text → English. A **filled instance** is read by the investor to execute trades, so it may be written in the investor's working language (e.g. Chinese) when that aids action; keep instrument codes, action verbs, and the §6.7 field names intact for auditability against this schema.
+
 ## Why this file exists — the three-artifact contract
 
 Runtime state is **three artifacts with a single-directional flow** — never collapse them:
@@ -19,16 +21,16 @@ Runtime state is **three artifacts with a single-directional flow** — never co
 ## Action vocabulary
 
 Same verbs as the transaction log, plus two plan-level composites:
-**Buy** = establish 底仓 (value-based) · **Add** = buy-back-low · **Trim** = partial sell-high · **Sell** = full exit (broken thesis) · **Swap** = paired sell→buy (e.g., re-base a sleeve anchor); on execution it becomes **two** log rows · **Rebalance** = sleeve-level move to restore the 45/45/10 band. Moves are partial (~1/3); never all-in / all-out (Invariant 3).
+**Buy** = establish 底仓 (value-based) · **Add** = buy-back-low · **Trim** = partial sell-high · **Sell** = full exit (broken thesis, OR a strategic theme-drop / rebalance exit) · **Swap** = paired sell→buy (e.g., re-base a sleeve anchor); on execution it becomes **two** log rows · **Rebalance** = sleeve-level move to restore the 45/45/10 band. Moves are partial (~1/3); never all-in / all-out (Invariant 3) — except a full **Sell** that *removes* a position (broken thesis §6.6, or a theme dropped at the macro layer §5.1), which is a removal, not cycling.
 
 ## Timing fields — per framework §6.7
 
-Because the advisor **cannot see future prices and must not pretend to**, each action carries a *condition-based window* and (only if intraday) a *slippage-control band* — never a price forecast:
+Because the advisor **cannot see future prices and must not pretend to**, each action carries a *condition-based window* and a *concrete advisor-derived target price zone* — never a price forecast:
 
 - **Window / Trigger** — a **condition, not a date**: a secondary-trend + valuation trigger *within the valuation zone* (e.g., "while still in an add-zone and mid-trend not reversed, on a pullback to the recent support band / a failed breakdown / N-day stabilization"). Watched **event-driven per §7** — never a license for daily price-watching.
-- **Time-point** — one of **Open** / **Intraday** / **Close**. Open/Close = accept the auction/closing price when execution certainty or end-of-day confirmation matters more than a specific tick. **Intraday is the only one that carries a price band.**
-- **Intraday limit band** — *only if* Time-point = Intraday. A **reference band for slippage control**, anchored to recent support/resistance or a small discount/premium to prior close (for ETFs also sanity-check IOPV/premium). **Not a prediction of tomorrow's candle.**
-- **Voids when** — what invalidates this window/action (valuation leaves the zone, thesis breaks, mid-trend reverses, the band is not reached within the horizon, etc.). A voided action returns to analysis; it does **not** auto-execute later.
+- **Time-point** — one of **Open** / **Intraday** / **Close**. Open/Close = accept the auction/closing price when execution certainty or end-of-day confirmation matters more than a better tick.
+- **Target zone (目标买卖区间)** — **REQUIRED for every action.** A **concrete advisor-derived entry/exit price band**, produced at plan-creation time from technical analysis of the recent K-line (recent support/resistance, the two-MA mid-trend proxy, recent swing highs/lows, volume; for ETFs cross-check IOPV/premium), and **marked with the K-line's data vintage**. It is the operative timing instrument, under four limits: (1) a level to **act-if-reached**, *not* a forecast of the path; (2) a **band, not a tick** (width = honest uncertainty); (3) **subordinate to valuation + thesis** (Invariant 2) — refines where/when, never initiates or vetoes; (4) **advisor-produced, not deferred** — the advisor does the analysis itself and does not punt the level to "confirm live" or to the investor. For Time-point = Intraday it is the limit; for Open/Close it remains the reference the fill is sanity-checked against. The investor confirms the live tick/premium at execution (and may supply a fresher K-line for a tighter band).
+- **Voids when** — what invalidates this window/action: valuation leaves the zone, thesis breaks, mid-trend reverses, the band is not reached within the horizon, **or a volume breakdown through a buy-zone's support / breakout through a trim-zone's resistance** (do not average into an accelerating decline; do not chase a runaway breakout). A voided action returns to analysis; it does **not** auto-execute later.
 
 ## Plan metadata
 
@@ -39,7 +41,7 @@ Because the advisor **cannot see future prices and must not pretend to**, each a
 
 ## Proposed actions — overview
 
-| # | 标的 Instrument (code) | Sleeve | 动作 Action | 规模 Size (¥ / % / shares@exec) | 资金来源 Funding | 窗口/触发 Window/Trigger | 时点 Time-point | 盘中限价带 Intraday band | Voids when | 状态 Status |
+| # | 标的 Instrument (code) | Sleeve | 动作 Action | 规模 Size (¥ / % / shares@exec) | 资金来源 Funding | 窗口/触发 Window/Trigger | 时点 Time-point | 目标买卖区间 Target zone (vintage) | Voids when | 状态 Status |
 |---|---|---|---|---|---|---|---|---|---|---|
 | _1 (ex.)_ | 示例-宽基ETF (51xxxx) | Stable | Swap (sell old anchor→buy this) | ~X (shares@exec) | sale of legacy ETF | re-base now; not timing-sensitive | Intraday | tranched limits near prior close | n/a (cash-neutral) | Proposed |
 | _2 (ex.)_ | 示例-黄金ETF (518xxx) | Hedge | Buy (tranche 1/3) | 1/3 of hedge target | cash | establish now; remaining tranches on pullbacks / over 1–2 wks | Intraday | near IOPV; small premium cap | sharp gap-up → wait | Proposed |
@@ -53,7 +55,7 @@ For each non-trivial action, expand:
 
 > **#N — {Action} {Instrument}**
 > - **Rationale** (auditable to the same standard as the log): **valuation zone** (cheap/expensive, ideally a percentile) · **trigger** (valuation primary + optional secondary-trend confirmation) · **thesis status** (Intact / Watch / Broken).
-> - **Timing (§6.7):** Window/Trigger · Time-point · Intraday band (if any) · Voids-when. State the *condition*, not a date.
+> - **Timing (§6.7):** Window/Trigger · Time-point · **Target zone** (concrete band + data vintage; act-if-reached, not a forecast) · Voids-when. State the *condition* and the *zone*, never a date or a path prediction.
 > - **Funding source:** cash / sale proceeds / cycle cash.
 > - **Partial-move check:** size ≈ 1/3; not all-in/out (Invariant 3).
 > - **Flip / void condition:** the single condition under which this action should not be taken (or reversed, if already partially done).
