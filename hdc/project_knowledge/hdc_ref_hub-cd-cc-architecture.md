@@ -707,7 +707,7 @@ During the current operating period (CD research preview), there is no direct CD
 **CD → operator → CC direction:**
 - Two content types flow this path:
   - **Phase-level design file** (CD-native format): transferred to CC at TK-04 entry as **visual reference** accompanying the Hub-authored per-feature UX Design Spec instances. CC consumes the design file visually (mockups, layout reference, motion observation) — typically focusing on the slice labeled with the active feature-slug — but does NOT author UX-touching field values from it; those are Hub-authored at TK-03 from the UX Design Spec instance which itself was authored at TK-02 step 2.3 from the relevant design file slice.
-  - **DS markdown export** (per DSG §12 sync cycle): transferred to CC mirror at `specs/design-system.md` for code-time DS reference consumption by SK-F skill
+  - **DS markdown export** (per DSG §12 sync cycle): transferred to CC mirror at `specs/design-system.md` for code-time DS reference consumption by SK-F skill. The transfer transport MAY be manual operator copy or the **DesignSync MCP read-half** under operator authorization (review-then-fetch — the §15 review gates, the fetch is authorized only post-review; not a §10 re-enablement, see §9.4 / §10.5; full mechanics in DSG §12.7).
 - Operator audits both content types for HDC project relevance and sync correctness before transfer
 
 **CC → operator → CD direction:** (not currently a primary flow)
@@ -723,6 +723,12 @@ CD has a native "Send to Claude Code" handoff path in its product surface. Direc
 **Operational secondary reason** — even if CD output could be CC-consumable, the current research-preview operating period adds caution. The operator routes all CD → CC content through audited operator-mediated transfer (§9.3) for traceability and governance.
 
 The two reasons compound but are distinct. The architectural reason is structural to the current three-workspace synthesis division (CD = design SOT, Hub = spec synthesis, CC = code generation). The operational reason would relax with research-preview maturity. The architectural reason would only relax if the synthesis responsibility migrated.
+
+**Transport modernization is distinct from coupling re-enablement (2026-06-24).** A programmatic CD↔CC transport now exists in the product surface — the **DesignSync MCP** (read/write of CD design-system projects) and CD's native "Send to Claude Code" handoff. Adopting it as the *transport* for the already-operator-mediated DS-mirror sync (the Flow B DS markdown export → CC mirror step, §9.3) does **not** re-enable direct CD ↔ CC coupling in the §10 sense, because the operator remains the mediating node (the DSG §15 review still gates; the fetch is authorized only post-review). Two boundaries are deliberately preserved:
+- **Flow A (UX design) stays decoupled — by governance + content-layer, *not* by a tool limit** (corrected 2026-06-24, empirically verified). The DesignSync read-half is not type-restricted: `get_project` / `list_files` / `get_file` read CD design-file projects (`PROJECT_TYPE_PROJECT`, Flow A — incl. the raw design file, change briefs, even uploaded PRD/TDD) as readily as the DS instance (`PROJECT_TYPE_DESIGN_SYSTEM`, Flow B); only `list_projects` is type-filtered. Tool access is therefore not the Flow A boundary. Flow A stays decoupled on two surviving grounds: **(a) the content-layer synthesis gap above** — raw design files are not CC-consumable specs regardless of read access, so pulling them does not bypass the Hub synthesis (TK-02 Step 2.3); **(b) governance scoping** — HDC sanctions DesignSync only for the Flow B DS-mirror transport, and CC must not use a DesignSync read of Flow A design files to *self-synthesize* UX Design Specs (that would silently complete the §10.1 migration — ingestion **and** internal synthesis — without the §10.3 ADR). Flow A transport-modernization (DesignSync as the pipe for the §9.3 visual-reference transfer) is a separate, not-yet-authorized question.
+- **Write-half not enabled (propose-not-write)** — the DesignSync write-half (CC authoring the CD-side DS SOT) is the move that would approach true coupling; it is not enabled for HDC. CC surfaces DS gaps through the §12 propose path; it never writes the ratified DS SOT. DSG §12.1 / §12.6 own this fence.
+
+This third state — direct *transport* within retained operator *mediation* — is recorded in §10.5.
 
 ---
 
@@ -758,6 +764,19 @@ If the operator believes the architectural condition has shifted (e.g., CD's pro
 ## 10.4 Reversibility
 
 If direct coupling is re-enabled and subsequently produces audit failures or content quality issues, the operator may revert by reverting the ADR and the §9.4 + §10 revision. Reversibility is preserved because the operator remains the controlling node across all coupling states.
+
+## 10.5 Transport modernization without re-enablement (DS-mirror Flow B, 2026-06-24)
+
+A distinction §10.1–§10.4 did not originally model: a programmatic CD↔CC transport (the DesignSync MCP) can be adopted for the **transport** of the DS-mirror sync while **retaining** full operator mediation. This is a third state below the §10 threshold — §10 contemplates *removing* operator mediation (autonomous direct coupling); transport modernization keeps the operator in the loop and only replaces the manual copy-paste pipe.
+
+**Decision (operator-authorized 2026-06-24):** adopt the DesignSync read-half as an authorized transport for the Flow B DS markdown export → CC mirror sync (mechanics in DSG §12.7), under three invariants:
+- **Flow B is the sanctioned scope — not a tool limit** (corrected 2026-06-24: empirically the DesignSync read-half also reads Flow A design-file projects, `PROJECT_TYPE_PROJECT`; access is not type-restricted). HDC sanctions DesignSync only for the Flow B DS-mirror transport. Flow A stays operator-mediated on the §9.4 content-layer synthesis gap (raw ≠ spec, unaffected by access) plus this scoping; CC must not pull Flow A design files via DesignSync to self-synthesize specs (silent §10.1 migration). See §9.4.
+- **Review gates transport** — the §15 export conformance review precedes and gates the fetch; the operator authorizes the fetch only after the review passes, and the fetched artifact is the reviewed export. Never fetch-then-skip-review.
+- **Write-half off (propose-not-write)** — CC does not author the CD-side DS SOT via DesignSync; it surfaces gaps through the §12 propose path. DSG §12.1 / §12.6 own this.
+
+**Why not a §10 re-enablement:** §10.2's operational conditions (CD GA, format stability, token cost) gate *mediation removal*. Here mediation is retained, so they are prudence checks, not hard gates; CD-GA status is noted pending operator confirmation and does not block the transport-modernization form. The §10.1 architectural condition is moot for Flow B — the DS markdown export was always CC-consumable structured content; the content-layer gap is Flow A's, not the DS export's.
+
+**Reversibility:** revert this §10.5 record and the DSG §12.7 transport clause; the sync falls back to manual operator transfer with no other change, because the governance gate (§15 review + operator authorization) was never delegated.
 
 ---
 
