@@ -261,6 +261,7 @@ D2 splits into two sub-dimensions:
 - Where this source claims to own a concept, no other canonical source claims to own the same concept (anti-conflict on ownership)
 - Header field conformance to [OS] §10 canonical source header standard, including [OS] §10.4 controlled vocabulary (Document Type, Status, Role first word)
 - **Numeric-assertion-vs-authoritative-table consistency**: when an explanatory note inside this source asserts a count, size, or quantity that is also derivable from an authoritative table or registry elsewhere, the two values are verified for consistency. The source's `Pairings I participate in` header field (count and IDs) is verified against the authoritative pairing table at `[OS] §8.5.2`.
+- **Registry-aware reference resolution (resolve-before-flag)**: before flagging a handle, acronym, or source short-name as undefined or unregistered, resolve it against the authoritative registries — `[OS] §8.5.6` Cat 4 source map (`[HANDLE] Full Name (ACRONYM)` ↔ file) and its CC-migration list, `[OS] §8.5.2` pairing table, `[OS] §9.2` allowed prefixes. A reference resolvable through any registry is conformant, not a finding. An acronym or handle used as a reference token but absent from every registry is a finding (unregistered shorthand). Defends against both the resolution-skipped false positive (flagging a registered acronym as undefined) and unregistered drift (a new shorthand cited before its registry entry exists).
 
 **Failure modes D2.2 catches**:
 - Cross-source reference to a renamed or restructured target (citation rot)
@@ -268,6 +269,8 @@ D2 splits into two sub-dimensions:
 - Two canonical sources both claim authority over the same concept without a resolved precedence
 - Header `Document Type`, `Status`, or `Role first word` field uses a value not in the [OS] §10.4 controlled vocabulary
 - Required header fields per [OS] §10.1 are missing
+- A registered handle or acronym (resolvable via `[OS] §8.5.6` or its CC-migration list) flagged as undefined — a resolution-skipped false positive
+- An acronym used as a reference token but registered in no registry — unregistered shorthand (e.g. a mechanism cited by acronym before its `[OS] §8.5.6` entry exists)
 
 ## 3.4 D3 Non-Redundancy
 
