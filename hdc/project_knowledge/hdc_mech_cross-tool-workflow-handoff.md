@@ -286,7 +286,7 @@ Hub content exists as:
 **For Sub-flow A — Hub canonical access at CC**:
 
 1. Ensure CC has access to the current Hub canonical source via the operator's chosen mechanism (e.g., local clone of the canonical GitHub repository synced to the latest commit; or operator-mediated paste of relevant content into the CC session) — the mechanism is operator-personal infrastructure per the Sub-flow A declaration above
-2. When Hub canonical evolves (new commit lands at `claude-canonical/hdc/project_knowledge/`), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
+2. When Hub canonical evolves (a new commit lands in the Hub canonical repository's project-knowledge folder), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
 3. CC contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin
 
 **For Sub-flow B — upstream-content transfer at TK-03 → TK-04 entry**:

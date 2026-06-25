@@ -154,7 +154,7 @@ The Hub workspace accepts these canonical input forms:
 |---|---|---|
 | User Preferences (UP) | Operator account settings | Account-level harness; highest precedence on behavioral rules |
 | Project Instructions (PI) | Hub project settings | Project-level harness |
-| Project Knowledge (PK) | Hub PK `hdc_*.md` files (synced from GitHub `claude-canonical/hdc/project_knowledge/` folder) | The canonical source set held in the Hub |
+| Project Knowledge (PK) | Hub PK `hdc_*.md` files (synced from the Hub canonical GitHub repository's project-knowledge folder) | The canonical source set held in the Hub |
 | Operator dialogue input | Conversation turn content | Framing, decisions, external materials provided in conversation |
 | Operator-mediated CD output | Conversation attachments, pasted content, or dropped files | Materials audited and forwarded by the operator from a CD session: DS markdown exports for the DSG §15 export conformance review, stakeholder review materials. (On-demand design files flow CD → CC as visual reference, not to Hub — Hub no longer ingests design files for UX-spec authoring; see §4 / §9.) |
 | Operator-mediated CC output | Conversation attachments or pasted content | Materials audited and forwarded by the operator from a CC session: Codex review output, CC-internal canonical change notifications, DS code change notifications |
@@ -350,7 +350,7 @@ Claude Code is the dev environment and implementation SOT plus the code-time con
 
 The detailed-spec sessions are canonical-governed (Dev Track pipeline S1 → S2 → S3, not implementer-discretionary): **S1** = UX-spec synthesis session (`ux-spec-synthesizer`, the relocated TK-02.3), **S2** = acceptance / intent authoring session (the relocated TK-03), **S3** = implementing session; S1 / S2 ⊥ S3. An independent `ux-spec-cross-checker` reads the synthesis against the design file (propose-not-author). This is the same firewall mechanism as the proven HDC subagent roster (test-writer-blackbox ⊥ implementation).
 
-CC operates within the multi-node dev environment topology defined in [RULE] Workspace Topology (dev-node-portable / dev-node-stationary-1 logical nodes with parity discipline). Within each node, CC instances operate against the monorepo at `pengfei-leon-ye/claude-hdc` per [MECH] Development Track Workflow.
+CC operates within the multi-node dev environment topology defined in [RULE] Workspace Topology (dev-node-portable / dev-node-stationary-1 logical nodes with parity discipline). Within each node, CC instances operate against the CC dev monorepo per [MECH] Development Track Workflow.
 
 ## 4.2 Canonical inputs
 
@@ -358,7 +358,7 @@ CC accepts these canonical inputs:
 
 | Input | Source | Mechanism |
 |---|---|---|
-| Hub constitutional canonical set | Hub PK `hdc_*.md` files (synced from GitHub `claude-canonical/hdc/project_knowledge/`) | CC accesses Hub canonical as a **read-only authoritative source** via operator-chosen mechanism (e.g., local clone of the canonical GitHub repository, operator-mediated paste, or any other access method). This canonical declares only the contract — one-way Hub → CC flow, no back-flow, CC consumes Hub canonical without modifying its origin. Specific access mechanism is operator-personal infrastructure, not canonical-governed. |
+| Hub constitutional canonical set | Hub PK `hdc_*.md` files (synced from the Hub canonical GitHub repository's project-knowledge folder) | CC accesses Hub canonical as a **read-only authoritative source** via operator-chosen mechanism (e.g., local clone of the canonical GitHub repository, operator-mediated paste, or any other access method). This canonical declares only the contract — one-way Hub → CC flow, no back-flow, CC consumes Hub canonical without modifying its origin. Specific access mechanism is operator-personal infrastructure, not canonical-governed. |
 | Hub upstream spec artifact main bodies | Hub-authored PRD / TDD main bodies (+ ADRs / OpenAPI / phase test plan master) | The coherence anchor. Provided as files in the monorepo at `specs/` paths or operator-transferred per CC session. (UX Design Spec instances + per-slice intent / acceptance / test-plan are NOT Hub-supplied inputs — CC authors them itself in firewalled sessions, §4.3.) |
 | CD-authored design file (visual reference, on-demand only) | CD-exported design file, pulled CD → CC via the DesignSync read-half | Present ONLY when a feature tripped the new-token / new-visual-language trigger (§3.1). CC consumes it as **visual reference** — feeding both the UX-spec synthesis (S1) and code implementation (mockups, component arrangement, motion). In the default no-trigger case there is no design file; CC works from the DS mirror + PRD/TDD. CC authors the UX-touching field values itself in firewalled sessions (S1 / S2) — they are no longer Hub-authored |
 | DS code-time mirror | `specs/design-system.md` in monorepo | Read-only mirror of CD DS SOT; synced from CD markdown export per [RULE] DSG §12; consumed by SK-F skill at code-generation time |

@@ -818,7 +818,7 @@ This discipline also applies to navigation/index sections inside canonical sourc
 
 The grep-verify discipline in §8.5.3 runs against **the canonical set as visible to Hub Claude through `project_knowledge_search`** (the project knowledge base / RAG layer). The RAG layer is the authoritative canonical-set view because it is what Hub Claude actually consumes during conversation per §1.4 audience model.
 
-Under the current GitHub-sync mechanism, the canonical repository (e.g., the operator's `claude-canonical` GitHub repo) commits flow into the RAG layer via the project knowledge base re-indexing pipeline. The hub Claude.ai platform may additionally expose an auxiliary filesystem view; when present, such a view is secondary and may diverge from the RAG layer for indexing-timing or mounting reasons. The RAG layer wins on any divergence.
+Under the current GitHub-sync mechanism, the canonical repository (the operator's Hub canonical GitHub repo) commits flow into the RAG layer via the project knowledge base re-indexing pipeline. The hub Claude.ai platform may additionally expose an auxiliary filesystem view; when present, such a view is secondary and may diverge from the RAG layer for indexing-timing or mounting reasons. The RAG layer wins on any divergence.
 
 When verifying citations during a revision:
 - Use `project_knowledge_search` with the citation target (e.g., `[OS] §4.2`) as the query; confirm the target is reachable and content matches the cited claim
