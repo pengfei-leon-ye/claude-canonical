@@ -16,7 +16,7 @@
 - **Relationship to [RULE] Design System Governance**: M3 visual review references DSG consistency at the substantive layer (specific check criteria at CC substantive). No accessibility gate at any milestone (per DSG §6 stance) is a constitutional invariant. DS instance two-way distribution per DSG §1.1 governs DS consumption — at TK-02 Step 2.3, CC synthesizes the UX Design Spec (at phase-level and per-feature granularities) in a session firewalled from the implementing context, grounded in PRD/TDD by default; a CD-authored design file is consulted only as on-demand visual reference on genuine visual novelty. The CC mirror is consulted at TK-04+ via skill enforcement.
 - **Relationship to [TPL] Intent and Acceptance Interface Writing Standard** + **[TPL] PRD + TDD to Intent and Acceptance Conversion Specification**: §3 below owns the disambiguation between milestone-level Test Evidence Report (constitutional schema declared here) and feature-slice-scoped `evidence.md` (substantive content at CC).
 - **Relationship to [TPL] Test Plan YAML Schema**: The evidence digest contract for the operator one-pager schema in §3.3 binds to that template's `evidence_required` field as a constitutional interface.
-- **Pairings I participate in**: P-03 (with [MECH] DTW §4 TK chain — milestone-to-task anchoring at constitutional interface). Pre-split pairings P-01 / P-09 / P-13 / P-32 / P-49 are retired at this Hub residue level; their substantive obligations migrate to CC under CC substantive CI/CD canonical.
+- **Pairings I participate in**: P-03 (with [MECH] DTW §4 TK chain — milestone-to-task anchoring at constitutional interface), P-09 (with [MECH] DTW §4.0 unit_type catalog — per-unit-type milestone profile §2.6). Pre-split pairings P-01 / P-13 / P-32 / P-49 are retired at this Hub residue level; their substantive obligations migrate to CC under CC substantive CI/CD canonical.
 
 ## How to use this source (Hub-side)
 
@@ -41,7 +41,7 @@ Do not use this source as:
 ## 0.1 What this source owns (constitutional)
 
 - The existence and identity of M0–M4 as a 5-gate milestone ladder (§2 below)
-- Per-unit-type milestone profile (§2.7): which gates apply to which `unit_type` — this is the interface contract consumed by cross-workspace handoff sequencing
+- Per-unit-type milestone profile (§2.6): which gates apply to which `unit_type` — this is the interface contract consumed by cross-workspace handoff sequencing
 - Test Evidence Report interface contract: required sections schema (§3.2) — the artifact schema consumed by the operator at the M4 gate
 - Operator digest one-pager interface (§3.3) — fixed-structure schema declared as constitutional interface
 - Required artifact outputs across milestones (§4): openapi.yaml gate, migration tooling gate, traceability matrix gate — constitutional handoff interfaces
