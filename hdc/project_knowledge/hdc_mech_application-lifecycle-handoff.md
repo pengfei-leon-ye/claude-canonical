@@ -13,7 +13,7 @@
 - **Relationship to [RULE] Workspace Topology**: Imports WT §5.1 branch topology + §5.2 branch protection. Handoff tag namespace `handoff/{app-slug}/{YYYY-MM-DD}` is intentionally distinct from WT §5.1 working-branch namespace. The handoff tag is the only canonical-recognized tag namespace at the AI-dev side; company-side release tags are out of canonical scope per §0.2.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Anchored. §3 content scope consumes the canonical repository-layout paths and the subagent / skill / hook artifact definitions, whose substantive detail is owned by the CC-side substantive canonical.
 - **Relationship to [MECH] Development Track Workflow**: Inter-unit. Handoff is an application-level operator action, not a TK in DTW §4 sequence; re-entry (§5) re-enters DTW §4.0 unit_type catalog by starting a new Phase 1 for the returning app.
-- **Relationship to [MECH] CI/CD Milestone Policy**: Application-level event after zero, one, or many M4 merges (slices reaching `status: merged` on `main`); independent of CI/CD §2.0 per-unit-type milestone semantics.
+- **Relationship to [MECH] CI/CD Milestone Policy**: Application-level event after zero, one, or many M4 merges (slices reaching `status: merged` on `main`); independent of CI/CD §2.6 per-unit-type milestone semantics.
 - **Pairings I participate in**: P-33 (with [RULE] WT §3 + [TPL] TDD §3)
 
 ## How to use this source
