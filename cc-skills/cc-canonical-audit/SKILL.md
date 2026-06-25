@@ -71,6 +71,8 @@ Reference-resolution parts of D2/D3 are mechanized by `resolve.py` (MR1–MR5, P
 
 Write `hdc/reports/cc-canonical-audit/{YYYY-MM-DD}.md` (primary, hdc surface) with a clearly-separated `## Secondary — claude-code-global.md` section. Directory materializes on first run.
 
+**Retention** — transient QA snapshots: once every finding is actioned (fixed, or adjudicated no-change), clear the report — the fix commits are the durable trail. No retention obligation (unlike spec-drift's never-delete); do not accrete one report per run.
+
 **Actionable-only** — every entry is a finding + recommendation, or it is cut; no "checked, clean" items. Lead with a one-line per-dimension tally; list dimensions with zero findings together on one `Clean: …` line (coverage stays visible without noise). Per finding: `severity · dimension · location (file:line) · problem · recommendation`. Order by severity.
 
 - **P0** — breaks loading / correctness now: unparseable `settings.json` / config; a registered hook file missing; a skill/rule/agent referenced by `CLAUDE.md` but absent (a dead carrier pointer).
