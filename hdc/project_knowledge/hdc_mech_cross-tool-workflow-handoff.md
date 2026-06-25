@@ -3,27 +3,26 @@
 - **Project**: HR Digital Cockpit
 - **Document Type**: Workflow Orchestration Specification
 - **Status**: Active canonical
-- **Role**: Stable source defining the content contracts for the three operator-mediated cross-tool handoff paths during AI-dev work (Hub ↔ operator ↔ CD, Hub ↔ operator ↔ CC, CD ↔ operator ↔ CC) — including what content moves in each direction, operator transfer actions, audit steps, integration steps, reminder-form discipline, and the DS markdown export review-and-sync mechanism that maintains the CC DS mirror
+- **Role**: Stable source defining the content contracts for the three operator-mediated cross-tool handoff paths during AI-dev work (Hub ↔ operator ↔ CD, Hub ↔ operator ↔ CC, CD ↔ operator ↔ CC) — including what content moves in each direction, operator transfer actions, audit steps, integration steps, reminder-form discipline, the on-demand visual path that seeds a CD design file only on genuine visual novelty (CC pushes PRD/TDD text into the CD project's `uploads/`; operator designs in CD UI; CC pulls the design file back), and the DS markdown export review-and-sync mechanism that maintains the CC DS mirror
 - **Source Category**: Cat 4
 - **Management-System Role**: Workflow orchestration specification; outside L1-L5 hierarchy; not itself an L2-L5 artifact
 - **Relationship to [OS]**: Operates within the routing architecture defined in [OS] §7.1; conversation discipline rules in [OS] §7.2 apply to the Hub Claude trigger behavior in §7. Cross-source ownership map for the Cat 4 [RULE] / [MECH] sources is owned by [OS] §8.5.6.
 - **Relationship to [PRIN]**: Applies HR Digital Decision Design Principles §5 (management mechanism over ad hoc control).
-- **Relationship to [REF] Hub-CD-CC Architecture**: Operationalizes. [REF] Hub-CD-CC Architecture §9 declares the three-path handoff topology, and §9.4 declares the decoupled-by-default discipline during CD research preview; §3.4.1 declares CD outputs design files (CD-native visual artifacts); §5.2 declares the two-way distribution model (CD = SOT / CC = code-time mirror). This source defines the concrete content contracts and operator actions that realize those paths.
+- **Relationship to [REF] Hub-CD-CC Architecture**: Operationalizes. [REF] Hub-CD-CC Architecture §9 declares the three-path handoff topology, and §9.4 declares the decoupled-by-default discipline during CD research preview; §3.4.1 declares CD outputs design files (CD-native visual artifacts) on the on-demand visual path; §5.2 declares the two-way DS distribution model (CD = SOT / CC = code-time mirror). The [REF] §1.1 surface map assigns detailed-spec authoring (UX-spec synthesis + intent/acceptance/test-plan) to CC in sessions firewalled from the implementing context, and makes CD's app-level visual producer role **default-retired** — re-entered on-demand only on genuine visual novelty (a new design token / new visual language). This source defines the concrete content contracts and operator actions that realize those paths.
 - **Relationship to [MECH] Application Lifecycle Handoff**: Distinct lifecycle layer. [MECH] Application Lifecycle Handoff governs the application-level handoff event (AI-dev → human dev team, terminal). This source governs cross-tool content flows during AI-dev work (recurrent during the entire AI-dev period). Both reference operator-mediated discipline but at different boundaries.
 - **Relationship to [RULE] Design System Governance**: Anchored. DSG §1.1 owns the two-way distribution model — CD = SOT at the CD workspace, CC = code-time mirror at `specs/design-system.md`. This source operationalizes the cross-tool content flows that maintain that model:
-  - CD-authored **design files** flow CD → Hub at TK-02 Step 2.3 entry (§2.2) carrying both cross-cutting visual UX content (shell / shared vocabulary / cross-feature touchpoints / phase-level decisions / VR naming convention) and per-feature visual UX content for Hub-side UX Design Spec instance authoring at two granularities
+  - CD-authored **design files** are produced only on the on-demand visual path (genuine visual novelty — a new design token / new visual language). On that path CC pushes the feature's PRD/TDD text into the CD project's `uploads/` (§4.3), the operator designs in CD UI, and CC pulls the design file back (§4.2) as visual reference informing code — they do not flow CD → Hub for spec authoring
   - CD-authored **DS markdown export** flows CD → Hub (DSG §15 export conformance review) → CC mirror at change finalization (per DSG §12.3 + §12.7)
-  - Hub-authored **UX Design Spec instance markdowns** (Hub TK-02 Step 2.3 outputs at two granularities — phase-level + per-feature) flow Hub → CC at TK-04 entry alongside other spec artifacts (§3.1)
+  - **UX Design Spec instance markdowns** (UX-spec synthesis) are **CC-authored** in a session firewalled from the implementing context (the relocated TK-02 Step 2.3 synthesis), produced in-repo at `apps/{app-slug}/specs/ux-design-spec/**`; they are not Hub-authored and not Hub → CC transferred
   - The two-way distribution generates DS-related cross-tool flows in the Hub ↔ CD and Hub ↔ CC handoff paths; cross-tool flows that carry DS-related content apply DSG rules accordingly. DSG §12 additive update path drives DS instance changes at the originating feature's M4 → merge-to-main milestone, at which point the reviewed DS markdown export syncs to the CC mirror
 - **Relationship to [RULE] Codex Plugin Usage**: **Migrated to CC substantive canonical (Phase 3)**. The CC → operator → Hub direction in §3.2 includes code review tool output flow; the specific code review tool (historically Codex) is governed by CC substantive Codex Plugin Usage canonical at CC. This source declares only the cross-workspace content contract; the fire-condition and output-processing rules live at CC.
 - **Relationship to [RULE] Workspace Topology**: Anchored. Workspace inception governance follows [RULE] Workspace Topology constitutional residue §5; the specific Hub canonical access mechanism at CC is operator-personal infrastructure (declared substantively in §3.1.1). Hub-to-assigned_node onboarding mechanics referenced from §3.1 follow CC substantive Workspace Topology canonical (node-assignment 4-step procedure step 4).
 - **Relationship to [MECH] Development Track Workflow**: Cross-tool handoffs operate continuously during AI-dev work driven by DTW TK sequence. This source does not author TK orchestration but provides the content contracts that DTW TKs invoke when they touch cross-tool flows. Key TK-bound flows:
-  - TK-02 Step 2.2 entry: Hub → CD drop files (§2.1)
-  - TK-02 Step 2.2 → Step 2.3: CD → Hub design files transfer (§2.2)
-  - TK-03 → TK-04 entry: Hub → CC spec bundle including UX Design Spec instance markdown + design files as visual reference (§3.1)
+  - On-demand visual path (only on genuine visual novelty): CC → CD push of the feature's PRD/TDD text into the CD project's `uploads/` via MCP write (§4.3), then CD → CC pull of the resulting design file via MCP read (§4.2)
+  - TK-03 → TK-04 entry: Hub → CC spec bundle = upstream content (PRD / TDD main + phase test plans + slice-lists + OpenAPI) (§3.1). UX-spec synthesis and per-slice intent/acceptance/test-plan are CC-authored in firewalled sessions, not part of the Hub-delivered bundle
   - TK-11 code review tool output → Hub: CC → Hub (§3.2; specific tool governed by CC substantive canonical)
   - TK-12 DS change finalization (when applicable): DS markdown export §15 review + sync to the CC mirror (§2.2 + §3.1, operator-mediated)
-- **Relationship to [TPL] UX Design Spec**: Cross-references. CD-authored design files transferred via §2.2 are the source material for the Hub-authored UX Design Spec instances at two granularities (phase-level + per-feature; authored per [TPL] UX Design Spec at TK-02 Step 2.3). Both UX Design Spec instance markdowns are transferred via §3.1 to CC at TK-04 entry as part of the spec bundle.
+- **Relationship to [TPL] UX Design Spec**: Cross-references. UX Design Spec instances at two granularities (phase-level + per-feature) are **CC-authored** in a firewalled synthesis session (the `ux-spec-synthesizer` role, the relocated TK-02 Step 2.3 synthesis), per [TPL] UX Design Spec. When the on-demand visual path fires, the CD-authored design file pulled back via §4.2 is the visual reference grounding that synthesis; on the default path (no visual novelty) the synthesis grounds directly on the PRD/TDD. The instances are produced in-repo by CC, not transferred Hub → CC.
 - **Pairings I participate in**: None (Tier B couplings documented in counterparty source `Relationship to [MECH] Cross-Tool Workflow Handoff` header fields per [OS] §8.5.1a)
 
 ## How to use this source
@@ -91,13 +90,13 @@ Three operator-mediated paths exist among the Hub / CD / CC workspaces. Each pat
 | Hub ↔ CC | Hub → operator → CC (§3.1) | CC → operator → Hub (§3.2) |
 | CD ↔ CC | CD → operator → CC (§4.2) | CC → operator → CD (§4.3) |
 
-The CD ↔ CC path operates under decoupled-by-default discipline during CD research preview (§4.1). The other two paths operate continuously throughout AI-dev work.
+The CD ↔ CC path operates under decoupled-by-default discipline during CD research preview (§4.1). On this path runs the **on-demand visual loop** (only on genuine visual novelty): CC → CD seeds a design by pushing the feature's PRD/TDD text into the CD project's `uploads/` (§4.3), and CD → CC returns the resulting design file (§4.2) — both directions remain operator-mediated. The Hub ↔ CD and Hub ↔ CC paths operate continuously throughout AI-dev work.
 
 ## 1.2 Operator-mediated discipline
 
 All cross-tool flows require explicit operator action. No workspace can push content to another workspace autonomously. No workspace has read access to another workspace's session state. Each transfer involves:
 
-1. **Origin produces content** (Hub authors a spec, CD generates design files, CC writes code, etc.)
+1. **Origin produces content** (Hub authors PRD / TDD, CC synthesizes the UX-spec and writes code, CD produces a design file on the on-demand visual path, etc.)
 2. **Operator audits the content** (relevance to destination, quality, scope boundary per [REF] Hub-CD-CC Architecture §6)
 3. **Operator transfers the content** (copy / paste / attach / save-as-file as appropriate to destination workspace)
 4. **Destination integrates the content** (Hub fills spec field, CD ingests as context, CC reads from working directory, etc.)
@@ -132,11 +131,11 @@ This direction carries Hub-produced content into a CD session as context for des
 - People Journey or People Experience principles excerpts when relevant to the design task
 - Output expectations stated by the operator
 
-**Sub-flow B — TK-02 Step 2.2 design file production (HDC-specific, structured)**: When a TK-02 Step 2.1 TDD declares `tier_1_involved=true` for one or more features in the phase, the operator initiates **one CD session for the phase** for phase-level design file production (covering both phase-level cross-cutting content — shell / shared vocabulary / cross-feature touchpoints / phase-level decisions / VR naming convention — and all tier-1-involved features as labeled internal scopes within a single design file). The content transferred follows the **CD input strategy v1** owned by [MECH] DTW §4 TK-02 Step 2.2 mechanism note — drop files (PRD + TDD sections for all tier-1-involved features in the phase), attention prompt (enumerating each feature and instructing CD to internally label per-feature design file scope by feature-slug, plus authoring cross-cutting sections covering the phase-level scope), DS grounding, and output expectations as enumerated there; the phase-level design-file deliverable list is stated in §2.2.1.
+**Sub-flow B — On-demand visual-path context (HDC-specific, rare)**: CD app-level visual production is **default-retired**; it is **not** triggered per-phase by `tier_1_involved`. A CD design file is produced only on the **on-demand visual path** — entered solely on genuine visual novelty, operationally proxied by "needs a new design token / new visual language" (NOT interaction / IA / component complexity, which CC handles directly plus meta-DS registration). On that path the design seed travels **CC → CD** (CC pushes the feature's PRD/TDD text into the CD project's `uploads/` via MCP write, per §4.3 — the operator then designs in CD UI), so this Hub → CD direction no longer carries a standing per-phase design-file kickoff. The only residual Hub → CD content on the visual path is operator-discretion supplementary framing (strategic context, brand / design preferences) the operator chooses to add into the same CD session, transferred per Sub-flow A general-context mechanics.
 
 **Sub-flow C — DS instance authoring input (HDC-specific, when a DS change is needed)**: When a DS instance change has been approved per [RULE] DSG §12, the operator initiates a CD session for CD-side DS instance authoring. The content transferred:
 - The current `[RULE] Design System Governance` text — transferred to CD as a **read-only input** so CD authors the DS instance change in conformance with DSG §2-§11 and self-checks the change before generating the DS markdown export. DSG's SOT remains at Hub; CD receives it as a transferred input, not as owned content
-- The specific change request — the additive change plan (the originating feature's Hub-authored per-feature UX Design Spec instance §2B.4 entry; cross-cutting additives additionally indexed in the phase-level instance §2A.6) or, for a breaking change, the change requirements + rationale traceable to the triggering feature's PRD/TDD
+- The specific change request — the additive change plan (the originating feature's CC-authored per-feature UX Design Spec instance §2B.4 entry; cross-cutting additives additionally indexed in the phase-level instance §2A.6) or, for a breaking change, the change requirements + rationale traceable to the triggering feature's PRD/TDD
 
 ### 2.1.2 Source format
 
@@ -157,14 +156,14 @@ For Sub-flow A (general context):
    - Attach references when applicable
 4. State output expectations clearly in the CD prompt
 
-For Sub-flow B (TK-02 Step 2.2 design file production):
+For Sub-flow B (on-demand visual-path context):
 
-1. Open one CD project for the phase (one project covers all tier-1-involved features in the phase as labeled internal scopes within a single design file)
-2. Drop the full relevant PRD + TDD sections (for every tier-1-involved feature in the phase) as files into CD
+1. Confirm the on-demand visual path is genuinely warranted — the feature needs a **new design token / new visual language** (NOT interaction / IA / component complexity, which CC handles directly). Absent visual novelty, no CD design file is produced and this sub-flow does not fire
+2. The design seed is delivered **CC → CD** per §4.3 (CC pushes the feature's PRD/TDD text into the CD project's `uploads/` via MCP write); the operator does not re-transfer PRD/TDD here
 3. Confirm the CD project's DS instance is linked (CD's own DS SOT per [REF] Hub-CD-CC Architecture §5.2; no per-cycle DS transfer needed)
-4. Paste the attention prompt — enumerating each tier-1-involved feature and directing CD to the UI-relevant sections of the drop files per feature; the prompt also instructs CD to (a) author cross-cutting sections at the phase level (platform shell, shared visual vocabulary, cross-feature touchpoint maps, phase-level horizontal design decisions, visual regression naming convention) so Hub TK-02 Step 2.3 can ground the phase-level UX Design Spec instance, and (b) internally label per-feature design file scope (frame / section / page tag = feature-slug) so Hub TK-02 Step 2.3 can ground each per-feature UX Design Spec instance in the relevant slice
-5. State the design file output expectations explicitly (per the phase-level design-file deliverable list in §2.2.1, including the cross-cutting sections invariant + the per-feature labeling invariant)
-6. Initiate CD design file production
+4. The operator designs the screen(s) in CD UI (human-driven), grounded on the seeded PRD/TDD text and the linked DS instance
+5. Optionally add supplementary framing (strategic context, brand / design preferences) as free-form CD prompt — this is the only Hub → CD content on the visual path
+6. CC pulls the resulting design file back via §4.2 and consumes it as visual reference informing code; the UX-spec synthesis that grounds on it is CC-authored (firewalled `ux-spec-synthesizer` session), not Hub-authored
 
 For Sub-flow C (DS instance authoring):
 
@@ -180,11 +179,11 @@ Before transferring, the operator verifies:
 - Content excerpts are coherent without their original document context (CD does not have access to the surrounding spec)
 - No accidental inclusion of non-HDC content
 - Output expectations are stated explicitly (CD does not infer from spec structure)
-- **For Sub-flow B**: the attention prompt enumerates each tier-1-involved feature with specific UI-relevant sections per feature, includes the per-feature internal labeling instruction (frame / section / page tag = feature-slug), and includes the cross-cutting sections instruction (shell / shared vocabulary / cross-feature touchpoints / phase-level decisions / VR naming convention) at the phase level; the CD project's DS instance is linked; the TDD `tier_1_involved=true` flag is confirmed for every feature whose PRD/TDD content is in the drop file set; no tier-1-involved feature in the phase is missing from the transfer set
+- **For Sub-flow B (on-demand visual path)**: the visual-novelty trigger is genuine — a **new design token / new visual language** is needed (not interaction / IA / component complexity, which CC handles directly + meta-DS registration); the PRD/TDD seed has been delivered into the CD project's `uploads/` via §4.3 (CC → CD MCP write); the CD project's DS instance is linked; any supplementary framing the operator adds is coherent without its original document context
 
 ### 2.1.5 CD reception
 
-CD receives all Hub content as **free-form context**, not structured spec. CD does not parse PRD sections, TDD chapters, or IA structures programmatically. The operator's responsibility is to extract and frame the content so CD can use it. For Sub-flow B, the attention prompt acts as CD's reading guide; the design files CD produces are CD-native visual artifacts per [REF] Hub-CD-CC Architecture §3.4.1.
+CD receives all Hub content as **free-form context**, not structured spec. CD does not parse PRD sections, TDD chapters, or IA structures programmatically. The operator's responsibility is to extract and frame the content so CD can use it. For Sub-flow B, the seeded PRD/TDD text in `uploads/` (delivered CC → CD per §4.3) plus any operator-added framing act as the operator's design reference; the design file the operator produces in CD UI on the on-demand visual path is a CD-native visual artifact per [REF] Hub-CD-CC Architecture §3.4.1, pulled back to CC via §4.2.
 
 ---
 
@@ -192,11 +191,7 @@ CD receives all Hub content as **free-form context**, not structured spec. CD do
 
 ### 2.2.1 What content moves
 
-This direction carries CD-produced content back into Hub. Three distinct sub-flows exist:
-
-**Sub-flow A — TK-02 Step 2.2 design file transfer (HDC-specific, structured)**: After CD produces the phase-level design file in a TK-02 Step 2.2 session, the operator transfers the design file back to the Hub session for Step 2.3 (two parallel tracks per [TPL] UX Design Spec §3 — phase-level track: design file quality check on cross-cutting sections + phase-level UX Design Spec instance authoring; per-feature track: design file quality check + per-feature UX Design Spec instance authoring iterated over all tier-1-involved features in the phase against the design file's per-feature labeled slices). Content carried:
-- CD-authored phase-level design file (hi-fi mockups, prototypes, wireframes, component callouts, interaction flows with embedded textual annotations; cross-cutting sections covering shell / shared vocabulary / cross-feature touchpoints / phase-level decisions / VR naming convention; per-feature internal labeling — frame / section / page tag = feature-slug) per [REF] Hub-CD-CC Architecture §3.4.1
-- Any new-component / new-token proposals embedded in the design file (these become the source material for the originating feature's per-feature UX Design Spec instance §2B.4 New-Components-Or-Tokens entry; cross-cutting additives — used across multiple features in the phase — additionally feed the phase-level instance §2A.6 cross-cutting additive index)
+This direction carries CD-produced content back into Hub. Two distinct sub-flows exist (the design file itself no longer routes through Hub — on the on-demand visual path it returns directly to CC via §4.2, since UX-spec synthesis is CC-authored, not Hub-authored):
 
 **Sub-flow B — DS markdown export review at change finalization (when applicable)**: When a DS change merges at the originating feature's M4 → merge-to-main milestone (per DSG §12.5), CD generates an updated DS markdown export per DSG §12.7. The operator brings the export into the Hub session, where Hub Claude reviews it against the DSG §15 reviewer checklist (the export conformance review per DSG §12.3). On a passing review, the export is committed to the CC mirror (`specs/design-system.md`) — the §3.1 Sub-flow C transfer. Hub retains no copy of the export.
 
@@ -205,26 +200,13 @@ This direction carries CD-produced content back into Hub. Three distinct sub-flo
 ### 2.2.2 Source format
 
 CD content exists as:
-- CD-authored design files in CD-native format (visual artifacts; format detail per CD platform; the operator transfers via copy, screenshot, paste, or export as appropriate)
 - CD-generated DS markdown export at change finalization (text-formatted markdown per DSG §12.7 specification)
 - CD project-level descriptions / notes
 - CD DS instance state (visible to the operator within CD)
 
+(CD-authored design files produced on the on-demand visual path do not travel CD → Hub; they return directly to CC via §4.2.)
+
 ### 2.2.3 Operator actions
-
-**For Sub-flow A — design file transfer at TK-02 Step 2.3 entry**:
-
-1. Audit the CD-authored phase-level design file against the Hub Step 2.3 entry requirements (per [TPL] UX Design Spec §3A.1 phase-level design file quality check + §3B.1 per-feature design file quality check criteria); confirm cross-cutting sections are present and per-feature internal labeling is unambiguous so Hub Step 2.3 can ground both phase-level and per-feature instances
-2. Transfer the design file to the Hub session by appropriate means:
-   - Paste screenshots of mockups / prototypes (organized by cross-cutting sections and per-feature labeled slice) into the Hub conversation
-   - Drop design file exports (PDF / image / link) into the Hub drop-files area
-   - Provide a structured description if visual transfer is partial (e.g., embedded textual annotations transcribed into the Hub conversation, keyed by section type and feature-slug)
-3. Hub Claude + operator apply [TPL] UX Design Spec §3A.1 reviewer checklist on the design file's cross-cutting sections, plus §3B.1 reviewer checklist iterated per tier-1-involved feature against each labeled slice
-4. Disposition determines next step for each track:
-   - Phase-level track **Pass** or **Pass with annotation** → Hub Claude proceeds to phase-level instance authoring per [TPL] UX Design Spec §3A.2
-   - Per-feature track **Pass** or **Pass with annotation** for a given feature → Hub Claude proceeds to that feature's per-feature instance authoring per [TPL] UX Design Spec §3B.2
-   - **Reject** → return to CD per §6 fallback; the Step 2.2 redo scope is the phase-level cross-cutting sections (phase-level reject), the affected feature's slice (per-feature reject), or full-phase relabeling when per-feature labeling itself is broken
-5. Note design file provenance in each instance header: phase-level instance carries `Source design file` field citing the cross-cutting sections per [TPL] UX Design Spec §1.1.2; each per-feature instance carries `Source design file slice` field citing the labeled slice matching this instance's feature-slug per §1.2.2
 
 **For Sub-flow B — DS markdown export review at change finalization**:
 
@@ -243,15 +225,6 @@ CD content exists as:
 
 Before integrating, the operator verifies:
 
-**For Sub-flow A**:
-- The phase-level design file is HDC-project-scoped (no accidental inclusion of CD's non-HDC work)
-- Cross-cutting sections (shell / shared vocabulary / cross-feature touchpoints / phase-level decisions / VR naming convention) are present at the phase scope (per [TPL] UX Design Spec §3A.1.1 coverage check), or category absences are explicitly noted with rationale
-- Per-feature internal labeling (frame / section / page tag = feature-slug) is present for every tier-1-involved feature in the phase; labels are unambiguous so Hub Step 2.3 can locate each feature's slice without operator interpretation
-- For each per-feature slice: the slice covers all §2B.x topics required by that feature's UX Design Spec instance (per [TPL] UX Design Spec §3B.1.1 coverage check), or category absences are explicitly noted
-- For each per-feature slice: the slice aligns with that feature's TDD scope (per [TPL] UX Design Spec §3B.1.2 alignment check)
-- Component references in the design file are in the Hub DS mirror inventory or have a clear additive plan
-- No security-sensitive content (credentials, internal Anthropic content) embedded
-
 **For Sub-flow B**:
 - DS markdown export is complete (covers all DSG §2 section topics) and current (reflects the just-merged DS change)
 - The export has passed the DSG §15 conformance review before the CC mirror is committed
@@ -259,10 +232,7 @@ Before integrating, the operator verifies:
 
 ### 2.2.5 Hub integration
 
-**For Sub-flow A**:
-- Hub Claude runs two parallel-able tracks per [TPL] UX Design Spec §3: phase-level track applies §3A.1 design file quality check on cross-cutting sections and, on `Pass` disposition, proceeds to phase-level instance authoring per §3A.2; per-feature track iterates per tier-1-involved feature applying §3B.1 design file quality check against the labeled slice and, on `Pass` disposition, proceeds to per-feature instance authoring per §3B.2
-- Hub-authored UX Design Spec instance markdowns land at `apps/{app-slug}/specs/ux-design-spec/phase-{N}.md` (phase-level instance) and `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (per-feature instances) upon TK-02 sign-off (transferred to the assigned_node working directory at hub-to-assigned_node onboarding per §3.1 below)
-- The phase-level design file itself is operator-side reference; not committed to the monorepo unless the operator explicitly opts to commit exports at `apps/{app-slug}/design-references/phase-{N}/` for visual reference at TK-04+ (phase-scoped path because the design file itself is phase-level; per-feature scope within the design file is captured by CD's internal labeling, not by the path)
+(UX Design Spec instance authoring no longer occurs at Hub — UX-spec synthesis is CC-authored in a firewalled `ux-spec-synthesizer` session, the relocated TK-02 Step 2.3 synthesis. The on-demand design file is CC's visual reference and never routes through Hub.)
 
 **For Sub-flow B**:
 - The DS markdown export is reviewed against DSG §15 in the Hub session (the export conformance review per DSG §12.3); Hub retains no copy of the export
@@ -284,17 +254,19 @@ This direction carries Hub-produced content into CC for code implementation work
 
 **Sub-flow A — Hub canonical access at CC**: CC accesses the Hub canonical set (`hdc_*.md` files in the canonical repository) as a **read-only authoritative source**. This canonical declares the contract: one-way Hub → CC flow; CC consumes Hub canonical without modifying it at origin. The specific access mechanism (local clone of the canonical GitHub repository, operator-mediated paste, or any other method) is **operator-personal infrastructure** and not canonical-governed. Hub canonical updates flow to CC at the operator's discretion — typically at workspace inception and as needed when canonical evolves.
 
-**Sub-flow B — Spec artifact transfer at TK-03 → TK-04 entry**: Hub-authored spec artifacts transferred to the assigned_node working directory at TK-04 entry (or at hub-to-assigned_node onboarding when the unit starts). Content carried:
+**Sub-flow B — Upstream-content transfer at TK-03 → TK-04 entry**: Hub-authored **upstream content** transferred to the assigned_node working directory at TK-04 entry (or at hub-to-assigned_node onboarding when the unit starts). The Hub-delivered bundle is the upstream / slow / coherence-anchor layer (PRD / TDD); the detailed-spec layer (UX-spec synthesis + per-slice intent/acceptance/test-plan) is **CC-authored in firewalled sessions**, produced in-repo, and is NOT part of this Hub → CC transfer. Content carried:
 - PRD main (TK-01 output)
 - TDD main (TK-02 Step 2.1 output)
 - Phase test plan master (TK-02 Step 2.1 output)
 - Feature integration test plans (TK-02 Step 2.1 outputs)
 - Per-feature slice-lists (TK-02 Step 2.1 outputs)
 - App-scoped OpenAPI (TK-02 Step 2.1 output)
-- **UX Design Spec instance markdowns at two granularities** (TK-02 Step 2.3 outputs, when authored): **phase-level instance** at `apps/{app-slug}/specs/ux-design-spec/phase-{N}.md` (mandatory when Step 2.2 fires) + **per-feature instances** at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (one per tier-1-involved feature)
-- Per-slice intent / acceptance / test-plan (TK-03 outputs)
 - ADRs (operator-curated, when applicable)
-- **CD-authored phase-level design file** (when any feature in the phase has Tier 1 involved) — accompanies as visual reference for CC implementation; CC focuses on the per-feature labeled slice matching the active feature-slug; operator-side reference, not committed to the monorepo unless the operator explicitly opts to commit exports at `apps/{app-slug}/design-references/phase-{N}/` (phase-scoped path because the design file is phase-level)
+
+Not in this bundle (CC-authored in-repo, not Hub-delivered):
+- **UX Design Spec instance markdowns** (phase-level + per-feature) — authored by CC's firewalled `ux-spec-synthesizer` session (the relocated TK-02 Step 2.3 synthesis) at `apps/{app-slug}/specs/ux-design-spec/**`
+- **Per-slice intent / acceptance / test-plan** — authored by CC's firewalled acceptance/intent session (the relocated TK-03), just-ahead-of-code per increment
+- **CD-authored design file** — produced only on the on-demand visual path (genuine visual novelty); when present, CC pulls it directly from CD via §4.2 (CC ← CD MCP read) as visual reference, not via a Hub → CC transfer
 
 **Sub-flow C — DS markdown export sync to CC mirror (at change finalization)**: At a feature's M4 → merge-to-main milestone when that slice carries a DS change, the CC mirror at `specs/design-system.md` is updated to the new DS version. The export is first reviewed against DSG §15 in the Hub session (§2.2 Sub-flow B); on a passing review the operator commits the reviewed export to the CC mirror.
 
@@ -317,12 +289,12 @@ Hub content exists as:
 2. When Hub canonical evolves (new commit lands at `claude-canonical/hdc/project_knowledge/`), the operator refreshes CC's access via the operator's chosen refresh mechanism for the access method established at step 1
 3. CC contract: Hub canonical is read-only at CC; CC does not modify Hub canonical at its origin
 
-**For Sub-flow B — spec artifact transfer at TK-03 → TK-04 entry**:
+**For Sub-flow B — upstream-content transfer at TK-03 → TK-04 entry**:
 
-1. Place all Hub-authored spec artifacts at the canonical paths in the monorepo per the repository layout owned by the CC-side substantive Claude Code Architecture Rules canonical (e.g., `apps/{app-slug}/specs/prd/phase-{N}.md`, `apps/{app-slug}/specs/tdd/phase-{N}.md`, `apps/{app-slug}/specs/ux-design-spec/phase-{N}.md` (phase-level UX Design Spec instance) and `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md` (per-feature UX Design Spec instances) when authored at TK-02 Step 2.3, `apps/{app-slug}/specs/intent/{slice-id}.md`, etc.)
+1. Place the Hub-authored **upstream content** at the canonical paths in the monorepo per the repository layout owned by the CC-side substantive Claude Code Architecture Rules canonical (e.g., `apps/{app-slug}/specs/prd/phase-{N}.md`, `apps/{app-slug}/specs/tdd/phase-{N}.md`, plus phase test plans, slice-lists, and OpenAPI). The UX Design Spec instances and per-slice intent/acceptance/test-plan are NOT placed here by the operator — CC authors them in-repo in firewalled sessions
 2. Commit on the appropriate branch per [RULE] Workspace Topology §5
-3. The spec is read by CC from the working directory when relevant TKs execute
-4. For the CD-authored phase-level design file (operator-side reference at TK-04+): transfer to the assigned_node operator's working environment; commit only if the operator opts to make it available within the monorepo, in which case the commit path is `apps/{app-slug}/design-references/phase-{N}/`
+3. The upstream content is read by CC from the working directory when relevant TKs execute; CC's firewalled sessions then author the detailed spec grounded on it
+4. On the on-demand visual path (genuine visual novelty), CC pulls the CD design file directly via §4.2 (CC ← CD MCP read); no operator-mediated Hub → CC design-file transfer is involved
 
 **For Sub-flow C — DS markdown export sync to CC mirror (at change finalization)**:
 
@@ -342,14 +314,14 @@ Before transferring, the operator verifies:
 - Constitutional canonical files are at the current PK state (no stale snapshots)
 - Spec artifacts are at sign-off form per [MECH] Sign-Off Cleanup Policy when transferring to the monorepo
 - Spec artifact paths match the canonical layout per the repository layout owned by the CC-side substantive Claude Code Architecture Rules canonical
-- **For TK-04 entry (Sub-flow B)**: when Tier 1 features are present, both UX Design Spec instance markdowns are present in the transfer set — the phase-level instance at `apps/{app-slug}/specs/ux-design-spec/phase-{N}.md` and the active feature's per-feature instance at `apps/{app-slug}/specs/ux-design-spec/{feature-slug}.md`; the M0 entry self-check at TK-04 will validate the markdowns' grounding against CC DS mirror via SK-F
+- **For TK-04 entry (Sub-flow B)**: the upstream content (PRD / TDD main + phase test plans + slice-lists + OpenAPI) is at sign-off form and at the canonical paths. The UX Design Spec instances are NOT expected in this Hub-delivered set — they are CC-authored in-repo by the firewalled `ux-spec-synthesizer` session; their grounding against the CC DS mirror via SK-F is validated within CC's own authoring + TK-04 M0 entry self-check, not as a Hub-transfer audit
 - **For DS markdown export sync (Sub-flow C)**: the export has passed the DSG §15 conformance review (§2.2 Sub-flow B) before the CC mirror is committed
 
 ### 3.1.5 CC reception
 
 CC reads canonical via the inception-sync snapshot. CC reads spec via monorepo file paths. CC does not maintain a parallel Hub-canonical-mirror copy (per [OS] §1.4 visibility boundary).
 
-For the UX Design Spec instance markdowns (phase-level + per-feature, when present), CC's TK-04 M0 entry self-check verifies the markdowns' component / token / pattern references against the CC DS mirror via SK-F per [MECH] DTW §4 TK-04 mechanism. Design files (when accompanying as visual reference) are not parsed programmatically by CC; the operator may share specific design file images inline in the CC session when CC needs visual context for a specific implementation question.
+The UX Design Spec instance markdowns (phase-level + per-feature) are **CC-authored** in the firewalled `ux-spec-synthesizer` session, not Hub-delivered; CC's TK-04 M0 entry self-check verifies the authored markdowns' component / token / pattern references against the CC DS mirror via SK-F per [MECH] DTW §4 TK-04 mechanism. On the on-demand visual path, the CD design file CC pulled back (§4.2) is visual reference grounding the synthesis; design files are not parsed programmatically by CC. The operator may also share specific design file images inline in the CC session when CC needs visual context for a specific implementation question.
 
 ---
 
@@ -435,12 +407,11 @@ Direct CD ↔ CC coupling — CD's native "Send to Claude Code" handoff path in 
 
 ### 4.2.1 What content moves
 
-During research preview, this direction is **rare** because the dominant DS-related CD → CC content (DS markdown export at change finalization) is routed through operator-mediated Hub-session-aware sync per §4.1, not as direct CD → CC.
+During research preview, this direction carries CD design output back to CC. The dominant DS-related CD → CC content (DS markdown export at change finalization) is routed through operator-mediated Hub-session-aware sync per §4.1, not as direct CD → CC. The substantive CD → CC content is the **on-demand visual-path design file**:
+- **On-demand design-file return**: When the on-demand visual path has fired (CC seeded the design via §4.3, the operator designed in CD UI), CC pulls the resulting design file back from the CD project via DesignSync MCP read (`get_file` / `list_files`) under operator authorization, and consumes it as visual reference informing code. This is the ④ step of the on-demand loop (§4.3.1)
+- **Standalone CD design references** the operator chooses to make available to CC mid-implementation (e.g., a specific design file image the operator drops directly into a CC session as visual context; this typically happens during TK-04+ implementation when CC asks for visual context on a specific UI question)
 
-Remaining flows in this direction (rare):
-- Standalone CD design references the operator chooses to make available to CC mid-implementation (e.g., a specific design file image the operator drops directly into a CC session as visual context; this typically happens during TK-04+ implementation when CC asks for visual context on a specific UI question)
-
-Note: The CD-authored phase-level design file for TK-02 Step 2.2 is NOT carried directly to CC. It travels CD → Hub (§2.2 Sub-flow A) for Hub TK-02 Step 2.3 per-feature design file quality check + per-feature UX Design Spec instance authoring, then Hub → CC (§3.1 Sub-flow B) as visual reference accompanying the spec bundle at TK-04 entry. The CD → CC path is reserved for incidental visual reference transfers post-TK-04.
+Note: There is no standing per-phase CD design file. A CD design file exists only when the on-demand visual path has fired; when it exists, it returns **directly to CC** (CC ← CD MCP read above), not routed through Hub — UX-spec synthesis is CC-authored, so the design file is CC's visual reference, never Hub's authoring input.
 
 ### 4.2.2 Source format
 
@@ -462,46 +433,63 @@ CD content exists as:
 Before transferring, the operator verifies:
 - Content is HDC-project-scoped (no accidental inclusion of non-HDC CD work)
 - Content is appropriate to share inline in the CC session (no security-sensitive content; no operator-personal stakeholder materials)
-- The transfer is genuinely needed (the spec bundle at TK-04 entry already carried both UX Design Spec instance markdowns — phase-level + per-feature — plus design files as visual reference; this incidental transfer is for a specific gap not covered by the bundle)
+- The transfer is genuinely needed: for the on-demand design-file return, the on-demand visual path has genuinely fired (a new design token / new visual language was needed) and CC seeded it via §4.3; for an incidental visual reference, it covers a specific gap CC's own CC-authored UX Design Spec instances do not address
 
 ### 4.2.5 CC reception
 
-CC consumes the inline image / reference as visual context for the specific implementation question. The operator's audit is the trust gate; CC does not treat the inline content as canonical specification (the UX Design Spec instance markdowns — phase-level + per-feature — remain the canonical textual UX source).
+CC consumes the inline image / reference as visual context for the specific implementation question. The operator's audit is the trust gate; CC does not treat the inline content as canonical specification (the **CC-authored** UX Design Spec instance markdowns — phase-level + per-feature, produced by the firewalled `ux-spec-synthesizer` session — remain the canonical textual UX source).
 
 ---
 
 ## 4.3 CC → operator → CD direction
 
-### 4.3.1 When this direction fires (rare)
+### 4.3.1 When this direction fires
 
-This direction is rare. It fires when:
+This direction carries CC-produced content to CD. Its primary, **first-class** sub-flow is the on-demand visual-path seed; two supplementary triggers remain rare.
+
+**Primary sub-flow — on-demand visual-path seed (CC → CD `uploads/` MCP write)**: Fires when the on-demand visual path is entered — i.e., a feature needs a **new design token / new visual language** (genuine visual novelty; NOT interaction / IA / component complexity, which CC handles directly + meta-DS registration). The DesignSync MCP is pure file I/O and cannot make CD *generate*, so the path is human-driven through a four-step loop:
+
+> ① CC pushes the feature's PRD/TDD text into the CD project's `uploads/` via DesignSync MCP write (`write_files` into an existing CD PROJECT-type project) → ② the **operator designs in CD UI (human-driven)** → ③ CC pulls the resulting design file back via MCP read (§4.2 on-demand design-file return) → ④ CC consumes it as visual reference informing code, grounding the firewalled `ux-spec-synthesizer` synthesis.
+
+CC writes only **text spec inputs** (PRD/TDD) into `uploads/` — never design-output bytes (that would make CC the producer, violating "design output = CD") and never an invocation that asks CD to generate. The meta-DS SOT write fence (DSG §12.1 / §12.6 propose-not-write; the DesignSync write-half is never aimed at the DS SOT) is UNCHANGED.
+
+**Supplementary triggers (rare)**:
 - CC code changes have implications for DS visual representation that CD's DS instance SOT should reflect — in this case, the flow is CC → operator → Hub (§3.2 CC DS mirror drift signal) → Hub-routed DSG §12 update → CD authors instance content change → DS markdown export sync (§2.2 Sub-flow B + §3.1 Sub-flow C). The direct CC → CD path in this scenario is supplementary (operator may communicate the implementation observation directly to CD as context for the change authoring), not the primary content carrier
-- CC implementation surfaces a UI / interaction concern warranting a revisit of the original CD design files (e.g., a state transition turns out to be infeasible as designed)
+- CC implementation surfaces a UI / interaction concern warranting a revisit of a design file produced earlier on the on-demand path (e.g., a state transition turns out to be infeasible as designed)
 
 ### 4.3.2 What content moves
 
-- Implementation-observed visual / interaction issues warranting CD-side revision of design files (when the affected feature is in-flight and the design files are being revised)
+- **On-demand visual-path seed (primary)**: the feature's **PRD/TDD text** delivered into the CD project's `uploads/` via DesignSync MCP write — the text spec inputs that the operator designs against in CD UI. NOT design-output bytes, NOT a generate invocation
+- Implementation-observed visual / interaction issues warranting CD-side revision of a design file produced earlier on the on-demand path (when the affected feature is in-flight and that design file is being revised)
 - Implementation observations supplementing the DSG §12 flow when CC surfaces a need for DS content change
 
 ### 4.3.3 Source format
 
-CC implementation observations exist in informal form:
-- Free-form natural-language description by the operator paraphrasing the CC-surfaced issue
-- Optional accompanying material: code excerpt, screenshot of running implementation, or reference to a specific test failure
+- **On-demand visual-path seed**: structured text spec inputs (the feature's PRD/TDD text) written into the CD project's `uploads/` via the DesignSync MCP write-half (`write_files` against an existing CD PROJECT-type project) — a file-I/O transport, not an operator paraphrase. The meta-DS SOT remains write-fenced; the write targets the app-level CD project's `uploads/`, never the DS SOT
+- **Supplementary implementation observations** exist in informal form: free-form natural-language description by the operator paraphrasing the CC-surfaced issue; optional accompanying material — code excerpt, screenshot of running implementation, or reference to a specific test failure
 
 ### 4.3.4 Operator actions
 
+**For the on-demand visual-path seed (primary)**:
+
+1. Confirm the on-demand visual path is genuinely warranted (a new design token / new visual language is needed) — absent visual novelty, CC produces Arco-React directly and no CD seed is written
+2. CC writes the feature's PRD/TDD text into the CD project's `uploads/` via DesignSync MCP write under operator authorization (the CD project is an existing PROJECT-type project; if one does not yet exist the operator creates the app-level CD project, since `create_project` creates only DESIGN_SYSTEM type — the app-level project is operator-created)
+3. The operator opens that CD project and **designs the screen(s) in CD UI (human-driven)**, grounded on the seeded PRD/TDD text and the linked DS instance
+4. CC pulls the resulting design file back via §4.2 (CC ← CD MCP read) and consumes it as visual reference; the firewalled `ux-spec-synthesizer` session grounds its synthesis on it
+
+**For supplementary implementation observations**:
+
 1. Note the CC observation
 2. If the issue requires DS change: route primarily via §3.2 CC → Hub → DSG §12 flow; secondarily communicate the implementation observation to CD as free-form context
-3. If the issue requires design file revision (without DS change): open the phase-level CD session that produced the design file containing the affected feature's slice; communicate the observation as free-form prompt naming the feature-slug; CD may produce a revised design file (typically updating the affected feature's slice in place, preserving labeling for other features); if the affected feature is still pre-TK-02-signoff, the revised design file re-enters §2.2 Sub-flow A for per-feature re-check on the affected slice; if post-signoff, the revision may flow into TK-03 escalation routing per [MECH] DTW §4 TK-03 failure routing
+3. If the issue requires revision of a design file produced earlier on the on-demand path (without DS change): open the CD project that produced that design file; communicate the observation as free-form prompt naming the feature-slug; the operator revises the design in CD UI; CC re-pulls the revised design file via §4.2. The detailed-spec re-author that follows (UX-spec synthesis and per-slice intent/acceptance) runs in CC's firewalled sessions per the incremental JIT model, under operator authorization — not at Hub
 
 ### 4.3.5 Audit checklist (pre-transfer)
 
-Before transferring a CC observation to CD, the operator verifies:
+Before transferring CC content to CD, the operator verifies:
+- **For the on-demand visual-path seed**: the visual-novelty trigger is genuine (a new design token / new visual language is needed, not interaction / IA / component complexity); the MCP write targets the app-level CD project's `uploads/` and carries only PRD/TDD text spec inputs (no design-output bytes; not the DS SOT); the target CD PROJECT-type project exists (or the operator has created it)
 - The observation genuinely warrants CD-side action — distinguish "implementation-level adjustment within current design" (handle inside CC) from "design intent revision needed" (warrants CD revisit)
 - The DSG §12 path is not the more appropriate route — DS-content-impacting observations belong on the §3.2 CC → Hub → DSG §12 chain primarily, with CD communication secondary; do not bypass DSG §12 for content that should evolve the DS instance
-- The affected feature's TK-02 sign-off status is known — pre-signoff observations re-enter §2.2 Sub-flow A; post-signoff observations route into TK-03 failure handling per [MECH] DTW §4
-- The CD session for the affected feature's phase is identifiable — there is one phase-level CD session per phase; the operator selects that session (carrying the current canonical design intent for the entire phase including the affected feature's labeled slice)
+- For a revision of an existing on-demand design file, the CD project that produced it is identifiable — a CD design file (and its project) exists only because the on-demand visual path fired for that feature; there is no standing per-phase CD session to select
 
 ### 4.3.6 CD reception
 
@@ -540,8 +528,8 @@ If a reminder is missed and a transfer proceeds without the documented audit:
 | Failure type | Description |
 |---|---|
 | Scope leakage | The transferred content includes non-HDC scope content (per [REF] Hub-CD-CC Architecture §6) |
-| Content contract violation | The transferred content lacks expected content (e.g., CD-authored phase-level design file missing cross-cutting sections for the phase, or missing per-feature internal labeling for some tier-1-involved feature in the phase, or missing component callouts when those were expected; phase-level UX Design Spec instance missing §2A.x category coverage or per-feature UX Design Spec instance missing §2B.x category coverage; DS markdown export missing DSG §2 section coverage) |
-| Quality below threshold | The transferred content meets contract but is judged insufficient for HDC use. This is the **residual category**: where a contract-specific quality rubric applies (CD design files → [TPL] UX Design Spec §3A.1 phase-level design file quality check + §3B.1 per-feature design file quality check; spec artifacts at handoff → the Sign-Off form criteria; DS markdown export → DSG §15 reviewer checklist), judge against that rubric first; "quality below threshold" covers only quality shortfalls no contract-specific rubric already names |
+| Content contract violation | The transferred content lacks expected content (e.g., on-demand visual-path seed missing the feature's PRD/TDD text inputs in `uploads/`, or an on-demand CD design file lacking the visual coverage CC needs as reference; DS markdown export missing DSG §2 section coverage). UX Design Spec instance coverage (§2A.x / §2B.x) is a **CC-authored**-artifact quality concern checked within CC's `ux-spec-synthesizer` session, not a cross-tool transfer violation |
+| Quality below threshold | The transferred content meets contract but is judged insufficient for HDC use. This is the **residual category**: where a contract-specific quality rubric applies (upstream spec artifacts at handoff → the Sign-Off form criteria; DS markdown export → DSG §15 reviewer checklist; an on-demand CD design file → the visual-reference adequacy CC needs to ground its synthesis), judge against that rubric first; "quality below threshold" covers only quality shortfalls no contract-specific rubric already names |
 | Integration failure | The destination cannot accommodate the transferred content's structure |
 | **Export review skipped** | DS markdown export committed to the CC mirror without passing the DSG §15 export conformance review |
 
@@ -559,7 +547,7 @@ For each failure type:
 1. Determine whether the violation is recoverable (operator can supply the missing content) or requires redo at origin
 2. If recoverable: operator supplies the missing content manually at the destination
 3. If redo: return to the origin workspace for content re-production
-4. **For design file content contract violations at §2.2 Sub-flow A**: route through [TPL] UX Design Spec §3A.1 / §3B.1 Reject disposition — Step 2.2 redo scope is the phase-level cross-cutting sections (phase-level reject), the affected feature's slice (per-feature reject), or full-phase relabeling when per-feature labeling itself is broken
+4. **For an on-demand CD design file that is inadequate as visual reference**: the operator re-enters the on-demand visual loop (§4.3.4) — refine the seeded PRD/TDD text in `uploads/` and/or the CD-UI design, then CC re-pulls the revised design file via §4.2. There is no per-phase cross-cutting / per-feature-labeling redo, since app-level CD design is on-demand per feature's visual novelty, not a standing per-phase deliverable
 
 **Quality below threshold**:
 1. Reject the transfer for the current cycle
@@ -596,17 +584,17 @@ Note on disambiguation from application-level handoff: trigger phrases in [MECH]
 
 When a Hub Claude conversation contains any of the following phrases or their close paraphrases (English or Mandarin), Hub Claude pauses and surfaces the relevant content contract:
 
-1. "**take this PRD / TDD / spec to CD**" / "**send to CD**" / "**ask CD to design**" — Hub → CD intent; surface §2.1 content contract (note whether it's Sub-flow A general or Sub-flow B TK-02 Step 2.2)
-2. **"start the TK-02 Step 2.2 design file for this phase"** / **"open the CD session for the phase's Tier 1 features"** — explicit Hub → CD Sub-flow B intent; surface §2.1 Sub-flow B content contract specifically (drop files covering all tier-1-involved features in the phase + attention prompt enumerating each feature and instructing per-feature internal labeling; CD grounds DS in its own instance per [REF] Hub-CD-CC Architecture §5.2; one CD session per phase, not per feature)
-3. "**bring back from CD**" / "**integrate the prototype / design files**" / "**use the CD output**" — CD → Hub intent; surface §2.2 content contract (note which sub-flow: A design files for Step 2.3, B DS markdown export for mirror sync, or C personal stakeholder material)
-4. **"transfer the design file back to Hub"** / **"start Step 2.3 with this design file"** — explicit CD → Hub Sub-flow A intent; surface §2.2 Sub-flow A content contract + [TPL] UX Design Spec §3 design file quality checks (note: two parallel tracks — §3A.1 on the design file's cross-cutting sections at the phase scope, §3B.1 iterated per tier-1-involved feature against that feature's labeled slice within the phase-level design file)
+1. "**take this PRD / TDD / spec to CD**" / "**send to CD**" / "**ask CD to design**" — Hub → CD intent; surface §2.1 content contract (note whether it's Sub-flow A general-context or Sub-flow B on-demand visual-path supplementary framing; the on-demand seed itself is the CC → CD §4.3 push, not a Hub → CD transfer)
+2. **"this feature needs a new design token / new visual language"** / **"enter the on-demand visual path for this feature"** / **"seed a CD design for this feature"** — on-demand visual-path intent; surface §4.3.1 primary sub-flow (the ①-④ loop: CC pushes PRD/TDD text into the CD project's `uploads/` via MCP write → operator designs in CD UI → CC pulls the design file back via §4.2 → CC consumes as visual reference) and confirm the trigger is genuine visual novelty (NOT interaction / IA / component complexity, which CC handles directly + meta-DS registration). App-level CD design is default-retired; there is no automatic per-phase Step 2.2 design-file kickoff
+3. "**bring back from CD**" / "**integrate the prototype / design files**" / "**use the CD output**" — CD → Hub intent; surface §2.2 content contract (note which sub-flow: B DS markdown export for mirror sync, or C personal stakeholder material). An on-demand design file does NOT come back to Hub — it returns directly to CC via §4.2
+4. **"pull the design file back to CC"** / **"the CD design is ready, bring it into implementation"** — on-demand design-file return intent; surface §4.2 on-demand design-file return (CC ← CD MCP read) + note that UX-spec synthesis grounding on it is CC-authored in the firewalled `ux-spec-synthesizer` session, NOT Hub-authored. The design file returns directly to CC, never routed through Hub for Step 2.3 authoring (synthesis is relocated to CC)
 5. **"sync the DS markdown export"** / **"review the DS export"** / **"the DS instance changed, propagate"** — DS markdown export review + sync intent; surface §2.2 Sub-flow B (DSG §15 export conformance review) + §3.1 Sub-flow C (CC-mirror commit) per DSG §12.3
 6. "**send to CC**" / "**give CC the spec**" / "**inception sync**" — Hub → CC intent; surface §3.1 content contract (note which sub-flow: A inception, B spec bundle at TK-04, C DS markdown sync, D review reminder, E memos)
-7. **"transfer the spec bundle for TK-04"** / **"onboard the assigned_node for this unit"** — explicit Hub → CC Sub-flow B intent; surface §3.1 Sub-flow B content contract + verify both UX Design Spec instance markdowns (phase-level + per-feature) are in the transfer set when Tier 1 involved
+7. **"transfer the upstream content for TK-04"** / **"onboard the assigned_node for this unit"** — explicit Hub → CC Sub-flow B intent; surface §3.1 Sub-flow B content contract (PRD / TDD main + phase test plans + slice-lists + OpenAPI). Note that UX Design Spec instances and per-slice intent/acceptance/test-plan are CC-authored in firewalled sessions in-repo — they are NOT expected in the Hub-delivered bundle, so do not verify them as part of the transfer set
 8. "**copy the Codex review back**" / "**transfer to Hub**" (in CC context) / "**update the canonical**" (after CC change) — CC → Hub intent; surface §3.2 content contract
 9. **"CC found a DS mirror inconsistency"** / **"M0 self-check flagged mirror drift"** / **"SK-F can't find this component in the mirror"** — CC DS mirror drift signal; surface §3.2.3 routing (either resync via §2.2 Sub-flow B + §3.1 Sub-flow C, or DSG §12 additive update)
-10. "**use the CD design files in CC**" / "**hand the design files to CC mid-implementation**" — CD → CC intent; surface §4.2 content contract and the §4.1 decoupled-by-default discipline (note: this is rare; the normal flow routes through Hub via §2.2 + §3.1)
-11. "**send CC's feedback to CD**" / "**update CD with the implementation finding**" — CC → CD intent; surface §4.3 content contract (and note that DS-implicating findings primarily route through §3.2 → DSG §12)
+10. "**use the CD design file in CC**" / "**hand the design file to CC mid-implementation**" — CD → CC intent; surface §4.2 content contract and the §4.1 decoupled-by-default discipline. Note: there is no standing mandatory design file; a design file exists only when the on-demand visual path fired, and on that path CC pulls it directly via §4.2 (CC ← CD MCP read) — it does NOT route through Hub
+11. "**send CC's feedback to CD**" / "**update CD with the implementation finding**" / "**push the spec inputs into the CD project**" — CC → CD intent; surface §4.3 content contract — the primary sub-flow is the on-demand visual-path seed (CC pushes PRD/TDD text into the CD project's `uploads/` via MCP write, §4.3.1), supplementary triggers are implementation findings (note that DS-implicating findings primarily route through §3.2 → DSG §12)
 12. "**enable direct CD-to-CC**" / "**skip operator audit**" — direct coupling activation intent; surface §4.1 non-enablement and [REF] Hub-CD-CC Architecture §10 re-enablement conditions
 13. **"hand-fix `specs/design-system.md`"** / **"patch the CC DS mirror locally"** — CC-mirror direct-edit intent; surface DSG §12.6 read-only mirror discipline
 
@@ -633,9 +621,8 @@ This soft compliance is conversational, not blocking.
 - A cross-tool transfer where the operator skipped the relevant audit checklist (per §5.2, this is allowed but creates failure-mode exposure per §6)
 
 **Content contract dimension**:
-- **CD-authored phase-level design file transferred to Hub at §2.2 Sub-flow A without applying [TPL] UX Design Spec §3A.1 (phase-level) or §3B.1 (per-feature) design file quality checks** (skipping the quality checks at Step 2.3 entry causes downstream UX Design Spec instance authoring to proceed on potentially insufficient grounding material)
-- **Phase-level design file transferred without cross-cutting sections or without per-feature internal labeling** — Hub Step 2.3 cannot ground the phase-level UX Design Spec instance without the cross-cutting sections, or per-feature instances without the labels; route through §6 fallback for CD to add the missing content before Step 2.3 proceeds
-- **Hub-authored UX Design Spec instance markdown (phase-level or per-feature) transferred to CC at §3.1 Sub-flow B without applying [TPL] UX Design Spec §3A.2 or §3B.2 authoring quality checks** (skipping the authoring checks before TK-02 sign-off causes downstream TK-03 / TK-04 to consume potentially ungrounded UX content)
+- **On-demand visual-path seed that writes design-output bytes (or a generate invocation) into the CD project instead of PRD/TDD text inputs** — CC delivers only text spec inputs into `uploads/`; writing design output makes CC the producer (violates "design output = CD"), and there is no MCP method to make CD generate
+- **An on-demand CD design file pulled into CC as visual reference without CC's `ux-spec-synthesizer` session applying its synthesis quality checks** (consuming the visual reference without the firewalled synthesis grounding it causes downstream code to proceed on ungrounded UX content)
 - Hub canonical inventory tracking not updated after CC-internal canonical changes (per §3.2.3)
 - Codex review output bypasses Hub judgment (per §3.2.3)
 
@@ -654,7 +641,7 @@ This soft compliance is conversational, not blocking.
 **Audit failure dimension**:
 - Failed transfers not handled per §6 fallback procedures (e.g., partial canonical updates left in place after integration failure)
 - Quality-failure transfers repeated without root-cause analysis (recurring quality failure may indicate the content contract or origin workspace process needs revision)
-- **CD design file quality check `Reject` disposition recurring for the same feature's slice** — likely indicates the attention prompt's per-feature section at §2.1 Sub-flow B was insufficient, or the PRD/TDD drop-file content for that feature lacked enough context for CD; investigate Step 2.2 entry mechanics for that feature's portion of the phase-level transfer
+- **An on-demand CD design file repeatedly inadequate as visual reference for the same feature** — likely indicates the PRD/TDD text seeded into the CD project's `uploads/` (§4.3) lacked enough context for the operator's CD-UI design, or the visual-novelty trigger was mis-scoped (interaction / IA complexity that CC should handle directly rather than a genuine new-token need); investigate the §4.3 seed content and the trigger judgment
 
 **Reminder discipline dimension**:
 - Hub Claude advises on a cross-tool transfer without invoking §7.2 trigger phrase check
@@ -665,7 +652,7 @@ This soft compliance is conversational, not blocking.
 - Direct coupling re-enabled without [REF] Hub-CD-CC Architecture §10 prerequisites all satisfied and recorded in an ADR
 
 **Path-flow misrouting dimension** (new with revised architecture):
-- **CD-authored phase-level design file routed directly to CC at TK-02 Step 2.2 exit** (bypassing the Hub TK-02 Step 2.3 design file quality checks + UX Design Spec instance authoring at two granularities) — the design file must route CD → Hub → CC, not CD → CC directly
-- **CD attempts to deliver one design file per feature instead of one design file per phase** — the canonical CD delivery unit is phase-level (covering both phase-level cross-cutting content and all tier-1-involved features as labeled internal scopes); per-feature delivery contradicts CD's natural by-phase design workflow and fragments the Step 2.3 grounding model
-- **UX Design Spec instance authored at CC instead of Hub** — both UX Design Spec instance types (phase-level + per-feature) are Hub-authored per [REF] Hub-CD-CC Architecture §5.2 revised; CC consumes but does not author
-- **CD attempting to author the UX Design Spec instance markdown** (phase-level or per-feature) — CD outputs design files (visual artifacts); the markdown counterparts are Hub-authored deliverables per [TPL] UX Design Spec
+- **An app-level CD design file produced without a genuine visual-novelty trigger** — app-level CD visual is default-retired; a design file is produced only on the on-demand path (a new design token / new visual language). Producing one for interaction / IA / component complexity (which CC handles directly + meta-DS registration) is drift back toward the retired per-phase mandatory-design-file model
+- **An on-demand CD design file routed through Hub instead of returning directly to CC** — UX-spec synthesis is CC-authored; the design file is CC's visual reference and returns CC ← CD via §4.2, never CD → Hub for authoring
+- **UX Design Spec instance authored at Hub instead of CC** — both UX Design Spec instance types (phase-level + per-feature) are CC-authored in a session firewalled from the implementing context (the `ux-spec-synthesizer` role, the relocated TK-02 Step 2.3 synthesis) per [REF] Hub-CD-CC Architecture §1.1 / §5; Hub authors PRD / TDD upstream content, not the detailed UX-spec. (CC-side authoring of the UX-spec is correct behavior, not drift)
+- **CD attempting to author the UX Design Spec instance markdown** (phase-level or per-feature) — CD outputs design files (visual artifacts) only; the markdown counterparts are CC-authored detailed-spec deliverables per [TPL] UX Design Spec

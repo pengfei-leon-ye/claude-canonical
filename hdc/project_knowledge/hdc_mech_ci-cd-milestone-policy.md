@@ -11,9 +11,9 @@
 - **Relationship to [REF] Hub-CD-CC Architecture**: Operates inside the CC workspace boundary. CI/CD milestone gating is a CC-side mechanism; this Hub residue declares the cross-workspace interface that handoff documentation consumes.
 - **Relationship to [RULE] Workspace Topology**: Co-governing. §1.2 multi-node evidence parity in this residue anchors WT's parity discipline. WT's walking-skeleton-first ordering rule defers downstream-unit milestone entry per §2 below.
 - **Relationship to [RULE] Claude Code Architecture Rules**: Companion. The contract testing convention referenced at M2 (gate criteria substantive at CC) anchors CCAR's Pact contract testing rules at CC substantive layer.
-- **Relationship to [MECH] Development Track Workflow**: Companion. The M-gates are the milestone semantics that DTW's TK chain triggers and consumes; M0–M4 identity declared here is referenced by DTW's TK chain for hub/CC boundary purposes.
+- **Relationship to [MECH] Development Track Workflow**: Companion. The M-gates are the milestone semantics that DTW's TK chain triggers and consumes; M0–M4 identity declared here is referenced by DTW's TK chain for milestone-to-task anchoring.
 - **Relationship to [MECH] Application Lifecycle Handoff**: The AI-dev CI/CD pipeline produces no release tags; release tag namespaces belong to the receiving company's CI/CD scope. The handoff tag namespace (Handoff §4.1) is the only canonical-recognized tag namespace in the AI-dev monorepo. This is a constitutional invariant.
-- **Relationship to [RULE] Design System Governance**: M3 visual review references DSG consistency at the substantive layer (specific check criteria at CC substantive). No accessibility gate at any milestone (per DSG §6 stance) is a constitutional invariant. DS instance two-way distribution per DSG §1.1 governs DS consumption — at TK-02 Step 2.3 Hub Claude grounds UX Design Spec authoring (at phase-level and per-feature granularities) in the CD-authored design file; the CC mirror is consulted at TK-04+ via skill enforcement.
+- **Relationship to [RULE] Design System Governance**: M3 visual review references DSG consistency at the substantive layer (specific check criteria at CC substantive). No accessibility gate at any milestone (per DSG §6 stance) is a constitutional invariant. DS instance two-way distribution per DSG §1.1 governs DS consumption — at TK-02 Step 2.3, CC synthesizes the UX Design Spec (at phase-level and per-feature granularities) in a session firewalled from the implementing context, grounded in PRD/TDD by default; a CD-authored design file is consulted only as on-demand visual reference on genuine visual novelty. The CC mirror is consulted at TK-04+ via skill enforcement.
 - **Relationship to [TPL] Intent and Acceptance Interface Writing Standard** + **[TPL] PRD + TDD to Intent and Acceptance Conversion Specification**: §3 below owns the disambiguation between milestone-level Test Evidence Report (constitutional schema declared here) and feature-slice-scoped `evidence.md` (substantive content at CC).
 - **Relationship to [TPL] Test Plan YAML Schema**: The evidence digest contract for the operator one-pager schema in §3.3 binds to that template's `evidence_required` field as a constitutional interface.
 - **Pairings I participate in**: P-03 (with [MECH] DTW §4 TK chain — milestone-to-task anchoring at constitutional interface). Pre-split pairings P-01 / P-09 / P-13 / P-32 / P-49 are retired at this Hub residue level; their substantive obligations migrate to CC under CC substantive CI/CD canonical.
@@ -95,9 +95,9 @@ Each M-gate has a constitutional identity (purpose, position in the ladder, cros
 
 ## 2.1 M0 Design Freeze
 
-**Identity**: Design freeze for a slice. The slice's specification (PRD, TDD, intent, acceptance, test plan) is locked at this gate. Downstream tasks (M1+) execute against a frozen design.
+**Identity**: Per-slice readiness gate. The slice's PRD/TDD coherence anchor (Hub-authored, relatively stable) is settled, and the slice's detailed spec (intent, acceptance, test plan — CC-authored just-ahead-of-code in a firewalled session per the incremental JIT model) is in place for the slice about to be implemented. Downstream tasks (M1+) execute against this anchored, slice-scoped spec.
 
-**Cross-workspace consequence**: After M0, Hub-side specification changes for the slice require revision, not amendment — the design freeze is the boundary between specification work and implementation work.
+**Cross-workspace consequence**: M0 marks the boundary between an implementing context and the spec it builds against. The detailed spec is a CC-maintained living artifact, not a frozen document: mid-flight changes are permitted but must be operator-authorized, versioned, and reasoned (not silent). PRD/TDD changes propagate from the Hub coherence anchor. Code is the ultimate SOT for app behavior; the detailed spec is living documentation plus the acceptance record.
 
 **Substantive details (at CC)**: M0 entry self-check is folded into TK-04 per CC substantive DTW; specific self-check criteria are CC substantive.
 
@@ -143,7 +143,7 @@ Three node-level work unit types (`walking_skeleton`, `feature`, `app_integratio
 | `feature` (any phase, 1+ slices) | Per slice: M0 → M1 → M2 → M3 → M4 (full chain) | The **last slice** of a feature runs an **expanded M2 scope** (substantive details at CC) |
 | `app_integration` (any phase, 0 customer-facing slices) | M2 → M3 → M4 (truncated; no M0 / M1) | Single PR per unit. M2 entry scope shift to phase-level test plans (substantive at CC) |
 
-Walking-skeleton-first ordering (per [RULE] Workspace Topology constitutional residue §3): in Phase 1, no `feature` unit's M0 and no `app_integration` unit's M2 entry can begin until the Phase 1 `walking_skeleton` unit reaches `status: merged` on `main`. Hub-side specification work MAY proceed in parallel; the gate is the unit's first node-side milestone, not the Hub-side specification work.
+Walking-skeleton-first ordering (per [RULE] Workspace Topology constitutional residue §3): in Phase 1, no `feature` unit's M0 and no `app_integration` unit's M2 entry can begin until the Phase 1 `walking_skeleton` unit reaches `status: merged` on `main`. Hub-side PRD/TDD specification work MAY proceed in parallel; the gate is the unit's first node-side milestone, not the Hub-side PRD/TDD specification work.
 
 ---
 

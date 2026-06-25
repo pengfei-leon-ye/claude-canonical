@@ -222,7 +222,7 @@ When user phrasing in a Hub Claude conversation matches any of the following, Hu
 - "merge without review"
 
 **Walking-skeleton-first ordering phrasing** → reference §3 constitutional rule above + CC substantive WT (walking-skeleton output canonical set):
-- "start the time-off-request feature slices now" / "begin TK-04 for this feature" / "kick off node-side work for this feature" — when Phase 1 walking-skeleton has not yet reached `status: merged` (Hub-side TK-03 authoring is Hub-only post-refactor and is NOT gated; the gate is the unit's first node-side milestone)
+- "start the time-off-request feature slices now" / "begin TK-04 for this feature" / "kick off node-side work for this feature" — when Phase 1 walking-skeleton has not yet reached `status: merged` (specification authoring — Hub PRD/TDD plus the CC-side detailed spec in the firewalled S1/S2 sessions — is NOT gated; the gate is the unit's first node-side implementation milestone)
 - "kick off the app-integration tests now" / "start TK-09 for app-int" — when Phase 1 walking-skeleton has not yet reached `status: merged`
 - "skip the walking skeleton, jump straight to features" — direct ordering rule violation
 

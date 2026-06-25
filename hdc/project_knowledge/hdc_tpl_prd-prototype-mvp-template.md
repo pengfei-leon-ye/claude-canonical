@@ -456,7 +456,7 @@ Use the following structure for each major function. For phase-level PRDs, organ
 Use when relevant.
 Reference mockups, click paths, or prototype intentions that materially affect understanding.
 Do not use this subsection for purely aesthetic commentary.
-Component selection, token usage, accessibility commitments, and Tier 1 implementation details belong in separate Hub-authored UX Design Spec instances at phase-level and per-feature granularities (authored at TK-02 Step 2.3) per `[TPL] UX Design Spec` (consumed at TK-03 per-slice intent.md UX brief) and downstream slice-level intent.md UX brief, not here.
+Component selection, token usage, accessibility commitments, and Tier 1 implementation details belong in separate CC-authored UX Design Spec instances at phase-level and per-feature granularities (synthesized by `ux-spec-synthesizer` in the firewalled S1 session, the relocated TK-02 Step 2.3) per `[TPL] UX Design Spec`, consumed CC-internally at the firewalled S2 acceptance/intent session (the relocated TK-03) when authoring the per-slice intent.md UX brief, not here.
 
 ---
 
