@@ -19,6 +19,8 @@ Target: **Stable 45% / Risk 45% / Hedge 10%** (hedge may flex to 15%). Inter-sle
 | Risk (satellite) | 45% | | |
 | Hedge | 10% | | |
 
+At review the advisor also reports each sleeve's **A/H venue mix** (A股 vs 港股), derived from each holding's ticker — the §9.4 listing-venue diagnostic. It is a *graded* risk-tiering input, **not** a hard quota and **not** a stored field; flag a deliberate A/H lean only as a §1.2 flip-condition judgment, never a fixed ratio.
+
 ## Holdings
 
 **Tier** (risk sleeve only): **Compounder** = low trim-intensity (hold; trim only at extreme valuation) · **Cyclical** = high trim-intensity (the 先卖再买 cycle arena).

@@ -274,7 +274,7 @@ The advisor reads private state from the uploaded data files (never from this do
 
 | Data needed | Used for |
 |---|---|
-| Current holdings per sleeve (ticker, share count, cost basis) | Current allocation vs 45/45/10; valuation vs cost; chip-count tracking |
+| Current holdings per sleeve (ticker, share count, cost basis) | Current allocation vs 45/45/10; valuation vs cost; chip-count tracking; **A/H venue mix per sleeve** — derived from each holding's ticker (A股 vs 港股), the §9.4 listing-venue diagnostic (a graded risk-tiering input, no stored field) |
 | Available capital / cash | Funding the 先卖再买 cycle and adds; tier calibration |
 | Transaction log (chronological) | Net-long-invariant check; cost-basis evolution; behavior audit |
 | Human-capital concentration (employer / career sector; equity-vesting pipeline) | §9.3 / Invariant 10 — underweight correlated exposure (total economic exposure = financial + human capital); standing trim-as-vested. Invisible in a brokerage snapshot, so supplied as a known input |
