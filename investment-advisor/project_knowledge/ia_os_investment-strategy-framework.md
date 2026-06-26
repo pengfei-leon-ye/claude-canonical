@@ -105,6 +105,8 @@ Within a chosen sub-industry, select 2–3 names as a **basket per theme**, neve
 
 **Held-name neutrality.** These criteria are the *only* basis for selection. A name already in the portfolio gets **no priority** for being held — incumbency is not a selection criterion, and treating it as one invites endowment bias. Every existing holding must re-earn its slot against the same future-leader test as any new candidate, or be replaced; "I already own it" is not a thesis.
 
+**Listing-venue neutrality.** Select the future leader on its merits irrespective of A股 / 港股 listing; the resulting A/H mix of a sleeve is an *output* of selection, never a hard pre-filter on it (venue risk-tiering and its one admissible hard rule — an H-ceiling, never an H-floor — live in §9.4).
+
 ---
 
 ## 6. Trading method — the heart of the risk sleeve
@@ -239,6 +241,20 @@ Rule: **the financial portfolio must underweight whatever the investor's human c
 - **Execution** still respects the trading method: trim in tranches into strength (§6.7), never a panic dump; and account for an ongoing RSU-vesting pipeline (which re-adds exposure) with a **standing trim-as-vested policy** rather than one-off action.
 
 This adjustment only **tightens** the concentration discipline; it never loosens it. Human-capital exposure is assessed separately and is **invisible in a brokerage snapshot** — it must be carried as a known input, not inferred from holdings.
+
+### 9.4 Listing-venue (A股 / 港股) concentration — a graded factor, not a hard quota
+
+§9.2 bounds *how much* and §9.3 *correlated-with-what*; both are blind to **where a holding is listed**. Within the China-overweight bet (§1.2), A股 (主板/创业板/科创板) and 港股 (港股通) are **not interchangeable**: they price off different marginal buyers and carry different tail profiles [通识]. A股 is domestic-retail-driven with administrative price intervention (涨跌停, IPO/再融资 pacing, national-team support) and a closed capital account; 港股 is offshore-/foreign-flow-driven, USD-peg- and global-liquidity-linked, with cleaner price discovery but a heavier geopolitical / foreign-capital / channel-access tail. Dual listings persist at an A-over-H premium, so an issuer's H line is the structurally cheaper claim on identical cash flows [通识].
+
+**What venue does and does not diversify.** A and H share the *same* sovereign / policy / macro fundamentals, so an A/H blend does **not** diversify the core China bet (§1.2) — a real structural break hits both. It diversifies only the **microstructure / capital-flow layer** (a domestic-liquidity-driven A drawdown and a global-risk-off H drawdown can fall out of phase). Reducing *country* concentration is the hedge sleeve's job (§4), not venue's.
+
+**Venue freedom is inversely correlated with a sleeve's risk tier — so steer venue where it is cheap.**
+- **Low-risk-tier sleeves (Stable, §3):** venue is a near-free choice; the stability mandate favors A (national-team floor, no 港股通 dividend-withholding drag, lower geopolitical β). A *deliberate* venue tilt belongs here — it costs no alpha.
+- **High-risk-tier sleeve (Risk satellite, §5):** venue is **dictated by where the future-leader is listed**, not chosen — many 科技自立自强 leaders (科创板 semis) are A-only with no H twin. So **the satellite's A/H mix is an *output* of §5 selection, never a hard pre-filter.** Forcing a venue quota here rejects the best name for a listing reason — a §5 violation. Venue follows alpha: where a theme's strongest name is H-listed, prefer it on merit.
+
+**Hard-rule asymmetry (the operative guard).** If venue is ever made a *hard* constraint, only one direction is admissible. A hard **H-ceiling** (bounding the geopolitical / foreign-flow tail) is **cheap** — the satellite is already A-heavy, so a ceiling adds no selection constraint. A hard **H-floor** (forcing minimum H for regime diversification) is **expensive** — it reaches into the satellite and forces inferior or non-existent H picks, corrupting §5; satisfy any desired H presence opportunistically through venue-flexible / low-risk-tier holdings (a held H quality-anchor, a Stable slice) instead, never via a satellite quota.
+
+**Net.** Venue (A/H) is a **monitored diagnostic and a graded input to risk-tiering**, not a separate knob with a fixed ratio — a fixed sub-allocation would over-design (§12) and double-count risk already bounded by §9.2 + the hedge sleeve. The *direction* of any deliberate lean reduces to a §1.2 flip-condition judgment: which China tail is the more probable near-term — a geopolitical / foreign-capital shock (argues to underweight H) or a domestic-policy / capital-control / 港股通-access shock (argues to retain offshore-mobile H). This is deliberately **not** an Invariant (§11): no hard quota, just a factor weighed at each rebalance and at satellite-selection time.
 
 ---
 
