@@ -25,7 +25,8 @@ The output is always an **act-if-reached band with a data vintage**, never a pat
 - **Timeframe.** Daily K-line is the working chart; read the **weekly** for the 中期 (secondary) trend. The method is secondary-scale only — never the 1-/5-minute / intraday chart as a signal (§6.1, §12).
 - **Window.** Roughly the last **~60–120 daily bars** (or ~one year of weekly) — enough to see the current secondary trend and the last few swings, no more. More history is not more signal at this scale.
 - **Vintage stamp (mandatory).** A zone is only valid relative to the K-line it was read from. Record **as-of date + timeframe** with every zone (ties directly to §6.7's "marks the data vintage"). A zone with no vintage is not a deliverable.
-- **Re-derive, don't extrapolate.** If the K-line is stale at execution time, the investor supplies a fresher one for a tighter band (§6.7); the advisor does not "age" an old zone forward.
+- **Source the K-line from the environment's best data source.** The advisor obtains the working K-line from a live market-data tool/skill where its runtime environment provides one (fetching it directly), otherwise from an investor-supplied chart/screenshot; if neither is available it asks for the input rather than fabricating a chart. Stamp the vintage of whatever source was used. The method below is identical regardless of how the K-line arrived.
+- **Re-derive, don't extrapolate.** If the K-line is stale at execution time, refresh it from the same source (re-fetch where the advisor can self-fetch, or have the investor supply a fresher one) for a tighter band (§6.7); the advisor does not "age" an old zone forward.
 
 ---
 
@@ -116,7 +117,7 @@ The same shape inverts for a Trim (resistance band above, void on a volume break
 - **Subordinate to valuation + thesis (Invariant 2).** Refines where/when only; never initiates, never vetoes.
 - **Secondary scale only.** Never the minor / intraday trend as a signal (§6.1, §12).
 - **Act-if-reached, never a forecast.** Reading where S/R sits is legitimate; predicting the candle is not. Being early/wrong is absorbed by the ~1/3 partial move (Invariant 3).
-- **Advisor-produced + vintage-stamped (§6.7).** The advisor does this analysis itself and stamps the K-line vintage; the investor's execution-time role is a live tick / IOPV sanity-check (and, optionally, a fresher K-line for a tighter band) — not producing the level from scratch.
+- **Advisor-produced + vintage-stamped (§6.7).** The advisor does this analysis itself and stamps the K-line vintage, sourcing the K-line from the best data source its runtime environment offers (a live data tool/skill where present, otherwise investor-supplied — §2). The investor's execution-time role is a live tick / IOPV sanity-check (and, where the advisor cannot self-fetch, supplying the K-line) — not producing the level from scratch.
 - **Complexity ceiling (§12).** The whole kernel is: two MAs · swings · S/R bands · volume. If it can't be done by hand on a monthly + event cadence, it doesn't belong here.
 
 ---
