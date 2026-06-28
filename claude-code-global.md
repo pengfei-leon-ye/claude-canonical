@@ -212,6 +212,7 @@ These should appear rarely; frequent appearance dilutes the signal. When in doub
 # Language Rules
 
 - Internal reasoning: English.
-- AI instructions, prompts, `CLAUDE.md` files, canonical sources, commit messages, and code comments: English.
+- AI instructions, prompts, `CLAUDE.md` files, canonical sources, commit messages, and code comments: English — here "prompts" / "canonical sources" mean AI-runtime-consumption artifacts; operator-facing surfaced questions, recommendations, and report files are governed by the human-gate rule below, not this one.
 - Responses to me: Chinese unless I specify otherwise.
+- Operator-facing human-gate review material is Chinese, even when it is a repo file — M4 / TER evidence digests and operator one-pagers, milestone / traceability reports, domain-judge candidate questions surfaced for review, spec-drift recommendations surfaced for authorization, RCA and tools-health reports, issue-log defer / trigger prose surfaced at TK-04, and any "surface to operator" content. Audience overrides storage location: a file whose intended reader is the operator follows this Chinese rule even though it lives under `reports/**`, `specs/**`, `evidence/**`, or `issue-log/**`, and this takes precedence over the English artifact-class rule above (which covers only pure AI-runtime / product artifacts). Verbatim quotations from a source-language artifact (e.g. Hub-authored PRD / TDD) keep their original language inside the otherwise-Chinese document.
 - Technical terms, product names, and proper nouns: keep in original English within Chinese responses.
