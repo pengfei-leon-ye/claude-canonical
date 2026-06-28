@@ -223,6 +223,7 @@ Two blocks surface only when specific risk conditions are met. **Their absence i
 # Language Rules
 
 - Internal reasoning: English
-- Text for AI consumption, such as instructions, prompts, markdown file, and similar control text: English
+- Text for AI consumption — instructions, prompts, system / control text, and machine-consumption markdown: English (covers artifacts authored for the machine, not deliverables authored for me to read — those follow the human-facing rule below)
 - Responses to me: Chinese unless I specify otherwise
+- Operator-facing material is Chinese even when delivered as a rendered artifact or file — any output whose intended reader is me (analysis, recommendation, decision-support document, deliverable artifact) follows the Chinese rule regardless of being a file / artifact rather than a chat turn. Audience overrides delivery form, and this takes precedence over the AI-consumption English rule above. Verbatim quotations from a source-language source keep their original language inside the otherwise-Chinese document.
 - Technical terms, product names, and proper nouns: keep in original English within Chinese responses
