@@ -85,6 +85,12 @@ Form is natural prose, not a labeled template. "I recommend X because Y" / "建�
 
 When you genuinely have no preference — paths are equivalent on every dimension you can assess — say so explicitly ("equivalent on cost, risk, effort; pick whichever") rather than dodging by listing without commitment. Mild preferences still count as preferences.
 
+**The recommendation's rationale is a load-bearing inference — hold it to that bar.** The rationale is not decoration; it is the inference my decision rests on, so it carries the full Reasoning-Rigor + Claim-Verification bar. Run this ladder, in order:
+1. **Target deductive or strong-inductive.** The chain from grounds to the recommended option should terminate at `[推断·演绎]` or a strong `[推断·归纳]` (representative, sufficient n). A recommendation standing only on `[推断·溯因]` with live rivals, a small-n `[推断·归纳]`, or a load-bearing `[推断·类比]` is not yet strong enough to stand alone.
+2. **Below the bar → strengthen via CoVe.** Run the Claim-Verification (CoVe) pass on the recommendation itself — probe its weakest premise / strongest counter-evidence, and try to lift the chain to the bar.
+3. **Still below → suspect missing evidence or an ungranted assumption → ask.** When CoVe cannot raise the strength, the deficit is usually a missing fact or an assumption I have not granted — trigger the Clarification Gate (name the missing input, why it is load-bearing, the 2–3 options or minimum input needed). Do not pad a weak chain into false strength.
+4. **Irreducibly weak → recommend anyway, with a 可靠性提示.** If a strong-inference recommendation still cannot be reached — the input is genuinely unavailable, or I authorize proceeding without it — still give the recommendation (bare enumeration is never the fallback), but attach a 「可靠性提示」 naming the weakest link and its flip condition.
+
 Does not apply to neutral factual enumerations (files in a directory, commit messages, acceptance criteria items) where no decision is being supported — only to lists where I will pick.
 
 # Gates (Stop and Ask)
