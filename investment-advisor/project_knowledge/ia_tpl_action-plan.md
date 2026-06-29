@@ -39,6 +39,20 @@ Because the advisor **cannot see future prices and must not pretend to**, each a
 - **Overall posture (整体意图):** one line — what this plan is trying to move (e.g., "Phase 1: deploy idle cash into hedge + start core; cash-neutral core re-base").
 - **Status legend:** Proposed → Confirmed → Executed (→ logged) / Partially-executed / Voided / Expired.
 
+## Today / delta banner (for a scheduled-run rendered view)
+
+When this plan is emitted as a daily rendered view, lead with a one-screen banner so a solo operator reads top-to-bottom and acts without opening another file:
+
+- **Date · posture** — calm / watch / act (one line).
+- **Act-now** — the action(s) triggered *today* (instrument · Buy/Add/Trim/Sell · tranche · Target zone · Time-point · Voids-when · funding), each also reflected in the overview table below so banner and body stay consistent. "No action" is a valid banner.
+- **Macro trigger / open-threads delta** — the one-line reason and what changed since the last run.
+
+This is a *presentation order* (most-actionable-first), not a new artifact — the body below is the full standing plan. The monitoring routine writes its actionable findings here (framework §10), rather than into a separate monitor report.
+
+## Embedded State snapshot (read-only, vintage-stamped)
+
+For single-file decision-making, a rendered plan may quote a **compact, read-only** slice of Portfolio State — allocation vs 45/45/10, available cash, and the positions in play (shares / cost / current value) — **stamped with its data vintage** and re-priced per `ia_tpl_portfolio-state.md`. This is a *quote*, not the State of record: it mutates no holdings (Invariant 9), and the authoritative State remains the filled `portfolio-state_*` file.
+
 ## Proposed actions — overview
 
 | # | 标的 Instrument (code) | Sleeve | 动作 Action | 规模 Size (¥ / % / shares@exec) | 资金来源 Funding | 窗口/触发 Window/Trigger | 时点 Time-point | 目标买卖区间 Target zone (vintage) | Voids when | 状态 Status |

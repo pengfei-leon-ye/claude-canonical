@@ -55,6 +55,7 @@ Monitoring is the *sensor*; the framework is the *controller*. The rubric never 
 - Thesis-threatening news → **quarterly fundamental review** (framework §7), possibly pulled forward → §6.6 broken-thesis exit if confirmed.
 - Allocation drift / volatility spike → **rebalancing bands** (§8); the counter-cyclical hedge reflex (§4) is the default response to a China-wide sell-off, executed by rule, not panic.
 - Macro/geopolitical regime shift → **annual strategic review** and the China-bet **flip conditions** (§1.2).
+- A finding that justifies a concrete action (typically Tier 3) **materializes as a Proposed item in the Action Plan** (`ia_tpl_action-plan.md`; framework §10 / Invariant 9), carrying its §6.7 timing — never a parallel "monitor report." The digest's **Action items** (§4) are a *view* of those Action-Plan items, and a scheduled run's report is a **rendered view of the current Action Plan plus the macro digest**, not a fourth runtime artifact.
 
 ## 7. Note on the scheduled routine
 

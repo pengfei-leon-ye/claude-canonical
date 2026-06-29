@@ -4,6 +4,8 @@
 
 Append a row on **every** trade. The advisor uses the filled log for the net-long invariant check (持有时间 > 不持有时间), cost-basis evolution (chip accumulation), and a behavior audit (did the trade follow the method, or was it a chase/panic?). Append-only — never delete or rewrite history; append corrections as new rows.
 
+**Not derived from State diffs.** Populate the log from **actual executed fills** (broker confirmation), never by diffing two Portfolio-State snapshots. A diff yields only the *net* change between snapshots — it silently loses intra-period round-trips (a buy then a sell nets away), the per-trade price/time, and the rationale, which are exactly what the net-long-invariant check and the behavior audit depend on. A State-vs-log comparison is a **reconciliation check** (does the log explain the holdings change?), not a generator of rows. Where shares are *unchanged* between snapshots, that is a re-pricing event (Portfolio-State mark-to-market, framework §10), not a transaction — record nothing here.
+
 **Action vocabulary:** **Buy** = establish initial 底仓 (value-based) · **Add** = buy-back-low (cheap leg of the cycle) · **Trim** = partial sell-high (expensive leg) · **Sell** = full exit (a broken thesis, or a strategic theme-drop / rebalance exit). Moves are partial (~1/3); never all-in / all-out.
 
 **Rationale** must capture: **valuation zone** (cheap/expensive, ideally a percentile) · the **trigger** (valuation primary + optional secondary-trend confirmation) · **thesis status** (for a §9.3 de-concentration / human-capital trim, record the concentration + correlation rationale in place of a valuation-high trigger). This is what makes the log auditable against the framework.

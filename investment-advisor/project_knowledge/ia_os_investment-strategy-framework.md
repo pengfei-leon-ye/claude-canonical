@@ -270,6 +270,15 @@ Runtime state lives in **three artifacts with a single-directional flow** — ne
 
 **Flow:** analysis → **Action Plan** (pending, with §6.7 timing) → investor executes → record fills in the **Transaction Log** → re-snapshot **Portfolio State** (reconciled against the log, not the plan). The advisor *reads* State + Log as inputs and *writes* the Action Plan as output; it **never** edits State directly (Invariant 9).
 
+**Portfolio-State update modes — re-price vs re-snapshot (do not conflate).**
+- **Re-price (mark-to-market):** between trades, with **share counts and cost basis held fixed**, refresh market value / current % / unrealized P&L / valuation percentile from the live data source — prices, and **dividends, 送转/拆股 corp-actions, and FX** where the source provides them. Automatic, frequent, near-zero-cost; accuracy bounded by the data source. Changes no share count, cost, or record of fact.
+- **Re-snapshot (authoritative):** required after any **share-count change** (an executed trade, or a 送转/拆股 corp-action) **or account-level cash flow** (external transfer, repo interest, fees, settlement timing). Sourced from the broker — a screenshot is acceptable, **parsed and verified** (echo key figures back before committing; never fabricated) — and **reconciled against the Transaction Log**.
+- Re-pricing must **not silently absorb** a share-count or cash event; if one may have occurred, trigger a re-snapshot rather than pass a stale-share mark-to-market off as truth. The source-blind inputs are the investor's **actual trades** (→ Transaction Log), **account-level cash flows**, and **dividend tax-net** (gross is data-sourced; net needs the per-lot holding-period tax rule). Equity-vesting is **not** a Portfolio-State share-count event — vested employer stock sits outside the tracked brokerage portfolio and is the §9.3 human-capital input; only an actual deposit of those shares into the tracked account is a re-snapshot trigger.
+
+**Transaction Log is fill-sourced, not diff-derived.** Populate it from actual executed fills, never by diffing two Portfolio-State snapshots — a diff keeps only the *net* change and silently loses intra-period round-trips, per-trade price/time, and rationale, which are exactly what the net-long-invariant check and the behavior audit depend on. State-vs-log is a reconciliation *check*, not a log generator.
+
+**Monitoring writes into the Action Plan, not a parallel report.** The market-monitoring routine (`ia_mech_market-monitoring.md`) is an *analysis* producer in the flow above: an actionable finding becomes a **Proposed Action-Plan item** (Invariant 9), and a scheduled run's daily deliverable is a **rendered view of the current Action Plan** — today's action first, the standing plan and a compact read-only vintage-stamped State snapshot beneath — **not a fourth runtime artifact**. Solo-operator ergonomics: what is read together at decision time (the action + the relevant State slice) lives in one file; State and Log, read in the separate reconcile session, stay separate.
+
 The advisor reads private state from the uploaded data files (never from this document):
 
 | Data needed | Used for |
