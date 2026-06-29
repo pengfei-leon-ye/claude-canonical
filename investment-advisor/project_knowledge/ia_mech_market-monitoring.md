@@ -13,7 +13,7 @@ Set expectations accordingly: the deliverable is earlier awareness and disciplin
 
 ## 2. Watchlist — five categories
 
-Scan these; weight toward whatever touches the portfolio's actual sector exposure (read from the holdings data file at runtime).
+Scan these; weight toward whatever touches the portfolio's actual sector exposure (read from the holdings data file at runtime). **The weighting is a prioritization of attention, not a filter.** The **China-systemic / §1.2 flip-condition domains** — structural debt (地方/城投, 房地产, banking system), demographics, currency & capital account, policy toward private capital and accessible channels (港股通/沪港通 access, 科创板/创业板 listing economics), and 中美 decoupling — are watched **independent of current holdings**, because they threaten the portfolio-level China-overweight bet itself (§1.2), not merely a held sector, and are the highest-impact gray rhinos (→ Tier 3, §3). Holdings-weighting modulates the **sector / single-name layer** (category 4, and the sector tilt within categories 1·3·5); it never narrows the systemic watch.
 
 1. **Policy / regulatory** — 十五五 execution and shifts; sector-specific regulation affecting holdings; monetary policy (PBoC rates, liquidity); fiscal stance; capital-market rules (沪港通/港股通 access, listing rules for 科创板/创业板).
 2. **Geopolitics / 风向** — 中美关系, technology export controls and entity lists, tariffs, sanctions; 台海; anything shifting the 自主可控 / 国产替代 thesis.
