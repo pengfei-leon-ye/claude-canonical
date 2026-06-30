@@ -44,7 +44,9 @@ Because the advisor **cannot see future prices and must not pretend to**, each a
 When this plan is emitted as a daily rendered view, lead with a one-screen banner so a solo operator reads top-to-bottom and acts without opening another file:
 
 - **Date · posture** — calm / watch / act (one line).
-- **Act-now** — the action(s) triggered *today* (instrument · Buy/Add/Trim/Sell · tranche · Target zone · Time-point · Voids-when · funding), each also reflected in the overview table below so banner and body stay consistent. "No action" is a valid banner.
+- **Act-now** — actions whose target zone is **currently satisfied** → place this session (instrument · Buy/Add/Trim/Sell · tranche · Target zone · Time-point · Voids-when · funding).
+- **Armed (conditional)** — actions whose zone is **not yet reached** → a limit/trigger that fills *only if* the condition hits; state the trigger and "act-if-reached, don't chase." Keep this separate from Act-now so the at-a-glance read never mistakes a not-yet-triggered limit for a buy-now (this is §6.7 act-if-reached made explicit).
+- Each bucket is also reflected in the overview table below so banner and body stay consistent. "No action" is a valid banner.
 - **Macro trigger / open-threads delta** — the one-line reason and what changed since the last run.
 
 This is a *presentation order* (most-actionable-first), not a new artifact — the body below is the full standing plan. The monitoring routine writes its actionable findings here (framework §10), rather than into a separate monitor report.
