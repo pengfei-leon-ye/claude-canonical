@@ -1,6 +1,6 @@
 # Action Plan — Schema / Template
 
-**Canonical schema (the blank `.env.example`) for the Investment Advisor's Action Plan — the advisor's *proposed, not-yet-executed* recommendations.** Carries zero real data — only field definitions and illustrative (generic) examples. To use: the advisor emits a filled instance when proposing trades; the investor reviews, executes (in whole or part), records executed fills in the transaction log, and re-snapshots portfolio state. Like the other runtime files, the filled instance lives in the private `investment-advisor-private/` folder; only this blank schema belongs in the public repo.
+**Canonical schema (the blank `.env.example`) for the Investment Advisor's Action Plan — the advisor's *proposed, not-yet-executed* recommendations.** Carries zero real data — only field definitions and illustrative (generic) examples. To use: the advisor emits a filled instance when proposing trades; the investor reviews, executes (in whole or part), records executed fills in the transaction log, and re-snapshots portfolio state. Like the other runtime files, the filled instance is kept private, outside this public repo; only this blank schema belongs here.
 
 **Language note.** This template is canonical control text → English. A **filled instance** is read by the investor to execute trades, so it may be written in the investor's working language (e.g. Chinese) when that aids action; keep instrument codes, action verbs, and the §6.7 field names intact for auditability against this schema.
 

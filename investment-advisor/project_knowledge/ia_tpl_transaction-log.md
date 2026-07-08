@@ -1,6 +1,6 @@
 # Transaction Log — Schema / Template
 
-**Canonical schema (the blank `.env.example`) for the Investment Advisor's transaction-log runtime data.** Carries zero real data — only field definitions and illustrative examples. To use: copy this into the private `investment-advisor-private/` folder, delete the examples, and append real trades; upload **only the filled copy** to claude.ai project knowledge. Never enter real trades into this canonical copy.
+**Canonical schema (the blank `.env.example`) for the Investment Advisor's transaction-log runtime data.** Carries zero real data — only field definitions and illustrative examples. To use: copy this into your private filled-data location (outside this public repo), delete the examples, and append real trades; upload **only the filled copy** to claude.ai project knowledge. Never enter real trades into this canonical copy.
 
 Append a row on **every** trade. The advisor uses the filled log for the net-long invariant check (持有时间 > 不持有时间), cost-basis evolution (chip accumulation), and a behavior audit (did the trade follow the method, or was it a chase/panic?). Append-only — never delete or rewrite history; append corrections as new rows.
 
