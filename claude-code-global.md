@@ -1,1 +1,1 @@
-/Users/leon/ai-workspace/1_team/adapters/claude-code/claude-code-global.md
+/Users/leon/ai-workspace/1_team/adapters/claude/claude-code-global.md
